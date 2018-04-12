@@ -1,5 +1,6 @@
 package com.zjdt.dtsjwb.Activity;
 
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,13 +10,20 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.Bean.Password;
+import com.zjdt.dtsjwb.NetUtil.OkhttpUtil;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Util.JsonUtil;
+import com.zjdt.dtsjwb.Util.SPUtil;
 
 public class LoginActivity extends BaseActivity implements View.OnTouchListener{
     private EditText userEdit,passwordEdit;
     private Button register,login;
     private boolean isVisible=true;
+    String []jsonField={"username","password"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +41,11 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
         userEdit.setOnTouchListener(this);
         passwordEdit.setOnTouchListener(this);
     }
+
+    /**
+     * 当login_password为空或与它不同时 错误  当相同并且不为空  当为空时去获取网络上的数据
+     *
+     */
     private View.OnClickListener listener=new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -41,7 +54,45 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                     actionActivity(LoginActivity.this,RegisterActivity.class,null);
                     break;
                 case R.id.login:
-                    actionActivity(LoginActivity.this,MenuActivity.class,null);
+                    //此处需要用到一定的activity回调 卸软件要熟练 不是拼图 虽然代码是拼出来的
+
+
+                    String username=userEdit.getText().toString();
+                    String password=passwordEdit.getText().toString();
+                    Password passwordObject= SPUtil.getInstance().spDataget("login_passowrd");
+                    Log.e("jp",passwordObject.getUsername());
+                   // Log.e("jp",username+password);
+                   if((passwordObject.getUsername()+passwordObject.getPassword()).equals("dtsj")){
+                       OkhttpUtil.getUrl("http://176.122.185.2/picture/password.json");
+                     //  Log.e("jp",passwordObject.getUsername()+passwordObject.getPassword()+"123123");
+                       try {
+                           Thread.sleep(500);
+                       } catch (InterruptedException e) {
+                           e.printStackTrace();
+                       }
+                       //假数据成功了  但是为啥会获取不到呢
+                       String json="[{\"username\":\"18768349255\",\"password\":\"loveyqing\"},\n" +
+                               "{\"username\":\"18768349255\",\"password\":\"loveyxiaoyu\"}\n" +
+                               "]";
+                      Password jp= JsonUtil.getInstance().parseJson2(json,jsonField);
+                       if(jp.getUsername().equals(username)&&jp.getPassword().equals(password)){
+
+                           //记录并且登录 这是第一次登录
+                           SPUtil.getInstance().spDataSet(jp,"login_passowrd");
+                           actionActivity(LoginActivity.this,MenuActivity.class,null);
+                       }
+                       //算了记住密码还是先算了吧
+                   }else if(passwordObject.getPassword().equals(password)&&username.equals(passwordObject.getUsername())){
+                       Log.e("passwordObject",passwordObject.getUsername()+passwordObject.getPassword());
+                       actionActivity(LoginActivity.this,MenuActivity.class,null);
+                   }else{
+                       Toast.makeText(LoginActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
+                   }
+
+
+                   //SPUtil.spDataSet();
+                    // android不能懈怠
+
                     break;
                     default:break;
             }

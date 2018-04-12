@@ -13,12 +13,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.zjdt.dtsjwb.Adapter.MenuAdapter;
 import com.zjdt.dtsjwb.Adapter.TestAdapter;
 import com.zjdt.dtsjwb.App.AppApplication;
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.Bean.MenuBean;
 import com.zjdt.dtsjwb.Bean.RollBean;
 import com.zjdt.dtsjwb.NetUtil.OkhttpUtil;
@@ -32,7 +34,8 @@ import java.util.HashMap;
 import okhttp3.OkHttpClient;
 
 public class MenuActivity extends AppCompatActivity {
-    private HandlerUtil handlerUtil;
+    public static TextView test;
+    public static String msg;
     private String json;
     private RollPagerView rollPagerView;
     public final String TAG="menuactivity";
@@ -48,11 +51,13 @@ public class MenuActivity extends AppCompatActivity {
       //  text.setText("菜单界面");
        // gridView=f(R.id.menu_gridview);
         initView();
+
         MenuAdapter menuAdapter=new MenuAdapter(arrayList,this,gridView);
         gridView.setAdapter(menuAdapter);
         gridView.setOnItemClickListener(new ItemClickListeber());
     }
     private void initView(){
+        test=findViewById(R.id.testtext);
         gridView=findViewById(R.id.menu_gridview);
         gridView.setNumColumns(3);
         gridView.setColumnWidth(getColumns());
@@ -67,23 +72,41 @@ public class MenuActivity extends AppCompatActivity {
             MenuBean menuBean=new MenuBean(name[i],imageM[i]);
             arrayList.add(menuBean);
         }
-       new OkhttpUtil().getUrl("http://176.122.185.2/picture/doctor_intelligence.json");
+
+        OkhttpUtil.getUrl("http://176.122.185.2/picture/doctor_intelligence.json");
+
+        //此处getInstance一直为空
+      //  json =MenuActivity.msg;
+         // Log.e("gggg",(String) HandlerFinal.msg.obj+"1");
+     //   json=(String)object.obj;
+   /*     json="[{\"doctor_pic\":\"http://176.122.185.2/picture/doctor.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-001.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-002.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-003.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-004.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-005.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-006.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-007.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-008.jpg\",\"doctor_intelligence\":\"name|age|job\"}]";*/
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
             //线程调度也要学
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //此处getInstance一直为空
-      //  json =new HandlerUtil().getObject();
-        json=(String)HandlerUtil.object.obj;
-        JsonUtil.getInstance().parseJson(json);
+      json=(String) HandlerFinal.getHf().msg;
+      Log.e("jsonjson",(String) HandlerFinal.getHf().msg+"12");
+        JsonUtil.getInstance().parseJson(json,"doctor_pic");
+
+        ArrayList list= JsonUtil.getInstance().getList();
+        Log.e("ddd",list.size()+"");
         rollPagerView=findViewById(R.id.rollpagerview);
         rollPagerView.setPlayDelay(1000);
         rollPagerView.setAnimationDurtion(500);
        // rollPagerView.setAdapter(new TestAdapter("http://176.122.185.2/picture/doctor_intelligence.json"));
-        rollPagerView.setAdapter(new TestAdapter(JsonUtil.getInstance().getList()));
+        rollPagerView.setAdapter(new TestAdapter(list));
         rollPagerView.setHintView(new ColorPointHintView(this,Color.YELLOW,Color.WHITE));
+        test.setVisibility(View.GONE);
     }
 
     /**
@@ -121,14 +144,5 @@ public class MenuActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         AppApplication.getApp().startActivity(intent);
     }
-  /*  private Handler handler=new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what){
-                case 0:break;
-                default:break;
-            }
-        }
-    };*/
+
 }

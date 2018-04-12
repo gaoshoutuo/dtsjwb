@@ -1,11 +1,13 @@
 package com.zjdt.dtsjwb.Util;
 
+import com.zjdt.dtsjwb.Bean.Password;
 import com.zjdt.dtsjwb.Bean.RollBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ObjectInputValidation;
 import java.util.ArrayList;
 
 /**
@@ -13,10 +15,10 @@ import java.util.ArrayList;
  * Created by 71568 on 2018/4/8.
  */
 
-public class JsonUtil <T>{
-    private ArrayList<T> list;
+public class JsonUtil {
+    private ArrayList list=new ArrayList<>();;
 
-    public ArrayList<T> getList() {
+    public ArrayList getList() {
         return list;
     }
 
@@ -31,27 +33,48 @@ public class JsonUtil <T>{
     }
     public static JsonUtil getInstance(){
         if(ju==null){
-            return new JsonUtil();
-        }else {
-            return ju;
+            return ju=new JsonUtil();
         }
+            return ju;
+
     }
 
-    public  void parseJson(String data){
+    public  void parseJson(String data,String jsonField){
         if(list!=null){
             list.clear();
         }
-        list=new ArrayList<>();
+
         try {
             JSONArray ja=new JSONArray(data);
             for (int i=0;i<ja.length();i++){
+
                 JSONObject jb=ja.getJSONObject(i);
-                RollBean rb= new RollBean(jb.getString("doctor_pic"));
-                list.add((T) rb);
+                RollBean rb= new RollBean(jb.getString(jsonField));
+                list.add(rb);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public Password parseJson2(String data,String[] jsonField){// 好了 这种大bean范型 我终于要开始思索了
+        try {
+            JSONArray ja=new JSONArray(data);
+                /*JSONObject jb=ja.getJSONObject(i);
+                RollBean rb= new RollBean(jb.getString(jsonField));*/
+                JSONObject jb=ja.getJSONObject(0);
+             /* rb.setMarried(true);
+              rb.setUsername(jb.getString(jsonField[0]));
+              rb.setPassword(jb.getString(jsonField[1]));*/
+
+            return new Password(jb.getString(jsonField[0]),
+                    jb.getString(jsonField[1]),true
+            );
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

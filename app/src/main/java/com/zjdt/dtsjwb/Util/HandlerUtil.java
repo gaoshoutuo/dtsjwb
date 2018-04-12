@@ -5,25 +5,24 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
+import com.zjdt.dtsjwb.Activity.MenuActivity;
 import com.zjdt.dtsjwb.App.AppApplication;
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
 
 /**
  * 线程中的数据需要handler来调度
  * Created by 71568 on 2018/4/8.
  */
 
-public class HandlerUtil {
+public  class HandlerUtil {
 
     /**
      * 加工msg  难道handler难免到处都是了
      * @param data
      * @param what
      */
-    public static HandlerUtil handlerUtil=new HandlerUtil();
-    public static Message object;
-    public static synchronized HandlerUtil getInstance(){
-            return handlerUtil;
-    }
+
+
 
     public void handlerWithData(String data,int what){
         //Message msg=Message.obtain();我也觉得为啥这种方式不行呢
@@ -31,7 +30,11 @@ public class HandlerUtil {
         Message msg=new Message();
         msg.what=what;
         msg.obj=data;
-        HandlerUtil.handler.sendMessage(msg);
+        //是不是因为 hanglerUtil一直为
+       // if(HandlerUtil.handler==null)
+        Log.e("english",msg.obj.toString());
+
+        //handler.sendMessage(msg);
         Looper.loop();
     }
 
@@ -40,23 +43,26 @@ public class HandlerUtil {
      * 为啥handler取不到呢 因为handler属性在里面 外部类如果不一样的话 handler也不一样
      */
 
-    public static Handler handler=new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-          //  super.handleMessage(msg);这个super为啥会害我
-            switch (msg.what){
-                case 11:
-                    //最好是回调吧 还没想好  此处解析json
-                    Log.e("handlerJson",msg.obj.toString());
-                   HandlerUtil.object=msg;
-                    break;
-                default:break;
-            }
-        }
-    };
+
     //对付 static 限制 最好的办法就是传递形参，不错形参似乎也有final的生命周期限制
     public static Object handlerLife(Object obj){
         return null;
     }
+
+    public static Handler handler=new Handler(AppApplication.getApp().getMainLooper()){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case HandlerFinal.ROOL_MSG:
+                   // MenuActivity.msg=(String)msg.obj;所谓的结论就是handler 不适合置值 而适合做一些ui操作
+                   // MenuActivity.test.setText((String)msg.obj);
+                   HandlerFinal.getHf().msg=(String)msg.obj;
+                    Log.e("msg",msg.obj+"");
+                    break;//很奇怪
+
+            }
+        }
+
+    };
 
 }
