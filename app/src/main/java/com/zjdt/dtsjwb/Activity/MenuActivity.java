@@ -89,7 +89,7 @@ public class MenuActivity extends AppCompatActivity {
                 "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-007.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
                 "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-008.jpg\",\"doctor_intelligence\":\"name|age|job\"}]";*/
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
             //线程调度也要学
         } catch (InterruptedException e) {
             e.printStackTrace();

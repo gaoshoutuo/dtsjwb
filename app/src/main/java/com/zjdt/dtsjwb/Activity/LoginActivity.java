@@ -29,6 +29,10 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+        Password ppo=SPUtil.getInstance().spDataget("login_passowrd");
+      if(ppo.isMarried()&&(ppo .getPassword()+ppo.getUsername()).length()>11){
+          actionActivity(LoginActivity.this,MenuActivity.class,null);
+      }
     }
 
     private void initView(){
@@ -60,21 +64,25 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                     String username=userEdit.getText().toString();
                     String password=passwordEdit.getText().toString();
                     Password passwordObject= SPUtil.getInstance().spDataget("login_passowrd");
-                    Log.e("jp",passwordObject.getUsername());
+                    Log.e("jps",passwordObject.isMarried()+"");
                    // Log.e("jp",username+password);
                    if((passwordObject.getUsername()+passwordObject.getPassword()).equals("dtsj")){
                        OkhttpUtil.getUrl("http://176.122.185.2/picture/password.json");
                      //  Log.e("jp",passwordObject.getUsername()+passwordObject.getPassword()+"123123");
                        try {
-                           Thread.sleep(500);
+                           Thread.sleep(1000);
+                           //线程调度可以加快速度
                        } catch (InterruptedException e) {
                            e.printStackTrace();
                        }
                        //假数据成功了  但是为啥会获取不到呢
-                       String json="[{\"username\":\"18768349255\",\"password\":\"loveyqing\"},\n" +
+                      /* String json="[{\"username\":\"18768349255\",\"password\":\"loveyqing\"},\n" +
                                "{\"username\":\"18768349255\",\"password\":\"loveyxiaoyu\"}\n" +
-                               "]";
+                               "]";*/
+                      String json=HandlerFinal.json;
+                       Log.e("jps",json+"111........................");
                       Password jp= JsonUtil.getInstance().parseJson2(json,jsonField);
+                       Log.e("",jp.getUsername()+jp.getPassword().equals(password)+"120..................");
                        if(jp.getUsername().equals(username)&&jp.getPassword().equals(password)){
 
                            //记录并且登录 这是第一次登录
@@ -82,6 +90,9 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                            actionActivity(LoginActivity.this,MenuActivity.class,null);
                        }
                        //算了记住密码还是先算了吧
+                   }else if (passwordObject.isMarried()){
+                       Log.e("passwordObject",11+"");
+                       actionActivity(LoginActivity.this,MenuActivity.class,null);
                    }else if(passwordObject.getPassword().equals(password)&&username.equals(passwordObject.getUsername())){
                        Log.e("passwordObject",passwordObject.getUsername()+passwordObject.getPassword());
                        actionActivity(LoginActivity.this,MenuActivity.class,null);

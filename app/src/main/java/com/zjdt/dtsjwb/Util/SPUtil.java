@@ -2,6 +2,7 @@ package com.zjdt.dtsjwb.Util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.zjdt.dtsjwb.App.AppApplication;
 import com.zjdt.dtsjwb.Bean.Password;
@@ -28,7 +29,7 @@ public class SPUtil<T> {
         SharedPreferences.Editor editor= AppApplication.getApp().getSharedPreferences(filename, Context.MODE_PRIVATE).edit();
         editor.putString("username",p.getUsername());
         editor.putString("password",p.getPassword());
-        editor.putBoolean("married",false);//为毛为嘛为情所困 yq
+        editor.putBoolean("married",true);//为毛为嘛为情所困 yq
         editor.apply();
     }
    /* public static void spDataget(T data){
@@ -38,7 +39,8 @@ public class SPUtil<T> {
        SharedPreferences sp=AppApplication.getApp().getSharedPreferences(filename,Context.MODE_PRIVATE);
        String username=sp.getString("username","dt");
        String password=sp.getString("password","sj");
-       boolean married=sp.getBoolean("married",false);
+       boolean married  =sp.getBoolean("married",true);;
+       Log.e("shared",username+password);
        return new Password(username,password,married);
    }
 
