@@ -30,6 +30,7 @@ public class SPUtil<T> {
         editor.putString("username",p.getUsername());
         editor.putString("password",p.getPassword());
         editor.putBoolean("married",true);//为毛为嘛为情所困 yq
+        editor.putString("au",p.getAuthorthm());
         editor.apply();
     }
    /* public static void spDataget(T data){
@@ -40,8 +41,9 @@ public class SPUtil<T> {
        String username=sp.getString("username","dt");
        String password=sp.getString("password","sj");
        boolean married  =sp.getBoolean("married",true);;
+       String au=sp.getString("au","1");
        Log.e("shared",username+password);
-       return new Password(username,password,married);
+       return new Password(username,password,married,au);
    }
 
 }

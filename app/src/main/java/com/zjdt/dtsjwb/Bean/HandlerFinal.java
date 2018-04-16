@@ -8,6 +8,7 @@ package com.zjdt.dtsjwb.Bean;
  */
 
 public class HandlerFinal {
+    public static String authorthm="0";
     public static HandlerFinal hf;
 
     public static String getMsg() {
@@ -21,6 +22,14 @@ public class HandlerFinal {
     public static HandlerFinal getHf() {
         if(hf==null)return hf=new HandlerFinal();
         return hf;
+    }
+
+    public static String getAuthorthm() {
+        return authorthm;
+    }
+
+    public static void setAuthorthm(String authorthm) {
+        HandlerFinal.authorthm = authorthm;
     }
 
     public static final int ROOL_MSG=11;

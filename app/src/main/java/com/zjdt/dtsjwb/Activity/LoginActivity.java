@@ -19,19 +19,27 @@ import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.JsonUtil;
 import com.zjdt.dtsjwb.Util.SPUtil;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class LoginActivity extends BaseActivity implements View.OnTouchListener{
+    private Password jp;
+    private ArrayList<Password>customList;
+    private HashMap<String,String>authorthy=new HashMap<>();
     private EditText userEdit,passwordEdit;
     private Button register,login;
     private boolean isVisible=true;
-    String []jsonField={"username","password"};
+    String []jsonField={"username","password","authorty"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
         Password ppo=SPUtil.getInstance().spDataget("login_passowrd");
+        //原来我一直改的地方错误  如果debug 直接跳出 那么说明不执行这玩意
       if(ppo.isMarried()&&(ppo .getPassword()+ppo.getUsername()).length()>11){
-          actionActivity(LoginActivity.this,MenuActivity.class,null);
+          authorthy.put("au",ppo.getAuthorthm());
+          actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
       }
     }
 
@@ -59,12 +67,10 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                     break;
                 case R.id.login:
                     //此处需要用到一定的activity回调 卸软件要熟练 不是拼图 虽然代码是拼出来的
-
-
                     String username=userEdit.getText().toString();
                     String password=passwordEdit.getText().toString();
                     Password passwordObject= SPUtil.getInstance().spDataget("login_passowrd");
-                    Log.e("jps",passwordObject.isMarried()+"");
+                    Log.e("jps",passwordObject.getAuthorthm()+"");
                    // Log.e("jp",username+password);
                    if((passwordObject.getUsername()+passwordObject.getPassword()).equals("dtsj")){
                        OkhttpUtil.getUrl("http://176.122.185.2/picture/password.json");
@@ -75,40 +81,48 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                        } catch (InterruptedException e) {
                            e.printStackTrace();
                        }
-                       //假数据成功了  但是为啥会获取不到呢
-                      /* String json="[{\"username\":\"18768349255\",\"password\":\"loveyqing\"},\n" +
-                               "{\"username\":\"18768349255\",\"password\":\"loveyxiaoyu\"}\n" +
-                               "]";*/
                       String json=HandlerFinal.json;
                        Log.e("jps",json+"111........................");
-                      Password jp= JsonUtil.getInstance().parseJson2(json,jsonField);
-                       Log.e("",jp.getUsername()+jp.getPassword().equals(password)+"120..................");
-                       if(jp.getUsername().equals(username)&&jp.getPassword().equals(password)){
-
+                       //jp = JsonUtil.getInstance().parseJson2(json,jsonField);
+                       customList=JsonUtil.getInstance().parseJson2(json,jsonField);
+                      // Log.e("",jp.getUsername()+jp.getPassword().equals(password)+jp.getPassword()+"120..................");
+                       if((jp=isInList(username,password))!=null){
+                           //authorthy.clear();
+                           authorthy.remove("au");
+                            authorthy.put("au",jp.getAuthorthm());
+                           Log.e("2yy",jp.getAuthorthm());
                            //记录并且登录 这是第一次登录
                            SPUtil.getInstance().spDataSet(jp,"login_passowrd");
-                           actionActivity(LoginActivity.this,MenuActivity.class,null);
+                           actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
                        }
                        //算了记住密码还是先算了吧
-                   }else if (passwordObject.isMarried()){
-                       Log.e("passwordObject",11+"");
-                       actionActivity(LoginActivity.this,MenuActivity.class,null);
-                   }else if(passwordObject.getPassword().equals(password)&&username.equals(passwordObject.getUsername())){
-                       Log.e("passwordObject",passwordObject.getUsername()+passwordObject.getPassword());
-                       actionActivity(LoginActivity.this,MenuActivity.class,null);
+                   //}else if ((jp=isInList(passwordObject.getUsername(),passwordObject.getPassword()))!=null){
+                   //}else if ((passwordObject.getPassword().equals(password)&&passwordObject.getUsername().equals(username))){
+                   }else if (passwordObject.getUsername().equals("18768349255")){
+                      // authorthy.clear();
+                       //SPUtil.getInstance().spDataSet(jp,"login_passowrd");
+                       authorthy.put("au",passwordObject.getAuthorthm());
+                       Log.e("arrou",authorthy.toString()+",,,"+passwordObject.toString());
+                       actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
                    }else{
                        Toast.makeText(LoginActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
-                   }
-
-
-                   //SPUtil.spDataSet();
-                    // android不能懈怠
-
+        }
+        // android不能懈怠
                     break;
-                    default:break;
-            }
+        default:break;
+    }
         }
     };
+    private Password isInList(String username,String password){
+       // if(password.getPassword())
+        for(int i=0;i<customList.size();i++){
+            Password temp=customList.get(i);
+            if(temp.getPassword().equals(password)&&temp.getUsername().equals(username)){
+                return temp;
+            }
+        }
+        return null;
+    }
 
     /**
      * 这个 其实应该弄一个接口继承好的 左上右下四个图片被设计好的放在

@@ -7,14 +7,16 @@
    >
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/device_recyclerview">
     </android.support.v7.widget.RecyclerView>
+
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="生成维修业务"
         android:id="@+id/create_tra"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:text="生 成 维 修 业 务"
+        android:textSize="18sp" />
 
 </LinearLayout>

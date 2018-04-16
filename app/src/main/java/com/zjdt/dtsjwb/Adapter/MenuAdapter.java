@@ -46,22 +46,23 @@ public class MenuAdapter extends BaseAdapter {
         MenuBean menuBean= (MenuBean) list.get(i);
         Log.e("haik",i+"");
         ViewHolder viewHolder;
+        View viewR=view;
          if(view==null){
-             view=layoutInflater.inflate(R.layout.item_menu,null,false);
+             viewR=layoutInflater.inflate(R.layout.item_menu,viewGroup,false);
              viewHolder=new ViewHolder();
-             viewHolder.menuImageIv= view.findViewById(R.id.menu_item_image);
-             viewHolder.menuNameTv=view.findViewById(R.id.menu_item_text);
-             view.setTag(viewHolder);
+             viewHolder.menuImageIv= viewR.findViewById(R.id.menu_item_image);
+             viewHolder.menuNameTv=viewR.findViewById(R.id.menu_item_text);
+             viewR.setTag(viewHolder);
          }else{
-              viewHolder=(ViewHolder) view.getTag();
+              viewHolder=(ViewHolder) viewR.getTag();
          }
               viewHolder.menuImageIv.setImageResource(menuBean.getMenuIconRid());
               viewHolder.menuNameTv.setText(menuBean.getMenuname());
               AbsListView.LayoutParams params=new AbsListView.LayoutParams(
                       gridView.getColumnWidth(),gridView.getHeight()/3
         );
-        view.setLayoutParams(params);
-        return view;
+        viewR.setLayoutParams(params);
+        return viewR;
     }
 
     public MenuAdapter(ArrayList list, Context context,GridView gridView) {
