@@ -42,7 +42,13 @@ public class MenuActivity extends AppCompatActivity {
     private GridView gridView;
     private int columnWidth;
     private int []imageM={R.drawable.icons8_fix,R.drawable.icons8_history,R.drawable.icons8_my,R.drawable.icons8_update};
+    private int []imageCustom={R.drawable.my_assets,R.drawable.my_register,R.drawable.my_countdown,R.drawable.my_history,R.drawable.my_mall,
+    R.drawable.my_call,R.drawable.my_notify,R.drawable.my_update};
+    //private int []imageOther={R.drawable.icons8_fix,R.drawable.icons8_history,R.drawable.icons8_my,R.drawable.icons8_update};
     private String []name={"维修业务","维修历史","我的信息","检查更新"};
+    private String []customName={"我的资产","资产登记","维保倒计时","维保历史","商城","联系我们","推送消息","检查更新"};
+   // private String []otherNamer={};
+
     private ArrayList <Object>arrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,26 +74,24 @@ public class MenuActivity extends AppCompatActivity {
             arrayList.clear();
             arrayList=new ArrayList();
         }
-        for(int i=0;i<imageM.length;i++){
-            MenuBean menuBean=new MenuBean(name[i],imageM[i]);
-            arrayList.add(menuBean);
-        }
+        HashMap<String,String> map= (HashMap<String, String>) ((Bundle) getIntent().getExtras()).getSerializable("key");
+       switch (map.get("au")){
+           case "1":
+               for(int i=0;i<imageM.length;i++){
+                   MenuBean menuBean=new MenuBean(name[i],imageM[i]);
+                   arrayList.add(menuBean);
+               }
+               break;
+           case "2":
+               for(int i=0;i<imageCustom.length;i++){
+                   MenuBean menuBean=new MenuBean(customName[i],imageCustom[i]);
+                   arrayList.add(menuBean);
+               }
+               break;
+               default:break;
+       }
 
         OkhttpUtil.getUrl("http://176.122.185.2/picture/doctor_intelligence.json");
-
-        //此处getInstance一直为空
-      //  json =MenuActivity.msg;
-         // Log.e("gggg",(String) HandlerFinal.msg.obj+"1");
-     //   json=(String)object.obj;
-   /*     json="[{\"doctor_pic\":\"http://176.122.185.2/picture/doctor.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
-                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-001.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
-                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-002.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
-                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-003.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
-                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-004.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
-                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-005.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
-                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-006.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
-                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-007.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
-                "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-008.jpg\",\"doctor_intelligence\":\"name|age|job\"}]";*/
         try {
             Thread.sleep(1000);
             //线程调度也要学

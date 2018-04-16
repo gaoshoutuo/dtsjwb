@@ -58,19 +58,24 @@ public class JsonUtil {
 
     }
 
-    public Password parseJson2(String data,String[] jsonField){// 好了 这种大bean范型 我终于要开始思索了
+    public ArrayList<Password> parseJson2(String data,String[] jsonField){// 好了 这种大bean范型 我终于要开始思索了
+         ArrayList<Password>listCustom=new ArrayList<>();
         try {
             JSONArray ja=new JSONArray(data);
                 /*JSONObject jb=ja.getJSONObject(i);
                 RollBean rb= new RollBean(jb.getString(jsonField));*/
-                JSONObject jb=ja.getJSONObject(0);
+
              /* rb.setMarried(true);
               rb.setUsername(jb.getString(jsonField[0]));
               rb.setPassword(jb.getString(jsonField[1]));*/
+             for(int i=0;i<ja.length();i++){
+                 JSONObject jb=ja.getJSONObject(i);
+                 Password password=new Password(jb.getString(jsonField[0]),
+                         jb.getString(jsonField[1]),true,jb.getString(jsonField[2]));
+                 listCustom.add(password);
+             }
 
-            return new Password(jb.getString(jsonField[0]),
-                    jb.getString(jsonField[1]),true
-            );
+            return listCustom;
         } catch (JSONException e) {
             e.printStackTrace();
         }

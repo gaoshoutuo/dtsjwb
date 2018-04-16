@@ -22,7 +22,8 @@
         <activity
             android:name=".Activity.MenuActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".Activity.LoginActivity"
+        <activity
+            android:name=".Activity.LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,10 +31,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.FixActivity" />
-        <activity android:name=".Activity.RegisterActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Activity.ImageCarouselActivity"></activity>
+        <activity
+            android:name=".Activity.FixActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activity.RegisterActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".Activity.ImageCarouselActivity" />
+        <activity android:name=".Activity.FixDeviceActivity" />
+        <activity android:name=".Activity.FixHistoryActivity" />
+        <activity android:name=".Activity.MyActivity" />
+        <activity android:name=".Activity.UpdateActivity"></activity>
     </application>
 
 </manifest>

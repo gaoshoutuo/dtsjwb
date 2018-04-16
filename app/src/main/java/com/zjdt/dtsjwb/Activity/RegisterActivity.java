@@ -20,7 +20,7 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
     private EditText userEdRe,passwordEdRe;
     private Button button;
     private Spinner spinner;
-    private String []data={"企业客户","维保人员","管理员"};
+    private String []data={"企业客户","维保人员","三方客户"};
 
     private void initView(){
         userEdRe=f(R.id.user_ed_register);
@@ -42,7 +42,7 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
         setContentView(R.layout.activity_register);
         initView();
       // final TextView tv=f(R.id.tv);
-        spinner.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data));
+        spinner.setAdapter(new ArrayAdapter<String>(this,R.layout.spinner_display_style,R.id.txtvwSpinner,data));
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
           @Override
           public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -88,7 +88,6 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
                     passwordEdRe.setText("");
                     break;
                     default:break;
-
             }
         }
         return false;

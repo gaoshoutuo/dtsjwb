@@ -62,7 +62,7 @@ public class BaseActivity extends AppCompatActivity {
      * @param hashMap
      * Intent 除了基本数据类型之外 无法传递  只有通过bundle包装一下了
      */
-    public static void actionActivity(Context context1,Class context2, HashMap<String,Object>hashMap){
+    public static void actionActivity(Context context1,Class context2, HashMap<String,String>hashMap){
         Intent intent=new Intent(context1,context2);Bundle bundle=new Bundle();
         bundle.putSerializable("key",hashMap);
         intent.putExtras(bundle);

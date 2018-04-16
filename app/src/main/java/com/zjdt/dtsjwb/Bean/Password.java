@@ -4,11 +4,21 @@ public class Password {
     private String username;
     private String password;
     private boolean married;
+    private String authorthm;
 
-    public Password(String username, String password,boolean married) {
+    public String getAuthorthm() {
+        return authorthm;
+    }
+
+    public void setAuthorthm(String authorthm) {
+        this.authorthm = authorthm;
+    }
+
+    public Password(String username, String password, boolean married,String authorthm) {
         this.username = username;
         this.password = password;
         this.married=married;
+        this.authorthm=authorthm;
     }
 
     public String getUsername() {

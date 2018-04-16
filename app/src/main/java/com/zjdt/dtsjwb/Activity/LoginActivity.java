@@ -19,11 +19,17 @@ import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.JsonUtil;
 import com.zjdt.dtsjwb.Util.SPUtil;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class LoginActivity extends BaseActivity implements View.OnTouchListener{
+    private Password jp;
+    private ArrayList<Password>customList;
+    private HashMap<String,String>authorthy=new HashMap<>();
     private EditText userEdit,passwordEdit;
     private Button register,login;
     private boolean isVisible=true;
-    String []jsonField={"username","password"};
+    String []jsonField={"username","password","authorty"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +65,6 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                     break;
                 case R.id.login:
                     //此处需要用到一定的activity回调 卸软件要熟练 不是拼图 虽然代码是拼出来的
-
-
                     String username=userEdit.getText().toString();
                     String password=passwordEdit.getText().toString();
                     Password passwordObject= SPUtil.getInstance().spDataget("login_passowrd");
@@ -75,27 +79,29 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                        } catch (InterruptedException e) {
                            e.printStackTrace();
                        }
-                       //假数据成功了  但是为啥会获取不到呢
-                      /* String json="[{\"username\":\"18768349255\",\"password\":\"loveyqing\"},\n" +
-                               "{\"username\":\"18768349255\",\"password\":\"loveyxiaoyu\"}\n" +
-                               "]";*/
+
                       String json=HandlerFinal.json;
                        Log.e("jps",json+"111........................");
-                      Password jp= JsonUtil.getInstance().parseJson2(json,jsonField);
-                       Log.e("",jp.getUsername()+jp.getPassword().equals(password)+"120..................");
-                       if(jp.getUsername().equals(username)&&jp.getPassword().equals(password)){
-
+                       //jp = JsonUtil.getInstance().parseJson2(json,jsonField);
+                       customList=JsonUtil.getInstance().parseJson2(json,jsonField);
+                      // Log.e("",jp.getUsername()+jp.getPassword().equals(password)+jp.getPassword()+"120..................");
+                       if((jp=isInList(username,password))!=null){
+                           authorthy.clear();
+                            authorthy.put("au",jp.getAuthorthm());
+                           Log.e("2yy",jp.getAuthorthm());
                            //记录并且登录 这是第一次登录
                            SPUtil.getInstance().spDataSet(jp,"login_passowrd");
-                           actionActivity(LoginActivity.this,MenuActivity.class,null);
+                           actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
                        }
                        //算了记住密码还是先算了吧
-                   }else if (passwordObject.isMarried()){
-                       Log.e("passwordObject",11+"");
-                       actionActivity(LoginActivity.this,MenuActivity.class,null);
-                   }else if(passwordObject.getPassword().equals(password)&&username.equals(passwordObject.getUsername())){
-                       Log.e("passwordObject",passwordObject.getUsername()+passwordObject.getPassword());
-                       actionActivity(LoginActivity.this,MenuActivity.class,null);
+                   //}else if ((jp=isInList(passwordObject.getUsername(),passwordObject.getPassword()))!=null){
+                   //}else if ((passwordObject.getPassword().equals(password)&&passwordObject.getUsername().equals(username))){
+                   }else if ((jp=isInList(username,password))!=null&&passwordObject.getUsername().equals(username)&&passwordObject
+                           .getPassword().equals(password)){
+                       authorthy.clear();
+                       authorthy.put("au",jp.getAuthorthm());
+                       SPUtil.getInstance().spDataSet(jp,"login_passowrd");
+                       actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
                    }else{
                        Toast.makeText(LoginActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
                    }
@@ -109,6 +115,17 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
             }
         }
     };
+    private Password isInList(String username,String password){
+       // if(password.getPassword())
+        for(int i=0;i<customList.size();i++){
+            Password temp=customList.get(i);
+            if(temp.getPassword().equals(password)&&temp.getUsername().equals(username)){
+                return temp;
+            }
+        }
+
+        return null;
+    }
 
     /**
      * 这个 其实应该弄一个接口继承好的 左上右下四个图片被设计好的放在
