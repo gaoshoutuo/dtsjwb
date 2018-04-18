@@ -68,4 +68,16 @@ public class BaseActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         context1.startActivity(intent);
     }
+
+    /**
+     * 上一个活动返回的参数，总之 基本都是因activty而不同
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 }
