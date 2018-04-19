@@ -10,9 +10,11 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +37,7 @@ import java.util.HashMap;
 import okhttp3.OkHttpClient;
 
 public class MenuActivity extends AppCompatActivity {
+    private ArrayList<View>viewList=new ArrayList<>();
     private HashMap<String,String> map;
     public static TextView test;
     private String json;
@@ -112,7 +115,14 @@ public class MenuActivity extends AppCompatActivity {
         rollPagerView.setPlayDelay(1000);
         rollPagerView.setAnimationDurtion(500);
        // rollPagerView.setAdapter(new TestAdapter("http://176.122.185.2/picture/doctor_intelligence.json"));
-        rollPagerView.setAdapter(new TestAdapter(list,R.layout.item_roll_pager_image,this));
+
+        //此处要生成viewlist
+        viewList.clear();
+        for(int j=0;j<list.size();j++){
+            View view= LayoutInflater.from(this).inflate(R.layout.item_roll_pager_image,null,false);
+            viewList.add(view);
+        }
+        rollPagerView.setAdapter(new TestAdapter(list,viewList,this));
         rollPagerView.setHintView(new ColorPointHintView(this,Color.YELLOW,Color.WHITE));
 
         test.setVisibility(View.GONE);

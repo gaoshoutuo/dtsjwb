@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,6 +116,7 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
             holder.deviceID.setText(deviceBean.getDeviceId()+"");
             holder.coustomerID.setText(deviceBean.getCoustomerId());
 
+            Log.e("清醒",holder.device_spinner.getSelectedItem()+"");
             holder.device_spinner.setAdapter(new ArrayAdapter<String>(AppApplication.getApp(),R.layout.spinner_display_style,R.id.txtvwSpinner,data));
             holder.delete.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -11,5 +11,14 @@
         android:scaleType="centerCrop"
         android:src="@drawable/popicon_listpage_normal"
         />
+    <!-- 熟练工-->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:background="@color/scrim"
+        android:text="添加数据库"
+        android:id="@+id/database_add"
+        />
 
 </LinearLayout>

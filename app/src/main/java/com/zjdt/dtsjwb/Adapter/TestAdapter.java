@@ -26,7 +26,8 @@ public class TestAdapter extends StaticPagerAdapter {
    // private String[]imageUrl=new String[5];
     private ArrayList list;
     private Context context;
-    private int layoutId;
+    private ArrayList<View> viewlist;
+
 
     /**
      * 先get 再解析 然后glide
@@ -37,12 +38,13 @@ public class TestAdapter extends StaticPagerAdapter {
      */
     @Override
     public View getView(ViewGroup container, final int position) {
-       View view= LayoutInflater.from(context).inflate(layoutId,container,false);
-       ImageView imageView= view.findViewById(R.id.rollpagerview_image);
-        //ImageView imageView=new ImageView(container.getContext());//此处 imageview 可以来自inflate 并且加上可以记录（图点击链接意思）的view
 
+     //  View view= LayoutInflater.from(context).inflate(layoutId,container,false);//不需要有parent  我估计必须要传view 进来
+        View view=viewlist.get(position);
+        ImageView imageView= view.findViewById(R.id.rollpagerview_image);
+       // ImageView imageView=new ImageView(container.getContext());//此处 imageview 可以来自inflate 并且加上可以记录（图点击链接意思）的view
         Glide.with(AppApplication.getApp()).load(((RollBean)list.get(position)).getUrl()).into(imageView);
-        imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+       // imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,13 +59,45 @@ public class TestAdapter extends StaticPagerAdapter {
         return list.size();
     }
 
-    public TestAdapter(ArrayList list,int layoutId,Context context) {
-        this.layoutId=layoutId;
+    public TestAdapter(ArrayList list,ArrayList<View>viewlist,Context context) {
+        this.viewlist=viewlist;
         this.list = list;
         this.context=context;
     }
 
     private void packToast(String xxs){
         Toast.makeText(AppApplication.getApp(),xxs,Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 试试
+     * 这里的解决方式普遍使用viewlist
+     * @param container
+     * @param position
+     * @return
+     */
+    @Override
+    public Object instantiateItem(ViewGroup container, final int position) {
+        //View v=LayoutInflater.from(context).inflate(layoutId,container,false);
+        View v=viewlist.get(position);
+
+
+       ImageView imageView= v.findViewById(R.id.rollpagerview_image);
+        Glide.with(AppApplication.getApp()).load(((RollBean)list.get(position)).getUrl()).into(imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                packToast(((RollBean)list.get(position)).getUrl()+"...."+position);
+            }
+        });
+
+        ViewGroup parent = (ViewGroup)v.getParent();
+
+        if (parent != null) {
+            parent.removeAllViews();
+        }//这样成了 不需要再andview 里面弄
+        container.addView(v);
+
+        return v;
     }
 }

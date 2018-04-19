@@ -1,5 +1,9 @@
 package com.zjdt.dtsjwb.Util;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
 public class DatabaseUtil {
     //做Sqlite3 的数据库的工具   需要有万能bean 应付传入一bean 自动开始持久化一些东西
 /**
@@ -35,9 +39,38 @@ public class DatabaseUtil {
  *                                       delete from 表名 where page>? new String[]{"500"}
  *                                       rawQuery(select * from 表名，null)
  *
- *                                       框架 litepal
+ *                                       框架 litepal  orm sqlite 框架
  *
  */
+public static DatabaseUtil dbt;
+
+public static DatabaseUtil getInstance(){
+    if(dbt==null){
+        return dbt=new DatabaseUtil();
+    }
+    return dbt;
+}
+
+       public class MyDatabase extends SQLiteOpenHelper{
+
+            //其实尽量做到数据结构的通用性  不要改一个地方有很多地方跟着改 这时候注入就很有效了
+            private String []str={"dtsjcache","id","device_name","device_id","customer_id","location","reason"};
+
+    public MyDatabase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(SQLUtil.createTable(str));
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("drop table if exists dtsjcache");
+        onCreate(db);
+    }
+}
 
 
 }
