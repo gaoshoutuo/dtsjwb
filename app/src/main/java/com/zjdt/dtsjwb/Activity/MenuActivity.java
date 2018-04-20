@@ -1,11 +1,14 @@
 package com.zjdt.dtsjwb.Activity;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -28,6 +31,7 @@ import com.zjdt.dtsjwb.Bean.MenuBean;
 import com.zjdt.dtsjwb.Bean.RollBean;
 import com.zjdt.dtsjwb.NetUtil.OkhttpUtil;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Service.NotificationService;
 import com.zjdt.dtsjwb.Util.HandlerUtil;
 import com.zjdt.dtsjwb.Util.JsonUtil;
 
@@ -37,6 +41,8 @@ import java.util.HashMap;
 import okhttp3.OkHttpClient;
 
 public class MenuActivity extends AppCompatActivity {
+
+    //https://www.zcy.gov.cn/eevees/shop?searchType=1&shopId=124184  商城网址 商城要搞什么 必须得自己的ajax服务器
     private ArrayList<View>viewList=new ArrayList<>();
     private HashMap<String,String> map;
     public static TextView test;
@@ -45,15 +51,29 @@ public class MenuActivity extends AppCompatActivity {
     public final String TAG="menuactivity";
     private GridView gridView;
     private int columnWidth;
-    private int []imageM={R.drawable.icons8_fix,R.drawable.icons8_history,R.drawable.icons8_my,R.drawable.icons8_update};
-    private int []imageCustom={R.drawable.my_assets,R.drawable.my_register,R.drawable.my_countdown,R.drawable.my_history,R.drawable.my_mall,
-    R.drawable.my_call,R.drawable.my_notify,R.drawable.my_update};
+    private int []imageM={R.drawable.icons8_fix,R.drawable.icons8_history,R.drawable.icons8_my,R.drawable.icons8_update,
+            R.drawable.mall};
+    private int []imageCustom={R.drawable.my_assets,R.drawable.my_register,R.drawable.my_countdown,R.drawable.my_history,
+            R.drawable.my_mall, R.drawable.my_call,R.drawable.my_notify,R.drawable.my_update};
     //private int []imageOther={R.drawable.icons8_fix,R.drawable.icons8_history,R.drawable.icons8_my,R.drawable.icons8_update};
-    private String []name={"维修业务","维修历史","我的信息","检查更新"};
+    private String []name={"维修业务","维修历史","我的信息","检查更新","商城"};
     private String []customName={"我的资产","资产登记","维保倒计时","维保历史","商城","联系我们","推送消息","检查更新"};
    // private String []otherNamer={};
 
     private ArrayList <Object>arrayList;
+    private ServiceConnection sc=new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +85,9 @@ public class MenuActivity extends AppCompatActivity {
         MenuAdapter menuAdapter=new MenuAdapter(arrayList,this,gridView);
 
         gridView.setAdapter(menuAdapter);
+        startService(new Intent(this, NotificationService.class));
+
+
 
     }
     private void initView(){

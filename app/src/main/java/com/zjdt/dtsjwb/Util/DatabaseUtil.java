@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.zjdt.dtsjwb.App.AppApplication;
+
 public class DatabaseUtil {
     //做Sqlite3 的数据库的工具   需要有万能bean 应付传入一bean 自动开始持久化一些东西
 /**
@@ -43,6 +45,8 @@ public class DatabaseUtil {
  *
  */
 public static DatabaseUtil dbt;
+public static SQLiteDatabase myDatabase;
+
 
 public static DatabaseUtil getInstance(){
     if(dbt==null){
@@ -50,9 +54,13 @@ public static DatabaseUtil getInstance(){
     }
     return dbt;
 }
-
+public static SQLiteDatabase getDatabase(String databasename,int varsionId){
+    if(myDatabase==null){
+        return myDatabase=DatabaseUtil.getInstance().new MyDatabase(
+                AppApplication.getApp(),databasename,null,varsionId).getWritableDatabase();
+    }return myDatabase;
+}
        public class MyDatabase extends SQLiteOpenHelper{
-
             //其实尽量做到数据结构的通用性  不要改一个地方有很多地方跟着改 这时候注入就很有效了
             private String []str={"dtsjcache","id","device_name","device_id","customer_id","location","reason"};
 

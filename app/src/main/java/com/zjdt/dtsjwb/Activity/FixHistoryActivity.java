@@ -47,7 +47,7 @@ public class FixHistoryActivity extends BaseActivity implements View.OnClickList
               //  myDatabase=new DatabaseUtil.MyDatabase(this,"DTSJ.db",null,1); 内部成员类是静态  内部类需要先创建外部类对象 静态对象照样调用方法 只不过如果那个静态对象是4构造器生成的 而不是5构造器生成 缺少一个 参数就会出错吧
                 //回去做一个 4构造 5构造 单例实验
                 myDatabase=DatabaseUtil.getInstance().new MyDatabase(this,"DTSJ.db",null,1);
-
+                myDatabase.getWritableDatabase();
                 break;
                 default:break;
 

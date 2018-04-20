@@ -1,5 +1,12 @@
 package com.zjdt.dtsjwb.Util;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.zjdt.dtsjwb.Bean.AllBean;
+import com.zjdt.dtsjwb.Bean.DeviceBean;
+
 import java.util.HashMap;
 
 public class SQLUtil {
@@ -30,6 +37,60 @@ public class SQLUtil {
                 append(s[6]).append(" TEXT NOT NULL").
                 append(");").toString();
         return sb.toString();
+    }
+
+    /**
+     * 封装函数 起码要知道要干嘛
+     * @param dbname
+     * @param tablename
+     * @param values
+     * @param versionId
+     * @return
+     */
+    public static String insertTable(String dbname,String tablename, ContentValues values,int versionId){
+       long is=DatabaseUtil.getDatabase(dbname,versionId).insert("tablename",null,values);
+        return null;
+    }
+
+    /**
+     * getvalue 跟bean合一起好了
+     * @return
+     */
+
+    public DeviceBean getValue(){
+
+
+        return null;
+    }
+
+
+    public static String dropTable(String dbname,String tablename,int versionId){
+        DatabaseUtil.getDatabase(dbname,versionId);
+        return null;
+    }
+
+    /**
+     * 我想做的泛化本质就是自动寻找匹配关系，但是hashmap类型擦除会很麻烦 不知道java10 var语法能否助我  反射应该也行的把
+     * 3种方法获取class对象      类对象之间转换
+     * 编程考试总会问你获取xx对象有几种方式 割裂了怎么去设计程序 为了考而考
+     * 要不就在类里面 肯定初始化的时候指定或者object我猜的  要不就是在方法里面给T设置范围
+     * @param cursor
+     * @return
+     */
+    public <T extends AllBean>T queryTable(Cursor cursor,HashMap<String,Class<T>>map,String []str) throws InstantiationException {
+        for(int i=0;i<str.length;i++){
+            //回头试试我这种奇技
+        }
+       Class classY=map.get("fh");
+        T able=null;
+        try {
+            //而且一定要有无参构造器
+            able = (T) classY.newInstance();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        return able;
     }
     /**
      * iterator 版本稍后       Arraylist <XXS>  xxs.name xxs.typeSQL

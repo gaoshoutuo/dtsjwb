@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.zjdt.dtsjwb">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -8,7 +9,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name=".App.AppApplication"
@@ -38,14 +40,24 @@
             android:name=".Activity.RegisterActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".Activity.ImageCarouselActivity" />
-        <activity android:name=".Activity.FixDeviceActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Activity.FixHistoryActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Activity.MyActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Activity.UpdateActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity
+            android:name=".Activity.FixDeviceActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activity.FixHistoryActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activity.MyActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activity.UpdateActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <service android:name=".Service.NotificationService" />
+        <service android:name=".Service.NotificationService$ServiceD" />
+
+        <activity android:name=".Activity.WebviewActivity" />
+        <activity android:name=".Activity.MallActivity"></activity>
     </application>
 
 </manifest>

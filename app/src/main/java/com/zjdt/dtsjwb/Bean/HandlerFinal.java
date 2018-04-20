@@ -8,6 +8,17 @@ package com.zjdt.dtsjwb.Bean;
  */
 
 public class HandlerFinal {
+    //给socketio用的  ups
+    public static final String UPS_1="ups1";
+    public static final String UPS_2="ups2";
+    public static final String UPS_3="ups3";
+    public static final String UPS_4="ups4";
+    public static final String UPS_5="ups5";
+    public static final String UPS_6="ups6";
+    public static final String UPS_7="ups7";
+
+
+
     public static String authorthm="0";
     public static HandlerFinal hf;
 
