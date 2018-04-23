@@ -1,5 +1,10 @@
 package com.zjdt.dtsjwb.Activity;
 
+import android.app.Activity;
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,10 +17,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.zjdt.dtsjwb.App.AppApplication;
 import com.zjdt.dtsjwb.Bean.DeviceBean;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Util.DatabaseUtil;
+import com.zjdt.dtsjwb.Util.DialogUtil;
 
 import java.util.ArrayList;
 
@@ -51,6 +59,43 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
                 //list add 但是数据是要数据库里或者sharedpref拿出来的  shared 那个for的好处就在于是一次性多存储，但是不像数据库那样的增删改查的方便
                 menuList.add(new DeviceBean("",0,"老用户","",""));
                 dfdAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+
+    public void onBackPressed() {
+     /*   new AlertDialog.Builder(this).setTitle("确认退出吗？")
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 点击“确认”后的操作
+                        IntelligenceAddActivity.this.finish();
+                    }
+                })
+                .setNegativeButton("返回", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 点击“返回”后的操作,这里不设置没有任何操作
+                    }
+                }).show();*/
+        DialogUtil.AlertDialogUtil alertDialogUtil= DialogUtil.getDialogUtil().new AlertDialogUtil(FixDeviceActivity.this);
+        alertDialogUtil.setAlertDialog("关闭","保存","警告","是否需要保存",new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(which==-2){
+                    //数据库插入一行
+                   SQLiteDatabase db= DatabaseUtil.getDatabase("DTSJ.db",1);
+
+                   db.insert("dtsjcache",null,new ContentValues());
+
+                    Toast.makeText(FixDeviceActivity.this,"保存",Toast.LENGTH_SHORT).show();
+                }else if(which==-1){
+                    Toast.makeText(FixDeviceActivity.this,"关闭",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         });
     }
@@ -126,6 +171,13 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
                 }
             });
         }
+
+
+        /**
+         * 1打开activity 搜索数据库 插入成arraylist
+         * 2
+         * @return
+         */
 
         @Override
         public int getItemCount() {

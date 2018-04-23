@@ -17,7 +17,7 @@ public class SQLUtil {
     /**
      * sql 缺陷 类型没法通过值 string来指定 应该设计某种数据类型与数据库的数据类型对应的
      *   private String deviceName;
-     private int deviceId;
+     private int deviceId;{"精密空调","机柜","供电pdu","ups电池","服务器IT设备","定期检修","正常维保巡检"} {1 2 3 4 5 6 7}
      private String coustomerId;
      private String location;
      private String reason;
@@ -63,9 +63,16 @@ public class SQLUtil {
         return null;
     }
 
+    /**
+     * 删除表数据 删除arraylist内存 adapterchange  以reason为
+     * @param dbname
+     * @param tablename
+     * @param versionId
+     * @return
+     */
 
-    public static String dropTable(String dbname,String tablename,int versionId){
-        DatabaseUtil.getDatabase(dbname,versionId);
+    public static String dropTable(String dbname,String tablename,int versionId,String[]str){
+        DatabaseUtil.getDatabase(dbname,versionId).delete(tablename,"reason=?",str);
         return null;
     }
 
@@ -81,7 +88,7 @@ public class SQLUtil {
         for(int i=0;i<str.length;i++){
             //回头试试我这种奇技
         }
-       Class classY=map.get("fh");
+        Class classY=map.get("fh");
         T able=null;
         try {
             //而且一定要有无参构造器

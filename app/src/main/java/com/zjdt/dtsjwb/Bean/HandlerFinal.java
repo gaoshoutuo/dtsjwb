@@ -19,6 +19,10 @@ public class HandlerFinal {
 
 
 
+    public static final String []DTSJCACHESTR={"dtsjcache","id","device_name","device_id","customer_id","location","reason"};
+
+
+
     public static String authorthm="0";
     public static HandlerFinal hf;
 

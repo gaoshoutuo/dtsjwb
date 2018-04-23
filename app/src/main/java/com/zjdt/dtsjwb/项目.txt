@@ -9,3 +9,24 @@ popwindow  interface
 既然用框架了 java的特色xml配置一定少不了
 
 会不会有video  ffmpeg 音视频这些 不努力创新的话 理想只会离我而去
+
+    private static DataBase getInstance() {
+        if (instance == null) {
+            synchronized (DataBase.class) {
+                if (instance == null) {
+                    instance = new DataBase();
+                }
+            }
+        }
+        return instance;
+    }
+    这是单例
+
+    He who knows not, and knows not that he knows not, is a fool. Shun him.
+
+    He who knows not, and knows that he knows not, is a child. Teach him.
+
+    He who knows, and knows not that he knows, is asleep. Wake him.
+
+    He who knows, and knows that he knows, is a leader. Follow him. ​​​​
+    instance of 用来测试基本数据类型

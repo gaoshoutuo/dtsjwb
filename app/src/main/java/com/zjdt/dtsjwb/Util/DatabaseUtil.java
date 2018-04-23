@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.zjdt.dtsjwb.App.AppApplication;
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
 
 public class DatabaseUtil {
     //做Sqlite3 的数据库的工具   需要有万能bean 应付传入一bean 自动开始持久化一些东西
@@ -54,23 +55,51 @@ public static DatabaseUtil getInstance(){
     }
     return dbt;
 }
-public static SQLiteDatabase getDatabase(String databasename,int varsionId){
-    if(myDatabase==null){
+public static SQLiteDatabase getDatabase(String databasename,int varsionId) {
+   /* if(myDatabase==null){
         return myDatabase=DatabaseUtil.getInstance().new MyDatabase(
                 AppApplication.getApp(),databasename,null,varsionId).getWritableDatabase();
+    }return myDatabase;*/
+
+    if(myDatabase==null){
+        return myDatabase=DatabaseUtil.getInstance().new MyDatabase().getWritableDatabase();
     }return myDatabase;
 }
-       public class MyDatabase extends SQLiteOpenHelper{
-            //其实尽量做到数据结构的通用性  不要改一个地方有很多地方跟着改 这时候注入就很有效了
-            private String []str={"dtsjcache","id","device_name","device_id","customer_id","location","reason"};
 
+
+    public static SQLiteDatabase getDatabase() {
+   /* if(myDatabase==null){
+        return myDatabase=DatabaseUtil.getInstance().new MyDatabase(
+                AppApplication.getApp(),databasename,null,varsionId).getWritableDatabase();
+    }return myDatabase;*/
+
+        if(myDatabase==null){
+            return myDatabase=DatabaseUtil.getInstance().new MyDatabase().getWritableDatabase();
+        }return myDatabase;
+    }
+
+    /**
+     * 喜欢用内部类 把一些本来可以直接继承的类弄复杂化了
+     */
+     public class MyDatabase extends SQLiteOpenHelper{
+
+           //其实尽量做到数据结构的通用性  不要改一个地方有很多地方跟着改 这时候注入就很有效了
+
+
+// 此处也要改变 但是固定为1 是否很不方便
     public MyDatabase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
+    //factory 造对象了   尴尬的自言自语
+
+    public MyDatabase() {
+               super(AppApplication.getApp(), "DTSJ.db", null, 1);
+           }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQLUtil.createTable(str));
+        db.execSQL(SQLUtil.createTable(HandlerFinal.DTSJCACHESTR));
     }
 
     @Override

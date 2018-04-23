@@ -7,7 +7,9 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.zjdt.dtsjwb.App.AppApplication;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
 
 import java.net.URISyntaxException;
@@ -60,25 +62,25 @@ public class NotificationService extends Service{
                 }).on(HandlerFinal.UPS_1, new Emitter.Listener() {
                     @Override
                     public void call(Object... args) {
-                        Log.e("Socket.IO", "Server is connected!");
 
+                        Toast.makeText(AppApplication.getApp(),args.toString(),Toast.LENGTH_SHORT).show();
                     }
                 }).on(HandlerFinal.UPS_2, new Emitter.Listener() {
                     @Override
                     public void call(Object... args) {
-                        Log.e("Socket.IO", "Server is connected!");
 
+                        Toast.makeText(AppApplication.getApp(),args.toString(),Toast.LENGTH_SHORT).show();
                     }
                 }).on(HandlerFinal.UPS_3, new Emitter.Listener() {
                     @Override
                     public void call(Object... args) {
-                        Log.e("Socket.IO", "Server is connected!");
+
 
                     }
                 }).on(HandlerFinal.UPS_4, new Emitter.Listener() {
                     @Override
                     public void call(Object... args) {
-                        Log.e("Socket.IO", "Server is connected!");
+
 
                     }
                 });

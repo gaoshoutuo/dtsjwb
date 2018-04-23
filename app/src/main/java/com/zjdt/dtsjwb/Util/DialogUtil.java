@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ProgressBar;
@@ -28,8 +29,16 @@ public class DialogUtil {
      * menuList 左上角的action bar
      *
      */
+    public static DialogUtil dialogUtil;
 
-    class ProgressTuil{
+    public static DialogUtil getDialogUtil() {
+        if(dialogUtil==null){
+            return dialogUtil=new DialogUtil();
+        }
+        return dialogUtil;
+    }
+
+    public class ProgressTuil{
         private Context context;
         private ProgressBar progressBar;
         public void showShapeProgressbar(){
@@ -71,8 +80,9 @@ public class DialogUtil {
         }
     }
 
-    class AlertDialogUtil{
+    public class AlertDialogUtil{
         private AlertDialog.Builder alertDialog;
+        private Context context;
 
         /**
          * DI注入一下
@@ -88,6 +98,7 @@ public class DialogUtil {
             }
         };
         public AlertDialogUtil(Activity context) {
+            this.context=context;
             this.alertDialog = new AlertDialog.Builder(context);
         }
 
@@ -98,18 +109,33 @@ public class DialogUtil {
          * @param leftText
          * @param title
          * @param message
-         * @param di
+         *
+         * di which 左边 -2 右边-1
          */
-        public void setAlertDialog(String rightText, String leftText, String title, String message, DialogInterface.OnClickListener di){
+        public void setAlertDialog(String rightText, String leftText, String title, String message,DialogInterface.OnClickListener di){
             alertDialog.setTitle(title);
             alertDialog.setMessage(message);
-            alertDialog.setPositiveButton(rightText, di);
-            alertDialog.setNegativeButton(leftText,di);
+          /*  alertDialog.setPositiveButton(rightText, new DialogInterface.OnClickListener(){
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.e("swswswsw",which+"");
+                }
+            } );
+            alertDialog.setNegativeButton(leftText,new DialogInterface.OnClickListener(){
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.e("swswswsw",which+"");
+                }
+            } );*/
+            alertDialog.setPositiveButton(rightText,di);//-1 右边
+            alertDialog.setNegativeButton(leftText,di);//-2  左边
             alertDialog.show();
         }
     }
 
-    class ProgressDialogUtil{
+   public class ProgressDialogUtil{
         private ProgressDialog pd;
 
         public ProgressDialogUtil(Activity context) {

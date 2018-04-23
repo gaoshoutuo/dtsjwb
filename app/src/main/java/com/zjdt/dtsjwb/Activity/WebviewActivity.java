@@ -7,7 +7,7 @@ import com.zjdt.dtsjwb.R;
 
 public class WebviewActivity extends AppCompatActivity {
     /**
-     * webview  react js 载入网页用的
+     * webview  react js 载入网页用的  也算的util
      * @param savedInstanceState
      */
     @Override

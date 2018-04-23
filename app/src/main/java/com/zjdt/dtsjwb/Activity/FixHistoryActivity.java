@@ -16,6 +16,7 @@ public class FixHistoryActivity extends BaseActivity implements View.OnClickList
     private ImageView historyAdd;
     private Button addDatabase;
     private DatabaseUtil.MyDatabase myDatabase;
+
     /**
      * 也是recyclerview
      * 谁什么时候帮助哪里的客户修理了什么故障，客户态度。
