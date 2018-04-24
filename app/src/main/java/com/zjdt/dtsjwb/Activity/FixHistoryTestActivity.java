@@ -1,21 +1,34 @@
 package com.zjdt.dtsjwb.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Util.Algorithm;
 import com.zjdt.dtsjwb.Util.DatabaseUtil;
+import com.zjdt.dtsjwb.Util.FtpUtil;
 import com.zjdt.dtsjwb.Util.PopWindowUtil;
 
-public class FixHistoryActivity extends BaseActivity implements View.OnClickListener{
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
+
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
+public class FixHistoryTestActivity extends BaseActivity implements View.OnClickListener{
 
     private ImageView historyAdd;
     private Button addDatabase;
     private DatabaseUtil.MyDatabase myDatabase;
+    private Button testFtp;
+    private Button testwebview;
 
     /**
      * 也是recyclerview
@@ -30,10 +43,14 @@ public class FixHistoryActivity extends BaseActivity implements View.OnClickList
         initview();
     }
     private void initview(){
+        testFtp=f(R.id.test_ftp);
+        testFtp.setOnClickListener(this);
         historyAdd=f(R.id.history_add);
         historyAdd.setOnClickListener(this);
         addDatabase=f(R.id.database_add);
         addDatabase.setOnClickListener(this);
+        testwebview=f(R.id.test_webview);
+        testwebview.setOnClickListener(this);
     }
 
     @Override
@@ -49,6 +66,37 @@ public class FixHistoryActivity extends BaseActivity implements View.OnClickList
                 //回去做一个 4构造 5构造 单例实验
                 myDatabase=DatabaseUtil.getInstance().new MyDatabase(this,"DTSJ.db",null,1);
                 myDatabase.getWritableDatabase();
+                break;
+            case R.id.test_ftp:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            FtpUtil.cleanSf();
+                            FtpUtil.ftpInit("176.122.185.2","21","zth1","zth1");
+                            FTPClient ftpClient= FtpUtil.getFtpClient();
+
+
+                           // ftpClient.changeWorkingDirectory("video1");
+                           FTPFile []ftpFile= ftpClient.listFiles();
+                           // Log.e("ftputil",Arrays.toString(ftpFile));//没问题啊 确实就是当前目录
+
+
+
+
+                            Log.e("ftputil",FtpUtil.getAllPath(ftpFile));
+                          /*  int []a={95, 45, 15, 78, 84, 51, 24, 12};
+                            Algorithm.sort(a);
+                            Log.e("heheheh", Arrays.toString(a));*/
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
+                break;
+            case R.id.test_webview:
+                FixHistoryTestActivity.this.startActivity(new Intent(FixHistoryTestActivity.this,WebviewActivity.class));
                 break;
                 default:break;
 

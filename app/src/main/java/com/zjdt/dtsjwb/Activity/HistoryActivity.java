@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.zjdt.dtsjwb.R;
 
-public class FixActivity extends BaseActivity {
+public class HistoryActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

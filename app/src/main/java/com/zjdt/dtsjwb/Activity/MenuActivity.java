@@ -7,9 +7,7 @@ import android.content.ServiceConnection;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -17,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,17 +25,13 @@ import com.zjdt.dtsjwb.Adapter.TestAdapter;
 import com.zjdt.dtsjwb.App.AppApplication;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.Bean.MenuBean;
-import com.zjdt.dtsjwb.Bean.RollBean;
 import com.zjdt.dtsjwb.NetUtil.OkhttpUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Service.NotificationService;
-import com.zjdt.dtsjwb.Util.HandlerUtil;
 import com.zjdt.dtsjwb.Util.JsonUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import okhttp3.OkHttpClient;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -52,11 +45,11 @@ public class MenuActivity extends AppCompatActivity {
     private GridView gridView;
     private int columnWidth;
     private int []imageM={R.drawable.icons8_fix,R.drawable.icons8_history,R.drawable.icons8_my,R.drawable.icons8_update,
-            R.drawable.mall};
+            R.drawable.mall,R.drawable.test64};
     private int []imageCustom={R.drawable.my_assets,R.drawable.my_register,R.drawable.my_countdown,R.drawable.my_history,
             R.drawable.my_mall, R.drawable.my_call,R.drawable.my_notify,R.drawable.my_update};
     //private int []imageOther={R.drawable.icons8_fix,R.drawable.icons8_history,R.drawable.icons8_my,R.drawable.icons8_update};
-    private String []name={"维修业务","维修历史","我的信息","检查更新","商城"};
+    private String []name={"维修业务","维修历史","我的信息","检查更新","商城","测试"};
     private String []customName={"我的资产","资产登记","维保倒计时","维保历史","商城","联系我们","推送消息","检查更新"};
    // private String []otherNamer={};
 
@@ -185,7 +178,7 @@ public class MenuActivity extends AppCompatActivity {
                     break;
                 case 1:
                     if(map.get("au").equals("1")){//字符串别用==
-                        Intent intent=new Intent(MenuActivity.this,FixHistoryActivity.class);
+                        Intent intent=new Intent(MenuActivity.this,HistoryActivity.class);
                         MenuActivity.this.startActivity(intent);
                     }else if((map.get("au").equals("2"))){
                         Toast.makeText(MenuActivity.this,"xiaoyu",Toast.LENGTH_SHORT).show();
@@ -196,6 +189,14 @@ public class MenuActivity extends AppCompatActivity {
                     break;
                 case 3:
                     Toast.makeText(MenuActivity.this,""+position,Toast.LENGTH_SHORT).show();
+                    break;
+                case 4:
+                    break;
+                case 5:MenuActivity.this.startActivity(new Intent(MenuActivity.this,FixHistoryTestActivity.class));
+                    break;
+                case 6:
+                    break;
+                case 7:
                     break;
                 default:break;
             }

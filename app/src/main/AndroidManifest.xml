@@ -12,6 +12,10 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
 
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name=".App.AppApplication"
         android:allowBackup="true"
@@ -34,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.FixActivity"
+            android:name=".Activity.HistoryActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".Activity.RegisterActivity"
@@ -44,7 +48,7 @@
             android:name=".Activity.FixDeviceActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".Activity.FixHistoryActivity"
+            android:name=".Activity.FixHistoryTestActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".Activity.MyActivity"
@@ -56,8 +60,35 @@
         <service android:name=".Service.NotificationService" />
         <service android:name=".Service.NotificationService$ServiceD" />
 
-        <activity android:name=".Activity.WebviewActivity" />
+        <activity android:name=".Activity.WebviewActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            />
         <activity android:name=".Activity.MallActivity"></activity>
+
+<!--tbs 自带的播放器组件-->
+        <activity
+
+            android:name="com.tencent.smtt.sdk.VideoActivity"
+
+            android:configChanges="orientation|screenSize|keyboardHidden"
+
+            android:exported="false"
+
+            android:launchMode="singleTask"
+
+            android:alwaysRetainTaskState="true">
+
+            <intent-filter>
+
+                <action android:name="com.tencent.smtt.tbs.video.PLAY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

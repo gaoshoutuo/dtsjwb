@@ -7,6 +7,10 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class FtpUtil {
@@ -14,8 +18,8 @@ public class FtpUtil {
     /**
      * 做ftp的工具箱
      */
-
-    public static FTPClient ftpClient=new FTPClient();
+    private static StringBuffer sf=new StringBuffer();
+    public static FTPClient ftpClient;
     public static FTPClient getFtpClient(){
         return ftpClient;
     }
@@ -38,14 +42,125 @@ public class FtpUtil {
             e.printStackTrace();
         }
     }
-    public StringBuffer getAllPath(FTPFile ftpFile){
-        StringBuffer sf=new StringBuffer();
 
+    /**
+     * 返回ftp文件遍历目录
+     * @param path
+     * @return
+     * 修改 ftpfile 成file
+     */
+    public static StringBuffer getAllPath(String path){
 
 
 
 
         return sf;
+    }
+
+
+    /**
+     * 遇到困难 没法在1 没结束直接跳2
+     * @param ftpFile
+     * @return
+     */
+    public static String getAllPath(FTPFile []ftpFile){
+
+        for(FTPFile ftp:ftpFile){
+            try {
+                if(ftp.isDirectory()){
+                    ftpClient.changeWorkingDirectory(ftp.getName());
+                    FTPFile[] ftpFileNew = ftpClient.listFiles();
+                    if (null==ftpFileNew[0]) {
+                        ftpClient.changeToParentDirectory();
+                       // continue; 似乎必要不大
+                    } else {
+                        getAllPath(ftpFileNew);
+                    }
+                }else if(ftp.isFile()){
+                   // if (ftp.getName().contains(".mp4")){
+                        sf.append(ftp.getName()).append("---");
+                 //   }
+
+                }
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return sf.toString();
+    }
+    /**
+     * 上传
+     *
+     */
+
+
+    private static void uploadFile(String filename) {
+        FileInputStream fiss = null;
+            try {
+                fiss = new FileInputStream(new File(filename));
+                ftpClient.storeFile(filename, fiss);
+                //   Log.e("workd",ftpClient.printWorkingDirectory());
+                fiss.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
+
+    /**
+     * 下载
+     * 这中间必然修改workdir
+     */
+    private static void downloadFile(String filename){
+        FileOutputStream out=null;
+        try {
+            out = new FileOutputStream(new File(filename));
+            ftpClient.retrieveFile(filename, out);
+            //   Log.e("workd",ftpClient.printWorkingDirectory());
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 创建文件夹
+     *
+     *   ftpClient.makeDirectory(lagalfile);
+         ftpClient.changeWorkingDirectory(lagalfile);
+     */
+    private static void ftpMkdir(String filename){
+        try {
+            ftpClient.sendCommand("XMKD " + filename);
+            ftpClient.changeWorkingDirectory(filename);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * 删除文件
+     */
+    private static void deleteFile(){
+
+    }
+
+    public static void cleanSf(){
+        sf.setLength(0);
+    }
+
+    public static void disconnectFtp(){
+        try {
+            ftpClient.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

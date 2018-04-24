@@ -11,7 +11,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
-            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
+            abiFilters 'armeabi', 'armeabi-v7a', 'x86','mips'
         }
     }
 
@@ -39,8 +39,10 @@ dependencies {
     implementation 'com.jude:rollviewpager:1.2.9'
     implementation 'com.squareup.okhttp3:okhttp:3.9.0'
     implementation 'org.litepal.android:core:1.6.1'
-    //4.20
+    //4.20  ftp
     implementation files('libs/commons-net-3.0.1.jar')
+    //424 x5webview
+    implementation files('libs/tbs_sdk_thirdapp_v3.6.0.1183_43604_sharewithdownload_withoutGame_obfs_20180211_105126.jar')
     implementation('io.socket:socket.io-client:1.0.0') {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
