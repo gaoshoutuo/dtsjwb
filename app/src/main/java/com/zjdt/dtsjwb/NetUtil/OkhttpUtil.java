@@ -13,11 +13,15 @@ import com.zjdt.dtsjwb.Util.HandlerUtil;
 
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
+import okio.BufferedSink;
 
 /**
  * Created by 71568 on 2018/4/4.
@@ -25,11 +29,11 @@ import okhttp3.Response;
 
 public class OkhttpUtil {
 
-         static OkHttpClient okHttpClient=new OkHttpClient.Builder().connectTimeout(10000, TimeUnit.SECONDS)
+      /*  public static OkHttpClient okHttpClient=new OkHttpClient.Builder().connectTimeout(10000, TimeUnit.SECONDS)
                 .readTimeout(10000, TimeUnit.SECONDS)
                 .writeTimeout(10000, TimeUnit.SECONDS)
-                .build();
-
+                .build();*/
+      public static OkHttpClient okHttpClient=new OkHttpClient();
 
 
    static OkhttpUtil okhttpUtil=new OkhttpUtil();
@@ -37,6 +41,10 @@ public class OkhttpUtil {
         return okhttpUtil;
     }
 
+    /**
+     * get
+     * @param url
+     */
     //线程跳过了 想 原来是没开通网络权限啊  也有可能是没网络
     public static void getUrl(final String url){
             new Thread(new Runnable() {
@@ -87,4 +95,26 @@ public class OkhttpUtil {
             }
         }
     };*/
+
+/**
+ * post
+ */
+public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+  public static void postJson(String json,String url){
+
+      RequestBody body = RequestBody.create(JSON, json);
+      Request request=new Request.Builder().url(url).post(body).build();
+      try {
+          //okHttpClient.newCall(request).execute();
+          okHttpClient.newCall(request).execute();
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+  }
+  public static void close(){
+
+  }
+
+
+
 }

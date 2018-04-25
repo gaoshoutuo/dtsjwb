@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.zjdt.dtsjwb.NetUtil.OkhttpUtil;
+import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.Algorithm;
 import com.zjdt.dtsjwb.Util.DatabaseUtil;
@@ -28,7 +30,7 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
     private Button addDatabase;
     private DatabaseUtil.MyDatabase myDatabase;
     private Button testFtp;
-    private Button testwebview;
+    private Button testwebview,testSocketUtil,testPost;
 
     /**
      * 也是recyclerview
@@ -43,6 +45,12 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
         initview();
     }
     private void initview(){
+
+        testSocketUtil=f(R.id.test_socketutil);
+        testSocketUtil.setOnClickListener(this);
+        testPost=f(R.id.test_post);
+        testPost.setOnClickListener(this);
+
         testFtp=f(R.id.test_ftp);
         testFtp.setOnClickListener(this);
         historyAdd=f(R.id.history_add);
@@ -80,10 +88,6 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                            // ftpClient.changeWorkingDirectory("video1");
                            FTPFile []ftpFile= ftpClient.listFiles();
                            // Log.e("ftputil",Arrays.toString(ftpFile));//没问题啊 确实就是当前目录
-
-
-
-
                             Log.e("ftputil",FtpUtil.getAllPath(ftpFile));
                           /*  int []a={95, 45, 15, 78, 84, 51, 24, 12};
                             Algorithm.sort(a);
@@ -98,8 +102,35 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
             case R.id.test_webview:
                 FixHistoryTestActivity.this.startActivity(new Intent(FixHistoryTestActivity.this,WebviewActivity.class));
                 break;
-                default:break;
 
+            case R.id.test_socketutil:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {// 需要一个回调的线程放置我的方法
+                       SocketUtil.sendMessage();
+                    }
+                }).start();
+                break;
+            case R.id.test_post:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                         String json="[{\"doctor_pic\":\"http://176.122.185.2/picture/doctor.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                                 "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-001.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                                 "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-002.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                                 "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-003.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                                 "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-004.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                                 "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-005.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                                 "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-006.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                                 "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-007.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                                 "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-008.jpg\",\"doctor_intelligence\":\"name|age|job\"}]";
+                        String url="http://192.168.1.68:3333";
+                        OkhttpUtil.postJson(json,url);
+                  //  OkhttpUtil.getUrl("http://192.168.1.68:3333");  okhttp post 有时候能收到 有时候收不到 时延好久  通过socket很快  通过okhttp很慢
+                    }
+                }).start();
+                break;
+                default:break;
         }
     }
 
