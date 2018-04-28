@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
    >
     <!-- 历史的popwindow 测试-->
     <ImageView
@@ -13,12 +14,67 @@
         />
     <!-- 熟练工-->
     <Button
+
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/scrim"
         android:text="添加数据库"
         android:id="@+id/database_add"
         />
 
+    <Button
+
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/test_ftp"
+        android:text="测试ftp按钮"
+        />
+
+    <Button
+
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/test_webview"
+        android:text="测试webview按钮"
+        />
+
+
+    <Button
+
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/test_socketutil"
+        android:text="测试socketutil按钮"
+        />
+
+    <Button
+
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/test_post"
+        android:text="测试okhttppost按钮"
+        />
+
+    <Button
+
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/test_select"
+        android:text="测试socketselect按钮"
+        />
+    <Button
+
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/test_update"
+        android:text="测试update按钮"
+        />
 </LinearLayout>

@@ -73,6 +73,7 @@
             android:drawableRight="@drawable/icons8_x20" />
 
     </LinearLayout>
+
     <!-- 登录按钮-->
 
     <LinearLayout
@@ -81,6 +82,15 @@
         android:layout_marginTop="300dp"
         android:orientation="horizontal"
         >
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:id="@+id/edit_name"
+            android:layout_weight="1"
+            android:hint="姓名/单位"
+
+            />
         <Spinner
             android:layout_marginLeft="30dp"
             android:id="@+id/hehe"
@@ -103,5 +113,6 @@
             android:layout_marginLeft="10dp"
             />
     </LinearLayout>
+
 
 </RelativeLayout>

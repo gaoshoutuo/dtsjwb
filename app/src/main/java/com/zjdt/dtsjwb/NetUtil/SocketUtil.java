@@ -1,6 +1,10 @@
 package com.zjdt.dtsjwb.NetUtil;
 
+import android.os.Message;
 import android.util.Log;
+
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.Util.HandlerUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,27 +13,36 @@ import java.net.Socket;
 
 public class SocketUtil {
     /**
+     * int port=3333;
      * 想写成一个服务
      */
 
-    public static void sendMessage(){
-        String ip=null;
+    public static void sendMessageAdd(String ip,int port,String json){
 
-        ip="192.168.1.68";
-
-        int port=3333;
         try {
             Socket socket=new Socket(ip,port);
            OutputStream os= socket.getOutputStream();
-            os.write("你好服务器，我是android 我给你发消息".getBytes("UTF-8"));
+            os.write(json.getBytes("UTF-8"));
             socket.shutdownOutput();
-
             InputStream is=socket.getInputStream();
             byte []bytes=new byte[1024];
             int len;
             StringBuffer sf=new StringBuffer();
             while ((len=is.read(bytes))!=-1){
                 sf.append(new String(bytes,0,len,"UTF-8"));
+            }
+            if(sf.length()>5){
+                switch (sf.toString()){
+                    case "注册成功":
+                        Message message=new Message();
+                        message.what= HandlerFinal.AU_REGISTER_MSG;
+                        message.obj=sf.toString();
+                        HandlerUtil.handler.sendMessage(message);
+                        break;
+
+                }
+
+
             }
             Log.e("SocketUtil",sf.toString());
             os.close();
