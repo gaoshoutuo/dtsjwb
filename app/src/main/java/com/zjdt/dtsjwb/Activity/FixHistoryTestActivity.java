@@ -16,6 +16,7 @@ import com.zjdt.dtsjwb.Util.Algorithm;
 import com.zjdt.dtsjwb.Util.DatabaseUtil;
 import com.zjdt.dtsjwb.Util.FtpUtil;
 import com.zjdt.dtsjwb.Util.PopWindowUtil;
+import com.zjdt.dtsjwb.Util.ThreadUtil;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -30,7 +31,7 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
     private Button addDatabase;
     private DatabaseUtil.MyDatabase myDatabase;
     private Button testFtp;
-    private Button testwebview,testSocketUtil,testPost;
+    private Button testwebview,testSocketUtil,testPost,testSelect,testUpdate;
 
     /**
      * 也是recyclerview
@@ -45,6 +46,10 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
         initview();
     }
     private void initview(){
+        testSelect=f(R.id.test_select);
+        testUpdate=f(R.id.test_update);
+        testSelect.setOnClickListener(this);
+        testUpdate.setOnClickListener(this);
 
         testSocketUtil=f(R.id.test_socketutil);
         testSocketUtil.setOnClickListener(this);
@@ -107,7 +112,8 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                 new Thread(new Runnable() {
                     @Override
                     public void run() {// 需要一个回调的线程放置我的方法
-                       SocketUtil.sendMessage();
+                        String json="{\"au\":\"add\",\"pwd\":\"123456\",\"name\":\"dtsj\",\"email\":\"dtsj@qq.com\"}";
+                       SocketUtil.sendMessageAdd("192.168.1.102",3333,json);
                     }
                 }).start();
                 break;
@@ -115,7 +121,7 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                         String json="[{\"doctor_pic\":\"http://176.122.185.2/picture/doctor.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
+                        /* String json="[{\"doctor_pic\":\"http://176.122.185.2/picture/doctor.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
                                  "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-001.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
                                  "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-002.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
                                  "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-003.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
@@ -123,12 +129,32 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                                  "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-005.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
                                  "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-006.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
                                  "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-007.jpg\",\"doctor_intelligence\":\"name|age|job\"},\n" +
-                                 "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-008.jpg\",\"doctor_intelligence\":\"name|age|job\"}]";
-                        String url="http://192.168.1.68:3333";
+                                 "{\"doctor_pic\":\"http://176.122.185.2/picture/doctor-008.jpg\",\"doctor_intelligence\":\"name|age|job\"}]";*/
+                        String json="{\"au\":\"add\",\"age\":\"88\",\"name\":\"hetao\"}";
+                        String url="http://192.168.1.102:3333";
                         OkhttpUtil.postJson(json,url);
                   //  OkhttpUtil.getUrl("http://192.168.1.68:3333");  okhttp post 有时候能收到 有时候收不到 时延好久  通过socket很快  通过okhttp很慢
                     }
                 }).start();
+                break;
+            case R.id.test_select:
+                ThreadUtil.execute(new ThreadUtil.CallBack() {
+                    @Override
+                    public void exec() {
+
+                    }
+
+                    @Override
+                    public void run() {
+                        //这就是函数不能当值传递的弊了
+                        SocketUtil.sendMessageAdd("192.168.1.102",3333,"{\"au\":\"select\",\"age\":\"88\",\"name\":\"hetao\"}");
+                    }
+                });
+
+                break;
+
+
+            case R.id.test_update:
                 break;
                 default:break;
         }

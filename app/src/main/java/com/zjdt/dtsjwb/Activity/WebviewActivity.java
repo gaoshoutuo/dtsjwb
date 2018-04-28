@@ -29,6 +29,7 @@ public class WebviewActivity extends BaseActivity {
         webView=f(R.id.webview_context);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         //TbsVideo.openVideo(this,"http://176.122.185.2/picture/yq.mp4");
+        webView.loadUrl("http://www.taobao.com");
     }
 
 

@@ -44,4 +44,19 @@ public class ToBitmap {
 
         return drawable;
     }
+    private void test(){
+        new ThreadUtil(new ThreadUtil.CallBack() {
+            @Override
+            public void exec() {
+
+            }
+
+            @Override
+            public void run() {
+
+            }
+        }).start();
+
+
+    }
 }

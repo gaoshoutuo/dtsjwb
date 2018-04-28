@@ -59,6 +59,9 @@ public  class HandlerUtil {
                    HandlerFinal.getHf().msg=(String)msg.obj;
                     Log.e("msg",msg.obj+"");
                     break;//很奇怪
+                case HandlerFinal.AU_REGISTER_MSG:
+                    ToastUtil.ggg(AppApplication.getApp(),msg.obj.toString());
+                    break;
 
             }
         }

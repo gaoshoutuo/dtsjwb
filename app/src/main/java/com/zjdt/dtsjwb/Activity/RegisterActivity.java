@@ -14,15 +14,25 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Util.ThreadUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class RegisterActivity extends BaseActivity implements View.OnTouchListener{
-    private EditText userEdRe,passwordEdRe;
+    private EditText userEdRe,passwordEdRe,editName;
     private Button button;
     private Spinner spinner;
     private String []data={"企业客户","维保人员","三方客户"};
+    private String sData="企业客户";
 
     private void initView(){
+        editName=f(R.id.edit_name);
         userEdRe=f(R.id.user_ed_register);
         passwordEdRe=f(R.id.password_ed_register);
         button=f(R.id.send);
@@ -31,6 +41,35 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
             @Override
             public void onClick(View view) {
                 //提交 注册的账号密码逻辑。
+                final JSONObject jsonObject=new JSONObject();
+                String userText=userEdRe.getText().toString();
+                String password=passwordEdRe.getText().toString();
+                String name=editName.getText().toString();
+               // HashMap<String,String>map=new HashMap<>();
+                try {
+                    jsonObject.put("au", HandlerFinal.AU_REGISTER);
+                    jsonObject.put("user",userText);
+                    jsonObject.put("pwd",password);
+                    jsonObject.put("identity",sData);
+                    jsonObject.put("name",name);
+// final 后不能直向其他对象，但是字段可以设置
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.e("register",jsonObject.toString());
+                ThreadUtil.execute(new ThreadUtil.CallBack() {
+                    @Override
+                    public void exec() {
+
+                    }
+
+                    @Override
+                    public void run() {
+                        SocketUtil.sendMessageAdd("192.168.1.102",3333,jsonObject.toString());
+                    }
+                });
+
+
             }
         });
         userEdRe.setOnTouchListener(this);
@@ -50,12 +89,15 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
               switch (i){
                   case 0:
                       Log.e("top",data[i]);
+                      sData=data[i];
                       break;
                   case 1:
                       Log.e("top",data[i]);
+                      sData=data[i];
                       break;
                   case 2:
                       Log.e("top",data[i]);
+                      sData=data[i];
                       break;
                       default:break;
               }
@@ -92,4 +134,5 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
         }
         return false;
     }
+
 }

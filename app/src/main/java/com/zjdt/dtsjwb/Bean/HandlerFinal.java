@@ -19,6 +19,20 @@ public class HandlerFinal {
 
 
 
+
+
+    //au   这几个增删改查最后要修改成 为包含固定表的信息
+    public static final String AU_ADD="add";
+    public static final String AU_SELECT="select";
+    public static final String AU_UPDATE="update";
+    public static final String AU_DELETE="delete";
+    public static final String AU_REGISTER="register";
+    public static final int AU_REGISTER_MSG=1001;
+    public static final String AU_NOTIFY="add";
+    public static final String AU_LOGIN="add";
+
+
+
     public static final String []DTSJCACHESTR={"dtsjcache","id","device_name","device_id","customer_id","location","reason"};
 
 

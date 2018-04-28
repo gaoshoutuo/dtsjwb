@@ -30,3 +30,4 @@ popwindow  interface
 
     He who knows, and knows that he knows, is a leader. Follow him. ​​​​
     instance of 用来测试基本数据类型
+    内部类  内部接口回调
