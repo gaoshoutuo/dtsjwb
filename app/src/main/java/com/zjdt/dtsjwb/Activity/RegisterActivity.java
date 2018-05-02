@@ -22,6 +22,7 @@ import com.zjdt.dtsjwb.Util.ThreadUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 public class RegisterActivity extends BaseActivity implements View.OnTouchListener{
@@ -50,6 +51,8 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
                     jsonObject.put("au", HandlerFinal.AU_REGISTER);
                     jsonObject.put("user",userText);
                     jsonObject.put("pwd",password);
+
+                   //此处测试到底是不是我的问题
                     jsonObject.put("identity",sData);
                     jsonObject.put("name",name);
 // final 后不能直向其他对象，但是字段可以设置

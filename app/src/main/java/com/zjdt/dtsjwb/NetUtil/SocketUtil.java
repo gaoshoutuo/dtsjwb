@@ -39,6 +39,9 @@ public class SocketUtil {
                         message.obj=sf.toString();
                         HandlerUtil.handler.sendMessage(message);
                         break;
+                    case "notify_reply"://数据库消息返回语 json
+
+                        break;
 
                 }
 

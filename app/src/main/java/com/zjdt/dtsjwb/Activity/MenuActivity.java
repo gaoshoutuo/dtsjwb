@@ -33,6 +33,8 @@ import com.zjdt.dtsjwb.Util.JsonUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 public class MenuActivity extends AppCompatActivity {
 
     //https://www.zcy.gov.cn/eevees/shop?searchType=1&shopId=124184  商城网址 商城要搞什么 必须得自己的ajax服务器
@@ -53,12 +55,12 @@ public class MenuActivity extends AppCompatActivity {
     private String []customName={"我的资产","资产登记","维保倒计时","维保历史","商城","联系我们","推送消息","检查更新"};
    // private String []otherNamer={};
 
-    private ArrayList <Object>arrayList;
-    private ServiceConnection sc=new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
+        private ArrayList <Object>arrayList;
+        private ServiceConnection sc=new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
 
-        }
+            }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
@@ -74,7 +76,6 @@ public class MenuActivity extends AppCompatActivity {
       //  text.setText("菜单界面");
        // gridView=f(R.id.menu_gridview);
         initView();
-
         MenuAdapter menuAdapter=new MenuAdapter(arrayList,this,gridView);
 
         gridView.setAdapter(menuAdapter);
@@ -203,10 +204,11 @@ public class MenuActivity extends AppCompatActivity {
         }
     };
 
-    public static void actionActivity(Context context1, Class context2, HashMap<String,Object> hashMap){
+    public static void actionActivity(Context context1, Class context2, HashMap<String,String> hashMap){
         Intent intent=new Intent(context1,context2);Bundle bundle=new Bundle();
         bundle.putSerializable("key",hashMap);
         intent.putExtras(bundle);
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         AppApplication.getApp().startActivity(intent);
     }
 }

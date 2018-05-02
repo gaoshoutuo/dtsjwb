@@ -1,6 +1,8 @@
 package com.zjdt.dtsjwb.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +12,15 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
+import com.zjdt.dtsjwb.Activity.MenuActivity;
+import com.zjdt.dtsjwb.Activity.WebviewActivity;
 import com.zjdt.dtsjwb.App.AppApplication;
 import com.zjdt.dtsjwb.Bean.RollBean;
 import com.zjdt.dtsjwb.R;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * 图片轮播适配器
@@ -25,7 +30,7 @@ import java.util.ArrayList;
 public class TestAdapter extends StaticPagerAdapter {
    // private String[]imageUrl=new String[5];
     private ArrayList list;
-    private Context context;
+    private Activity context;
     private ArrayList<View> viewlist;
 
 
@@ -49,6 +54,13 @@ public class TestAdapter extends StaticPagerAdapter {
             @Override
             public void onClick(View v) {
                 packToast(((RollBean)list.get(position)).getUrl()+"...."+position);
+                Log.e("开图","..............1");
+                HashMap<String,String>map=new HashMap<>();
+
+                map.put("url",((RollBean)list.get(position)).getUrl());
+
+                MenuActivity.actionActivity(context, WebviewActivity.class,map);
+//怪不得不行 原来是搬家了
             }
         });
         return imageView;
@@ -59,7 +71,7 @@ public class TestAdapter extends StaticPagerAdapter {
         return list.size();
     }
 
-    public TestAdapter(ArrayList list,ArrayList<View>viewlist,Context context) {
+    public TestAdapter(ArrayList list,ArrayList<View>viewlist,Activity context) {
         this.viewlist=viewlist;
         this.list = list;
         this.context=context;
@@ -88,6 +100,11 @@ public class TestAdapter extends StaticPagerAdapter {
             @Override
             public void onClick(View v) {
                 packToast(((RollBean)list.get(position)).getUrl()+"...."+position);
+                HashMap<String,String>map=new HashMap<>();
+
+                map.put("url",((RollBean)list.get(position)).getUrl());
+
+                MenuActivity.actionActivity(context, WebviewActivity.class,map);
             }
         });
 

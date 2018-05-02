@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">迪特数据</string>
     <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_notify">NotifyActivity</string>
 </resources>

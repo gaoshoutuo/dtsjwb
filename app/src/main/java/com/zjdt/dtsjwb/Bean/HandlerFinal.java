@@ -31,6 +31,11 @@ public class HandlerFinal {
     public static final String AU_NOTIFY="add";
     public static final String AU_LOGIN="add";
 
+//userid
+    public static String userId;
+    public static String userName;
+    public static String userLocation;
+
 
 
     public static final String []DTSJCACHESTR={"dtsjcache","id","device_name","device_id","customer_id","location","reason"};

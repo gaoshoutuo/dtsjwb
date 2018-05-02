@@ -9,10 +9,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
-
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
@@ -60,35 +59,33 @@
         <service android:name=".Service.NotificationService" />
         <service android:name=".Service.NotificationService$ServiceD" />
 
-        <activity android:name=".Activity.WebviewActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            />
-        <activity android:name=".Activity.MallActivity"></activity>
-
-<!--tbs 自带的播放器组件-->
         <activity
-
-            android:name="com.tencent.smtt.sdk.VideoActivity"
-
+            android:name=".Activity.WebviewActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".Activity.MallActivity" />
 
+        <!-- tbs 自带的播放器组件 -->
+        <activity
+            android:name="com.tencent.smtt.sdk.VideoActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false"
-
-            android:launchMode="singleTask"
-
-            android:alwaysRetainTaskState="true">
-
+            android:launchMode="singleTask">
             <intent-filter>
-
                 <action android:name="com.tencent.smtt.tbs.video.PLAY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-
             </intent-filter>
-
         </activity>
+        <activity android:name=".Activity.CAssetsActivity" />
+        <activity android:name=".Activity.CAssetsRActivity" />
+        <activity android:name=".Activity.CCountdownActivity" />
+        <activity android:name=".Activity.CCallActivity" />
+        <activity
+            android:name=".Activity.NotifyActivity"
+            android:label="@string/title_activity_notify"></activity>
     </application>
 
 </manifest>

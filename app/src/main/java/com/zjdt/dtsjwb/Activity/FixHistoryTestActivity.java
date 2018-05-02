@@ -20,6 +20,8 @@ import com.zjdt.dtsjwb.Util.ThreadUtil;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -155,6 +157,25 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
 
 
             case R.id.test_update:
+                ThreadUtil.execute(new ThreadUtil.CallBack() {
+                    @Override
+                    public void exec() {
+
+                    }
+
+                    @Override
+                    public void run() {
+                        JSONObject jsonObject=new JSONObject();
+                        try {
+                            jsonObject.put("au","register2");
+                            jsonObject.put("data","中文中文");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        SocketUtil.sendMessageAdd("192.168.1.102",3333,jsonObject.toString());
+                    }
+                });
                 break;
                 default:break;
         }
