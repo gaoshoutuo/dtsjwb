@@ -91,6 +91,11 @@ public class NotificationService extends Service{
                 e.printStackTrace();
             }
         }
+        public void listen2(){
+            java.net.Socket socket2=new java.net.Socket();
+        }
+
+
     }
 
     /**
@@ -103,7 +108,7 @@ public class NotificationService extends Service{
         /**
          * Creates an IntentService.  Invoked by your subclass's constructor.
          *
-         * @param name Used to name the worker thread, important only for debugging.
+         *
          */
 
 
