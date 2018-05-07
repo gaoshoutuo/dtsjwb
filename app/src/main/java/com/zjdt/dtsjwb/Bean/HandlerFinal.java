@@ -23,18 +23,33 @@ public class HandlerFinal {
 
     //au   这几个增删改查最后要修改成 为包含固定表的信息
     public static final String AU_ADD="add";
+
+
     public static final String AU_SELECT="select";
+
+
     public static final String AU_UPDATE="update";
+
+
     public static final String AU_DELETE="delete";
+
+
     public static final String AU_REGISTER="register";
     public static final int AU_REGISTER_MSG=1001;
-    public static final String AU_NOTIFY="add";
+
+    //public static final String
+
+    public static final String AU_NOTIFY="notify";
+
+
     public static final String AU_LOGIN="add";
 
 //userid
     public static String userId;
     public static String userName;
     public static String userLocation;
+
+
 
 
 

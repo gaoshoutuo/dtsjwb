@@ -54,13 +54,13 @@
     <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <EditText
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_weight="3"
-        android:hint="客户id"
-        android:id="@+id/coustomer_id"
-        />
+
+        <EditText
+            android:id="@+id/coustomer_id"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="3"
+            android:hint="客户id" />
     <EditText
         android:layout_width="0dp"
         android:layout_height="50dp"

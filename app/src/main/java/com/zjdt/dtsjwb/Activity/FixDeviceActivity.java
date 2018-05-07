@@ -3,6 +3,7 @@ package com.zjdt.dtsjwb.Activity;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,8 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
      * 效果交互越复杂越好，不然总是一个demo而不是产品
      * 锚定特定的 position 也就锚定特定的 arraylist里面的数据结构   json解析做好全用string 除非int确实用来做别的
      * progressbar
+     *
+     *  数据库技术   加入一个碎片 碎片显示流程
      * @param savedInstanceState
      */
     private RecyclerView recyclerView;
@@ -152,7 +155,7 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
                 @Override
                 public void onClick(View v) {
                     //提交逻辑
-
+                    AppApplication.getApp().startActivity(new Intent(FixDeviceActivity.this,CAssetsActivity.class));
                 }
             });
 

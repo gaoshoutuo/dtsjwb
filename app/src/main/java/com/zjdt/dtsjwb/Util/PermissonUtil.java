@@ -13,7 +13,8 @@ public final class PermissonUtil {
     private static String[] permissions = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA
+            Manifest.permission.CAMERA,
+            Manifest.permission.CALL_PHONE
     };
     //一次性申请权限
     public static String[] checkPermission(Context context){
