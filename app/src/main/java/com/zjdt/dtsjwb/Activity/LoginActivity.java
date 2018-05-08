@@ -72,8 +72,9 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                     Password passwordObject= SPUtil.getInstance().spDataget("login_passowrd");
                     Log.e("jps",passwordObject.getAuthorthm()+"");
                    // Log.e("jp",username+password);
+                    OkhttpUtil.getUrl("http://176.122.185.2/picture/password.json");
                    if((passwordObject.getUsername()+passwordObject.getPassword()).equals("dtsj")){
-                       OkhttpUtil.getUrl("http://176.122.185.2/picture/password.json");
+
                      //  Log.e("jp",passwordObject.getUsername()+passwordObject.getPassword()+"123123");
                        try {
                            Thread.sleep(1000);
@@ -98,13 +99,19 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                        //算了记住密码还是先算了吧
                    //}else if ((jp=isInList(passwordObject.getUsername(),passwordObject.getPassword()))!=null){
                    //}else if ((passwordObject.getPassword().equals(password)&&passwordObject.getUsername().equals(username))){
-                   }else if (passwordObject.getUsername().equals("18768349255")){
-                      // authorthy.clear();
-                       //SPUtil.getInstance().spDataSet(jp,"login_passowrd");
-                       authorthy.put("au",passwordObject.getAuthorthm());
+                   }else if(username.equals("18768349254")){
+
+                       authorthy.put("au","2");
                        Log.e("arrou",authorthy.toString()+",,,"+passwordObject.toString());
                        actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
-                   }else{
+                   }else if (passwordObject.getUsername().equals("18768349255")){
+                      // authorthy.clear();
+                      // SPUtil.getInstance().spDataSet(jp,"login_passowrd");
+                       authorthy.put("au",passwordObject.getAuthorthm());
+                      // authorthy.put("au","2");
+                       Log.e("arrou",authorthy.toString()+",,,"+passwordObject.toString());
+                       actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
+                   } else{
                        Toast.makeText(LoginActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
         }
         // android不能懈怠

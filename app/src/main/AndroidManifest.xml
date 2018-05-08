@@ -24,13 +24,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@android:style/Theme">
-        <activity android:name=".Activity.BaseActivity" />
+
+        <!--
+            <activity android:name=".Activity.BaseActivity"
+            />
+        -->
         <activity
             android:name=".Activity.MenuActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name=".Activity.LoginActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -80,18 +82,39 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.CAssetsActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Activity.CAssetsRActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Activity.CCountdownActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Activity.CCallActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".Activity.CAssetsActivity"
+            android:label="我的资产" />
+        <activity
+            android:name=".Activity.CAssetsRActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activity.CCountdownActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activity.CCallActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".Activity.NotifyActivity"
             android:label="@string/title_activity_notify" />
-        <activity android:name=".Activity.UpsFixActivity"></activity>
+        <activity android:name=".Activity.UpsFixActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+
+            />
+        <activity android:name=".Activity.IntellActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            ></activity>
+
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.zjdt.dtsjwb.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

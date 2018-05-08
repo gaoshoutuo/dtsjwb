@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.IntellActivity"
+    tools:ignore="MissingConstraints">
+    <!-- <TextView
+     android:layout_width="match_parent"
+     android:layout_height="20dp"
+     android:textSize="16sp"
+     android:text="故障描述"
+     android:gravity="center"
+     />
+
+     <EditText
+         android:layout_width="match_parent"
+         android:layout_height="106dp"
+         app:layout_constraintHorizontal_weight="1"
+         app:layout_constraintVertical_weight="1"
+         tools:ignore="MissingConstraints"
+         tools:layout_editor_absoluteX="0dp"
+         tools:layout_editor_absoluteY="33dp" />
+
+     <TextView
+         android:id="@+id/textView"
+         android:layout_width="match_parent"
+
+         android:layout_height="20dp"
+         android:gravity="center"
+         android:text="添加图片"
+         android:textSize="16sp"
+         tools:ignore="MissingConstraints"
+         tools:layout_editor_absoluteX="0dp"
+         tools:layout_editor_absoluteY="150dp" />-->
+
+    <ImageView
+        android:src="@drawable/_add"
+        android:id="@+id/imageView"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/_dynamic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editview4"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+    <ImageView
+        android:id="@+id/gridview"
+        android:layout_width="0dp"
+        android:layout_height="310dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_weight="1" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="故障描述"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editview4"
+        android:layout_width="0dp"
+        android:layout_height="130dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:hint="故障描述"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/send_intell"
+        style="@android:style/Widget.Holo.Button"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:text="提交故障"
+
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="添加故障提示图"
+        app:layout_constraintBottom_toTopOf="@+id/gridview"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editview4" />
+
+    <!-- <Button
+        android:id="@+id/bt_a"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="A"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/bt_b"
+        tools:layout_editor_absoluteY="0dp" />
+    &lt;!&ndash;B边界控制属性 也有 左 和 右&ndash;&gt;
+    <Button
+        android:id="@+id/bt_b"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="B"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/bt_a"
+        app:layout_constraintRight_toLeftOf="@id/bt_c"
+        tools:layout_editor_absoluteY="0dp" />
+    &lt;!&ndash;C边界控制属性 只有右&ndash;&gt;
+    <Button
+        android:id="@+id/bt_c"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="C"
+        app:layout_constraintLeft_toRightOf="@id/bt_b"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintRight_toRightOf="parent"/>-->
+
+    <!-- <TextView
+        android:id="@+id/bt_a"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#0f0"
+        android:text="A"
+        app:layout_constraintBottom_toTopOf="@id/bt_b"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/bt_b"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="1" />
+
+    <TextView
+        android:id="@+id/bt_b"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#0f0"
+        android:text="B"
+        app:layout_constraintBottom_toTopOf="@id/bt_c"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/bt_a"
+        app:layout_constraintRight_toLeftOf="@id/bt_c"
+        app:layout_constraintTop_toBottomOf="@id/bt_a"
+        app:layout_constraintVertical_weight="1" />
+
+    <TextView
+        android:id="@+id/bt_c"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#0f0"
+        android:text="C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/bt_b"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_b"
+        app:layout_constraintVertical_weight="1" />-->
+
+</android.support.constraint.ConstraintLayout>

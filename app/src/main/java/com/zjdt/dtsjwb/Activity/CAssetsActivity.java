@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import com.zjdt.dtsjwb.R;
 
+import java.util.ArrayList;
+
 public class CAssetsActivity extends BaseActivity {
     /**
      * 总之打开这个activity 确实就是打开资产列表  设置一个true或者false 来开关 listener
@@ -15,15 +17,24 @@ public class CAssetsActivity extends BaseActivity {
      */
     private boolean isOpen=false;
     private RecyclerView recyclerView;
+    private ArrayList list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cassets);
-        isOpen=getIntent().getBooleanExtra("isopen",false);
+        //isOpen=getIntent().getBooleanExtra("isopen",false);
+
+       // setTitle("我的资产");
+        setRightRoot(R.drawable.my_countdown, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actionActivity(CAssetsActivity.this,CCountdownActivity.class,null);
+            }
+        });
     }
     public void initview(){
-        recyclerView=f(R.id.asset_recyclerview);
+        //recyclerView=f(R.id.asset_recyclerview);
     }
 
     public class AssetAdapter extends RecyclerView.Adapter<AssetAdapter.Vh>{
@@ -41,7 +52,7 @@ public class CAssetsActivity extends BaseActivity {
 
         @Override
         public int getItemCount() {
-            return 0;
+            return list.size();
         }
 
         public class Vh extends RecyclerView.ViewHolder{

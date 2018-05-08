@@ -50,7 +50,8 @@ public class HandlerFinal {
     public static String userLocation;
 
 
-
+//midium
+    public static final int MEDIA_PHOTO=8001;
 
 
     public static final String []DTSJCACHESTR={"dtsjcache","id","device_name","device_id","customer_id","location","reason"};

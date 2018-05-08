@@ -3,10 +3,16 @@ package com.zjdt.dtsjwb.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.support.annotation.LayoutRes;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zjdt.dtsjwb.App.AppApplication;
@@ -14,30 +20,53 @@ import com.zjdt.dtsjwb.R;
 
 import java.util.HashMap;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends FragmentActivity {
   //  android.app.ActionBar actionBar;
 
    protected ImageView leftBack,rightRoot;
    protected TextView text;
+   protected View toolbar_layout;
+    private LinearLayout root_layout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
+        setContentView(R.layout.root_layout);
+
        // actionBar=getActionBar();
         //actionBar.hide();
         initView();
+        setTitle("jjjjj");
+        // 全屏显示
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // 竖屏显示
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     protected <T extends View>T f(int rid){
 
         return findViewById(rid);
     }
+  /*  @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        setContentView(View.inflate(this, layoutResID, null));
+    }
+
+    @Override
+    public void setContentView(View view) {
+        root_layout = findViewById(R.id.root_layout);
+        if (root_layout != null) {
+            root_layout.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            initView();
+        }
+    }*/
+
     private void initView(){
+        toolbar_layout=f(R.id.dtsj_root);
         leftBack=f(R.id.left_root);
         rightRoot=f(R.id.right_root);
         text=f(R.id.text_root);
         leftBack.setOnClickListener(listener);
-        rightRoot.setOnClickListener(listener);
+        //rightRoot.setOnClickListener(listener);
     }
 
     View.OnClickListener listener=new View.OnClickListener() {
@@ -54,6 +83,13 @@ public class BaseActivity extends AppCompatActivity {
             }
         }
     };
+    public void setTitle(String name){
+        text.setText(name);
+    }
+    public void setRightRoot(int sId,View.OnClickListener listener){
+        rightRoot.setBackgroundResource(sId);
+        rightRoot.setOnClickListener(listener);
+    }
 
     /**
      *

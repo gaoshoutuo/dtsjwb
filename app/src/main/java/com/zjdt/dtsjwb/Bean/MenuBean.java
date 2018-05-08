@@ -28,4 +28,7 @@ public class MenuBean {
     public void setMenuIconRid(int menuIconRid) {
         this.menuIconRid = menuIconRid;
     }
+    public MenuBean() {
+
+    }
 }

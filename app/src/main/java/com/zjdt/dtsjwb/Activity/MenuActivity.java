@@ -55,11 +55,11 @@ public class MenuActivity extends AppCompatActivity {
     private int columnWidth;
     private int[] imageM = {R.drawable.icons8_fix, R.drawable.icons8_history, R.drawable.icons8_my, R.drawable.icons8_update,
             R.drawable.mall, R.drawable.test64};
-    private int[] imageCustom = {R.drawable.my_assets, R.drawable.my_register, R.drawable.my_countdown, R.drawable.my_history,
+    private int[] imageCustom = {R.drawable.my_assets, R.drawable.my_register, R.drawable.intelligence, R.drawable.my_history,
             R.drawable.my_mall, R.drawable.my_call, R.drawable.my_notify, R.drawable.my_update};
     //private int []imageOther={R.drawable.icons8_fix,R.drawable.icons8_history,R.drawable.icons8_my,R.drawable.icons8_update};
     private String[] name = {"维修业务", "维修历史", "我的信息", "检查更新", "商城", "测试"};
-    private String[] customName = {"我的资产", "资产登记", "维保倒计时", "维保历史", "商城", "联系我们", "推送消息", "检查更新"};
+    private String[] customName = {"我的资产", "资产登记", "故障上报", "维保历史", "政采云商城", "联系我们", "推送消息", "检查更新"};//维保倒计时 放到资产里面去
     // private String []otherNamer={};
 
     private ArrayList<Object> arrayList;
@@ -185,6 +185,7 @@ public class MenuActivity extends AppCompatActivity {
                         MenuActivity.this.startActivity(intent);
                     } else if ((map.get("au").equals("2"))) {
                         Toast.makeText(MenuActivity.this, "xiaoyu", Toast.LENGTH_SHORT).show();
+                        actionActivity(MenuActivity.this,CAssetsActivity.class,null);
                     }
                     break;
                 case 1:
@@ -197,6 +198,12 @@ public class MenuActivity extends AppCompatActivity {
                     break;
                 case 2:
                     Toast.makeText(MenuActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                    if (map.get("au").equals("1")) {//字符串别用==
+
+                    } else if ((map.get("au").equals("2"))) {
+                        actionActivity(MenuActivity.this,IntellActivity.class,null);
+
+                    }
                     break;
                 case 3:
                     Toast.makeText(MenuActivity.this, "" + position, Toast.LENGTH_SHORT).show();
@@ -228,6 +235,7 @@ public class MenuActivity extends AppCompatActivity {
                     MenuActivity.this.startActivity(new Intent(MenuActivity.this, FixHistoryTestActivity.class));
                     break;
                 case 6:
+                   // actionActivity(MenuActivity.this,BaseActivity.class,null);
                     break;
                 case 7:
                     break;
