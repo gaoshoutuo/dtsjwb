@@ -26,7 +26,9 @@ import com.zjdt.dtsjwb.Bean.MenuBean;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.DatabaseUtil;
 import com.zjdt.dtsjwb.Util.DialogUtil;
+import com.zjdt.dtsjwb.Util.FtpUtil;
 import com.zjdt.dtsjwb.Util.MediumUtil;
+import com.zjdt.dtsjwb.Util.ThreadUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -107,8 +109,27 @@ public class IntellActivity extends BaseActivity implements View.OnClickListener
             case R.id.send_intell:
                 //提交到数据库  这里可能是socketio
                String  errText=errorIntell.getText().toString();
+              if(imageurl!=null){
+                  imageurl="/001";
+              }
                String p[]=imageurl.split("/");
-               String pathname=p[p.length-1];//今天写到这里  明天记得登录 关联那几个 静态变量
+               final String pathname=p[p.length-1];//今天写到这里  明天记得登录 关联那几个 静态变量
+Log.e("pathname",pathname);
+if (pathname=="001"){
+    ThreadUtil.execute(new ThreadUtil.CallBack() {
+        @Override
+        public void exec() {
+
+        }
+
+        @Override
+        public void run() {
+            FtpUtil.ftpInit("192.168.1.102","21","root","123456");
+            FtpUtil.uploadFile(imageurl,pathname);
+        }
+    });
+}     //ftp模块 就不传了
+
                 break;
             case R.id.imageView:
                 //拍照
@@ -176,7 +197,7 @@ public class IntellActivity extends BaseActivity implements View.OnClickListener
         int columnWidth = dm.widthPixels / 2;
         return columnWidth;
     }
-    private    void fileDelete(String path) {
+    private  void fileDelete(String path) {
 
         File dir = new File(path);
         if (dir.exists()) {

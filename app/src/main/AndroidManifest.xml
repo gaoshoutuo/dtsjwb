@@ -97,14 +97,12 @@
         <activity
             android:name=".Activity.NotifyActivity"
             android:label="@string/title_activity_notify" />
-        <activity android:name=".Activity.UpsFixActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-
-            />
-        <activity android:name=".Activity.IntellActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            ></activity>
-
+        <activity
+            android:name=".Activity.UpsFixActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activity.IntellActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -115,6 +113,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <activity android:name=".Activity.SignActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            ></activity>
     </application>
 
 </manifest>

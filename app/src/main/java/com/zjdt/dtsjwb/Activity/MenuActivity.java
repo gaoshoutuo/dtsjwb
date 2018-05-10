@@ -11,6 +11,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,8 @@ import com.zjdt.dtsjwb.Util.DialogUtil;
 import com.zjdt.dtsjwb.Util.JsonUtil;
 import com.zjdt.dtsjwb.Util.PermissonUtil;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -87,8 +90,17 @@ public class MenuActivity extends AppCompatActivity {
 
         gridView.setAdapter(menuAdapter);
         startService(new Intent(this, NotificationService.class));
+        File pf=AppApplication.getApp().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getParentFile();
+        File file=new File(pf.getAbsolutePath()+"/"+"wbdir");
 
-
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+                Log.e("newfile",file.getAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void initView() {

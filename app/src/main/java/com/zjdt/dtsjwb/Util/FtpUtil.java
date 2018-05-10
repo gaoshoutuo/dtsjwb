@@ -96,11 +96,13 @@ public class FtpUtil {
      */
 
 
-    private static void uploadFile(String filename) {
+    public static void uploadFile(String filename,String filepath) {
         FileInputStream fiss = null;
             try {
-                fiss = new FileInputStream(new File(filename));
-                ftpClient.storeFile(filename, fiss);
+                fiss = new FileInputStream(filename);//这里多此一举 不要file
+               // ftpClient.enterLocalPassiveMode();
+              boolean istrue=  ftpClient.storeFile(filepath, fiss);
+              Log.e("upload",istrue+"");
                 //   Log.e("workd",ftpClient.printWorkingDirectory());
                 fiss.close();
             } catch (FileNotFoundException e) {
@@ -114,7 +116,7 @@ public class FtpUtil {
      * 下载
      * 这中间必然修改workdir
      */
-    private static void downloadFile(String filename){
+    public static void downloadFile(String filename){
         FileOutputStream out=null;
         try {
             out = new FileOutputStream(new File(filename));

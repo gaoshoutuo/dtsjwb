@@ -157,7 +157,7 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
 
 
             case R.id.test_update:
-                ThreadUtil.execute(new ThreadUtil.CallBack() {
+             /*   ThreadUtil.execute(new ThreadUtil.CallBack() {
                     @Override
                     public void exec() {
 
@@ -175,7 +175,10 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
 
                         SocketUtil.sendMessageAdd("192.168.1.102",3333,jsonObject.toString());
                     }
-                });
+                });*/
+                actionActivity(FixHistoryTestActivity.this,SignActivity.class,null);
+
+
                 break;
                 default:break;
         }
