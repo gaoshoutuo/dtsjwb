@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="新风子系统"
+            android:textColor="#000"
+            />
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/emi_head1"
+            layout="@layout/head_layout"
+            ></include>
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/emi_body1"
+            layout="@layout/body_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/emi_head2"
+            layout="@layout/head_layout"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/emi_body2"
+            layout="@layout/body_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <!-- 其实我想说 这就是view
+        fragment 四会不持有view
+        这个地方的数据结构可以精简 可以把 两个include 放到一个item里面 recyclerview 这样 到底包几层的问题 包太多层 可能只会有我理解
+        必须 recycler 因为要滑动填写
+        -->
+
+
+
+        <!--
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#aaa"
+                ></View>-->
+    </LinearLayout>
+</ScrollView>

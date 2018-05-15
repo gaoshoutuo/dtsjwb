@@ -206,6 +206,7 @@ public class MenuActivity extends AppCompatActivity {
                         MenuActivity.this.startActivity(intent);
                     } else if ((map.get("au").equals("2"))) {
                         Toast.makeText(MenuActivity.this, "xiaoyu", Toast.LENGTH_SHORT).show();
+                        actionActivity(MenuActivity.this,CAssetsRActivity.class,null);
                     }
                     break;
                 case 2:

@@ -1,15 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.CAssetsRActivity">
+    android:orientation="vertical"
+    android:background="#FFF">
+
 
     <FrameLayout
+        android:layout_weight="13"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/assit_fragment"
+        android:layout_height="0dp"
+        android:id="@+id/assit_framelayout"
         ></FrameLayout>
+
+    <Button
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/ele_assit"
+        android:text="保存电力系统"
+        />
+    <Button
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/air_assit"
+        android:text="保存空调系统"
+        android:visibility="gone"
+        />
+    <Button
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/emi_assit"
+        android:text="排风系统"
+        android:visibility="gone"
+        />
+    <Button
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/mon_soft_assit"
+        android:text="机房监控软件"
+        android:visibility="gone"
+        />
+    <Button
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/mon_soft_interface"
+        android:text="机房软件接口"
+        android:visibility="gone"
+        />
+    <Button
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/mon_soft_hardware"
+        android:text="机房硬件"
+        android:visibility="gone"
+        />
+    <Button
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/mon_soft_ac"
+        android:text="机房门禁"
+        android:visibility="gone"
+        />
+    <Button
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/mon_video"
+        android:text="机房视频监控"
+        android:visibility="gone"
+        />
+    <Button
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/mon_cabient"
+        android:text="机房机柜"
+        android:visibility="gone"
+        />
 
 </LinearLayout>

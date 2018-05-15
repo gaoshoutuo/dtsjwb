@@ -20,6 +20,8 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="8"
+            android:hint="给机房命个名把"
+            android:background="#eee"
             />
     </LinearLayout>
 
