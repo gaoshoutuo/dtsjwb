@@ -15,13 +15,8 @@
             android:text="机架式ups主机"
             android:textColor="#000"
             android:gravity="center"
-            android:maxLines="3"/>
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="8"
-            android:hint="给机房命个名把"
-            android:background="#eee"
+            android:maxLines="3"
+            android:id="@+id/d_name"
             />
     </LinearLayout>
 

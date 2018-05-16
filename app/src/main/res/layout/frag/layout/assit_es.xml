@@ -10,14 +10,29 @@
         android:layout_height="wrap_content"
         android:background="#FFF"
         android:orientation="vertical">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="电力子系统"
         android:textColor="#000"
+        android:layout_weight="1"
         />
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/idc_num_ok"
+        android:hint="给你的机房起个名把"
+        android:layout_weight="1"
+        />
+
+</LinearLayout>
+
     <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
