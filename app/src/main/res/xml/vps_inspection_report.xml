@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:android="http://schemas.android.com/apk/res/android">
+    <name class="100">客户资料</name>
+    <name class="001">客户名称</name>
+    <name class="002">联系人</name>
+    <name class="003">电话</name>
+    <name class="004">地址</name>
+
+    <name class="200">产品信息</name>
+
+    <name class="005">设备品牌</name>
+    <name class="006">型号</name>
+    <name class="007">功率</name>
+    <name class="008">工作模式</name>
+    <name class="009">条码</name>
+    <name class="010">工作方式</name>
+
+    <name class="300">电池参数</name>
+    <name class="011">电池品牌</name>
+    <name class="012">电池型号</name>
+    <name class="013">电池数量</name>
+    <name class="014">电池组数</name>
+    <name class="015">电池电压</name>
+
+    <name class="016">充电电压</name>
+    <name class="017">充电电流</name>
+    <name class="018">电池编号</name>
+    <name class="019">使用时间</name>
+    <name class="020">是否需要更换</name>
+    <name class="021">电池状态</name>
+
+    <name class="400">电气环境参数</name>
+
+    <name class="022">输入空开</name>
+    <name class="023">输入电缆</name>
+    <name class="024">零地电压</name>
+    <name class="025">符合要求</name>
+    <name class="026">机房温度</name>
+    <name class="027">机房湿度</name>
+
+    <name class="028">机房卫生</name>
+    <name class="029">符合要求</name>
+    <name class="030">输入电压</name>
+
+    <name class="500">运行参数</name>
+    <name class="031">旁路电压</name>
+    <name class="032">输出电压</name>
+    <name class="033">输入电流</name>
+    <name class="034">输出电流</name>
+    <name class="035">频率</name>
+
+    <name class="600">功能测试</name>
+
+    <name class="036">面板显示</name>
+    <name class="037">历史记录</name>
+    <name class="038">市电逆变</name>
+    <name class="039">市电旁路</name>
+    <name class="040">电池逆变</name>
+    <name class="041">紧急关机</name>
+    <name class="042">维修旁路</name>
+    <name class="043">告警显示</name>
+
+    <name class="700">硬件检测</name>
+
+
+    <name class="044">检视所有主控板电气连接是否安全可靠</name>
+    <name class="045">检视输入/输出端子、螺栓、螺帽紧固性</name>
+    <name class="046">检查UPS系统输入、输出空开容量是否符合规格</name>
+    <name class="047">检查风扇运行状况，机内变压器、散热器等散热环境和通道情况</name>
+    <name class="048">检查器件、电缆等是否有损坏、老化、过热情况</name>
+    <name class="049">检查所有滤波电容外观、紧固和泄漏情况</name>
+    <name class="048">检查UPS运行环境(灰尘、温度、湿度等)是否符合要求</name>
+    <name class="049">检查电池机房内有无易燃、易爆、腐蚀性的物品或其它杂物</name>
+
+    <name class="050">巡检结论</name>
+    <name class="051">用户意见</name>
+    <name class="052">工程师签字</name>
+    <name class="053">客户签字</name>
+    <name class="054">单位名称</name>
+    <name class="055">日期</name>
+</root>
+<!--为啥要写成文件 而不是内存数组这样直观呢   复杂了-->

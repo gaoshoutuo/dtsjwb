@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:android="http://schemas.android.com/apk/res/android">
+    <name class="001">电池品牌:</name>
+    <name class="002">电池型号:</name>
+    <name class="003">电池容量:</name>
+    <name class="004">电池组电压:</name>
+    <name class="005">充电状态：</name>
+    <name class="006">充电电流</name>
+    <name class="007">过程</name>
+    <name class="008">放电过程</name>
+    <name class="009">充电过程</name>
+    <name class="010">时间</name>
+    <name class="011">电流</name>
+    <name class="012">电池编号</name>
+    <name class="013">内阻</name>
+    <name class="014">电压</name>
+    <name class="015">电压</name>
+
+    <name class="016">1#</name>
+    <name class="017">总结:</name>
+    <name class="018">检测单位:</name>
+    <name class="019">用户签字:</name>
+    <name class="020">工程师:</name>
+    <name class="021">检测时间:</name>
+    <name class="022">电压</name>
+    <name class="023">电压</name>
+
+</root>
+<!--为啥要写成文件 而不是内存数组这样直观呢   复杂了-->
