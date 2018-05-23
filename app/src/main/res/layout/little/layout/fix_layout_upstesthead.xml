@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#fff">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_weight="2"
+            android:text="电池品牌 电池型号 电池容量"
+            android:textColor="#000"
+            android:gravity="center"
+            android:maxLines="3"
+            android:id="@+id/d_name"
+            />
+<!-- 本来还需要添加一个 41模块 但是hint足以说明一切不想弄了 从不如就精简为叫做31模型-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:id="@+id/ups_test_head1"
+            android:hint="电池品牌"
+            />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:id="@+id/ups_test_head2"
+            android:hint="电池型号"
+            />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:id="@+id/ups_test_head3"
+            android:hint="电池容量"
+            />
+    </LinearLayout>
+
+</LinearLayout>

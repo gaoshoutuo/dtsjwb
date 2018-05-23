@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#fff">
+    <!--设置一种固定格式的填写   拆分excel表元素 重装 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="2"
+            android:text="故障现象"
+            android:textColor="#000"
+            android:gravity="center"
+            android:id="@+id/ups_fix_four_text"
+            />
+        <EditText
+            android:layout_weight="8"
+            android:id="@+id/ups_fix_error_phon"
+            android:layout_width="0dp"
+            android:layout_height="80dp" />
+    </LinearLayout>
+
+    <!--本想多个include 算了节约代码量还是从了吧-->
+
+</LinearLayout>

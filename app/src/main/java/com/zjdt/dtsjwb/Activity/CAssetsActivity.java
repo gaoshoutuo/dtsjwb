@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class CAssetsActivity extends BaseActivity {
     /**
-     * 总之打开这个activity 确实就是打开资产列表  设置一个true或者false 来开关 listener
+     * 总之打开这个activity 确实就是打开资产列表  设置一个true或者false 来开关 listener 不同角色打开 会有 折旧  保修维修 这些属性的不同
      * @param savedInstanceState
      */
     private boolean isOpen=false;

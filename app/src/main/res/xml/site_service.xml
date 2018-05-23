@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 现场服务-->
-<root xmlns:android="http://schemas.android.com/apk/res/android">
+<root >
     <name class="001">客户名称</name>
     <name class="002">联系人</name>
     <name class="003">电话</name>

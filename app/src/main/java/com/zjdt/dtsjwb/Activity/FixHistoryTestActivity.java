@@ -15,6 +15,7 @@ import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.Algorithm;
 import com.zjdt.dtsjwb.Util.DatabaseUtil;
 import com.zjdt.dtsjwb.Util.FtpUtil;
+import com.zjdt.dtsjwb.Util.ParseXml;
 import com.zjdt.dtsjwb.Util.PopWindowUtil;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
 
@@ -23,7 +24,9 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
@@ -176,9 +179,39 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                         SocketUtil.sendMessageAdd("192.168.1.102",3333,jsonObject.toString());
                     }
                 });*/
-                actionActivity(FixHistoryTestActivity.this,SignActivity.class,null);
-
-
+               // actionActivity(FixHistoryTestActivity.this,SignActivity.class,null);
+                ParseXml parseXml=new ParseXml();
+                String xmlData=
+                        "<root >\n" +
+                                "    <name class=\"001\">客户名称</name>\n" +
+                                "    <name class=\"002\">联系人</name>\n" +
+                                "    <name class=\"003\">电话</name>\n" +
+                                "    <name class=\"004\">地址</name>\n" +
+                                "    <name class=\"005\">服务现象</name>\n" +
+                                "    <name class=\"014\">故障现象</name>\n" +
+                                "    <name class=\"015\">故障处理</name>\n" +
+                                "    <name class=\"016\">维修结果</name>\n" +
+                                "    <name class=\"017\">维修费用</name>\n" +
+                                "    <name class=\"018\">维保</name>\n" +
+                                "    <name class=\"019\">保修期内</name>\n" +
+                                "    <name class=\"020\">保修期外</name>\n" +
+                                "    <name class=\"021\">人工费</name>\n" +
+                                "    <name class=\"022\">材料费</name>\n" +
+                                "    <name class=\"023\">差旅费</name>\n" +
+                                "    <name class=\"024\">运输费</name>\n" +
+                                "    <name class=\"025\">合计</name>\n" +
+                                "    <name class=\"026\">维护建议</name>\n" +
+                                "    <name class=\"027\">用户意见</name>\n" +
+                                "    <name class=\"028\">工程师签字</name>\n" +
+                                "    <name class=\"029\">客户签字</name>\n" +
+                                "    <name class=\"030\">单位</name>\n" +
+                                "    <name class=\"031\">日期</name>\n" +
+                                "\n" +
+                                "    </root>";
+                String xmlD="";
+                //InputStreamReader is=new InputStreamReader(new FileInputStream(R.xml.air_condition_inspection));
+               String d= parseXml.parseXMLWithPull(xmlData,"031");
+                Log.e("西溪湿地",d);
                 break;
                 default:break;
         }

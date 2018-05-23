@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="ups巡检"
+            android:textColor="#000"
+            />
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_1"
+            layout="@layout/fix_body_layout"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_2"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_3"
+            layout="@layout/fix_body_layout"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_4"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_5"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_6"
+            layout="@layout/fix_body_layout"
+            ></include>
+
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_7"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_8"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_9"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+
+
+
+
+
+
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_10"
+            layout="@layout/fix_body_layout"
+            ></include>
+
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_11"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_12"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_13"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+
+
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_14"
+            layout="@layout/fix_body_layout"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_15"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_16"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_17"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_18"
+            layout="@layout/fix_body_layout"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_19"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_20"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_21"
+            layout="@layout/fix_body_layout"
+            ></include>
+
+    </LinearLayout>
+</ScrollView>
