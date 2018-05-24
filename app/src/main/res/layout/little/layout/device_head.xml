@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#fff">
+    <!--设置一种固定格式的填写   拆分excel表元素 重装 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="2"
+            android:text="客户名称"
+            android:textColor="#000"
+            android:gravity="center"
+
+            />
+        <EditText
+            android:layout_weight="8"
+            android:id="@+id/custom_name_site"
+            android:layout_width="0dp"
+            android:layout_height="30dp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#aaa"
+        ></View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="2"
+            android:text="联系人"
+            android:textColor="#000"
+            android:gravity="center"
+            />
+        <EditText
+            android:layout_weight="8"
+            android:id="@+id/custom_contact_site"
+            android:layout_width="0dp"
+            android:layout_height="30dp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#aaa"
+        ></View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="2"
+            android:text="电话"
+            android:textColor="#000"
+            android:gravity="center"
+            />
+        <EditText
+            android:layout_weight="8"
+            android:id="@+id/custom_phone_site"
+            android:layout_width="0dp"
+            android:layout_height="30dp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#aaa"
+        ></View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="2"
+            android:text="地址"
+            android:textColor="#000"
+            android:gravity="center"
+            />
+        <EditText
+            android:layout_weight="8"
+            android:id="@+id/custom_location_site"
+            android:layout_width="0dp"
+            android:layout_height="30dp" />
+    </LinearLayout>
+
+    <!--本想多个include 算了节约代码量还是从了吧-->
+
+</LinearLayout>

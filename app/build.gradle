@@ -26,6 +26,7 @@ android {
         main {
             res.srcDirs =
                     [
+                            'src/main/res/layout/fix',
                             'src/main/res/layout/frag',
                             'src/main/res/layout/little',
                             'src/main/res/layout',
