@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="空调子系统"
+            android:text="ups检测"
             android:textColor="#000"
             />
         <include

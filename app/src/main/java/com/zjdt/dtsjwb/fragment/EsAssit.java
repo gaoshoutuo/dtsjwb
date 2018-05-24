@@ -393,7 +393,5 @@ public class EsAssit extends Fragment {
 
         putJsonArray(R.id.cabient_body15);
     }
-
-
     //不是碎片不持有view  而是应该从编程语言的角度来考虑 对象它有没有在这里面实例化过
 }

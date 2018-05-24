@@ -1,5 +1,6 @@
 package com.zjdt.dtsjwb.Util;
 
+import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.util.Log;
 
@@ -17,6 +18,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,7 +31,7 @@ public class ParseXml {
      *
      */
 
-    public String parseXMLWithPull(String xmlData,String type){
+    public static String parseXMLWithPull(String xmlData,String type){
        long time1= System.currentTimeMillis();
         try {
             XmlPullParserFactory factory=XmlPullParserFactory.newInstance();
@@ -177,5 +179,30 @@ public class ParseXml {
 
         }
     };
+
+    private static String getXml(Resources resources, int rid){
+        StringBuilder sb=new StringBuilder();
+        //getResources().getXml(rid).get;
+        try {
+            // InputStreamReader is=new InputStreamReader(new FileInputStream(new File("/xml/air")));
+
+            InputStream is=resources.openRawResource(rid);
+            //InputStreamReader isr=new InputStreamReader(is);
+            int len=-1;
+            byte[] by=new byte[1024];
+            while ((len=is.read(by))!=-1){
+                String str=new String(by,0,len);
+                sb.append(str);
+            }
+
+
+            is.close();
+            //   isr.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.e("解析这个文件",sb.toString());
+        return sb.toString();
+    }
 
 }
