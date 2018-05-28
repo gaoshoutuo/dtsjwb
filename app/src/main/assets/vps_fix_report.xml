@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <name class="001">客户名称</name>
+    <name class="002">联系人</name>
+    <name class="003">电话</name>
+    <name class="004">地址</name>
+    <name class="005">设备品牌</name>
+    <name class="006">型号</name>
+    <name class="007">功率</name>
+    <name class="008">设备编号</name>
+    <name class="009">工作模式</name>
+    <name class="010">故障时间</name>
+    <name class="011">维修时间</name>
+    <name class="012">故障定位</name>
+    <name class="013">故障分析</name>
+    <name class="014">故障现象</name>
+    <name class="015">故障处理</name>
+
+    <name class="016">维修结果</name>
+    <name class="017">维修费用</name>
+    <name class="018">维保</name>
+    <name class="019">保修期内</name>
+    <name class="020">保修期外</name>
+    <name class="021">人工费</name>
+    <name class="022">材料费</name>
+    <name class="023">差旅费</name>
+
+    <name class="024">运输费</name>
+    <name class="025">合计</name>
+    <name class="026">维护建议</name>
+    <name class="027">用户意见</name>
+    <name class="028">工程师签字</name>
+    <name class="029">客户签字</name>
+    <name class="030">单位</name>
+    <name class="031">日期</name>
+
+    </root>
+<!--为啥要写成文件 而不是内存数组这样直观呢   复杂了-->
