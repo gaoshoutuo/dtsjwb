@@ -82,7 +82,7 @@
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ups_body_66"
+            android:id="@+id/ups_body_6"
             layout="@layout/fix_layout_upstest_body_group"
             ></include>
 

@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.zjdt.dtsjwb.NetUtil.OkhttpUtil;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
-import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.R ;
 import com.zjdt.dtsjwb.Util.Algorithm;
 import com.zjdt.dtsjwb.Util.DatabaseUtil;
 import com.zjdt.dtsjwb.Util.FtpUtil;
@@ -210,8 +210,16 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                                 "    </root>";
                 String xmlD="";
                 //InputStreamReader is=new InputStreamReader(new FileInputStream(R.xml.air_condition_inspection));
-               String d= parseXml.parseXMLWithPull(xmlData,"031");
-                Log.e("西溪湿地",d);
+               String d= ParseXml.parseXMLWithPull(xmlData,"031");
+              /* String []l=new String[]{"002","005","021","030"
+               };
+               String k=ParseXml.parseXMLWithPullArray(xmlData,l);
+                Log.e("西溪湿地",k);
+*/
+
+                //
+              /* String str= ParseXml.getFileString(getResources(),"site_install.xml");
+                Log.e("西溪湿地",str+"123");*/
                 break;
                 default:break;
         }

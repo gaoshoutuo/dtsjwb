@@ -5,7 +5,7 @@ import android.content.res.XmlResourceParser;
 import android.util.Log;
 
 import com.zjdt.dtsjwb.App.AppApplication;
-import com.zjdt.dtsjwb.R;
+
 
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
@@ -17,6 +17,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -47,8 +48,6 @@ public class ParseXml {
                     if (type.equals(xmlPullParser.getAttributeValue(null,"class"))){
                         long time2= System.currentTimeMillis()-time1;
                         Log.e("解析时间",time2+"");//存在中间null 需要保证两种模式 start_tag end_tag
-                        XmlResourceParser xmlResourceParser= AppApplication.getApp().getResources().getXml(R.xml.air_condition_inspection);
-                       Log.e("解析时间",xmlResourceParser.toString());
                         return xmlPullParser.nextText();
                     }
 
@@ -64,6 +63,47 @@ public class ParseXml {
         return null;
 
     }
+
+
+    public static String parseXMLWithPullArray(String xmlData,String[] type){
+        long time1= System.currentTimeMillis();
+        try {
+            XmlPullParserFactory factory=XmlPullParserFactory.newInstance();
+            XmlPullParser xmlPullParser=factory.newPullParser();
+            xmlPullParser.setInput(new StringReader(xmlData));
+            int eventtype=xmlPullParser.getEventType();
+            int i=0;
+            StringBuilder sb=new StringBuilder();
+            while (eventtype!=xmlPullParser.END_DOCUMENT){
+                String nodename=xmlPullParser.getName();
+                //Log.e("西溪湿地",nodename+"1");
+                if ("name".equals(nodename)){
+                    //Log.e("西溪湿地",xmlPullParser.getAttributeValue(null,"class")+"--------");
+                    if (type[i].equals(xmlPullParser.getAttributeValue(null,"class"))){
+                      /*  long time2= System.currentTimeMillis()-time1;
+                        Log.e("解析时间",time2+"");//存在中间null 需要保证两种模式 start_tag end_tag
+                        XmlResourceParser xmlResourceParser= AppApplication.getApp().getResources().getXml(R.xml.air_condition_inspection);
+                        Log.e("解析时间",xmlResourceParser.toString());*/
+                            sb.append(xmlPullParser.nextText());
+                            i++;
+                    }
+
+                }
+                xmlPullParser.next();
+                if(i>=type.length)
+                return sb.toString();
+
+            }
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
 
     /**
      * sax
@@ -180,7 +220,7 @@ public class ParseXml {
         }
     };
 
-    private static String getXml(Resources resources, int rid){
+    public static String getXml(Resources resources, int rid){
         StringBuilder sb=new StringBuilder();
         //getResources().getXml(rid).get;
         try {
@@ -202,6 +242,28 @@ public class ParseXml {
             e.printStackTrace();
         }
         Log.e("解析这个文件",sb.toString());
+        return sb.toString();
+    }
+    //上面那个可能不行  而且以后的本项目不用xml了  用json 放assit文件夹下
+
+    public static String getFileString(Resources resources,String filename){
+        StringBuilder sb= new StringBuilder();
+        try {
+            InputStream is = resources.getAssets()
+                    .open(filename);
+
+            int len=0;
+            byte []bytes=new byte[8000];
+
+            while ((len=is.read(bytes))!=-1){
+                sb.append(new String(bytes,0,len));
+            }
+            is.close();
+
+            //Bitmap bm = BitmapFactory.decodeStream(bis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return sb.toString();
     }
 

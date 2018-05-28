@@ -15,7 +15,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:text="电池组编号 例如1# 这个自己拼字符串"
-
+            android:id="@+id/ups_body_h"
             />
         <EditText
             android:layout_weight="1"
@@ -39,7 +39,7 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:hint="前"
+            android:hint="前电压 /v"
             android:id="@+id/ups_group_unchar_vol1"
             />
 
@@ -47,14 +47,14 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:hint="中"
+            android:hint="中电压 /v"
             android:id="@+id/ups_group_unchar_vol2"
             />
         <EditText
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:hint="后"
+            android:hint="后电压 /v"
             android:id="@+id/ups_group_unchar_vol3"
             />
 
@@ -76,7 +76,7 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:hint="前"
+            android:hint="前电压 /v"
             android:id="@+id/ups_group_ec_vol1"
             />
 
@@ -84,14 +84,14 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:hint="中"
+            android:hint="中电压 /v"
             android:id="@+id/ups_group_ec_vol2"
             />
         <EditText
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:hint="后"
+            android:hint="后电压 /v"
             android:id="@+id/ups_group_ec_vol3"
             />
 

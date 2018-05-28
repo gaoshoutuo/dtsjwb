@@ -114,9 +114,15 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".Activity.SignActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            ></activity>
+        <activity
+            android:name=".Activity.SignActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".Activity.TestFixInspection.FixUpsActivity" />
+        <activity android:name=".Activity.TestFixInspection.FixAirActivity" />
+        <activity android:name=".Activity.TestFixInspection.InsUpsActivity" />
+        <activity android:name=".Activity.TestFixInspection.InsAirActivity" />
+        <activity android:name=".Activity.TestFixInspection.TestUpsActivity" />
+        <activity android:name=".Activity.TestFixInspection.TestAirActivity"></activity>
     </application>
 
 </manifest>
