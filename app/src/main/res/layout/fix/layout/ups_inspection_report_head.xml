@@ -164,6 +164,24 @@
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_17_5"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fix_inspection_17_6"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+
+
+
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/fix_inspection_18"
             layout="@layout/fix_body_layout"
             ></include>
@@ -182,12 +200,7 @@
             layout="@layout/fix_body_layout_4"
             ></include>
 
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/fix_inspection_21"
-            layout="@layout/fix_body_layout"
-            ></include>
+
 
     </LinearLayout>
 </ScrollView>

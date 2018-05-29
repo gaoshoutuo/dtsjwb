@@ -16,14 +16,16 @@
     <name class="010">工作方式</name>
 
     <name class="300">电池参数</name>
+
     <name class="011">电池品牌</name>
     <name class="012">电池型号</name>
     <name class="013">电池数量</name>
+
     <name class="014">电池组数</name>
     <name class="015">电池电压</name>
-
     <name class="016">充电电压</name>
     <name class="017">充电电流</name>
+
     <name class="018">电池编号</name>
     <name class="019">使用时间</name>
     <name class="020">是否需要更换</name>
@@ -33,20 +35,39 @@
 
     <name class="022">输入空开</name>
     <name class="023">输入电缆</name>
+    <name class="222">输出空开</name>
+    <name class="223">输出电缆</name>
+
     <name class="024">零地电压</name>
     <name class="025">符合要求</name>
+
     <name class="026">机房温度</name>
     <name class="027">机房湿度</name>
-
     <name class="028">机房卫生</name>
     <name class="029">符合要求</name>
-    <name class="030">输入电压</name>
 
     <name class="500">运行参数</name>
-    <name class="031">旁路电压</name>
-    <name class="032">输出电压</name>
-    <name class="033">输入电流</name>
-    <name class="034">输出电流</name>
+
+    <name class="430">输入电压AC</name>
+    <name class="431">输入电压BC</name>
+    <name class="432">输入电压CA</name>
+
+    <name class="530">旁路电压AN</name>
+    <name class="531">旁路电压BN</name>
+    <name class="532">旁路电压CN</name>
+
+    <name class="630">输出电压AN</name>
+    <name class="631">输出电压BN</name>
+    <name class="632">输出电压CN</name>
+
+    <name class="730">输入电流A</name>
+    <name class="731">输入电流B</name>
+    <name class="732">输入电流C</name>
+
+    <name class="830">输出电流A</name>
+    <name class="831">输出电流B</name>
+    <name class="832">输出电流C</name>
+
     <name class="035">频率</name>
 
     <name class="600">功能测试</name>
@@ -55,6 +76,7 @@
     <name class="037">历史记录</name>
     <name class="038">市电逆变</name>
     <name class="039">市电旁路</name>
+
     <name class="040">电池逆变</name>
     <name class="041">紧急关机</name>
     <name class="042">维修旁路</name>
@@ -62,7 +84,7 @@
 
     <name class="700">硬件检测</name>
 
-
+    <name class="888">空</name>
     <name class="044">检视所有主控板电气连接是否安全可靠</name>
     <name class="045">检视输入/输出端子、螺栓、螺帽紧固性</name>
     <name class="046">检查UPS系统输入、输出空开容量是否符合规格</name>

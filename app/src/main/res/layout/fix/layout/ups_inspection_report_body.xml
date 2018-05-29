@@ -46,7 +46,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:id="@+id/ups_test_engineer_sign"
+            android:id="@+id/ups_ins_engineer_sign"
             android:text="工程师签名"
             />
 
@@ -58,7 +58,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:id="@+id/ups_test_custom_sign"
+            android:id="@+id/ups_ins_custom_sign"
             android:text="提醒客户签名及意见"
             />
 

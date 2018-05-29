@@ -4,7 +4,8 @@
     <name class="002">联系人</name>
     <name class="003">电话</name>
     <name class="004">地址</name>
-    <name class="005">设备品牌</name>
+    <name class="055">类型</name>
+    <name class="005">品牌</name>
     <name class="006">型号</name>
     <name class="007">功率</name>
     <name class="008">设备编号</name>

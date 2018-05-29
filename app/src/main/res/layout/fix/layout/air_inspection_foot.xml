@@ -36,23 +36,10 @@
             android:id="@+id/air_inspection_f_3"
             layout="@layout/fix_body_layout_4"
             ></include>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#aaa"
-            ></View>
-
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/air_inspection_f_4"
-            layout="@layout/fix_body_layout"
-            ></include>
-
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/air_inspection_f_5"
             layout="@layout/fix_body_layout_4"
             ></include>
         <View
@@ -61,6 +48,51 @@
             android:background="#aaa"
             ></View>
 
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_inspection_f_5"
+            layout="@layout/fix_body_layout"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_inspection_f_6"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_inspection_f_7"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_inspection_f_8"
+            layout="@layout/fix_body_layout"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_inspection_f_9"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

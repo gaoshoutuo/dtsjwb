@@ -10,15 +10,17 @@
     <name class="005">设备品牌</name>
     <name class="006">型号</name>
     <name class="007">功率</name>
-    <name class="008">设备编号</name>
-    <name class="009">工作模式</name>
+    <name class="008">系统模式</name>
+
+    <name class="009">条码</name>
+    <name class="099">送风方式</name>
 
     <name class="010">检测项目</name>
     <name class="011">检测结果</name>
 
     <name class="012">外观</name>
-    <name class="013">门板</name>
-    <name class="014">门锁</name>
+    <name class="013">门板检测</name>
+    <name class="014">门锁检测</name>
 
     <name class="015">控制系统</name>
     <name class="016">按键和报警</name>
@@ -30,10 +32,13 @@
     <name class="020">风机系统</name>
     <name class="021">风机相序</name>
     <name class="022">过滤网</name>
+
     <name class="023">风机皮带</name>
     <name class="024">风机1电流</name>
+
     <name class="025">风机轴承</name>
     <name class="026">风机2电流</name>
+
     <name class="027">风机接触器</name>
     <name class="028">风机3电流</name>
 
@@ -42,17 +47,19 @@
     <name class="030">高压压力</name>
     <name class="031">冷凝器</name>
     <name class="032">低压压力</name>
+
     <name class="033">膨胀阀</name>
     <name class="034">压缩机电流</name>
+
     <name class="035">电磁阀</name>
     <name class="036">外风机电流</name>
+
     <name class="037">液镜显示</name>
     <name class="038">高压保护设定值</name>
     <name class="039">冷冻油油位</name>
     <name class="040">低压保护设定值</name>
 
     <name class="400">制冷系统2</name>
-    <name class="500">加湿系统</name>
 
     <name class="041">加湿上水</name>
     <name class="042">加湿蒸汽管</name>
@@ -63,7 +70,7 @@
     <name class="047">红外线加湿灯管</name>
     <name class="048">红外线加湿托盘</name>
 
-
+    <name class="500">加湿系统</name>
     <name class="600">加热系统</name>
     <name class="700">除湿排水</name>
     <name class="049">加热开关</name>
@@ -84,7 +91,7 @@
     <name class="062">客户意见</name>
     <name class="063">签字</name>
     <name class="064">日期</name>
-
+    <name class="888">空</name>
 
     </root>
 <!--为啥要写成文件 而不是内存数组这样直观呢   复杂了-->

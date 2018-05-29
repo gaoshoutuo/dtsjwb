@@ -5,103 +5,188 @@
     android:orientation="vertical"
     android:background="#fff">
     <!--设置一种固定格式的填写   拆分excel表元素 重装 -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="检视所有主控板电气连接是否安全可靠"
-        android:textColor="#000"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:text="检视所有主控板电气连接是否安全可靠"
+            android:textColor="#000"
+            />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/ins_8_1"
+            />
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#aaa"
         ></View>
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="检视输入/输出端子、螺栓、螺帽紧固性"
-        android:textColor="#000"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:text="检视输入/输出端子、螺栓、螺帽紧固性"
+            android:textColor="#000"
+            />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/ins_8_2"
+            />
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#aaa"
         ></View>
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="检查UPS系统输入、输出空开容量是否符合规格"
-
-        android:textColor="#000"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:text="检查UPS系统输入、输出空开容量是否符合规格"
+            android:textColor="#000"
+            />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/ins_8_3"
+            />
+    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:text="检查风扇运行状况，机内变压器、散热器等散热环境和通道情况 "
+                android:textColor="#000"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/ins_8_4"
+                />
+        </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#aaa"
+                ></View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:text="检查器件、电缆等是否有损坏、老化、过热情况"
+                    android:textColor="#000"
+                    />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/ins_8_5"
+                    />
+            </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#aaa"
         ></View>
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="检查风扇运行状况，机内变压器、散热器等散热环境和通道情况"
-        android:textColor="#000"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:text="检查所有滤波电容外观、紧固和泄漏情况"
+            android:textColor="#000"
+            />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/ins_8_6"
+            />
+
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#aaa"
         ></View>
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="检查器件、电缆等是否有损坏、老化、过热情况"
-        android:textColor="#000"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:text="检查UPS运行环境(灰尘、温度、湿度等)是否符合要求"
+            android:textColor="#000"
+            />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/ins_8_7"
+            />
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#aaa"
         ></View>
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="检查所有滤波电容外观、紧固和泄漏情况"
-        android:textColor="#000"
-        />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#aaa"
-        ></View>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="检查UPS运行环境(灰尘、温度、湿度等)是否符合要求"
-        android:textColor="#000"
-        />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#aaa"
-        ></View>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="检查电池机房内有无易燃、易爆、腐蚀性的物品或其它杂物"
-        android:textColor="#000"
-        />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#aaa"
-        ></View>
-
-
-
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:text="检查电池机房内有无易燃、易爆、腐蚀性的物品或其它杂物 "
+            android:textColor="#000"
+            />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/ins_8_8"
+            />
+    </LinearLayout>
+            </LinearLayout>

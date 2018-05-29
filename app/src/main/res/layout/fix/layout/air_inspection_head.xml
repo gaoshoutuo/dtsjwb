@@ -27,7 +27,7 @@
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/air_inspection_1"
+            android:id="@+id/air_inspection_2"
             layout="@layout/fix_body_layout_4"
             ></include>
         <View
@@ -78,5 +78,19 @@
             android:layout_height="1dp"
             android:background="#aaa"
             ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_inspection_8"
+            layout="@layout/fix_body_layout"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_inspection_9"
+            layout="@layout/fix_body_layout_4"
+            ></include>
     </LinearLayout>
 </ScrollView>

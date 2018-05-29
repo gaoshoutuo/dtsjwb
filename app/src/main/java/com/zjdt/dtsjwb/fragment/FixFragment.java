@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,7 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class FixFragment extends Fragment{
+public class FixFragment extends Fragment implements View.OnClickListener{//upstest
     private View view;
     private int rid;
     private String xmlstr;
@@ -48,16 +49,18 @@ public class FixFragment extends Fragment{
                 break;
 
             case R.layout.ups_test_report_body:
+                initUpsTestBodyView();
                 break;
 
             case R.layout.ups_test_report_foot:
+                initUpsTestFootView();
                 break;
 
 
 
                 default:break;
         }
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return view;
     }
 
     /**
@@ -161,7 +164,10 @@ public class FixFragment extends Fragment{
 
 
     private void initUpsTestFootView(){
-
+       Button button1= view.findViewById(R.id.ups_test_engineer_sign);
+        Button button2= view.findViewById(R.id.ups_test_custom_sign);
+        button1.setOnClickListener(this);
+        button2.setOnClickListener(this);
     }
 
     //ups电池现场维修
@@ -202,6 +208,17 @@ public class FixFragment extends Fragment{
     private void setViewEdit(View view,int rid, String name){
         EditText et=view.findViewById(rid);//如果findviewbyid 也是一次扫描xml的话 能不能一次扫出很多东西类
         et.setHint(name);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ups_test_custom_sign://ups测试工程师签名
+                break;
+            case R.id.ups_test_engineer_sign://ups测试提醒用户签名
+                break;
+                default:break;
+        }
     }
   /*  private View f(View view,int rid){
         return view.findViewById(rid);
