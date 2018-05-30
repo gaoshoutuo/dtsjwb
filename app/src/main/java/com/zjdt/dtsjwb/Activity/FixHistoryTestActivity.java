@@ -220,10 +220,61 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                 //
               /* String str= ParseXml.getFileString(getResources(),"site_install.xml");
                 Log.e("西溪湿地",str+"123");*/
+             String str= FixHistoryTestActivity.this.pieceJsonArray().toString();
+                Log.e("西溪湿地",str+"123");
                 break;
                 default:break;
         }
     }
+
+    public JSONObject pieceJsonArray(){
+        JSONObject jsonObject=new JSONObject();
+        try {
+            jsonObject.put("ups_brand","123");
+            jsonObject.put("ups_type","123");
+            jsonObject.put("ups_cap","123");
+            jsonObject.put("ups_vol","123");
+            jsonObject.put("ups_ec","123");
+            jsonObject.put("ups_status","123");
+
+            JSONObject upsTcha=new JSONObject();
+            upsTcha.put("str1","123");
+            upsTcha.put("str1","123");
+            upsTcha.put("str1","123");
+            jsonObject.put("ups_t_charging",upsTcha);
+
+            JSONObject upsEccha=new JSONObject();
+            upsEccha.put("str1","123");
+            upsEccha.put("str1","123");
+            upsEccha.put("str1","123");
+            jsonObject.put("ups_t_charging",upsEccha);
+
+            JSONObject upscha=new JSONObject();
+            upscha.put("str1","123");
+            upscha.put("str1","123");
+            upscha.put("str1","123");
+            jsonObject.put("ups_t_charging",upscha);
+
+            JSONObject upsDischa=new JSONObject();
+            upsDischa.put("str1","123");
+            upsDischa.put("str1","123");
+            upsDischa.put("str1","123");
+            jsonObject.put("ups_t_charging",upsDischa);
+
+            jsonObject.put("to_sum_up","123");
+            jsonObject.put("test_firm","123");
+            jsonObject.put("custom_sign","123");
+            jsonObject.put("engineer","123");
+            jsonObject.put("test_time","123");
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
 
     /**
      *  fix_send=itemView.findViewById(R.id.send_fix);
