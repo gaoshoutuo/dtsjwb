@@ -125,7 +125,7 @@
             layout="@layout/fix_body_layout_4"
             ></include>
 
-        <View
+   <!--     <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#aaa"
@@ -157,6 +157,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/air_inspection_b_19"
             layout="@layout/fix_body_layout_4"
-            ></include>
+            ></include>-->
     </LinearLayout>
 </ScrollView>

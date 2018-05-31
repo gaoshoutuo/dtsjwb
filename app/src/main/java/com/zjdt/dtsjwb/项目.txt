@@ -73,3 +73,5 @@ popwindow  interface
 
         close(fd);
     }
+
+    //需要有自定义的流程  例如消防 这些吧

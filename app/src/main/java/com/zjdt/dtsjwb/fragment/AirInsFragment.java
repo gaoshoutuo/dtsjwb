@@ -13,10 +13,14 @@ import android.widget.TextView;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.ParseXml;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class AirInsFragment extends Fragment implements View.OnClickListener{
     private int layoutId;
     private View view;
     private String xmlstr;
+    private JSONObject json;
 
     public void setLayoutId(int layoutId) {
         this.layoutId = layoutId;
@@ -163,6 +167,142 @@ public class AirInsFragment extends Fragment implements View.OnClickListener{
         setViewEdit(view1,R.id.inspection_3,type[2]);
         setViewEdit(view1,R.id.inspection_4,type[1]);
     }
+
+
+
+
+
+
+    private void initJson(){
+        json=new JSONObject();
+    }
+
+    private void singleStr(JSONObject json,String jsonKey,String jsonValue){
+        try {
+            json.put(jsonKey,jsonValue);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void singleJson(JSONObject json,String jsonKey,JSONObject jsonValue){
+        try {
+            json.put(jsonKey,jsonValue);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private JSONObject jsonObjMake(String[] edit){//反正str1 str2 这样子
+        JSONObject jsonObject=new JSONObject();
+        //jsonObject.put("str1",edit);
+        for(int i=0;i<edit.length;i++){
+            try {
+                jsonObject.put("hard"+i,edit[i]);//完美  字符串怎么就不行呢
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return jsonObject;
+    }
+
+    public String getEditData(EditText text){//获取 editView 中的文字信息
+        return text.getText().toString();
+    }
+
+    private void initHeadJson(String typ,String []type,int includeId){
+        JSONObject jsonObject=new JSONObject();
+        View view1= getIncludeView(view, includeId);
+        EditText text1= view1.findViewById(R.id.inspection_1);
+        String str1= getEditData(text1);
+        singleStr(jsonObject,type[0],str1);
+
+        EditText text2= view1.findViewById(R.id.inspection_2);
+        String str2= getEditData(text2);
+        singleStr(jsonObject,type[1],str2);
+
+        EditText text3= view1.findViewById(R.id.inspection_3);
+        String str3= getEditData(text3);
+        singleStr(jsonObject,type[2],str3);
+
+        EditText text4= view1.findViewById(R.id.inspection_4);
+        String str4= getEditData(text4);
+        singleStr(jsonObject,type[3],str4);
+
+        singleJson(this.json,typ,jsonObject);
+    }
+
+    /**
+     * {
+     "cus_data":{"custom_name":"123","custom_location":"123","custom_contacts":"123","phone_num":"123"},
+     "product_info_1":{"brand":"123","type":"123","power":"123","pattern":"123","bar_code":"123","word_way":"123"},
+     "product_info_2":{"bar_code":"123","word_way":"123","kong":"123","kong":"123"},
+     "exterior":{"door_plank":"123","door_lock":"123","kong":"123","kong":"123"},
+     "con_sys":{"button_alarm":"","indicator_light":"","display_record":"","menu_set":""},
+     "fan_sys1":{"fan_phase_sequence":"","filter":"","kong":"","kong":""},
+     "fan_sys2":{"fan_belt":"","fan1_ele_1":"","fan1_ele_2":"","fan1_ele_3":""},
+     "fan_sys3":{"fan_bearing":"","fan2_ele_1":"","fan2_ele_2":"","fan2_ele_3":""},
+     "fan_sys4":{"fan_contactor":"","fan3_ele_1":"","fan3_ele_2":"","fan3_ele_3":""},
+     "cold_sys1_1":{"fan_control_type":"","high_pressure":"","condenser":"","low_pressure":""},
+     "cold_sys1_2":{"expansion_valve":"","compressor_current_1":"","compressor_current_2":"","compressor_current_3":""},
+     "cold_sys1_3":{"solenoid_valve":"","external_fan_current_1":"","external_fan_current_2":"","external_fan_current_3":""},
+     "cold_sys1_4":{"liquid_lens_shows":"","high_voltage_protection_settings":"","frozen_oil_level":"","low_voltage_protection_settings":""},
+     "cold_sys2_1":{"fan_control_type":"","high_pressure":"","condenser":"","low_pressure":""},
+     "cold_sys2_2":{"expansion_valve":"","compressor_current_1":"","compressor_current_2":"","compressor_current_3":""},
+     "cold_sys2_3":{"solenoid_valve":"","external_fan_current_1":"","external_fan_current_2":"","external_fan_current_3":""},
+     "cold_sys2_4":{"liquid_lens_shows":"","high_voltage_protection_settings":"","frozen_oil_level":"","low_voltage_protection_settings":""},
+     "hum_sys1":{"humidification_water":"","humidifying_steam_pipe":"","kong":"","kong":""},
+     "hum_sys2":{"drain_solenoid_valve":"","humidification_current_1":"","humidification_current_2":"","humidification_current_3":""},
+     "hum_sys3":{"humidifying_tank_electrode":"","Wet_the_tank":"","infrared_humidifying_lamp_tube":"","infrared_humidifying_tray":""},
+     "warm_sys1":{"the_heating_switch":"","level_of_current_1":"","level_of_current_2":"","level_of_current_3":""},
+     "warm_sys2":{"the_insulation_protection":"","the_secondary_current_1":"","the_secondary_current_2":"","the_secondary_current_3":""},
+     "remove_hum_water":{"dehumidifying_solenoid_valve_status":"","contactor":"","humidifying_drainage":"","condensate_drain":""},
+     "other":{"str1":"","str2":"","str3":"","str4":"","str5":"","str6":"","str7":""}
+     }
+     */
+    private void makeAirInsHeadJson(){
+       // initHeadJson();//1211
+        initHeadJson("cus_data",new String[]{"custom_name","custom_location","custom_contacts","phone_num"},R.id.air_inspection_2);
+
+        initHeadJson("product_info_1",new String[]{"brand","type","power","pattern"},R.id.air_inspection_4);
+        initHeadJson("product_info_2",new String[]{"bar_code","word_way","kong","kong"},R.id.air_inspection_5);
+
+        initHeadJson("exterior",new String[]{"door_plank","door_lock","kong","kong"},R.id.air_inspection_7);
+
+        initHeadJson("con_sys",new String[]{"button_alarm","indicator_light","display_record","menu_set"},R.id.air_inspection_9);
+    }
+
+    private void makeAirInsBodyJson(){//4443
+        initHeadJson("fan_sys1",new String[]{"fan_phase_sequence","filter","kong","kong"},R.id.air_inspection_b_2);
+        initHeadJson("fan_sys2",new String[]{"fan_belt","fan1_ele_1","fan1_ele_2","fan1_ele_3"},R.id.air_inspection_b_3);
+        initHeadJson("fan_sys3",new String[]{"fan_bearing","fan2_ele_1","fan2_ele_2","fan2_ele_3"},R.id.air_inspection_b_4);
+        initHeadJson("fan_sys4",new String[]{"fan_contactor","fan3_ele_1","fan3_ele_2","fan3_ele_3"},R.id.air_inspection_b_5);
+
+        initHeadJson("cold_sys1_1",new String[]{"fan_control_type","high_pressure","condenser","low_pressure"},R.id.air_inspection_b_7);
+        initHeadJson("cold_sys1_2",new String[]{"expansion_valve","compressor_current_1","compressor_current_2","compressor_current_3"},R.id.air_inspection_b_8);
+        initHeadJson("cold_sys1_3",new String[]{"solenoid_valve","external_fan_current_1","external_fan_current_2","external_fan_current_3"},R.id.air_inspection_b_9);
+        initHeadJson("cold_sys1_4",new String[]{"liquid_lens_shows","high_voltage_protection_settings","frozen_oil_level","low_voltage_protection_settings"},R.id.air_inspection_b_10);
+
+        initHeadJson("cold_sys2_1",new String[]{"fan_control_type","high_pressure","condenser","low_pressure"},R.id.air_inspection_b_12);
+        initHeadJson("cold_sys2_2",new String[]{"expansion_valve","compressor_current_1","compressor_current_2","compressor_current_3"},R.id.air_inspection_b_13);
+        initHeadJson("cold_sys2_3",new String[]{"solenoid_valve","external_fan_current_1","external_fan_current_2","external_fan_current_3"},R.id.air_inspection_b_14);
+        initHeadJson("cold_sys2_4",new String[]{"liquid_lens_shows","high_voltage_protection_settings","frozen_oil_level","low_voltage_protection_settings"},R.id.air_inspection_b_15);
+
+
+    }
+
+    private void makeAirInsFootJson(){//321
+        initHeadJson("hum_sys1",new String[]{"humidification_water","humidifying_steam_pipe","kong","kong"},R.id.air_inspection_f_2);
+        initHeadJson("hum_sys2",new String[]{"drain_solenoid_valve","humidification_current_1","humidification_current_2","humidification_current_3"},R.id.air_inspection_f_3);
+        initHeadJson("hum_sys3",new String[]{"humidifying_tank_electrode","wet_the_tank","infrared_humidifying_lamp_tube","infrared_humidifying_tray"},R.id.air_inspection_f_4);
+
+        initHeadJson("warm_sys1",new String[]{"the_heating_switch","level_of_current_1","level_of_current_2","level_of_current_3"},R.id.air_inspection_b_6);
+        initHeadJson("warm_sys2",new String[]{"the_insulation_protection","the_secondary_current_1","the_secondary_current_2","the_secondary_current_3"},R.id.air_inspection_b_7);
+
+        initHeadJson("remove_hum_water",new String[]{"dehumidifying_solenoid_valve_status","contactor","humidifying_drainage","condensate_drain"},R.id.air_inspection_b_9);
+    }
+
 
 
     @Override
