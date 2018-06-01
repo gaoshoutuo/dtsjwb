@@ -27,7 +27,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class UpsTestFragment extends Fragment implements View.OnClickListener{//upstest
-    private JSONObject json;
+    private static JSONObject json;
     private View view;
     private int rid;
     private String xmlstr;
@@ -41,6 +41,10 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
 
     public void setPresentNum(int presentNum) {
         this.presentNum = presentNum;
+    }
+
+    public static String getJsonStr() {
+        return json.toString();
     }
 
     @Nullable
@@ -61,8 +65,6 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
             case R.layout.ups_test_report_foot:
                 initUpsTestFootView();
                 break;
-
-
 
                 default:break;
         }

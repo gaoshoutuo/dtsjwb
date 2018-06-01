@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.TestFixInspection.TestUpsActivity"
+    tools:context=".Activity.TestFixInspection.SiteActivity"
     android:orientation="vertical">
 
     <FrameLayout
         android:layout_weight="9"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/ups_test_frame"
+        android:id="@+id/site_frame"
         ></FrameLayout>
-
-    <Button
-         android:layout_width="match_parent"
-          android:layout_height="0dp"
-      android:layout_weight="1"
-     android:id="@+id/ups_test_button1"
-    android:text="下一页"
-    />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/ups_test_button2"
+        android:id="@+id/site_button1"
+        android:text="下一页"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/site_button2"
         android:text="下一页"
         android:visibility="gone"
         />
@@ -33,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/ups_test_button3"
+        android:id="@+id/site_button3"
         android:text="提交"
         android:visibility="gone"
         />

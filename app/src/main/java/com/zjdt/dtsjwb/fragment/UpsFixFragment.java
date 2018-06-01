@@ -20,11 +20,23 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
     private int viewId;
     private View view;
     private String xmlstr;
-    private JSONObject json;
+    private static JSONObject json;
 
     public void setViewId(int viewId) {
         this.viewId = viewId;
     }
+    public static String getJsonStr() {
+        return json.toString();
+    }
+
+    /**
+     * 写了=蠢代码 前后一致性不够  目前代码行数应该超过10w行了吧
+     * 1 view frame button initview
+     * 2 head body foot setid
+     * 3 click
+     * 4 fragmentTransaction
+     * 5 修改 json static 及获取方式
+     */
 
     @Nullable
     @Override

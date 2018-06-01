@@ -20,7 +20,10 @@ public class SiteFrag extends Fragment implements View.OnClickListener{
     private int layoutId;
     private String xmlstr;
     private View view;
-    private JSONObject json;
+    private static JSONObject json;
+    public static String getJsonStr() {
+        return json.toString();
+    }
 
     public void setLayoutId(int layoutId) {
         this.layoutId = layoutId;
@@ -259,9 +262,6 @@ public class SiteFrag extends Fragment implements View.OnClickListener{
      */
 
     private void initManyJson(){
-        initHeadJson4("cus_data",new String[]{"custom_name","custom_location","custom_contacts","phone_num"},R.id.site_device_i_1);
-
-        initCostJson(R.id.site_device_i_6);
         if(layoutId==R.layout.site_device_install){
             initHeadJson4("cus_data",new String[]{"custom_name","custom_location","custom_contacts","phone_num"},R.id.site_device_i_1);
             initHeadJson("product_info",new String[]{"para","brand","type","power"},R.id.install_edit );
@@ -280,8 +280,6 @@ public class SiteFrag extends Fragment implements View.OnClickListener{
 
             EditText text=view.findViewById(R.id.device_s_sum);
         }
-
-
 
     }
 

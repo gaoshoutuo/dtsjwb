@@ -20,10 +20,13 @@ public class AirInsFragment extends Fragment implements View.OnClickListener{
     private int layoutId;
     private View view;
     private String xmlstr;
-    private JSONObject json;
+    private static JSONObject json;
 
     public void setLayoutId(int layoutId) {
         this.layoutId = layoutId;
+    }
+    public static String getJsonStr() {
+        return json.toString();
     }
 
     @Nullable

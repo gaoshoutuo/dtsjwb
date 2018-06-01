@@ -21,7 +21,10 @@ public class UpsInsFragment extends Fragment implements View.OnClickListener{
     private int layoutId;
     private String xmlstr;
     private View view;
-    private JSONObject json;
+    private static JSONObject json;
+    public static String getJsonStr() {
+        return json.toString();
+    }
 
     public void setLayoutId(int layoutId) {
         this.layoutId = layoutId;
