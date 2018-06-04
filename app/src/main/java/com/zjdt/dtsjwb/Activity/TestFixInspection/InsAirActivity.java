@@ -8,11 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.zjdt.dtsjwb.Activity.BaseActivity;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.fragment.AirInsFragment;
 import com.zjdt.dtsjwb.fragment.UpsFixFragment;
 
-public class InsAirActivity extends AppCompatActivity implements View.OnClickListener{
+public class InsAirActivity extends BaseActivity implements View.OnClickListener{
     /**
      * 写了=蠢代码 前后一致性不够  目前代码行数应该超过10w行了吧
      * 1 view frame button initview

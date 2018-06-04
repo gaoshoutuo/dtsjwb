@@ -9,10 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.zjdt.dtsjwb.Activity.BaseActivity;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.fragment.UpsTestFragment;
 
-public class TestUpsActivity extends AppCompatActivity implements View.OnClickListener{
+public class TestUpsActivity extends BaseActivity implements View.OnClickListener{
 
     //后悔了  应该把所有的fragment 都写到一个 而不是分多个 臃肿就臃肿一点 总比浪费 而且要分心重复那么多要好。  自食恶果了 子类新增的方法 没法多态 即使他们都一样  这是我写的最蠢的代码
 

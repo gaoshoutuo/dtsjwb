@@ -1,6 +1,8 @@
 package com.zjdt.dtsjwb.Activity;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.NetUtil.OkhttpUtil;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R ;
@@ -181,36 +184,37 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                 });*/
                // actionActivity(FixHistoryTestActivity.this,SignActivity.class,null);
                 ParseXml parseXml=new ParseXml();
-                String xmlData=
-                        "<root >\n" +
-                                "    <name class=\"001\">客户名称</name>\n" +
-                                "    <name class=\"002\">联系人</name>\n" +
-                                "    <name class=\"003\">电话</name>\n" +
-                                "    <name class=\"004\">地址</name>\n" +
-                                "    <name class=\"005\">服务现象</name>\n" +
-                                "    <name class=\"014\">故障现象</name>\n" +
-                                "    <name class=\"015\">故障处理</name>\n" +
-                                "    <name class=\"016\">维修结果</name>\n" +
-                                "    <name class=\"017\">维修费用</name>\n" +
-                                "    <name class=\"018\">维保</name>\n" +
-                                "    <name class=\"019\">保修期内</name>\n" +
-                                "    <name class=\"020\">保修期外</name>\n" +
-                                "    <name class=\"021\">人工费</name>\n" +
-                                "    <name class=\"022\">材料费</name>\n" +
-                                "    <name class=\"023\">差旅费</name>\n" +
-                                "    <name class=\"024\">运输费</name>\n" +
-                                "    <name class=\"025\">合计</name>\n" +
-                                "    <name class=\"026\">维护建议</name>\n" +
-                                "    <name class=\"027\">用户意见</name>\n" +
-                                "    <name class=\"028\">工程师签字</name>\n" +
-                                "    <name class=\"029\">客户签字</name>\n" +
-                                "    <name class=\"030\">单位</name>\n" +
-                                "    <name class=\"031\">日期</name>\n" +
+               final String xmlData=
+                        "<root>\n" +
+                                "    <name class=\"001\">电池品牌:</name>\n" +
+                                "    <name class=\"002\">电池型号:</name>\n" +
+                                "    <name class=\"003\">电池容量:</name>\n" +
+                                "    <name class=\"004\">电池组电压:</name>\n" +
+                                "    <name class=\"005\">充电状态：</name>\n" +
+                                "    <name class=\"006\">充电电流</name>\n" +
+                                "    <name class=\"007\">过程</name>\n" +
+                                "    <name class=\"008\">放电</name>\n" +
+                                "    <name class=\"009\">充电</name>\n" +
+                                "    <name class=\"010\">时间</name>\n" +
+                                "    <name class=\"011\">电流</name>\n" +
+                                "    <name class=\"012\">电池编号</name>\n" +
+                                "    <name class=\"013\">内阻</name>\n" +
+                                "    <name class=\"014\">电压</name>\n" +
+                                "    <name class=\"015\">电压</name>\n" +
                                 "\n" +
-                                "    </root>";
+                                "    <name class=\"016\">1#</name>\n" +
+                                "    <name class=\"017\">总结:</name>\n" +
+                                "    <name class=\"018\">检测单位:</name>\n" +
+                                "    <name class=\"019\">用户签字:</name>\n" +
+                                "    <name class=\"020\">工程师:</name>\n" +
+                                "    <name class=\"021\">检测时间:</name>\n" +
+                                "    <name class=\"022\">电压</name>\n" +
+                                "    <name class=\"023\">电压</name>\n" +
+                                "\n" +
+                                "</root>";
                 String xmlD="";
                 //InputStreamReader is=new InputStreamReader(new FileInputStream(R.xml.air_condition_inspection));
-               String d= ParseXml.parseXMLWithPull(xmlData,"031");
+              // String d= ParseXml.parseXMLWithPull(xmlData,"031");
               /* String []l=new String[]{"002","005","021","030"
                };
                String k=ParseXml.parseXMLWithPullArray(xmlData,l);
@@ -220,12 +224,50 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                 //
               /* String str= ParseXml.getFileString(getResources(),"site_install.xml");
                 Log.e("西溪湿地",str+"123");*/
-             String str= FixHistoryTestActivity.this.pieceJsonArray().toString();
+           /*  String str= FixHistoryTestActivity.this.pieceJsonArray().toString();
                 Log.e("西溪湿地",str+"123");
+
+                String []k=ParseXml.parseAndArray(xmlData,new String[]{"001","002","003","004"});
+                Log.e("西溪湿地",k[0]+","+k[1]+","+k[2]+","+k[3]+",");*/
+                long is=System.currentTimeMillis();
+
+
+                ThreadUtil.execute(new ThreadUtil.CallBack() {
+                    @Override
+                    public void exec() {
+
+                    }
+
+                    @Override
+                    public void run() {
+                        String []kl=ParseXml.parseAndArray2(xmlData);
+                        Message message=new Message();
+                        message.what=123;
+                        message.obj=kl[1]+kl[1]+kl[1]+kl[1];
+                        handler.sendMessage(message);//解析 要多线程
+                       // Log.e("西溪湿地",kl[1]+","+kl[2]+","+kl[3]+","+kl[4]+","+kl[5]+","+kl[14]+","+kl[15]+","+kl[16]+",");
+                    }
+                });
+
+                /*Log.e("西溪湿地",System.currentTimeMillis()-is+"0");
+                Log.e("西溪湿地",Integer.parseInt("008")+"8");
+*/
+                String []kml=ParseXml.parseAndArray2(xmlData);
+                Log.e("西溪湿地",kml[1]+","+kml[2]+","+kml[3]+","+kml[4]+","+kml[5]+","+kml[14]+","+kml[15]+","+kml[16]+",");
                 break;
                 default:break;
         }
     }
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 123:
+                    Toast.makeText(FixHistoryTestActivity.this,(String)msg.obj,Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
 
     public JSONObject pieceJsonArray(){
         JSONObject jsonObject=new JSONObject();

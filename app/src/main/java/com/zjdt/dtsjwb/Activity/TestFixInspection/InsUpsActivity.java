@@ -8,11 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.zjdt.dtsjwb.Activity.BaseActivity;
 import com.zjdt.dtsjwb.R;
 
 import com.zjdt.dtsjwb.fragment.UpsInsFragment;
 
-public class InsUpsActivity extends AppCompatActivity implements View.OnClickListener{
+public class InsUpsActivity extends BaseActivity implements View.OnClickListener{
 
     /**
      * 写了=蠢代码 前后一致性不够  目前代码行数应该超过10w行了吧
@@ -35,7 +36,13 @@ public class InsUpsActivity extends AppCompatActivity implements View.OnClickLis
         initView();
         upsInsHead=new UpsInsFragment();
         upsInsHead.setLayoutId(R.layout.ups_inspection_report_head);
-        addFragment(R.id.ups_ins_frame,upsInsHead,null);
+        addFragment(R.id.ups_ins_frame,upsInsHead,upsInsHead);
+      /*  try {
+            Thread.sleep(3000);
+        }catch (Exception e){
+            e.printStackTrace();
+        }*/
+
     }
 
     private void initView() {

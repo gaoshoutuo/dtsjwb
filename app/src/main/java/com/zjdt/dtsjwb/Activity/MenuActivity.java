@@ -190,11 +190,13 @@ public class MenuActivity extends AppCompatActivity {
             switch (position) {
                 //客户 第三方 维保人员要做三种  switch 与每次的if能否合并一下
                 case 0:
-                    //madan get key hairena
+                    //madan get key hairena    1.填写客户基本信息  2.    3.
                     Toast.makeText(MenuActivity.this, map.get("au"), Toast.LENGTH_SHORT).show();
                     if (map.get("au").equals("1")) {//字符串别用==
                         Intent intent = new Intent(MenuActivity.this, FixDeviceActivity.class);
                         MenuActivity.this.startActivity(intent);
+
+
                     } else if ((map.get("au").equals("2"))) {
                         Toast.makeText(MenuActivity.this, "xiaoyu", Toast.LENGTH_SHORT).show();
                         actionActivity(MenuActivity.this,CAssetsActivity.class,null);

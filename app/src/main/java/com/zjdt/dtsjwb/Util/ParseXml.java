@@ -87,11 +87,78 @@ public class ParseXml {
                             sb.append(xmlPullParser.nextText());
                             i++;
                     }
-
                 }
                 xmlPullParser.next();
                 if(i>=type.length)
                 return sb.toString();
+            }
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public static String[] parseAndArray(String xmlData,String[] type){
+        long time1= System.currentTimeMillis();
+        String []in=new String[10];
+        try {
+            XmlPullParserFactory factory=XmlPullParserFactory.newInstance();
+            XmlPullParser xmlPullParser=factory.newPullParser();
+            xmlPullParser.setInput(new StringReader(xmlData));
+            int eventtype=xmlPullParser.getEventType();
+            int i=0;
+            StringBuilder sb=new StringBuilder();
+            while (eventtype!=xmlPullParser.END_DOCUMENT){
+                String nodename=xmlPullParser.getName();
+                //Log.e("西溪湿地",nodename+"1");
+                if ("name".equals(nodename)){
+                    //Log.e("西溪湿地",xmlPullParser.getAttributeValue(null,"class")+"--------");
+                    if (type[i].equals(xmlPullParser.getAttributeValue(null,"class"))){
+                      /*  long time2= System.currentTimeMillis()-time1;
+                        Log.e("解析时间",time2+"");//存在中间null 需要保证两种模式 start_tag end_tag
+                        XmlResourceParser xmlResourceParser= AppApplication.getApp().getResources().getXml(R.xml.air_condition_inspection);
+                        Log.e("解析时间",xmlResourceParser.toString());*/
+                        //sb.append(xmlPullParser.nextText());
+                        in[i]=xmlPullParser.nextText();
+                        i++;
+                    }
+                }
+                xmlPullParser.next();
+                if(i>=type.length)
+                    return in;
+            }
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String[] parseAndArray2(String xmlData){
+
+        String []in=new String[999];
+        try {
+            XmlPullParserFactory factory=XmlPullParserFactory.newInstance();
+            XmlPullParser xmlPullParser=factory.newPullParser();
+            xmlPullParser.setInput(new StringReader(xmlData));
+            int eventtype=xmlPullParser.getEventType();
+            int i=0;
+            StringBuilder sb=new StringBuilder();
+            while (eventtype!=xmlPullParser.END_DOCUMENT){
+                String nodename=xmlPullParser.getName();
+                //Log.e("西溪湿地",nodename+"1");
+                if ("name".equals(nodename)){
+                        in[Integer.parseInt(xmlPullParser.getAttributeValue(null,"class"))]=xmlPullParser.nextText();//类似哈希表
+                }
+                if ("root".equals(nodename)&&i>2){
+                    return in;//类似哈希表
+                }
+                xmlPullParser.next();
+                i++;
 
             }
         } catch (XmlPullParserException e) {
@@ -99,9 +166,7 @@ public class ParseXml {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return null;
-
+        return in;
     }
 
 

@@ -58,6 +58,10 @@ public class AirInsFragment extends Fragment implements View.OnClickListener{
         return ParseXml.parseXMLWithPullArray(xmlstr,linkstr);
     }
 
+    public String[] initReArr(String[]linkstr){
+        return ParseXml.parseAndArray(xmlstr,linkstr);
+    }
+
     private View getIncludeView(View view,int rid){
         View view2= view.findViewById(rid);
         return view2;

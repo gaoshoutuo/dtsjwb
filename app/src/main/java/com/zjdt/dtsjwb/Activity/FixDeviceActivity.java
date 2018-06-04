@@ -20,6 +20,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.zjdt.dtsjwb.Activity.TestFixInspection.FixAirActivity;
+import com.zjdt.dtsjwb.Activity.TestFixInspection.FixUpsActivity;
+import com.zjdt.dtsjwb.Activity.TestFixInspection.InsAirActivity;
+import com.zjdt.dtsjwb.Activity.TestFixInspection.InsUpsActivity;
+import com.zjdt.dtsjwb.Activity.TestFixInspection.SiteActivity;
+import com.zjdt.dtsjwb.Activity.TestFixInspection.TestAirActivity;
+import com.zjdt.dtsjwb.Activity.TestFixInspection.TestUpsActivity;
 import com.zjdt.dtsjwb.App.AppApplication;
 import com.zjdt.dtsjwb.Bean.DeviceBean;
 import com.zjdt.dtsjwb.R;
@@ -135,7 +142,9 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
          * 程序员讨厌被打断
          */
         private ArrayList deviceList;
-        private String[]data={"精密空调","机柜","供电pdu","ups电池","服务器IT设备","定期检修","正常维保巡检"};
+       // private String[]data={"精密空调","机柜","供电pdu","ups电池","服务器IT设备","定期检修","正常维保巡检"};
+       private String[]data={"服务类型","定期检修","现场安装","现场测试","维修更换"};
+        private String[]score={"服务种类","ups电池","pdu供电","精密空调","消防设备"};
 
         public DfdAdapter(ArrayList deviceList) {
             this.deviceList = deviceList;
@@ -149,13 +158,72 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
         }
 
         @Override
-        public void onBindViewHolder(ViewHolderDevice holder, final int position) {
+        public void onBindViewHolder(final ViewHolderDevice holder, final int position) {
             DeviceBean deviceBean= (DeviceBean) deviceList.get(position);
             holder.fix_send.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //提交逻辑
-                    AppApplication.getApp().startActivity(new Intent(FixDeviceActivity.this,CAssetsActivity.class));
+                    //提交逻辑 跳转到选择业务选择界面
+                    //FixDeviceActivity.this.startActivity(new Intent(FixDeviceActivity.this,CAssetsActivity.class));
+                   // actionActivity(FixDeviceActivity.this,);
+                    switch (holder.device_spinner.getSelectedItem().toString()+holder.scoreSpinner.getSelectedItem().toString()){
+                       case "定期检修ups电池":
+                           actionActivity(FixDeviceActivity.this, InsUpsActivity.class,null);
+                            break;
+
+                        case "定期检修pdu供电":
+
+                            break;
+
+                        case "定期检修精密空调":
+                            actionActivity(FixDeviceActivity.this, InsAirActivity.class,null);
+                            break;
+
+                        case "定期检修消防设备":
+
+                            break;
+
+                        case "现场测试ups电池":
+                            actionActivity(FixDeviceActivity.this, TestUpsActivity.class,null);
+                            break;
+
+                        case "现场测试pdu供电":
+
+                            break;
+
+                        case "现场测试精密空调":
+                            actionActivity(FixDeviceActivity.this, TestAirActivity.class,null);
+                            break;
+
+                        case "现场测试消防设备":
+
+                            break;
+
+                        case "现场安装服务种类":
+                            actionActivity(FixDeviceActivity.this, SiteActivity.class,null);
+                            break;
+
+                        case "维修更换ups电池":
+                            actionActivity(FixDeviceActivity.this, FixUpsActivity.class,null);
+                            break;
+
+                        case "维修更换pdu供电":
+
+                            break;
+
+                        case "维修更换精密空调":
+                            actionActivity(FixDeviceActivity.this, FixAirActivity.class,null);
+                            break;
+
+                        case "维修更换消防设备":
+
+                            break;
+
+                            default:break;
+                    }
+
+
+
                 }
             });
 
@@ -166,6 +234,7 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
 
             Log.e("清醒",holder.device_spinner.getSelectedItem()+"");
             holder.device_spinner.setAdapter(new ArrayAdapter<String>(AppApplication.getApp(),R.layout.spinner_display_style,R.id.txtvwSpinner,data));
+            holder.scoreSpinner.setAdapter(new ArrayAdapter<String>(AppApplication.getApp(),R.layout.spinner_display_style,R.id.txtvwSpinner,score));
             holder.delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -191,7 +260,7 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
             Button delete;
              View view;
              Button fix_send;
-             Spinner device_spinner;
+             Spinner device_spinner,scoreSpinner;
              EditText deviceID,coustomerID,reason,location;
              ViewHolderDevice(View itemView) {
                 super(itemView);
@@ -204,6 +273,7 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
                         return false;//return true 则只有不会冒泡  return false 则继续冒泡
                     }
                 });
+                 scoreSpinner=itemView.findViewById(R.id.socre_spinner);//为啥不能用socre
                 fix_send=itemView.findViewById(R.id.send_fix);
                 device_spinner=itemView.findViewById(R.id.device_spinner);
                 deviceID=itemView.findViewById(R.id.device_id);

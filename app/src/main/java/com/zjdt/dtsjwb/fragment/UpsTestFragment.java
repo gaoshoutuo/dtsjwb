@@ -81,6 +81,9 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
     public String initReStr(String[]linkstr){
         return ParseXml.parseXMLWithPullArray(xmlstr,linkstr);
     }
+    public String[] initReArr(String[]linkstr){
+        return ParseXml.parseAndArray(xmlstr,linkstr);
+    }
 
     public void initUpsTestHead(int includeId,String []type){
         initXmlStr("vps_test_report.xml");

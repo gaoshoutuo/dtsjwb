@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+android:orientation="vertical"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
    >
     <android.support.v7.widget.RecyclerView
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:id="@+id/device_recyclerview"
         android:layout_marginBottom="50dp">
     </android.support.v7.widget.RecyclerView>
@@ -16,8 +19,7 @@
         android:id="@+id/create_tra"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_gravity="bottom"
         android:text="生 成 维 修 业 务"
         android:textSize="18sp" />
 
-</RelativeLayout>
+</LinearLayout>
