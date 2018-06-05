@@ -5,11 +5,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.AirInsFragment;
 import com.zjdt.dtsjwb.fragment.UpsFixFragment;
 
@@ -23,6 +25,8 @@ public class InsAirActivity extends BaseActivity implements View.OnClickListener
      * 5 修改 json static 及获取方式
      */
 
+
+
     private FragmentManager fm = getSupportFragmentManager();
     private AirInsFragment airInsHead, airInsBody, airInsFoot;
     private Button headButton, bodyButton, footButton;
@@ -33,8 +37,8 @@ public class InsAirActivity extends BaseActivity implements View.OnClickListener
         setContentView(R.layout.activity_ins_air);
         initView();
         airInsHead=new AirInsFragment();
-        airInsHead.setLayoutId(R.layout.ups_test_report_body);
-        addFragment(R.id.air_ins_frame,airInsHead,null);
+        airInsHead.setLayoutId(R.layout.air_inspection_head);//
+        addFragment(R.id.air_ins_frame,airInsHead,new AirAssit());
     }
 
     private void initView() {
@@ -55,24 +59,28 @@ public class InsAirActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.ups_fix_button1://处理head
+            case R.id.air_ins_button1://处理head
+                airInsHead.makeAirInsHeadJson();
                 headButton.setVisibility(View.GONE);
                 bodyButton.setVisibility(View.VISIBLE);
                 airInsBody=new AirInsFragment();
-                airInsBody.setLayoutId(R.layout.ups_test_report_body);
-                addFragment(R.id.ups_test_frame,airInsBody,airInsHead);
+                airInsBody.setLayoutId(R.layout.air_inspection_body);
+                addFragment(R.id.air_ins_frame,airInsBody,airInsHead);
                 break;
 
-            case R.id.ups_fix_button2://处理body
+            case R.id.air_ins_button2://处理body
+                airInsBody.makeAirInsBodyJson();
                 bodyButton.setVisibility(View.GONE);
                 footButton.setVisibility(View.VISIBLE);
                 airInsFoot=new AirInsFragment();
-                airInsFoot.setLayoutId(R.layout.ups_test_report_foot);
-                addFragment(R.id.ups_test_frame,airInsFoot,airInsBody);
+                airInsFoot.setLayoutId(R.layout.air_inspection_foot);
+                addFragment(R.id.air_ins_frame,airInsFoot,airInsBody);
                 break;
 
-            case R.id.ups_fix_button3://处理foot  上传
+            case R.id.air_ins_button3://处理foot  上传
+                airInsFoot.makeAirInsFootJson();
                 String json= airInsFoot.getJsonStr();
+                Log.e("airins",json);
                 break;
             default:break;
         }

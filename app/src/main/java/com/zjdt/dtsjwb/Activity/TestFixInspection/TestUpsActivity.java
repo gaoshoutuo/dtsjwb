@@ -6,11 +6,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.UpsTestFragment;
 
 public class TestUpsActivity extends BaseActivity implements View.OnClickListener{
@@ -33,9 +35,10 @@ public class TestUpsActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_ups);
         initView();
+
         upsTestHead=new UpsTestFragment();
         upsTestHead.setRid(R.layout.ups_test_report_head);
-        addFragment(R.id.ups_test_frame,upsTestHead,upsTestBody);
+        addFragment(R.id.ups_test_frame,upsTestHead,new AirAssit());
     }
 
     private void replaceFragment(int frameId,Fragment fragment){//不能replace 了  任然不懂 安卓呀
@@ -80,6 +83,7 @@ public class TestUpsActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ups_test_button1://处理head
+                upsTestHead.makeJsonHead();
                 headButton.setVisibility(View.GONE);
                 bodyButton.setVisibility(View.VISIBLE);
                 upsTestBody=new UpsTestFragment();
@@ -88,6 +92,7 @@ public class TestUpsActivity extends BaseActivity implements View.OnClickListene
                 break;
 
             case R.id.ups_test_button2://处理body
+                upsTestBody.makeJsonBody();
                 bodyButton.setVisibility(View.GONE);
                 footButton.setVisibility(View.VISIBLE);
                 upsTestFoot=new UpsTestFragment();
@@ -96,7 +101,9 @@ public class TestUpsActivity extends BaseActivity implements View.OnClickListene
                 break;
 
             case R.id.ups_test_button3://处理foot  上传
+                upsTestFoot.makeJsonFoot();
                String json= upsTestFoot.getJsonStr();
+                Log.e("upstest",json);
                 break;
             default:break;
         }

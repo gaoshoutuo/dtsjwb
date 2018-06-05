@@ -19,8 +19,9 @@ import org.json.JSONObject;
 public class UpsFixFragment extends Fragment implements View.OnClickListener{
     private int viewId;
     private View view;
-    private String xmlstr;
+    private static String xmlstr;
     private static JSONObject json;
+    private static String[]data;
 
     public void setViewId(int viewId) {
         this.viewId = viewId;
@@ -38,9 +39,21 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
      * 5 修改 json static 及获取方式
      */
 
+    /**
+     * init4修改  渲染修改
+     * activity修改
+     * headview添加xmltoArray 判断
+     * edit 加入非null
+     * edittext 黑字修改
+     * json导出
+     * @param
+     */
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (json==null)
+            initJson();
         view =inflater.inflate(viewId,container,false);
         switch (viewId){
             case R.layout.ups_fix_report_head:
@@ -54,7 +67,7 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
                 break;
                 default:break;
         }
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return view;
     }
     //util
 
@@ -96,7 +109,7 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
         et.setHint(name);
     }
 
-    public void initUpsFixHead(int includeId,String []type){
+   /* public void initUpsFixHead(int includeId,String []type){
 
         View view1= getIncludeView(view, includeId);
         setViewText(
@@ -123,24 +136,53 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
                         new String[]{type}));//initupstest_text
 
     }
+    */
+
+    public void initUpsFixHead(int includeId,String []type){
+
+        View view1= getIncludeView(view, includeId);
+        setViewText(
+                view1, R.id.d_name,type[0]+type[1]+type[2]);//initupstest_text
+
+        setViewEdit(
+                view1,R.id.ups_test_head1,type[0]);//initupstest_text
+
+        setViewEdit(
+                view1,R.id.ups_test_head1,type[1]);//initupstest_text
+
+        setViewEdit(
+                view1,R.id.ups_test_head1,type[2]);//initupstest_text
+    }
+
+    public void initUpsFixbody(int includeId,String type){
+        View view1= getIncludeView(view, includeId);
+        setViewText(
+                view1, R.id.ups_fix_four_text,type);//initupstest_text
+
+    }
+
 
     //head
     public void initUpsFixHeadView(){
-        initXmlStr("vps_fix_report.xml");
-        initUpsFixHead(R.id.ups_fix_head1,new String[]{"002","003","004"});
-        initUpsFixHead(R.id.ups_fix_head2,new String[]{"005","006","007"});
-        initUpsFixHead(R.id.ups_fix_head2,new String[]{"008","009","088"});
-        initUpsFixHead(R.id.ups_fix_head2,new String[]{"010","011","012"});
+        if(xmlstr==null) {
+            initXmlStr("vps_fix_report.xml");
+            data = ParseXml.parseAndArray2(xmlstr);
+        }
+
+        initUpsFixHead(R.id.ups_fix_head1,new String[]{data[2],data[3],data[4]});
+        initUpsFixHead(R.id.ups_fix_head2,new String[]{data[5],data[6],data[7]});
+        initUpsFixHead(R.id.ups_fix_head2,new String[]{data[8],data[9],data[88]});
+        initUpsFixHead(R.id.ups_fix_head2,new String[]{data[10],data[11],data[12]});
     }
 
 
     //body
 
     public void initUpsFixBodyView(){
-        initUpsFixbody(R.id.ups_fix_body1,"014");
-        initUpsFixbody(R.id.ups_fix_body2,"013");
-        initUpsFixbody(R.id.ups_fix_body3,"015");
-        initUpsFixbody(R.id.ups_fix_body4,"016");
+        initUpsFixbody(R.id.ups_fix_body1,data[14]);
+        initUpsFixbody(R.id.ups_fix_body2,data[13]);
+        initUpsFixbody(R.id.ups_fix_body3,data[15]);
+        initUpsFixbody(R.id.ups_fix_body4,data[16]);
         View view1= getIncludeView(view, R.id.ups_fix_body5);
     }
 
@@ -198,6 +240,19 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
         return jsonObject;
     }
 
+    private JSONObject jsonObjMake(String[] edit,String[]edit2){//反正str1 str2 这样子
+        JSONObject jsonObject=new JSONObject();
+        //jsonObject.put("str1",edit);
+        for(int i=0;i<edit.length;i++){
+            try {
+                jsonObject.put(edit[i],edit2[i]);//完美  字符串怎么就不行呢
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return jsonObject;
+    }
+
     public String getEditData(EditText text){//获取 editView 中的文字信息
         return text.getText().toString();
     }
@@ -228,14 +283,31 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
     private JSONObject initCostJson(int includeId){
         View view1= getIncludeView(view,includeId);
         EditText text1= view1.findViewById(R.id.cost_fee1);
+        String str1= getEditData(text1);
+
         EditText text2= view1.findViewById(R.id.cost_fee2);
+        String str2= getEditData(text2);
+
         EditText text3= view1.findViewById(R.id.cost_fee3);
+        String str3= getEditData(text3);
+
         EditText text4= view1.findViewById(R.id.cost_fee4);
+        String str4= getEditData(text4);
+
         EditText text5= view1.findViewById(R.id.cost_fee5);
+        String str5= getEditData(text5);
+
         EditText text6= view1.findViewById(R.id.cost_fee6);
+        String str6= getEditData(text6);
+
         EditText text7= view1.findViewById(R.id.cost_fee7);
+        String str7= getEditData(text7);
+
         EditText text8= view1.findViewById(R.id.cost_fee8);
-        JSONObject jsonObject=jsonObjMake(new String[]{"Maintenance","warr_inner","warr_out","labor","materal","travel","transport","sum_cost",});
+        String str8= getEditData(text8);
+
+        JSONObject jsonObject=jsonObjMake(new String[]{"Maintenance","warr_inner","warr_out","labor","materal","travel","transport","sum_cost"},
+                new String[]{str1,str2,str3,str4,str5,str6,str7,str8,});
         return jsonObject;
     }
 

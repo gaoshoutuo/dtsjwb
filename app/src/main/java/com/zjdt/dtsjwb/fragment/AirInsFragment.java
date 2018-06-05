@@ -19,8 +19,9 @@ import org.json.JSONObject;
 public class AirInsFragment extends Fragment implements View.OnClickListener{
     private int layoutId;
     private View view;
-    private String xmlstr;
+    private static String xmlstr;
     private static JSONObject json;
+    private static String data[];
 
     public void setLayoutId(int layoutId) {
         this.layoutId = layoutId;
@@ -29,10 +30,23 @@ public class AirInsFragment extends Fragment implements View.OnClickListener{
         return json.toString();
     }
 
+    /**
+     * init4修改  渲染修改
+     * activity修改
+     * headview添加xmltoArray 判断
+     * edit 加入非null
+     * edittext 黑字修改
+     * json导出
+     * @param
+     */
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(layoutId,container,false);
+        if (json==null)
+            initJson();
         switch (layoutId){
             case R.layout.air_inspection_head:
                 initAirInsHeadView();
@@ -59,7 +73,7 @@ public class AirInsFragment extends Fragment implements View.OnClickListener{
     }
 
     public String[] initReArr(String[]linkstr){
-        return ParseXml.parseAndArray(xmlstr,linkstr);
+        return ParseXml.parseAndArray2(xmlstr);
     }
 
     private View getIncludeView(View view,int rid){
@@ -96,49 +110,55 @@ public class AirInsFragment extends Fragment implements View.OnClickListener{
     }
 
 
+
+
+
     //head
     public void initAirInsHeadView(){
-        initXmlStr("air_condition_inspection.xml");
+        if(xmlstr==null) {
+            initXmlStr("air_condition_inspection.xml");
+            data = ParseXml.parseAndArray2(xmlstr);
+        }
         //客户资料
         initUpsFixHead(R.id.air_inspection_1,"100");
-        init4View(R.id.air_inspection_2,new String[]{"001","002","003","004"});
+        init4View(R.id.air_inspection_2,new String[]{data[1],data[2],data[3],data[4]});
 
         //产品信息
         initUpsFixHead(R.id.air_inspection_3,"200");
-        init4View(R.id.air_inspection_4,new String[]{"005","006","007","008"});
-        init4View(R.id.air_inspection_5,new String[]{"009","099","888","888"});
+        init4View(R.id.air_inspection_4,new String[]{data[5],data[6],data[7],data[8]});
+        init4View(R.id.air_inspection_5,new String[]{data[9],data[99],data[888],data[888]});
 
         //外观
         initUpsFixHead(R.id.air_inspection_6,"012");
-        init4View(R.id.air_inspection_7,new String[]{"013","014","888","888"});
+        init4View(R.id.air_inspection_7,new String[]{data[13],data[14],data[888],data[888]});
 
         //控制系统
         initUpsFixHead(R.id.air_inspection_8,"015");
-        init4View(R.id.air_inspection_9,new String[]{"016","017","018","019"});
+        init4View(R.id.air_inspection_9,new String[]{data[16],data[17],data[18],data[19]});
     }
 
     //body
     public void initAirInsBodyView(){
         //风机系统
         initUpsFixHead(R.id.air_inspection_b_1,"020");
-        init4View(R.id.air_inspection_b_2,new String[]{"021","022","888","888"});
-        init4View(R.id.air_inspection_b_3,new String[]{"023","024","024","024"});
-        init4View(R.id.air_inspection_b_4,new String[]{"025","026","026","026"});
-        init4View(R.id.air_inspection_b_5,new String[]{"027","028","028","028"});
+        init4View(R.id.air_inspection_b_2,new String[]{data[21],data[22],data[888],data[888]});
+        init4View(R.id.air_inspection_b_3,new String[]{data[23],data[24],data[24],data[24]});
+        init4View(R.id.air_inspection_b_4,new String[]{data[25],data[26],data[26],data[26]});
+        init4View(R.id.air_inspection_b_5,new String[]{data[27],data[28],data[28],data[28]});
 
         //制冷系统一
         initUpsFixHead(R.id.air_inspection_b_6,"300");
-        init4View(R.id.air_inspection_b_7,new String[]{"029","030","031","032"});
-        init4View(R.id.air_inspection_b_8,new String[]{"033","034","034","034"});
-        init4View(R.id.air_inspection_b_9,new String[]{"035","036","036","036"});
-        init4View(R.id.air_inspection_b_10,new String[]{"037","038","039","040"});
+        init4View(R.id.air_inspection_b_7,new String[]{data[29],data[30],data[31],data[32]});
+        init4View(R.id.air_inspection_b_8,new String[]{data[33],data[34],data[34],data[34]});
+        init4View(R.id.air_inspection_b_9,new String[]{data[35],data[36],data[36],data[36]});
+        init4View(R.id.air_inspection_b_10,new String[]{data[37],data[38],data[39],data[40]});
 
         //制冷系统二
-        initUpsFixHead(R.id.air_inspection_b_6,"400");
-        init4View(R.id.air_inspection_b_7,new String[]{"029","030","031","032"});
-        init4View(R.id.air_inspection_b_8,new String[]{"033","034","034","034"});
-        init4View(R.id.air_inspection_b_9,new String[]{"035","036","036","036"});
-        init4View(R.id.air_inspection_b_10,new String[]{"037","038","039","040"});
+        initUpsFixHead(R.id.air_inspection_b_11,"400");
+        init4View(R.id.air_inspection_b_12,new String[]{data[29],data[30],data[31],data[32]});
+        init4View(R.id.air_inspection_b_13,new String[]{data[33],data[34],data[34],data[34]});
+        init4View(R.id.air_inspection_b_14,new String[]{data[35],data[36],data[36],data[36]});
+        init4View(R.id.air_inspection_b_15,new String[]{data[37],data[38],data[39],data[40]});
 
     }
 
@@ -146,18 +166,18 @@ public class AirInsFragment extends Fragment implements View.OnClickListener{
     public void initAirInsFootView(){
         //加湿
         initUpsFixHead(R.id.air_inspection_f_1,"500");
-        init4View(R.id.air_inspection_f_2,new String[]{"041","042","888","888"});
-        init4View(R.id.air_inspection_f_3,new String[]{"043","044","044","044"});
-        init4View(R.id.air_inspection_f_4,new String[]{"045","046","047","048"});
+        init4View(R.id.air_inspection_f_2,new String[]{data[41],data[42],data[888],data[888]});
+        init4View(R.id.air_inspection_f_3,new String[]{data[43],data[44],data[44],data[44]});
+        init4View(R.id.air_inspection_f_4,new String[]{data[45],data[46],data[47],data[48]});
 
         //加热
         initUpsFixHead(R.id.air_inspection_f_5,"600");
-        init4View(R.id.air_inspection_f_6,new String[]{"049","051","051","051"});
-        init4View(R.id.air_inspection_f_7,new String[]{"052","051","051","051"});
+        init4View(R.id.air_inspection_f_6,new String[]{data[49],data[51],data[51],data[51]});
+        init4View(R.id.air_inspection_f_7,new String[]{data[52],data[51],data[51],data[51]});
 
         //除湿排水
         initUpsFixHead(R.id.air_inspection_f_8,"700");
-        init4View(R.id.air_inspection_f_9,new String[]{"054","055","056","057"});
+        init4View(R.id.air_inspection_f_9,new String[]{data[54],data[55],data[56],data[57]});
 
         Button button1=view.findViewById(R.id.air_inspection_engineer_sign);
         Button button2=view.findViewById(R.id.air_inspection_custom_sign);
@@ -172,7 +192,7 @@ public class AirInsFragment extends Fragment implements View.OnClickListener{
         setViewEdit(view1, R.id.inspection_1,type[0]);
         setViewEdit(view1,R.id.inspection_2,type[1]);
         setViewEdit(view1,R.id.inspection_3,type[2]);
-        setViewEdit(view1,R.id.inspection_4,type[1]);
+        setViewEdit(view1,R.id.inspection_4,type[3]);
     }
 
 
@@ -215,7 +235,7 @@ public class AirInsFragment extends Fragment implements View.OnClickListener{
     }
 
     public String getEditData(EditText text){//获取 editView 中的文字信息
-        return text.getText().toString();
+        return text.getText().toString()+"";
     }
 
     private void initHeadJson(String typ,String []type,int includeId){
@@ -268,8 +288,9 @@ public class AirInsFragment extends Fragment implements View.OnClickListener{
      "other":{"str1":"","str2":"","str3":"","str4":"","str5":"","str6":"","str7":""}
      }
      */
-    private void makeAirInsHeadJson(){
+    public void makeAirInsHeadJson(){
        // initHeadJson();//1211
+
         initHeadJson("cus_data",new String[]{"custom_name","custom_location","custom_contacts","phone_num"},R.id.air_inspection_2);
 
         initHeadJson("product_info_1",new String[]{"brand","type","power","pattern"},R.id.air_inspection_4);
@@ -280,7 +301,7 @@ public class AirInsFragment extends Fragment implements View.OnClickListener{
         initHeadJson("con_sys",new String[]{"button_alarm","indicator_light","display_record","menu_set"},R.id.air_inspection_9);
     }
 
-    private void makeAirInsBodyJson(){//4443
+    public void makeAirInsBodyJson(){//4443
         initHeadJson("fan_sys1",new String[]{"fan_phase_sequence","filter","kong","kong"},R.id.air_inspection_b_2);
         initHeadJson("fan_sys2",new String[]{"fan_belt","fan1_ele_1","fan1_ele_2","fan1_ele_3"},R.id.air_inspection_b_3);
         initHeadJson("fan_sys3",new String[]{"fan_bearing","fan2_ele_1","fan2_ele_2","fan2_ele_3"},R.id.air_inspection_b_4);
@@ -299,15 +320,15 @@ public class AirInsFragment extends Fragment implements View.OnClickListener{
 
     }
 
-    private void makeAirInsFootJson(){//321
+    public void makeAirInsFootJson(){//321
         initHeadJson("hum_sys1",new String[]{"humidification_water","humidifying_steam_pipe","kong","kong"},R.id.air_inspection_f_2);
         initHeadJson("hum_sys2",new String[]{"drain_solenoid_valve","humidification_current_1","humidification_current_2","humidification_current_3"},R.id.air_inspection_f_3);
         initHeadJson("hum_sys3",new String[]{"humidifying_tank_electrode","wet_the_tank","infrared_humidifying_lamp_tube","infrared_humidifying_tray"},R.id.air_inspection_f_4);
 
-        initHeadJson("warm_sys1",new String[]{"the_heating_switch","level_of_current_1","level_of_current_2","level_of_current_3"},R.id.air_inspection_b_6);
-        initHeadJson("warm_sys2",new String[]{"the_insulation_protection","the_secondary_current_1","the_secondary_current_2","the_secondary_current_3"},R.id.air_inspection_b_7);
+        initHeadJson("warm_sys1",new String[]{"the_heating_switch","level_of_current_1","level_of_current_2","level_of_current_3"},R.id.air_inspection_f_6);
+        initHeadJson("warm_sys2",new String[]{"the_insulation_protection","the_secondary_current_1","the_secondary_current_2","the_secondary_current_3"},R.id.air_inspection_f_7);
 
-        initHeadJson("remove_hum_water",new String[]{"dehumidifying_solenoid_valve_status","contactor","humidifying_drainage","condensate_drain"},R.id.air_inspection_b_9);
+        initHeadJson("remove_hum_water",new String[]{"dehumidifying_solenoid_valve_status","contactor","humidifying_drainage","condensate_drain"},R.id.air_inspection_f_9);
     }
 
 

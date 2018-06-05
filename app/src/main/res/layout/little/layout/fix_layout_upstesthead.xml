@@ -22,26 +22,32 @@
         android:orientation="horizontal">
         <EditText
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:id="@+id/ups_test_head1"
             android:hint="电池品牌"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
 
         <EditText
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:id="@+id/ups_test_head2"
             android:hint="电池型号"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
 
         <EditText
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:id="@+id/ups_test_head3"
             android:hint="电池容量"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
     </LinearLayout>
 

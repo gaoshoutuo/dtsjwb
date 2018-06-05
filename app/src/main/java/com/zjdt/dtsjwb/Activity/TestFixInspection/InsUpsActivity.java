@@ -5,12 +5,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
 import com.zjdt.dtsjwb.R;
 
+import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.UpsInsFragment;
 
 public class InsUpsActivity extends BaseActivity implements View.OnClickListener{
@@ -36,7 +38,7 @@ public class InsUpsActivity extends BaseActivity implements View.OnClickListener
         initView();
         upsInsHead=new UpsInsFragment();
         upsInsHead.setLayoutId(R.layout.ups_inspection_report_head);
-        addFragment(R.id.ups_ins_frame,upsInsHead,upsInsHead);
+        addFragment(R.id.ups_ins_frame,upsInsHead,new AirAssit());
       /*  try {
             Thread.sleep(3000);
         }catch (Exception e){
@@ -64,15 +66,20 @@ public class InsUpsActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ups_ins_button1://处理head
+                upsInsHead.makeInsHeadJson();
+
                 headButton.setVisibility(View.GONE);
                 bodyButton.setVisibility(View.VISIBLE);
                 upsInsBody=new UpsInsFragment();
                 upsInsBody.setLayoutId(R.layout.ups_inspection_report_body);
                 addFragment(R.id.ups_ins_frame,upsInsBody,upsInsHead);
+
                 break;
 
             case R.id.ups_ins_button2://处理body
+                upsInsBody.makeInsBodyJson();
                 String json= upsInsBody.getJsonStr();
+                Log.e("kk",json);
                 break;
 
             default:break;

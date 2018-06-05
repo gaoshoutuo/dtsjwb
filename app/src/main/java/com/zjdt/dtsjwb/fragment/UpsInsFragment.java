@@ -3,6 +3,7 @@ package com.zjdt.dtsjwb.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +20,23 @@ import org.json.JSONObject;
 
 public class UpsInsFragment extends Fragment implements View.OnClickListener{
     private int layoutId;
-    private String xmlstr;
+    private static String xmlstr;
     private View view;
     private static JSONObject json;
     public static String getJsonStr() {
         return json.toString();
     }
-    private String data[];
+    private static String data[];
+
+    /**
+     * init4修改
+     * activity修改
+     * 添加xmltoArray 判断
+     * edit 加入非null
+     * edittext 黑字修改
+     * json导出
+     * @param layoutId
+     */
 
     public void setLayoutId(int layoutId) {
         this.layoutId = layoutId;
@@ -35,6 +46,8 @@ public class UpsInsFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(layoutId,container,false);
+        if(json==null)
+        initJson();
         switch (layoutId){
             case R.layout.ups_inspection_report_head:
                 initUpsInsHeadView();
@@ -117,8 +130,7 @@ public class UpsInsFragment extends Fragment implements View.OnClickListener{
                     "036", "037", "038", "039",
                     "040", "041", "042", "043"*//*
             });*/
-            data = ParseXml.parseAndArray(xmlstr, new String[]{
-                            "001", "002", "003", "004",});
+            data = ParseXml.parseAndArray2(xmlstr);
         }
       /*  //客户资料  可行性调查非常重要
         initUpsFixHead(R.id.fix_inspection_1,"100");
@@ -156,37 +168,37 @@ public class UpsInsFragment extends Fragment implements View.OnClickListener{
 
         //客户资料  可行性调查非常重要
         initUpsFixHead(R.id.fix_inspection_1,"100");
-        init4View(R.id.fix_inspection_2,new String[]{data[0],data[1],data[2],data[3]});
+        init4View(R.id.fix_inspection_2,new String[]{data[1],data[2],data[3],data[4]});
 
-       /* //产品信息
+        //产品信息
         initUpsFixHead(R.id.fix_inspection_3,"200");
-        init4View(R.id.fix_inspection_4,initReArr(new String[]{data[4],data[5],data[6],data[7]}));
-        init4View(R.id.fix_inspection_5,initReArr(new String[]{data[8],data[9],data[10],data[11]}));
+        init4View(R.id.fix_inspection_4,new String[]{data[5],data[6],data[7],data[8]});
+        init4View(R.id.fix_inspection_5,new String[]{data[9],data[10],data[888],data[888]});
 
         //电池参数
         initUpsFixHead(R.id.fix_inspection_6,"300");
-        init4View(R.id.fix_inspection_7,initReArr(new String[]{"011","012","013","888"}));
-        init4View(R.id.fix_inspection_8,initReArr(new String[]{"014","015","016","017"}));
-        init4View(R.id.fix_inspection_9,initReArr(new String[]{"018","019","020","021"}));
+        init4View(R.id.fix_inspection_7,new String[]{data[11],data[12],data[13],data[888]});
+        init4View(R.id.fix_inspection_8,new String[]{data[14],data[15],data[16],data[17]});
+        init4View(R.id.fix_inspection_9,new String[]{data[18],data[19],data[20],data[21]});
 
         //电气环境参数
         initUpsFixHead(R.id.fix_inspection_10,"400");
-        init4View(R.id.fix_inspection_11,initReArr(new String[]{"022","023","024","025"}));
-        init4View(R.id.fix_inspection_12,initReArr(new String[]{"222","223","024","025"}));
-        init4View(R.id.fix_inspection_13,initReArr(new String[]{"026","027","028","029"}));
+        init4View(R.id.fix_inspection_11,new String[]{data[22],data[23],data[24],data[25]});
+        init4View(R.id.fix_inspection_12,new String[]{data[222],data[223],data[24],data[25]});
+        init4View(R.id.fix_inspection_13,new String[]{data[26],data[27],data[28],data[29]});
 
         //运行参数
         initUpsFixHead(R.id.fix_inspection_14,"500");
-        init4View(R.id.fix_inspection_15,initReArr(new String[]{"430","431","432","035"}));
-        init4View(R.id.fix_inspection_16,initReArr(new String[]{"530","531","532","035"}));
-        init4View(R.id.fix_inspection_17,initReArr(new String[]{"630","631","632","035"}));
-        init4View(R.id.fix_inspection_17_5,initReArr(new String[]{"730","731","732","888"}));
-        init4View(R.id.fix_inspection_17_6,initReArr(new String[]{"830","831","832","888"}));
+        init4View(R.id.fix_inspection_15,new String[]{data[430],data[431],data[432],data[35]});
+        init4View(R.id.fix_inspection_16,new String[]{data[530],data[531],data[532],data[35]});
+        init4View(R.id.fix_inspection_17,new String[]{data[630],data[631],data[632],data[35]});
+        init4View(R.id.fix_inspection_17_5,new String[]{data[730],data[731],data[732],data[888]});
+        init4View(R.id.fix_inspection_17_6,new String[]{data[830],data[831],data[832],data[888]});
 
         //功能测试
         initUpsFixHead(R.id.fix_inspection_18,"600");
-        init4View(R.id.fix_inspection_19,initReArr(new String[]{"036","037","038","039"}));
-        init4View(R.id.fix_inspection_20,initReArr(new String[]{"040","041","042","043"}));*/
+        init4View(R.id.fix_inspection_19,new String[]{data[36],data[37],data[38],data[39]});
+        init4View(R.id.fix_inspection_20,new String[]{data[40],data[41],data[42],data[43]});
 
 
     }
@@ -206,7 +218,7 @@ public class UpsInsFragment extends Fragment implements View.OnClickListener{
         setViewEdit(view1,R.id.inspection_1,type[0]);
         setViewEdit(view1,R.id.inspection_2,type[1]);
         setViewEdit(view1,R.id.inspection_3,type[2]);
-        setViewEdit(view1,R.id.inspection_4,type[1]);
+        setViewEdit(view1,R.id.inspection_4,type[3]);
     }
 
 
@@ -222,6 +234,7 @@ public class UpsInsFragment extends Fragment implements View.OnClickListener{
     private void singleStr(JSONObject json,String jsonKey,String jsonValue){
         try {
             json.put(jsonKey,jsonValue);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -250,8 +263,8 @@ public class UpsInsFragment extends Fragment implements View.OnClickListener{
     }
 
     public String getEditData(EditText text){//获取 editView 中的文字信息
-        return text.getText().toString();
-    }
+        return text.getText().toString()+"";
+    }//这样就不为空了
 
     private void initHeadJson(String typ,String []type,int includeId){
         JSONObject jsonObject=new JSONObject();
@@ -271,7 +284,7 @@ public class UpsInsFragment extends Fragment implements View.OnClickListener{
         EditText text4= view1.findViewById(R.id.inspection_4);
         String str4= getEditData(text4);
         singleStr(jsonObject,type[3],str4);
-
+       // Log.e("kk",jsonObject.toString());
         singleJson(this.json,typ,jsonObject);
     }
 
@@ -331,7 +344,7 @@ public class UpsInsFragment extends Fragment implements View.OnClickListener{
      */
 
 
-    private void makeInsHeadJson(){
+    public void makeInsHeadJson(){
 
         initHeadJson("cus_data",new String[]{"custom_name","custom_location","custom_contacts","phone_num"},R.id.fix_inspection_2);
 
@@ -357,7 +370,7 @@ public class UpsInsFragment extends Fragment implements View.OnClickListener{
 
     }
 
-    private void makeInsBodyJson(){
+    public void makeInsBodyJson(){
         initHeadJson("hard_test",R.id.fix_inspection_body1);
         EditText text= view.findViewById(R.id.ups_foot_inspection);
         //还有 什么时间啊 这些 在商榷一下

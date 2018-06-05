@@ -23,6 +23,8 @@
             android:layout_weight="1"
             android:id="@+id/cost_fee1"
             android:hint="维保"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
         <EditText
             android:layout_width="0dp"
@@ -30,6 +32,8 @@
             android:layout_weight="1"
             android:id="@+id/cost_fee2"
             android:hint="保修期内"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
 
         <EditText
@@ -38,6 +42,8 @@
             android:layout_weight="1"
             android:id="@+id/cost_fee3"
             android:hint="保修期外"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
 
         <EditText
@@ -45,7 +51,8 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:id="@+id/cost_fee4"
-
+            android:textColorHint="#000"
+            android:textColor="#000"
             android:hint="人工费"
             />
 
@@ -61,6 +68,8 @@
             android:layout_weight="1"
             android:id="@+id/cost_fee5"
             android:hint="材料费"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
         <EditText
             android:layout_width="0dp"
@@ -68,6 +77,8 @@
             android:layout_weight="1"
             android:id="@+id/cost_fee6"
             android:hint="差旅费"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
 
         <EditText
@@ -76,6 +87,8 @@
             android:layout_weight="1"
             android:id="@+id/cost_fee7"
             android:hint="运输费"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
 
         <EditText
@@ -84,6 +97,8 @@
             android:layout_weight="1"
             android:id="@+id/cost_fee8"
             android:hint="合计"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
 
     </LinearLayout>

@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/txtvwSpinner"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="50dp"
         android:background="#0fffff"
         android:textColor="#ffffff"
         android:textStyle="bold|italic"

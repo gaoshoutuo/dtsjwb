@@ -30,7 +30,8 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
     private static JSONObject json;
     private View view;
     private int rid;
-    private String xmlstr;
+    private static String xmlstr;
+    private static String[]data;
     private int numGroup,presentNum;
     public void setRid(int rid) {
         this.rid = rid;
@@ -47,9 +48,22 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
         return json.toString();
     }
 
+    /**
+     * init4修改  渲染修改
+     * activity修改
+     * headview添加xmltoArray 判断
+     * edit 加入非null
+     * edittext 黑字修改
+     * json导出
+     * @param
+     */
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (json==null)
+            initJson();
 
         view=inflater.inflate(rid,container,false);
         //initview 环节
@@ -85,8 +99,8 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
         return ParseXml.parseAndArray(xmlstr,linkstr);
     }
 
-    public void initUpsTestHead(int includeId,String []type){
-        initXmlStr("vps_test_report.xml");
+   /* public void initUpsTestHead(int includeId,String []type){
+        //initXmlStr("vps_test_report.xml");
         View view1= getIncludeView(view, includeId);
         setViewText(
                 view1,R.id.d_name,initReStr(
@@ -103,6 +117,22 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
         setViewEdit(
                 view1,R.id.ups_test_head3,initReStr(
                         new String[]{type[2]}));//initupstest_text
+    }*/
+
+    public void initUpsTestHead(int includeId,String []type){
+        //initXmlStr("vps_test_report.xml");
+        View view1= getIncludeView(view, includeId);
+        setViewText(
+                view1,R.id.d_name,type[0]+type[1]+type[2]);//initupstest_text
+
+        setViewEdit(
+                view1,R.id.ups_test_head1,type[0]);//initupstest_text
+
+        setViewEdit(
+                view1,R.id.ups_test_head2,type[1]);//initupstest_text
+
+        setViewEdit(
+                view1,R.id.ups_test_head3,type[2]);//initupstest_text
     }
 
 
@@ -127,12 +157,17 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
          setViewEdit(
           view1,R.id.ups_test_head1,initReStr(
            new String[]{"003"}));//initupstest_text*/
-         initUpsTestHead(R.id.ups_head_1,new String[]{"001","002","003"});
-         initUpsTestHead(R.id.ups_head_2,new String[]{"004","005","006"});
-         initUpsTestHead(R.id.ups_head_3,new String[]{"007","008","010"});
-         initUpsTestHead(R.id.ups_head_4,new String[]{"007","008","011"});
-         initUpsTestHead(R.id.ups_head_5,new String[]{"007","009","010"});
-         initUpsTestHead(R.id.ups_head_6,new String[]{"007","009","011"});
+
+         if(xmlstr==null) {
+             initXmlStr("vps_test_report.xml");
+             data = ParseXml.parseAndArray2(xmlstr);
+         }
+         initUpsTestHead(R.id.ups_head_1,new String[]{data[1],data[2],data[3]});
+         initUpsTestHead(R.id.ups_head_2,new String[]{data[4],data[5],data[6]});
+         initUpsTestHead(R.id.ups_head_3,new String[]{data[7],data[8],data[10]});
+         initUpsTestHead(R.id.ups_head_4,new String[]{data[7],data[8],data[11]});
+         initUpsTestHead(R.id.ups_head_5,new String[]{data[7],data[9],data[10]});
+         initUpsTestHead(R.id.ups_head_6,new String[]{data[7],data[9],data[11]});
     }
 
     public void initUpsTestBody(int includeId,int group){
@@ -327,7 +362,7 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
     }
 
     public String getEditData(EditText text){//获取 editView 中的文字信息
-        return text.getText().toString();
+        return text.getText().toString()+"";
     }
 
     private void initHeadJson(String []type,int includeId){
@@ -409,9 +444,25 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
      ],
      "to_sum_up":"123"
      }
+
+
+     {"ups_brand":"","ups_type":"","ups_cap":"","ups_vol":"","ups_ec":"","ups_status":"","ups_t_charging":{"str0":"","str1":"","str2":""},
+     "ups_t_discha":{"str0":"","str1":"","str2":""},"ups_ec_discha":{"str0":"","str1":"","str2":""},
+     "array":[{"internal_resist":"","ups_char_vol":{"str0":"","str1":"","str2":""},"ups_dischar_vol":{"str0":"","str1":"","str2":""}},
+     {"internal_resist":"","ups_char_vol":{"str0":"","str1":"","str2":""},"ups_dischar_vol":{"str0":"","str1":"","str2":""}},
+     {"internal_resist":"","ups_char_vol":{"str0":"","str1":"","str2":""},"ups_dischar_vol":{"str0":"","str1":"","str2":""}},
+     {"internal_resist":"","ups_char_vol":{"str0":"","str1":"","str2":""},"ups_dischar_vol":{"str0":"","str1":"","str2":""}},
+     {"internal_resist":"","ups_char_vol":{"str0":"","str1":"","str2":""},"ups_dischar_vol":{"str0":"","str1":"","str2":""}},
+     {"internal_resist":"","ups_char_vol":{"str0":"","str1":"","str2":""},"ups_dischar_vol":{"str0":"","str1":"","str2":""}},
+     {"internal_resist":"","ups_char_vol":{"str0":"","str1":"","str2":""},"ups_dischar_vol":{"str0":"","str1":"","str2":""}},
+     {"internal_resist":"","ups_char_vol":{"str0":"","str1":"","str2":""},"ups_dischar_vol":{"str0":"","str1":"","str2":""}},
+     {"internal_resist":"","ups_char_vol":{"str0":"","str1":"","str2":""},"ups_dischar_vol":{"str0":"","str1":"","str2":""}},
+     {"internal_resist":"","ups_char_vol":{"str0":"","str1":"","str2":""},"ups_dischar_vol":{"str0":"","str1":"","str2":""}}],
+     "to_sum_up":"","my_sign":"123","cus_sign":"123"}
+
      */
 
-    private void makeJsonHead(){//虽然结构三三四四 但是头名必须有 不然解析麻烦
+    public void makeJsonHead(){//虽然结构三三四四 但是头名必须有 不然解析麻烦
 
         //电池 品牌 型号 容量
         initHeadJson(new String[]{"ups_brand","ups_type","ups_cap"},R.id.ups_head_1);
@@ -438,20 +489,37 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
         //犬牙交错 无去耦合的数据结构
     }
 
-    private void makeJsonBody(){//照理说应该用fragment 的
+    public void makeJsonBody(){//照理说应该用fragment 的
         JSONArray jsonArray=new JSONArray();
         jsonArray.put(initBodyJson(R.id.ups_body_1));//总共10个
         //initBodyJson(1);
+        jsonArray.put(initBodyJson(R.id.ups_body_2));
+
+        jsonArray.put(initBodyJson(R.id.ups_body_3));
+
+        jsonArray.put(initBodyJson(R.id.ups_body_4));
+
+        jsonArray.put(initBodyJson(R.id.ups_body_5));
+
+        jsonArray.put(initBodyJson(R.id.ups_body_6));
+
+        jsonArray.put(initBodyJson(R.id.ups_body_7));
+
+        jsonArray.put(initBodyJson(R.id.ups_body_8));
+
+        jsonArray.put(initBodyJson(R.id.ups_body_9));
+
+        jsonArray.put(initBodyJson(R.id.ups_body_10));
 
 
         try {
-            json.put("array",jsonArray);
+            this.json.put("array",jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private void makeJsonFoot(){
+    public void makeJsonFoot(){
         EditText text= view.findViewById(R.id.ups_foot_sum);
         String sum= getEditData(text);
         singleStr(json,"to_sum_up",sum);

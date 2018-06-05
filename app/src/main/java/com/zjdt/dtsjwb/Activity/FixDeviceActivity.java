@@ -34,6 +34,7 @@ import com.zjdt.dtsjwb.Util.DatabaseUtil;
 import com.zjdt.dtsjwb.Util.DialogUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FixDeviceActivity extends BaseActivity implements View.OnClickListener{
     /**
@@ -143,7 +144,7 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
          */
         private ArrayList deviceList;
        // private String[]data={"精密空调","机柜","供电pdu","ups电池","服务器IT设备","定期检修","正常维保巡检"};
-       private String[]data={"服务类型","定期检修","现场安装","现场测试","维修更换"};
+       private String[]data={"服务类型","定期检修","现场安装","现场测试","维修更换","现场服务"};
         private String[]score={"服务种类","ups电池","pdu供电","精密空调","消防设备"};
 
         public DfdAdapter(ArrayList deviceList) {
@@ -166,7 +167,9 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
                     //提交逻辑 跳转到选择业务选择界面
                     //FixDeviceActivity.this.startActivity(new Intent(FixDeviceActivity.this,CAssetsActivity.class));
                    // actionActivity(FixDeviceActivity.this,);
+                    Log.e("定期",holder.device_spinner.getSelectedItem().toString()+holder.scoreSpinner.getSelectedItem().toString());
                     switch (holder.device_spinner.getSelectedItem().toString()+holder.scoreSpinner.getSelectedItem().toString()){
+
                        case "定期检修ups电池":
                            actionActivity(FixDeviceActivity.this, InsUpsActivity.class,null);
                             break;
@@ -200,10 +203,19 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
                             break;
 
                         case "现场安装服务种类":
-                            actionActivity(FixDeviceActivity.this, SiteActivity.class,null);
+                            HashMap mapInstall=new HashMap();
+                            mapInstall.put("site","install");
+                            actionActivity(FixDeviceActivity.this, SiteActivity.class,mapInstall);
+                            break;
+
+                        case "现场服务服务种类":
+                            HashMap mapService=new HashMap();
+                            mapService.put("site","install");
+                            actionActivity(FixDeviceActivity.this, SiteActivity.class,mapService);
                             break;
 
                         case "维修更换ups电池":
+
                             actionActivity(FixDeviceActivity.this, FixUpsActivity.class,null);
                             break;
 

@@ -12,7 +12,7 @@
         <TextView
             android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:text="检视所有主控板电气连接是否安全可靠"
             android:textColor="#000"
             />
@@ -22,6 +22,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/ins_8_1"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
     </LinearLayout>
 
@@ -37,7 +39,7 @@
         <TextView
             android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:text="检视输入/输出端子、螺栓、螺帽紧固性"
             android:textColor="#000"
             />
@@ -47,6 +49,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/ins_8_2"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
     </LinearLayout>
     <View
@@ -61,7 +65,7 @@
         <TextView
             android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:text="检查UPS系统输入、输出空开容量是否符合规格"
             android:textColor="#000"
             />
@@ -70,6 +74,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/ins_8_3"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
     </LinearLayout>
         <View
@@ -84,7 +90,7 @@
             <TextView
                 android:layout_weight="3"
                 android:layout_width="0dp"
-                android:layout_height="30dp"
+                android:layout_height="50dp"
                 android:text="检查风扇运行状况，机内变压器、散热器等散热环境和通道情况 "
                 android:textColor="#000"
                 />
@@ -93,6 +99,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/ins_8_4"
+                android:textColorHint="#000"
+                android:textColor="#000"
                 />
         </LinearLayout>
             <View
@@ -107,7 +115,7 @@
                 <TextView
                     android:layout_weight="3"
                     android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_height="50dp"
                     android:text="检查器件、电缆等是否有损坏、老化、过热情况"
                     android:textColor="#000"
                     />
@@ -116,6 +124,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:id="@+id/ins_8_5"
+                    android:textColorHint="#000"
+                    android:textColor="#000"
                     />
             </LinearLayout>
     <View
@@ -130,7 +140,7 @@
         <TextView
             android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:text="检查所有滤波电容外观、紧固和泄漏情况"
             android:textColor="#000"
             />
@@ -139,6 +149,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/ins_8_6"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
 
     </LinearLayout>
@@ -154,7 +166,7 @@
         <TextView
             android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:text="检查UPS运行环境(灰尘、温度、湿度等)是否符合要求"
             android:textColor="#000"
             />
@@ -163,6 +175,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/ins_8_7"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
     </LinearLayout>
 
@@ -178,7 +192,7 @@
         <TextView
             android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:text="检查电池机房内有无易燃、易爆、腐蚀性的物品或其它杂物 "
             android:textColor="#000"
             />
@@ -187,6 +201,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/ins_8_8"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
     </LinearLayout>
             </LinearLayout>

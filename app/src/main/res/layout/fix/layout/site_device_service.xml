@@ -71,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:id="@+id/device_s_sum"
+            android:textColor="#000"
             />
         <View
             android:layout_width="match_parent"
@@ -95,6 +96,13 @@
             android:id="@+id/device_s_custom_sign"
             android:text="提醒客户签名"
             />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            android:layout_gravity="left"
+            android:layout_marginBottom="30dp"
+            ></View>
 
     </LinearLayout>
 </ScrollView>

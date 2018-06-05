@@ -5,11 +5,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.SiteFrag;
 import com.zjdt.dtsjwb.fragment.UpsFixFragment;
 
@@ -39,13 +41,13 @@ public class SiteActivity extends BaseActivity implements View.OnClickListener{
         if(map.get("site")!=null&&map.get("site").equals("install")){
             installSite=new SiteFrag();
             installSite.setLayoutId(R.layout.site_device_install);
-            addFragment(R.id.site_frame,installSite,null);
+            addFragment(R.id.site_frame,installSite,new AirAssit());
             installButton.setVisibility(View.VISIBLE);
             serviceButton.setVisibility(View.GONE);
         }else if(map.get("site")!=null&&map.get("site").equals("service")){
             serviceSite=new SiteFrag();
             serviceSite.setLayoutId(R.layout.site_device_service);
-            addFragment(R.id.site_frame,serviceSite,null);
+            addFragment(R.id.site_frame,serviceSite,new AirAssit());
             serviceButton.setVisibility(View.VISIBLE);
             installButton.setVisibility(View.GONE);
         }
@@ -66,16 +68,35 @@ public class SiteActivity extends BaseActivity implements View.OnClickListener{
         ft.add(frameId, addFragment).hide(removeFragment).commit();
     }
 
+    /**
+     * {"cus_data":{"custom_name":"","custom_location":"","custom_contacts":"","phone_num":""},
+     * "product_info":{"para":"","brand":"","type":"","power":""},
+     * "info":{"bar_code":"","material":"","install_process":"","install_result":""},
+     * "cost":{"Maintenance":"","warr_inner":"","warr_out":"","labor":"","materal":"","travel":"","transport":"","sum_cost":""},"sum":""}
+
+
+     {"cus_data":{"custom_name":"","custom_location":"","custom_contacts":"","phone_num":""},
+     "product_info":{"para":"","brand":"","type":"","power":""},
+     "info":{"bar_code":"","material":"","install_process":"","install_result":""},
+     "cost":{"Maintenance":"","warr_inner":"","warr_out":"","labor":"","materal":"","travel":"","transport":"","sum_cost":""},"sum":""}
+
+     * @param v
+     */
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.site_button1://处理head
+                installSite.initManyJson();
                 String jsonInstall= installSite.getJsonStr();
+                Log.e("install",jsonInstall);
                 break;
 
             case R.id.site_button2://处理head
+                serviceSite.initManyJson();
                 String jsonService= serviceSite.getJsonStr();
+                Log.e("service",jsonService);
             break;
             default:break;
         }

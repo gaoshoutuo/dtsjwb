@@ -22,7 +22,10 @@
             android:layout_weight="8"
             android:id="@+id/ups_fix_error_phon"
             android:layout_width="0dp"
-            android:layout_height="80dp" />
+            android:layout_height="80dp"
+            android:textColorHint="#000"
+            android:textColor="#000"
+            />
     </LinearLayout>
 
     <!--本想多个include 算了节约代码量还是从了吧-->

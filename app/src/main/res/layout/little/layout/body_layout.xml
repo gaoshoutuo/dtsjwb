@@ -21,6 +21,8 @@
             android:layout_height="50dp"
             android:layout_weight="4"
             android:id="@+id/ed_d_name"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
 
         <TextView
@@ -36,6 +38,8 @@
             android:layout_height="50dp"
             android:layout_weight="4"
             android:id="@+id/ed_d_para"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
     </LinearLayout>
     <LinearLayout
@@ -55,6 +59,8 @@
             android:layout_height="50dp"
             android:layout_weight="4"
             android:id="@+id/ed_d_type"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
 
         <TextView
@@ -70,6 +76,8 @@
             android:layout_height="50dp"
             android:layout_weight="4"
             android:id="@+id/ed_d_brand"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
     </LinearLayout>
 
@@ -91,6 +99,8 @@
             android:layout_height="50dp"
             android:layout_weight="4"
             android:id="@+id/ed_d_num"
+            android:textColorHint="#000"
+            android:textColor="#000"
             />
 
     </LinearLayout>

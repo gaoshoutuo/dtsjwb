@@ -18,7 +18,8 @@ import org.json.JSONObject;
 
 public class SiteFrag extends Fragment implements View.OnClickListener{
     private int layoutId;
-    private String xmlstr;
+    private static String xmlstr;
+    private static String[]data;
     private View view;
     private static JSONObject json;
     public static String getJsonStr() {
@@ -29,16 +30,30 @@ public class SiteFrag extends Fragment implements View.OnClickListener{
         this.layoutId = layoutId;
     }
 
+    /**
+     * init4修改  渲染修改
+     * activity修改
+     * headview添加xmltoArray 判断
+     * edit 加入非null
+     * edittext 黑字修改
+     * json导出
+     * @param
+     */
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(layoutId,container,false);
+        if (json==null)
+            initJson();
         switch (layoutId){
             case R.layout.site_device_install:
                 initInstallView();
+
                 break;
             case R.layout.site_device_service:
                 initServiceView();
+
                 break;
                 default:break;
         }
@@ -84,22 +99,31 @@ public class SiteFrag extends Fragment implements View.OnClickListener{
         et.setHint(name);
     }
 //initXmlStr("site_service.xml");
-    public void setText(int includeId,String type){
+   /* public void setText(int includeId,String type){
         View view1= getIncludeView(view, includeId);
         setViewText(
                 view1, R.id.d_name,initReStr(
                         new String[]{type}));//initupstest_text
-    }
+    }*/
+public void setText(int includeId,String type){
+    View view1= getIncludeView(view, includeId);
+    setViewText(
+            view1, R.id.ups_fix_four_text,
+                    type);//initupstest_text
+}
 
 
 
     public void initInstallView(){
-        initXmlStr("site_install.xml");
-        init4View(R.id.install_edit,new String[]{"055","005","006","007"});
-        setText(R.id.site_device_i_2,"008");
-        setText(R.id.site_device_i_3,"009");
-        setText(R.id.site_device_i_4,"010");
-        setText(R.id.site_device_i_5,"011");
+        if(xmlstr==null) {
+            initXmlStr("site_install.xml");
+            data = ParseXml.parseAndArray2(xmlstr);
+        }
+        init4View(R.id.install_edit,new String[]{data[55],data[5],data[6],data[7]});
+        setText(R.id.site_device_i_2,data[8]);
+        setText(R.id.site_device_i_3,data[9]);
+        setText(R.id.site_device_i_4,data[10]);
+        setText(R.id.site_device_i_5,data[11]);
         Button button1=view.findViewById(R.id.device_i_engineer_sign);
         Button button2=view.findViewById(R.id.device_i_custom_sign);
         button1.setOnClickListener(this);
@@ -108,11 +132,14 @@ public class SiteFrag extends Fragment implements View.OnClickListener{
     }
 
     public void initServiceView(){
-        initXmlStr("site_service.xml");
-        setText(R.id.site_device_s_2,"005");
-        setText(R.id.site_device_s_2,"014");
-        setText(R.id.site_device_s_2,"015");
-        setText(R.id.site_device_s_2,"016");
+        if(xmlstr==null) {
+            initXmlStr("site_service.xml");
+            data = ParseXml.parseAndArray2(xmlstr);
+        }
+        setText(R.id.site_device_s_2,data[5]);
+        setText(R.id.site_device_s_2,data[14]);
+        setText(R.id.site_device_s_2,data[15]);
+        setText(R.id.site_device_s_2,data[16]);
         Button button1=view.findViewById(R.id.device_s_engineer_sign);
         Button button2=view.findViewById(R.id.device_s_custom_sign);
         button1.setOnClickListener(this);
@@ -124,7 +151,7 @@ public class SiteFrag extends Fragment implements View.OnClickListener{
         setViewEdit(view1, R.id.inspection_1,type[0]);
         setViewEdit(view1,R.id.inspection_2,type[1]);
         setViewEdit(view1,R.id.inspection_3,type[2]);
-        setViewEdit(view1,R.id.inspection_4,type[1]);
+        setViewEdit(view1,R.id.inspection_4,type[3]);
     }
 
 
@@ -162,18 +189,47 @@ public class SiteFrag extends Fragment implements View.OnClickListener{
         return jsonObject;
     }
 
+    private JSONObject jsonObjMake(String[] edit,String[]edit2){//反正str1 str2 这样子
+        JSONObject jsonObject=new JSONObject();
+        //jsonObject.put("str1",edit);
+        for(int i=0;i<edit.length;i++){
+            try {
+                jsonObject.put(edit[i],edit2[i]);//完美  字符串怎么就不行呢
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return jsonObject;
+    }
 
     private JSONObject initCostJson(int includeId){
         View view1= getIncludeView(view,includeId);
         EditText text1= view1.findViewById(R.id.cost_fee1);
+        String str1= getEditData(text1);
+
         EditText text2= view1.findViewById(R.id.cost_fee2);
+        String str2= getEditData(text2);
+
         EditText text3= view1.findViewById(R.id.cost_fee3);
+        String str3= getEditData(text3);
+
         EditText text4= view1.findViewById(R.id.cost_fee4);
+        String str4= getEditData(text4);
+
         EditText text5= view1.findViewById(R.id.cost_fee5);
+        String str5= getEditData(text5);
+
         EditText text6= view1.findViewById(R.id.cost_fee6);
+        String str6= getEditData(text6);
+
         EditText text7= view1.findViewById(R.id.cost_fee7);
+        String str7= getEditData(text7);
+
         EditText text8= view1.findViewById(R.id.cost_fee8);
-        JSONObject jsonObject=jsonObjMake(new String[]{"Maintenance","warr_inner","warr_out","labor","materal","travel","transport","sum_cost",});
+        String str8= getEditData(text8);
+
+        JSONObject jsonObject=jsonObjMake(new String[]{"Maintenance","warr_inner","warr_out","labor","materal","travel","transport","sum_cost"},
+                new String[]{str1,str2,str3,str4,str5,str6,str7,str8});
         return jsonObject;
     }
 
@@ -222,7 +278,7 @@ public class SiteFrag extends Fragment implements View.OnClickListener{
     }
 
     public String getEditData(EditText text){//获取 editView 中的文字信息
-        return text.getText().toString();
+        return text.getText().toString()+"";
     }
 
 
@@ -265,7 +321,7 @@ public class SiteFrag extends Fragment implements View.OnClickListener{
      }
      */
 
-    private void initManyJson(){
+    public void initManyJson(){
         if(layoutId==R.layout.site_device_install){
             initHeadJson4("cus_data",new String[]{"custom_name","custom_location","custom_contacts","phone_num"},R.id.site_device_i_1);
             initHeadJson("product_info",new String[]{"para","brand","type","power"},R.id.install_edit );
@@ -274,6 +330,12 @@ public class SiteFrag extends Fragment implements View.OnClickListener{
             singleJson(this.json,"cost",initCostJson(R.id.site_device_i_6));
 
             EditText text=view.findViewById(R.id.device_i_sum);
+            try {
+                this.json.put("sum",text.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
 
         }else if(layoutId==R.layout.site_device_service){
             initHeadJson4("cus_data",new String[]{"custom_name","custom_location","custom_contacts","phone_num"},R.id.site_device_s_1);
@@ -283,17 +345,15 @@ public class SiteFrag extends Fragment implements View.OnClickListener{
             singleJson(this.json,"cost",initCostJson(R.id.site_device_s_6));
 
             EditText text=view.findViewById(R.id.device_s_sum);
+            try {
+                this.json.put("sum",text.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
     }
 
-    public void makeJsonSiteInstall(){
-
-    }
-
-    public void makeJsonSiteService(){
-
-    }
 
 
 

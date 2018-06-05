@@ -5,11 +5,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.UpsFixFragment;
 import com.zjdt.dtsjwb.fragment.UpsTestFragment;
 
@@ -34,7 +36,7 @@ public class FixUpsActivity extends BaseActivity implements View.OnClickListener
         initView();
         upsFixHead=new UpsFixFragment();
         upsFixHead.setViewId(R.layout.ups_fix_report_head);
-
+        addFragment(R.id.ups_fix_frame,upsFixHead,new AirAssit());
     }
 
     private void initView() {
@@ -51,28 +53,40 @@ public class FixUpsActivity extends BaseActivity implements View.OnClickListener
         ft.add(frameId, addFragment).hide(removeFragment).commit();
     }
 
+    /**
+     * {"contacts":"","phone_number":"","location":"","device_brand":"","device_t":"","device_power":"","device_id":"","device_work_pattern":"",
+     * "kong":"","error_time":"","fix_time":"","fix_reason":"","error_phon":"","error_analysis":"","handle_error":"",
+     * "cost":{"Maintenance":"","warr_inner":"","warr_out":"","labor":"","materal":"","travel":"","transport":"","sum_cost":""},
+     * "fix_suggest":"","my_sign":"123","cus_sign":"123"}
+
+     * @param v
+     */
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ups_fix_button1://处理head
+                upsFixHead.makeHeadJson();
                 headButton.setVisibility(View.GONE);
                 bodyButton.setVisibility(View.VISIBLE);
                 upsFixBody=new UpsFixFragment();
-                upsFixBody.setViewId(R.layout.ups_test_report_body);
-                addFragment(R.id.ups_test_frame,upsFixBody,upsFixHead);
+                upsFixBody.setViewId(R.layout.ups_fix_report_body);
+                addFragment(R.id.ups_fix_frame,upsFixBody,upsFixHead);
                 break;
 
             case R.id.ups_fix_button2://处理body
+                upsFixBody.makeBodyJson();
                 bodyButton.setVisibility(View.GONE);
                 footButton.setVisibility(View.VISIBLE);
                 upsFixFoot=new UpsFixFragment();
-                upsFixFoot.setViewId(R.layout.ups_test_report_foot);
-                addFragment(R.id.ups_test_frame,upsFixFoot,upsFixBody);
+                upsFixFoot.setViewId(R.layout.ups_fix_report_foot);
+                addFragment(R.id.ups_fix_frame,upsFixFoot,upsFixBody);
                 break;
 
             case R.id.ups_fix_button3://处理foot  上传
+                upsFixFoot.makeFootJson();
                 String json= upsFixFoot.getJsonStr();
+                Log.e("upsfix",json);
                 break;
             default:break;
         }
