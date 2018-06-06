@@ -47,6 +47,7 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
 
     public static final String AU_REGISTER="register";
     public static final int AU_REGISTER_MSG=1001;
+    public static final int DTSJ_INS_FIX=1002;
 
     //public static final String
 

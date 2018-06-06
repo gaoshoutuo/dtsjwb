@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Util.ThreadUtil;
 import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.UpsFixFragment;
 import com.zjdt.dtsjwb.fragment.UpsTestFragment;
@@ -85,8 +87,21 @@ public class FixUpsActivity extends BaseActivity implements View.OnClickListener
 
             case R.id.ups_fix_button3://处理foot  上传
                 upsFixFoot.makeFootJson();
-                String json= upsFixFoot.getJsonStr();
+               final String json= upsFixFoot.getJsonStr();
                 Log.e("upsfix",json);
+                ThreadUtil.execute(new ThreadUtil.CallBack() {
+                    @Override
+                    public void exec() {
+
+                    }
+
+                    @Override
+                    public void run() {
+                        //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
+                        SocketUtil.sendMessageAdd("218.108.146.98",3333,json);
+                    }
+                });
+
                 break;
             default:break;
         }

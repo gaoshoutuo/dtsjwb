@@ -11,7 +11,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Util.ThreadUtil;
 import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.UpsTestFragment;
 
@@ -102,8 +104,21 @@ public class TestUpsActivity extends BaseActivity implements View.OnClickListene
 
             case R.id.ups_test_button3://处理foot  上传
                 upsTestFoot.makeJsonFoot();
-               String json= upsTestFoot.getJsonStr();
+               final String json= upsTestFoot.getJsonStr();
                 Log.e("upstest",json);
+
+                ThreadUtil.execute(new ThreadUtil.CallBack() {
+                    @Override
+                    public void exec() {
+
+                    }
+
+                    @Override
+                    public void run() {
+                        //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
+                        SocketUtil.sendMessageAdd("218.108.146.98",3333,json);
+                    }
+                });
                 break;
             default:break;
         }

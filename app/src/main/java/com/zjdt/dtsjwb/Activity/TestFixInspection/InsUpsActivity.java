@@ -10,8 +10,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 
+import com.zjdt.dtsjwb.Util.ThreadUtil;
 import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.UpsInsFragment;
 
@@ -78,7 +80,19 @@ public class InsUpsActivity extends BaseActivity implements View.OnClickListener
 
             case R.id.ups_ins_button2://处理body
                 upsInsBody.makeInsBodyJson();
-                String json= upsInsBody.getJsonStr();
+               final String json= upsInsBody.getJsonStr();
+                ThreadUtil.execute(new ThreadUtil.CallBack() {
+                    @Override
+                    public void exec() {
+
+                    }
+
+                    @Override
+                    public void run() {
+                        //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
+                        SocketUtil.sendMessageAdd("218.108.146.98",3333,json);
+                    }
+                });
                 Log.e("kk",json);
                 break;
 

@@ -63,6 +63,11 @@ public  class HandlerUtil {
                     ToastUtil.ggg(AppApplication.getApp(),msg.obj.toString());
                     break;
 
+                case HandlerFinal.DTSJ_INS_FIX:
+                    ToastUtil.ggg(AppApplication.getApp(),msg.obj.toString());
+                    break;
+
+                    default:break;
             }
         }
 

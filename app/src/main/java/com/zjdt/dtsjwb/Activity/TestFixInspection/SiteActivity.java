@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Util.ThreadUtil;
 import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.SiteFrag;
 import com.zjdt.dtsjwb.fragment.UpsFixFragment;
@@ -89,14 +91,40 @@ public class SiteActivity extends BaseActivity implements View.OnClickListener{
         switch (v.getId()){
             case R.id.site_button1://处理head
                 installSite.initManyJson();
-                String jsonInstall= installSite.getJsonStr();
+                final String jsonInstall= installSite.getJsonStr();
                 Log.e("install",jsonInstall);
+
+                ThreadUtil.execute(new ThreadUtil.CallBack() {
+                    @Override
+                    public void exec() {
+
+                    }
+
+                    @Override
+                    public void run() {
+                        //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
+                        SocketUtil.sendMessageAdd("218.108.146.98",3333,jsonInstall);
+                    }
+                });
                 break;
 
             case R.id.site_button2://处理head
                 serviceSite.initManyJson();
-                String jsonService= serviceSite.getJsonStr();
+               final String jsonService= serviceSite.getJsonStr();
                 Log.e("service",jsonService);
+
+                ThreadUtil.execute(new ThreadUtil.CallBack() {
+                    @Override
+                    public void exec() {
+
+                    }
+
+                    @Override
+                    public void run() {
+                        //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
+                        SocketUtil.sendMessageAdd("218.108.146.98",3333,jsonService);
+                    }
+                });
             break;
             default:break;
         }

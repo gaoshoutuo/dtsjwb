@@ -43,6 +43,31 @@ public class SocketUtil {
 
                         break;
 
+                    case "ins_fix_i_s":
+                        Message messageMIX=new Message();
+                        messageMIX.what= HandlerFinal.DTSJ_INS_FIX;
+                        messageMIX.obj=sf.toString();
+                        HandlerUtil.handler.sendMessage(messageMIX);
+                        break;
+
+                    case "number_1":
+
+                        break;
+
+                    case "number_2":
+
+                        break;
+
+                    case "number_3":
+
+                        break;
+                    case "number_4":
+
+                        break;
+
+
+
+
                 }
 
 
