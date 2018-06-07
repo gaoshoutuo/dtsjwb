@@ -65,9 +65,7 @@ public class SocketUtil {
 
                         break;
 
-
-
-
+                        default:break;
                 }
 
 
