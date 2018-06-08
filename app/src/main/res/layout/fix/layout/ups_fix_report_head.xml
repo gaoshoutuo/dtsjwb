@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:hint="客户名称"
             android:textColor="#000"
+            android:id="@+id/cus_forget_name"
             />
 
         <include

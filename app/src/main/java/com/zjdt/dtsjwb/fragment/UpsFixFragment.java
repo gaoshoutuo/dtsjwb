@@ -323,11 +323,15 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
 
 
 
-    public void makeHeadJson(){
+    public void makeHeadJson(){//这里注意了 修改过
+
+        EditText text=view.findViewById(R.id.cus_forget_name);
+        String forgetname=getEditData(text);
+        singleStr(this.json,"cus_name",forgetname);
         initHeadJson(new String[]{"contacts","phone_number","location"},R.id.ups_fix_head1);
         initHeadJson(new String[]{"device_brand","device_t","device_power"},R.id.ups_fix_head2);
         initHeadJson(new String[]{"device_id","device_work_pattern","kong"},R.id.ups_fix_head3);
-        initHeadJson(new String[]{"error_time","fix_time","fix_reason"},R.id.ups_fix_head4);
+        initHeadJson(new String[]{"error_time","fix_time","fix_location"},R.id.ups_fix_head4);
     }
 
     public void makeBodyJson(){

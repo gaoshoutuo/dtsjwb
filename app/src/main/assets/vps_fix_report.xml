@@ -33,6 +33,8 @@
     <name class="029">客户签字</name>
     <name class="030">单位</name>
     <name class="031">日期</name>
+    <name class="888">空</name>
+    <name class="100">故障模块</name>
 
     </root>
 <!--为啥要写成文件 而不是内存数组这样直观呢   复杂了-->

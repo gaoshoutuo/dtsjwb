@@ -356,7 +356,7 @@ public class UpsInsFragment extends Fragment implements View.OnClickListener{
         initHeadJson("ups_para_3",new String[]{"vps_id","vps_ustime","need_ex","vps_status"},R.id.fix_inspection_9);
 
         initHeadJson("electric_1",new String[]{"in_air","in_cabie","zero_vol","conform"},R.id.fix_inspection_11);
-        initHeadJson("electric_2",new String[]{"out_air","out_cabie","zero_vol","zero_vol"},R.id.fix_inspection_12);
+        initHeadJson("electric_2",new String[]{"out_air","out_cabie","zero_vol","conform"},R.id.fix_inspection_12);
         initHeadJson("electric_3",new String[]{"idc_tem","idc_hum","idc_clean","conform"},R.id.fix_inspection_13);
 
         initHeadJson("run_para_1",new String[]{"in_vol_a","in_vol_b","in_vol_c","hz"},R.id.fix_inspection_15);
