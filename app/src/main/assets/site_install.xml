@@ -30,6 +30,10 @@
     <name class="029">客户签字</name>
     <name class="030">单位</name>
     <name class="031">日期</name>
+    <name class="100">客户信息</name>
+    <name class="200">设备信息</name>
+    <name class="300">其他信息</name>
+    <name class="400">安装信息</name>
 
     </root>
 <!--为啥要写成文件 而不是内存数组这样直观呢   复杂了-->

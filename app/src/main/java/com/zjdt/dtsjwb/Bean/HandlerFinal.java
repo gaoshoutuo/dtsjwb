@@ -17,6 +17,9 @@ public class HandlerFinal {
     public static final String UPS_6="ups6";
     public static final String UPS_7="ups7";
 
+
+    public static final String NOTIFY_K="notify_k";
+
 //fragment
 public static final String[]upsString={"机架式ups主机","功率模块","蓄电池"};
     public static final String[]airString={"精密空调ec","ec室外机连接铜管","精密空调AC","AC室外机连接铜管"};
@@ -97,4 +100,5 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
     public static final int ROOL_MSG=11;
     public static String msg;
     public static String json;
+
 }

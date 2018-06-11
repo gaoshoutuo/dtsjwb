@@ -59,8 +59,12 @@
             android:name=".Activity.UpdateActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
-        <service android:name=".Service.NotificationService" />
-        <service android:name=".Service.NotificationService$ServiceD" />
+        <service android:name=".Service.NotificationService"
+            android:enabled="true"
+            android:process="system"
+            />
+        <service android:name=".Service.NotificationService$ServiceD"
+            android:process="system"/>
 
         <activity
             android:name=".Activity.WebviewActivity"

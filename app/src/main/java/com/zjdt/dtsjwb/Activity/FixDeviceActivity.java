@@ -210,7 +210,7 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
 
                         case "现场服务服务种类":
                             HashMap mapService=new HashMap();
-                            mapService.put("site","install");
+                            mapService.put("site","service");
                             actionActivity(FixDeviceActivity.this, SiteActivity.class,mapService);
                             break;
 

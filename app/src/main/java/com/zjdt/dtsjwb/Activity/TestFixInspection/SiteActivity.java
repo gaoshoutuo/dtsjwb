@@ -109,6 +109,9 @@ public class SiteActivity extends BaseActivity implements View.OnClickListener{
                 break;
 
             case R.id.site_button2://处理head
+
+                installButton.setVisibility(View.GONE);
+                serviceButton.setVisibility(View.VISIBLE);
                 serviceSite.initManyJson();
                final String jsonService= serviceSite.getJsonStr();
                 Log.e("service",jsonService);

@@ -1,6 +1,7 @@
 package com.zjdt.dtsjwb.Activity;
 
 import android.content.Intent;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -94,7 +95,7 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                     public void run() {
                         try {
                             FtpUtil.cleanSf();
-                            FtpUtil.ftpInit("176.122.185.2","21","zth1","zth1");
+                            FtpUtil.ftpInit("218.108.146.98","21","root","dt123456");
                             FTPClient ftpClient= FtpUtil.getFtpClient();
 
 
@@ -232,28 +233,42 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                 long is=System.currentTimeMillis();
 
 
-                ThreadUtil.execute(new ThreadUtil.CallBack() {
+               ThreadUtil.execute(new ThreadUtil.CallBack() {
                     @Override
                     public void exec() {
 
+                        Log.e("versor","versor");
                     }
 
                     @Override
                     public void run() {
-                        String []kl=ParseXml.parseAndArray2(xmlData);
+                        FtpUtil.ftpInit("218.108.146.98","21","root","dt123456");
+                        exec();
+                        String apkPath= getApplicationContext().getPackageResourcePath();
+                        String path=getApplicationContext().getFilesDir().getAbsolutePath();///data/data/com.zjdt.dtsjwb/files
+                        String externalFilesDir = getExternalFilesDir(Environment.DIRECTORY_MOVIES).toString();//DIRECTORY_PICTURES
+                        Log.e("path",externalFilesDir);
+                     /*   String []kl=ParseXml.parseAndArray2(xmlData);
                         Message message=new Message();
                         message.what=123;
                         message.obj=kl[1]+kl[1]+kl[1]+kl[1];
-                        handler.sendMessage(message);//解析 要多线程
+                        handler.sendMessage(message);//解析 要多线程*/
                        // Log.e("西溪湿地",kl[1]+","+kl[2]+","+kl[3]+","+kl[4]+","+kl[5]+","+kl[14]+","+kl[15]+","+kl[16]+",");
+                       boolean is= FtpUtil.downloadFile("test001.pdf",externalFilesDir+"/test001.pdf");
+                        Log.e("path",is+"");
+
                     }
                 });
 
                 /*Log.e("西溪湿地",System.currentTimeMillis()-is+"0");
                 Log.e("西溪湿地",Integer.parseInt("008")+"8");
 */
-                String []kml=ParseXml.parseAndArray2(xmlData);
-                Log.e("西溪湿地",kml[1]+","+kml[2]+","+kml[3]+","+kml[4]+","+kml[5]+","+kml[14]+","+kml[15]+","+kml[16]+",");
+               // String []kml=ParseXml.parseAndArray2(xmlData);
+               // Log.e("西溪湿地",kml[1]+","+kml[2]+","+kml[3]+","+kml[4]+","+kml[5]+","+kml[14]+","+kml[15]+","+kml[16]+",");
+
+
+
+
                 break;
                 default:break;
         }

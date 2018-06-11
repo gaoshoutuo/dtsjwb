@@ -116,18 +116,22 @@ public class FtpUtil {
      * 下载
      * 这中间必然修改workdir
      */
-    public static void downloadFile(String filename){
+    public static boolean downloadFile(String filename,String localFile){
         FileOutputStream out=null;
         try {
-            out = new FileOutputStream(new File(filename));
-            ftpClient.retrieveFile(filename, out);
+            out = new FileOutputStream(new File(localFile));
+           boolean is= ftpClient.retrieveFile(filename, out);
+            //FileInputStream fis=new FileInputStream();
             //   Log.e("workd",ftpClient.printWorkingDirectory());
             out.close();
+            return is;
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     /**

@@ -124,7 +124,7 @@ if (pathname=="001"){
 
         @Override
         public void run() {
-            FtpUtil.ftpInit("192.168.1.102","21","root","123456");
+            FtpUtil.ftpInit("218.108.146.98","21","root","dt123456");
             FtpUtil.uploadFile(imageurl,pathname);
         }
     });
