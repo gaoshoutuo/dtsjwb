@@ -22,9 +22,19 @@ import org.json.JSONObject;
 
 public class EsAssit extends Fragment {
 
-    private JSONArray ja=new JSONArray();
+    private JSONArray ja=new JSONArray();//不能用jsonArray  不具备标识
+    private static JSONObject json;
     private View view;
     private EditText idcNumber;String idctext;
+    public static String getJsonStr(){
+        try {
+            json.put("au",HandlerFinal.STR_ASSET);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json.toString();
+    }
+
 
   /*  public EsAssit() {
     }
@@ -96,6 +106,8 @@ public class EsAssit extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        //View view=inflater.inflate(R.layout.assit_es,container,false);
         view=inflater.inflate(rid,container,false);
+        if (json==null)
+            initJson();
         switch (rid){
             case R.layout.assit_es:
                 initEleview();
@@ -138,7 +150,9 @@ public class EsAssit extends Fragment {
 
         return view;
     }
-
+private static void initJson(){
+        json=new JSONObject();
+}
 
     /**
      * 还有一点就是反复切换碎片是新生成呢还是
@@ -186,6 +200,17 @@ public class EsAssit extends Fragment {
         ja.put(jsonObject);
     }
 
+    private void putJsonObj(int rid,String keyName){
+        DevicePara dp= beanGet(rid);
+        JSONObject jsonObject= makeJson(dp);
+        try {
+            this.json.put(keyName,jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // .put(jsonObject);
+    }
+
 
 
 
@@ -199,17 +224,17 @@ public class EsAssit extends Fragment {
 
 
 
-    private void getEvEle(){
+    public void getEvEle(){
         /*View viewOne=view.findViewById(rid);这种寻址是不是特别慢
         viewOne.getId();*/
 
       /* JSONObject jsonObject=new JSONObject();
        jsonObject.put()*/
-        putJsonArray(R.id.es_body1);
+        putJsonObj(R.id.es_body1,"es_body_1");
 
-        putJsonArray(R.id.es_body2);
+        putJsonObj(R.id.es_body2,"es_body_2");
 
-        putJsonArray(R.id.es_body3);
+        putJsonObj(R.id.es_body3,"es_body_3");
 
     }
 
@@ -220,14 +245,14 @@ public class EsAssit extends Fragment {
         viewSet(R.id.air_head4,HandlerFinal.airString[3]);
     }
 
-    private void getEvAir(){
-        putJsonArray(R.id.air_body1);
+    public void getEvAir(){
+        putJsonObj(R.id.air_body1,"air_body_1");
 
-        putJsonArray(R.id.air_body2);
+        putJsonObj(R.id.air_body2,"air_body_2");
 
-        putJsonArray(R.id.air_body3);
+        putJsonObj(R.id.air_body3,"air_body_3");
 
-        putJsonArray(R.id.air_body4);
+        putJsonObj(R.id.air_body4,"air_body_4");
     }
 
     private void initEmiview(){
@@ -235,10 +260,10 @@ public class EsAssit extends Fragment {
         viewSet(R.id.emi_head1,HandlerFinal.emiString[1]);
     }
 
-    private void getEvEmi(){
-        putJsonArray(R.id.emi_body1);
+    public void getEvEmi(){
+        putJsonObj(R.id.emi_body1,"emi_body_1");
 
-        putJsonArray(R.id.emi_body2);
+        putJsonObj(R.id.emi_body2,"emi_body_2");
     }
 
     private void initSoftview(){
@@ -248,14 +273,14 @@ public class EsAssit extends Fragment {
         viewSet(R.id.mon_soft_head4,HandlerFinal.softString[3]);
     }
 
-    private void getEvSoft(){
-        putJsonArray(R.id.mon_soft_body1);
+    public void getEvSoft(){
+        putJsonObj(R.id.mon_soft_body1,"mon_soft_body_1");
 
-        putJsonArray(R.id.mon_soft_body2);
+        putJsonObj(R.id.mon_soft_body2,"mon_soft_body_2");
 
-        putJsonArray(R.id.mon_soft_body3);
+        putJsonObj(R.id.mon_soft_body3,"mon_soft_body_3");
 
-        putJsonArray(R.id.mon_soft_body4);
+        putJsonObj(R.id.mon_soft_body4,"mon_soft_body_4");
     }
 
     private void initSIview(){
@@ -267,18 +292,18 @@ public class EsAssit extends Fragment {
         viewSet(R.id.mon_interface_head6,HandlerFinal.interfaceString[5]);
     }
 
-    private void getEvInterface(){
-        putJsonArray(R.id.mon_interface_body1);
+    public void getEvInterface(){
+        putJsonObj(R.id.mon_interface_body1,"mon_interface_body_1");
 
-        putJsonArray(R.id.mon_interface_body2);
+        putJsonObj(R.id.mon_interface_body2,"mon_interface_body_2");
 
-        putJsonArray(R.id.mon_interface_body3);
+        putJsonObj(R.id.mon_interface_body3,"mon_interface_body_3");
 
-        putJsonArray(R.id.mon_interface_body4);
+        putJsonObj(R.id.mon_interface_body4,"mon_interface_body_4");
 
-        putJsonArray(R.id.mon_interface_body5);
+        putJsonObj(R.id.mon_interface_body5,"mon_interface_body_5");
 
-        putJsonArray(R.id.mon_interface_body6);
+        putJsonObj(R.id.mon_interface_body6,"mon_interface_body_6");
     }
 
     private void initSHview(){
@@ -288,14 +313,14 @@ public class EsAssit extends Fragment {
         viewSet(R.id.mon_hard_head4,HandlerFinal.hardwareString[3]);
     }
 
-    private void getEvHardware(){
-        putJsonArray(R.id.mon_hard_body1);
+    public void getEvHardware(){
+        putJsonObj(R.id.mon_hard_body1,"mon_hard_body_1");
 
-        putJsonArray(R.id.mon_hard_body2);
+        putJsonObj(R.id.mon_hard_body2,"mon_hard_body_2");
 
-        putJsonArray(R.id.mon_hard_body3);
+        putJsonObj(R.id.mon_hard_body3,"mon_hard_body_3");
 
-        putJsonArray(R.id.mon_hard_body4);
+        putJsonObj(R.id.mon_hard_body4,"mon_hard_body_4");
     }
 
     private void initACview(){
@@ -309,22 +334,22 @@ public class EsAssit extends Fragment {
         viewSet(R.id.mon_ac_head8,HandlerFinal.acString[7]);
     }
 
-    private void getEvAc(){
-        putJsonArray(R.id.mon_ac_body1);
+    public void getEvAc(){
+        putJsonObj(R.id.mon_ac_body1,"mon_ac_body_1");
 
-        putJsonArray(R.id.mon_ac_body2);
+        putJsonObj(R.id.mon_ac_body2,"mon_ac_body_2");
 
-        putJsonArray(R.id.mon_ac_body3);
+        putJsonObj(R.id.mon_ac_body3,"mon_ac_body_3");
 
-        putJsonArray(R.id.mon_ac_body4);
+        putJsonObj(R.id.mon_ac_body4,"mon_ac_body_4");
 
-        putJsonArray(R.id.mon_ac_body5);
+        putJsonObj(R.id.mon_ac_body5,"mon_ac_body_5");
 
-        putJsonArray(R.id.mon_ac_body6);
+        putJsonObj(R.id.mon_ac_body6,"mon_ac_body_6");
 
-        putJsonArray(R.id.mon_ac_body7);
+        putJsonObj(R.id.mon_ac_body7,"mon_ac_body_7");
 
-        putJsonArray(R.id.mon_ac_body8);
+        putJsonObj(R.id.mon_ac_body8,"mon_ac_body_8");
     }
 
     private void initVideoview(){
@@ -334,14 +359,14 @@ public class EsAssit extends Fragment {
         viewSet(R.id.mon_video_head4,HandlerFinal.videoString[3]);
     }
 
-    private void getEvVideo(){
-        putJsonArray(R.id.mon_video_body1);
+    public void getEvVideo(){
+        putJsonObj(R.id.mon_video_body1,"mon_video_body_1");
 
-        putJsonArray(R.id.mon_video_body2);
+        putJsonObj(R.id.mon_video_body2,"mon_video_body_2");
 
-        putJsonArray(R.id.mon_video_body3);
+        putJsonObj(R.id.mon_video_body3,"mon_video_body_3");
 
-        putJsonArray(R.id.mon_video_body4);
+        putJsonObj(R.id.mon_video_body4,"mon_video_body_4");
     }
 
     private void initCabientview(){
@@ -362,36 +387,37 @@ public class EsAssit extends Fragment {
         viewSet(R.id.cabient_head15,HandlerFinal.cabientString[14]);
     }
 
-    private void getEvCabient(){
-        putJsonArray(R.id.cabient_body1);
+    public void getEvCabient(){
+        putJsonObj(R.id.cabient_body1,"cabient_body_1");
 
-        putJsonArray(R.id.cabient_body2);
+        putJsonObj(R.id.cabient_body2,"cabient_body_2");
 
-        putJsonArray(R.id.cabient_body3);
+        putJsonObj(R.id.cabient_body3,"cabient_body_3");
 
-        putJsonArray(R.id.cabient_body4);
+        putJsonObj(R.id.cabient_body4,"cabient_body_4");
 
-        putJsonArray(R.id.cabient_body5);
+        putJsonObj(R.id.cabient_body5,"cabient_body_5");
 
-        putJsonArray(R.id.cabient_body6);
+        putJsonObj(R.id.cabient_body6,"cabient_body_6");
 
-        putJsonArray(R.id.cabient_body7);
+        putJsonObj(R.id.cabient_body7,"cabient_body_7");
 
-        putJsonArray(R.id.cabient_body8);
+        putJsonObj(R.id.cabient_body8,"cabient_body_8");
 
-        putJsonArray(R.id.cabient_body9);
+        putJsonObj(R.id.cabient_body9,"cabient_body_9");
 
-        putJsonArray(R.id.cabient_body10);
+        putJsonObj(R.id.cabient_body10,"cabient_body_10");
 
-        putJsonArray(R.id.cabient_body11);
+        putJsonObj(R.id.cabient_body11,"cabient_body_11");
 
-        putJsonArray(R.id.cabient_body12);
+        putJsonObj(R.id.cabient_body12,"cabient_body_12");
 
-        putJsonArray(R.id.cabient_body13);
+        putJsonObj(R.id.cabient_body13,"cabient_body_13");
 
-        putJsonArray(R.id.cabient_body14);
+        putJsonObj(R.id.cabient_body14,"cabient_body_14");
 
-        putJsonArray(R.id.cabient_body15);
+        putJsonObj(R.id.cabient_body15,"cabient_body_15");
+
     }
     //不是碎片不持有view  而是应该从编程语言的角度来考虑 对象它有没有在这里面实例化过
 }

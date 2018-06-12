@@ -68,7 +68,8 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
 
                     @Override
                     public void run() {
-                        SocketUtil.sendMessageAdd("192.168.1.102",3333,jsonObject.toString());
+                       // SocketUtil.sendMessageAdd("192.168.1.102",3333,jsonObject.toString());
+                        SocketUtil.sendMessageAdd("218.108.146.98",3333,jsonObject.toString());
                     }
                 });
 

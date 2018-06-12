@@ -47,7 +47,7 @@ public class NotifyActivity extends BaseActivity {
 
             @Override
             public void run() {
-                SocketUtil.sendMessageAdd("192.168.1.102",3333,"");//此处涉及线程调度 主线程要先阻塞 然后子线程办好事情 主线程再
+                SocketUtil.sendMessageAdd("218.108.146.98",3333,"{\"au\":\"select\",\"age\":\"88\",\"name\":\"hetao\"}");//此处涉及线程调度 主线程要先阻塞 然后子线程办好事情 主线程再
             }
         });
 

@@ -122,7 +122,8 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                     @Override
                     public void run() {// 需要一个回调的线程放置我的方法
                         String json="{\"au\":\"add\",\"pwd\":\"123456\",\"name\":\"dtsj\",\"email\":\"dtsj@qq.com\"}";
-                       SocketUtil.sendMessageAdd("192.168.1.102",3333,json);
+                      // SocketUtil.sendMessageAdd("192.168.1.102",3333,json);
+                        SocketUtil.sendMessageAdd("218.108.146.98",3333,json);
                     }
                 }).start();
                 break;
@@ -156,7 +157,8 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                     @Override
                     public void run() {
                         //这就是函数不能当值传递的弊了
-                        SocketUtil.sendMessageAdd("192.168.1.102",3333,"{\"au\":\"select\",\"age\":\"88\",\"name\":\"hetao\"}");
+                      //  SocketUtil.sendMessageAdd("192.168.1.102",3333,"{\"au\":\"select\",\"age\":\"88\",\"name\":\"hetao\"}");
+                        SocketUtil.sendMessageAdd("218.108.146.98",3333,"{\"au\":\"select\",\"age\":\"88\",\"name\":\"hetao\"}");
                     }
                 });
 

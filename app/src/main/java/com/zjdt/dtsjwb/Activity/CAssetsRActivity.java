@@ -8,18 +8,24 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.DialogUtil;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
 import com.zjdt.dtsjwb.fragment.EsAssit;
 
+import org.json.JSONObject;
+
 public class CAssetsRActivity extends BaseActivity implements View.OnClickListener{
     //资产登记  通过碎片 登记机房的多个系统部件
+    private EsAssit esAssit,airAssit,emiAssit,monsoftAssit,moninterAssit,hardwareAssit,acAssit,videoAssit,cabientAssit;
+    private JSONObject jsonObject;
     private  FragmentManager fragmentManager=getSupportFragmentManager();
     private Button button;
     private boolean isopne=false;
@@ -29,12 +35,15 @@ public class CAssetsRActivity extends BaseActivity implements View.OnClickListen
     private int []buttonRid={R.id.ele_assit,R.id.air_assit,R.id.emi_assit,R.id.mon_soft_assit,R.id.mon_soft_interface,R.id.mon_soft_hardware,R.id.mon_soft_ac,
     R.id.mon_video,R.id.mon_cabient};
     private int []layoutT={};
+    private void initJson(){
+        jsonObject=new JSONObject();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cassets_r);
         CAssetsRActivity.this.initButton(0);
-        setFragment(R.layout.assit_es);
+        esAssit=setFragment(R.layout.assit_es);
     }
     private void initButton(int i){
         button=f(buttonRid[i]);
@@ -58,11 +67,50 @@ public class CAssetsRActivity extends BaseActivity implements View.OnClickListen
     }*/
 
     private void replaceFragment(Fragment fragment){
+
         FragmentTransaction transaction=fragmentManager.beginTransaction();
         transaction.replace(R.id.assit_framelayout,fragment);
       //  transaction.addToBackStack(null);
         transaction.commit();
+       /* switch (fragment.getId()){
+            case R.layout.assit_es:
+                esAssit.getEvEle();
+                break;
 
+            case R.layout.assit_air:
+                esAssit.getEvAir();
+                break;
+
+            case R.layout.assit_emi:
+                esAssit.getEvEmi();
+                break;
+
+            case R.layout.assit_mon_soft:
+                esAssit.getEvSoft();
+                break;
+
+            case R.layout.assit_mon_interface:
+                esAssit.getEvInterface();
+                break;
+
+            case R.layout.assit_mon_hard:
+                esAssit.getEvHardware();
+                break;
+
+            case R.layout.assit_mon_ac:
+                esAssit.getEvAc();
+                break;
+
+            case R.layout.assit_mon_video:
+                esAssit.getEvVideo();
+                break;
+
+            case R.layout.assit_cabient:
+                esAssit.getEvCabient();
+                break;
+
+            default:break;
+        }*/
     }
 
     private void addHideFragment(Fragment from,Fragment to,int position){
@@ -77,10 +125,54 @@ public class CAssetsRActivity extends BaseActivity implements View.OnClickListen
         transaction.commit();
     }
 
-    private void setFragment(int layoutId) {//可以选择layout【i】来的 但是不像改了
+    private EsAssit setFragment(int layoutId) {//可以选择layout【i】来的 但是不像改了
         EsAssit esAssit = new EsAssit();
-        esAssit.setRid(layoutId);
+        esAssit.setRid(layoutId);   //怪不得为null原来是因为replace
+        //(⊙o⊙)… 我也不想写这种面条代码 本来 9 个方法可以。无奈这么系统设计后需求有改了，原先的代码耦合智能出此下策
+
+
         replaceFragment(esAssit);//似乎确实是替换
+        return esAssit;
+
+       /* switch (layoutId){
+            case R.layout.assit_es:
+                esAssit.getEvEle();
+                break;
+
+            case R.layout.assit_air:
+                esAssit.getEvAir();
+                break;
+
+            case R.layout.assit_emi:
+                esAssit.getEvEmi();
+                break;
+
+            case R.layout.assit_mon_soft:
+                esAssit.getEvSoft();
+                break;
+
+            case R.layout.assit_mon_interface:
+                esAssit.getEvInterface();
+                break;
+
+            case R.layout.assit_mon_hard:
+                esAssit.getEvHardware();
+                break;
+
+            case R.layout.assit_mon_ac:
+                esAssit.getEvAc();
+                break;
+
+            case R.layout.assit_mon_video:
+                esAssit.getEvVideo();
+                break;
+
+            case R.layout.assit_cabient:
+                esAssit.getEvCabient();
+                break;
+
+            default:break;
+        }*/
         //addHideFragment(Fragment from,Fragment to,int position);
     }
     private void setButtonNine(int i){
@@ -96,10 +188,76 @@ public class CAssetsRActivity extends BaseActivity implements View.OnClickListen
                 // 每个碎片放入返回栈
                 // 每个碎片对于一种数据结构并发送给activity
                 // 结束之后 把碎片删除
+                ThreadUtil.execute(new ThreadUtil.CallBack() {
+                    @Override
+                    public void exec() {
+
+                    }
+
+                    @Override
+                    public void run() {
+                       String json= EsAssit.getJsonStr();
+                        Log.e("asset_json",json);
+                        //SocketUtil.sendMessageAdd("192.168.1.102",3333,json);
+                        //SocketUtil.sendMessageAdd("218.108.146.98",3333,json);
+                    }
+                });
             }
         });
     }
     //获取 碎片 应用
+
+    /**
+     * {"es_body_1":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "es_body_2":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "es_body_3":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     *
+     * "air_body_1":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "air_body_2":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "air_body_3":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "air_body_4":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     *
+     * "emi_body_1":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "emi_body_2":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     *
+     * "mon_soft_body_1":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_soft_body_2":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_soft_body_3":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_soft_body_4":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     *
+     * "mon_interface_body_1":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_interface_body_2":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_interface_body_3":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_interface_body_4":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_interface_body_5":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_interface_body_6":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     *
+     * "mon_hard_body_1":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_hard_body_2":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_hard_body_3":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_hard_body_4":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     *
+     * "mon_ac_body_1":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_ac_body_2":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_ac_body_3":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_ac_body_4":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_ac_body_5":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_ac_body_6":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_ac_body_7":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_ac_body_8":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     *
+     * "mon_video_body_1":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_video_body_2":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_video_body_3":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "mon_video_body_4":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     *
+     * "cabient_body_1":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "cabient_body_2":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "cabient_body_3":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+     * "cabient_body_4":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},15"
+
+     * @param v
+     */
 
 
     @Override
@@ -124,39 +282,48 @@ public class CAssetsRActivity extends BaseActivity implements View.OnClickListen
 
                     }
                 });*/
-                setFragment(R.layout.assit_air);
-
+                esAssit.getEvEle();
+                airAssit=setFragment(R.layout.assit_air);
+                //esAssit.getEvEle();
                 setButtonNine(1);
                 break;
             case R.id.air_assit:
-                setFragment(R.layout.assit_emi);
+                airAssit.getEvAir();
+                emiAssit=setFragment(R.layout.assit_emi);
                 setButtonNine(2);
                 break;
             case R.id.emi_assit:
-                setFragment(R.layout.assit_mon_soft);
+                emiAssit.getEvEmi();
+                monsoftAssit=setFragment(R.layout.assit_mon_soft);
                 setButtonNine(3);
                 break;
             case R.id.mon_soft_assit:
-                setFragment(R.layout.assit_mon_interface);
+                monsoftAssit.getEvSoft();
+                moninterAssit=setFragment(R.layout.assit_mon_interface);
                 setButtonNine(4);
                 break;
             case R.id.mon_soft_interface:
-                setFragment(R.layout.assit_mon_hard);
+                moninterAssit.getEvInterface();
+                hardwareAssit=setFragment(R.layout.assit_mon_hard);
                 setButtonNine(5);
                 break;
             case R.id.mon_soft_hardware:
-                setFragment(R.layout.assit_mon_ac);
+                hardwareAssit.getEvHardware();
+                acAssit=setFragment(R.layout.assit_mon_ac);
                 setButtonNine(6);
                 break;
             case R.id.mon_soft_ac://我确实在用面向对象的特性吗
-                setFragment(R.layout.assit_mon_video);
+                acAssit.getEvAc();
+                videoAssit=setFragment(R.layout.assit_mon_video);
                 setButtonNine(7);
                 break;
             case R.id.mon_video:
-                setFragment(R.layout.assit_cabient);
+                videoAssit.getEvVideo();
+                cabientAssit=setFragment(R.layout.assit_cabient);
                 setButtonNine(8);
                 break;
             case R.id.mon_cabient:
+                cabientAssit.getEvCabient();
                 //setButtonNine(8); 上传
                 specialButton();
                 break;

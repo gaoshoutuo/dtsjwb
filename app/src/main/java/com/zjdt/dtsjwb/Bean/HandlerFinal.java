@@ -101,4 +101,7 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
     public static String msg;
     public static String json;
 
+
+    public static final String STR_ASSET="asset";
+
 }
