@@ -37,6 +37,7 @@ import com.zjdt.dtsjwb.Service.NotificationService;
 import com.zjdt.dtsjwb.Util.DialogUtil;
 import com.zjdt.dtsjwb.Util.JsonUtil;
 import com.zjdt.dtsjwb.Util.PermissonUtil;
+import com.zjdt.dtsjwb.Util.ThreadUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -204,8 +205,11 @@ public class MenuActivity extends AppCompatActivity {
                     break;
                 case 1:
                     if (map.get("au").equals("1")) {//字符串别用==
-                        Intent intent = new Intent(MenuActivity.this, HistoryActivity.class);
-                        MenuActivity.this.startActivity(intent);
+                      /*  Intent intent = new Intent(MenuActivity.this, HistoryActivity.class);
+                        MenuActivity.this.startActivity(intent);*/
+                      HashMap map_11=new HashMap();
+                      map_11.put("au","fix_engineer");
+                      actionActivity(MenuActivity.this,HistoryActivity.class,map_11);
                     } else if ((map.get("au").equals("2"))) {
                         Toast.makeText(MenuActivity.this, "xiaoyu", Toast.LENGTH_SHORT).show();
                         actionActivity(MenuActivity.this,CAssetsRActivity.class,null);
@@ -218,9 +222,30 @@ public class MenuActivity extends AppCompatActivity {
                     } else if ((map.get("au").equals("2"))) {
                         actionActivity(MenuActivity.this,IntellActivity.class,null);
 
+
+
                     }
                     break;
                 case 3:
+
+                    if (map.get("au").equals("2")) {//字符串别用==
+                        HashMap map_32=new HashMap();
+                        map_32.put("au","fix_custom");
+                        actionActivity(MenuActivity.this,HistoryActivity.class,map_32);
+                    } else if ((map.get("au").equals("1"))) {
+                        Toast.makeText(MenuActivity.this, "xiaoyu", Toast.LENGTH_SHORT).show();
+                        ThreadUtil.execute(new ThreadUtil.CallBack() {
+                            @Override
+                            public void exec() {
+
+                            }
+
+                            @Override
+                            public void run() {
+                                OkhttpUtil.getUrl("");//更新地址
+                            }
+                        });
+                    }
                     Toast.makeText(MenuActivity.this, "" + position, Toast.LENGTH_SHORT).show();
                     break;
                 case 4:
@@ -283,5 +308,13 @@ public class MenuActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
         AppApplication.getApp().startActivity(intent);
+    }
+
+    public void updateApk(String filename){//首先服务也得启动起来  会根据我的推送来下载apk 到本地这个文件夹
+        //String path = Environment.getExternalStorageDirectory() + "/DateApp.apk";
+        String path = getExternalFilesDir(Environment.DIRECTORY_MOVIES).toString()+ filename;
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(new File(path)), "application/vnd.android.package-archive");
+        startActivity(intent);//包含在intent里面了
     }
 }

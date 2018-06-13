@@ -7,6 +7,23 @@ public class FixHistoryBean {
     private String textReason;
 
     public String imageUrl;
+    public String filePath;
+
+    public FixHistoryBean(String date, String business, String human, String textReason, String filePath) {
+        this.date = date;
+        this.business = business;
+        this.human = human;
+        this.textReason = textReason;
+        this.filePath = filePath;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
     public String getImageUrl() {
         return imageUrl;

@@ -1,5 +1,6 @@
 package com.zjdt.dtsjwb.Util;
 
+import com.zjdt.dtsjwb.Bean.FixHistoryBean;
 import com.zjdt.dtsjwb.Bean.Password;
 import com.zjdt.dtsjwb.Bean.RollBean;
 
@@ -83,6 +84,21 @@ public class JsonUtil {
         return null;
     }
     /**
-     * 不仅仅需要解析json  更加需要 生成 做json
+     * 不仅仅需要解析json  更加需要 生成 做json   啦啦啦我会啦  {"date":"","business":"","human":"","text":"","str5":"","filepath":""}
      */
+    public static ArrayList<FixHistoryBean> parseHistory(String json){
+        ArrayList<FixHistoryBean> list=new ArrayList<>();
+        try {
+            JSONArray ja=new JSONArray(json);
+            for (int i=0;i<ja.length();i++){
+                JSONObject jsonObj=ja.getJSONObject(i);
+                String date=jsonObj.getString("date")+"";
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

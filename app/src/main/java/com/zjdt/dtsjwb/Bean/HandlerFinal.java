@@ -1,6 +1,9 @@
 package com.zjdt.dtsjwb.Bean;
 
 
+import android.os.Environment;
+
+import com.zjdt.dtsjwb.App.AppApplication;
 
 /**
  * handler的常量类
@@ -103,5 +106,9 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
 
 
     public static final String STR_ASSET="asset";
+    public static final double VERSION=1.0;
+
+    //文件路径
+    public static final String PATH_MOVIE = AppApplication.getApp().getExternalFilesDir(Environment.DIRECTORY_MOVIES).toString();
 
 }

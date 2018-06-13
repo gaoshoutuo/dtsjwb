@@ -1,16 +1,28 @@
 package com.zjdt.dtsjwb.Activity;
 
 
+import android.app.Activity;
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zjdt.dtsjwb.Bean.FixHistoryBean;
+import com.zjdt.dtsjwb.NetUtil.OkhttpUtil;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Util.DatabaseUtil;
+import com.zjdt.dtsjwb.Util.DialogUtil;
+import com.zjdt.dtsjwb.Util.ThreadUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +45,7 @@ public class HistoryActivity extends BaseActivity {
            setContentView(R.layout.activity_fix_custom);
             initCusView();
 
+
         }else if(map.get("au").equals("fix_engineer")){
            setContentView(R.layout.activity_fix_engineer);
             initEngView();
@@ -42,34 +55,119 @@ public class HistoryActivity extends BaseActivity {
 
     }
     //拼了太久的字符串 险些android 代码都不会写了
+
+    /**
+     * 此处解析json 按照我的想法 json 应该是个数组
+     * [{"date":"","business":"","human":"","str4":"","str5":"","str6":""},
+     * {"str1":"","str2":"","str3":"","str4":"","str5":"","str6":""},
+     * {"str1":"","str2":"","str3":"","str4":"","str5":"","str6":""},
+     * {"str1":"","str2":"","str3":"","str4":"","str5":"","str6":""},
+     * {"str1":"","str2":"","str3":"","str4":"","str5":"","str6":""},
+     * {"str1":"","str2":"","str3":"","str4":"","str5":"","str6":""}
+     * ]
+     */
     private void initCusView(){
         customView=f(R.id.fix_custom_recyclerview);
-        LinearLayoutManager lm=new LinearLayoutManager(this);
-        customView.setLayoutManager(lm);
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(this,2);
+        customView.setLayoutManager(gridLayoutManager);
+       // CusAdapter cusAdapter=new CusAdapter()
+        //customView.setAdapter();
     }
 
     private void initEngView(){
         engineerView=f(R.id.fix_engineer_recyclerview);
         LinearLayoutManager lm=new LinearLayoutManager(this);
         engineerView.setLayoutManager(lm);
+
     }
 
 
     //handler
 
     //init view
+    private RecyclerView.OnItemTouchListener listener=new RecyclerView.OnItemTouchListener() {
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    };
 
 
     class EngAdapter extends RecyclerView.Adapter<EngAdapter.ViewEng>{
         private ArrayList<FixHistoryBean>list;
+        private Activity context;
+        private int layoutId;
+
+
+
+        public EngAdapter(ArrayList<FixHistoryBean> list, Activity context, int layoutId) {
+            this.list = list;
+            this.context = context;
+            this.layoutId = layoutId;
+        }
 
         @Override
         public ViewEng onCreateViewHolder(ViewGroup parent, int viewType) {
-            return null;
+            View view= LayoutInflater.from(context).inflate(layoutId,parent,false);
+            final ViewEng viewEng=new ViewEng(view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DialogUtil.AlertDialogUtil alertDialogUtil= DialogUtil.getDialogUtil().new AlertDialogUtil(HistoryActivity.this);
+                    alertDialogUtil.setAlertDialog("否","是","温馨提醒","是否需要下载报告文件",new DialogInterface.OnClickListener(){
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(which==-2){
+                                ThreadUtil.execute(new ThreadUtil.CallBack() {
+                                    @Override
+                                    public void exec() {
+
+                                    }
+
+                                    @Override
+                                    public void run() {
+                                        int position=viewEng.getAdapterPosition();
+                                        FixHistoryBean bean= list.get(position);
+                                        String filePath=bean.getFilePath();
+                                        //1 http
+                                        OkhttpUtil.getUrl("前置文件路径"+filePath);
+                                        //2 ftp式
+
+                                    }
+                                });
+
+                                //Toast.makeText(HistoryActivity.this,"保存",Toast.LENGTH_SHORT).show();
+                            }else if(which==-1){
+                                Toast.makeText(HistoryActivity.this,"关闭",Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
+                }
+            });
+
+            return viewEng;
         }
 
         @Override
         public void onBindViewHolder(ViewEng holder, int position) {
+            FixHistoryBean bean=list.get(position);
+            //holder.engText.setText(bean.getDate());
+            holder.engDate.setText(bean.getDate());
+            holder.engBuss.setText(bean.getBusiness());
+            holder.engHuman.setText(bean.getHuman());
+            holder.engText.setText(bean.getTextReason());
 
         }
 
@@ -80,10 +178,15 @@ public class HistoryActivity extends BaseActivity {
 
 
 
+
         class ViewEng extends RecyclerView.ViewHolder{
             TextView engDate,engBuss,engHuman,engText;
             public ViewEng(View itemView) {
                 super(itemView);
+                engDate=itemView.findViewById(R.id.time_recy_engineer);
+                engBuss=itemView.findViewById(R.id.buss_recy_engineer);
+                engHuman=itemView.findViewById(R.id.human_recy_engineer);
+                engText=itemView.findViewById(R.id.history_text_engineer);
             }
         }
 
@@ -92,6 +195,14 @@ public class HistoryActivity extends BaseActivity {
 
     class CusAdapter extends RecyclerView.Adapter<CusAdapter.ViewCus>{
         private ArrayList<FixHistoryBean>list;
+        private Activity context;
+        private int layoutId;
+
+        public CusAdapter(ArrayList<FixHistoryBean> list, Activity context, int layoutId) {
+            this.list = list;
+            this.context = context;
+            this.layoutId = layoutId;
+        }
 
         @Override
         public ViewCus onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -114,6 +225,10 @@ public class HistoryActivity extends BaseActivity {
             TextView cusDate,cusBuss,cusHuman,cusText;
             public ViewCus(View itemView) {
                 super(itemView);
+                cusDate=itemView.findViewById(R.id.time_recy_cus);
+                cusBuss=itemView.findViewById(R.id.buss_recy_cus);
+                cusHuman=itemView.findViewById(R.id.human_recy_cus);
+                cusText=itemView.findViewById(R.id.history_text_cus);
             }
         }
 
