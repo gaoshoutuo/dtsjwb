@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
 
     >
-    <android.support.v7.widget.RecyclerView
+
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fix_engineer_recyclerview">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"/>
 </LinearLayout>

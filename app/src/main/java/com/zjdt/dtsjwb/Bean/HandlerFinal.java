@@ -109,6 +109,9 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
     public static final double VERSION=1.0;
 
     //文件路径
-    public static final String PATH_MOVIE = AppApplication.getApp().getExternalFilesDir(Environment.DIRECTORY_MOVIES).toString();
+   // public static final String PATH_MOVIE = AppApplication.getApp().getExternalFilesDir(Environment.DIRECTORY_MOVIES).toString();我就在想  在初始化这个类之前 application有没有被初始化
+
+    public static final int MESSAGE_ENG=1200;
+    public static final int MESSAGE_CUS=1300;
 
 }

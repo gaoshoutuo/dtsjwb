@@ -37,6 +37,7 @@ android {
 }
 
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.+'
@@ -60,4 +61,6 @@ dependencies {
         // excluding org.json which is provided by Android
         exclude group: 'org.json', module: 'json'
     }
+    // pdfloader
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 }

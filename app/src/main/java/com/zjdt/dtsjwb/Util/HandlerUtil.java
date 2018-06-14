@@ -1,11 +1,13 @@
 package com.zjdt.dtsjwb.Util;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
-import com.zjdt.dtsjwb.Activity.MenuActivity;
+
+import com.zjdt.dtsjwb.Activity.PdfLoaderActivity;
 import com.zjdt.dtsjwb.App.AppApplication;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
 
@@ -65,6 +67,22 @@ public  class HandlerUtil {
 
                 case HandlerFinal.DTSJ_INS_FIX:
                     ToastUtil.ggg(AppApplication.getApp(),msg.obj.toString());
+                    break;
+
+                case HandlerFinal.MESSAGE_CUS:
+                    Intent cusIntent=new Intent(AppApplication.getApp(), PdfLoaderActivity.class);
+                    cusIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    cusIntent.putExtra("cus",(String)msg.obj);
+                    AppApplication.getApp().startActivity(cusIntent);
+                    //ToastUtil.ggg(AppApplication.getApp(),msg.obj.toString());
+                    break;
+
+                case HandlerFinal.MESSAGE_ENG:
+                    Intent engIntent=new Intent(AppApplication.getApp(), PdfLoaderActivity.class);
+                    engIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    engIntent.putExtra("cus",(String)msg.obj);
+                    AppApplication.getApp().startActivity(engIntent);
+                   // ToastUtil.ggg(AppApplication.getApp(),msg.obj.toString());
                     break;
 
                     default:break;

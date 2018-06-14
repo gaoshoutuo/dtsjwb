@@ -6,9 +6,11 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,10 +20,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zjdt.dtsjwb.Bean.FixHistoryBean;
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.NetUtil.OkhttpUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.DatabaseUtil;
 import com.zjdt.dtsjwb.Util.DialogUtil;
+import com.zjdt.dtsjwb.Util.FtpUtil;
+import com.zjdt.dtsjwb.Util.HandlerUtil;
+import com.zjdt.dtsjwb.Util.JsonUtil;
+import com.zjdt.dtsjwb.Util.ParseXml;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
 
 import java.util.ArrayList;
@@ -44,27 +51,44 @@ public class HistoryActivity extends BaseActivity {
         if (map.get("au").equals("fix_custom")){
            setContentView(R.layout.activity_fix_custom);
             initCusView();
+            ArrayList list= JsonUtil.parseHistory("  [{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"\"},\n" +
+                    "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"\"},\n" +
+                    "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"\"},\n" +
+                    "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"\"},\n" +
+                    "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"\"}\n" +
+                    "      ]");
+            CusAdapter cusAdapter=new CusAdapter(list,HistoryActivity.this,R.layout.item_fix_custom);
+            customView.setAdapter(cusAdapter);
 
 
         }else if(map.get("au").equals("fix_engineer")){
            setContentView(R.layout.activity_fix_engineer);
             initEngView();
-
+           ArrayList list= JsonUtil.parseHistory("  [{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"555\"},\n" +
+                   "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"555\"},\n" +
+                   "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"555\"},\n" +
+                   "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"555\"},\n" +
+                   "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"555\"}\n" +
+                   "      ]");
+           EngAdapter engAdapter=new EngAdapter(list,HistoryActivity.this,R.layout.item_fix_engineer);
+           engineerView.setAdapter(engAdapter);
         }
 
 
     }
+
+
     //拼了太久的字符串 险些android 代码都不会写了
 
     /**
-     * 此处解析json 按照我的想法 json 应该是个数组
-     * [{"date":"","business":"","human":"","str4":"","str5":"","str6":""},
-     * {"str1":"","str2":"","str3":"","str4":"","str5":"","str6":""},
-     * {"str1":"","str2":"","str3":"","str4":"","str5":"","str6":""},
-     * {"str1":"","str2":"","str3":"","str4":"","str5":"","str6":""},
-     * {"str1":"","str2":"","str3":"","str4":"","str5":"","str6":""},
-     * {"str1":"","str2":"","str3":"","str4":"","str5":"","str6":""}
-     * ]
+     * 此处解析json 按照我的想法 json 应该是个数组  //w我在想 还不如key value 假如存储无关系的数据 不需要rdbms 数据库一对多（有时一对多并不表现） 多对多就有用了
+     *  [{"date":"","business":"","human":"","str4":"","str5":"","filepath":""},
+     {"date":"","business":"","human":"","str4":"","str5":"","filepath":""},
+     {"date":"","business":"","human":"","str4":"","str5":"","filepath":""},
+     {"date":"","business":"","human":"","str4":"","str5":"","filepath":""},
+     {"date":"","business":"","human":"","str4":"","str5":"","filepath":""},
+     {"date":"","business":"","human":"","str4":"","str5":"","filepath":""}
+     ]
      */
     private void initCusView(){
         customView=f(R.id.fix_custom_recyclerview);
@@ -85,7 +109,7 @@ public class HistoryActivity extends BaseActivity {
     //handler
 
     //init view
-    private RecyclerView.OnItemTouchListener listener=new RecyclerView.OnItemTouchListener() {
+    private RecyclerView.OnItemTouchListener rListener=new RecyclerView.OnItemTouchListener() {
         @Override
         public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
             return false;
@@ -99,6 +123,15 @@ public class HistoryActivity extends BaseActivity {
         @Override
         public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
+        }
+    };
+
+    public View.OnClickListener listener=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch ((String)v.getTag()){
+
+            }
         }
     };
 
@@ -119,6 +152,7 @@ public class HistoryActivity extends BaseActivity {
         @Override
         public ViewEng onCreateViewHolder(ViewGroup parent, int viewType) {
             View view= LayoutInflater.from(context).inflate(layoutId,parent,false);
+
             final ViewEng viewEng=new ViewEng(view);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -129,6 +163,8 @@ public class HistoryActivity extends BaseActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if(which==-2){
+
+
                                 ThreadUtil.execute(new ThreadUtil.CallBack() {
                                     @Override
                                     public void exec() {
@@ -139,10 +175,17 @@ public class HistoryActivity extends BaseActivity {
                                     public void run() {
                                         int position=viewEng.getAdapterPosition();
                                         FixHistoryBean bean= list.get(position);
-                                        String filePath=bean.getFilePath();
+                                        String filename=bean.getFilePath();
+                                        Log.e("filebean",filename);//这里把消息传给handler 来打开pdfloader
+                                        Message msg=HandlerUtil.handler.obtainMessage();
+                                        msg.what=HandlerFinal.MESSAGE_ENG;
+                                        msg.obj=filename;
+                                        HandlerUtil.handler.sendMessage(msg);
+
                                         //1 http
-                                        OkhttpUtil.getUrl("前置文件路径"+filePath);
-                                        //2 ftp式
+
+                                        //2 ftp式    一次数据库存一个 obj  当然全拿出来是list  转成jsonArray   list 能否 传来呢
+                                        //FtpUtil.downloadFile(filename, HandlerFinal.PATH_MOVIE+"/"+filename+".pdf");
 
                                     }
                                 });
@@ -193,6 +236,7 @@ public class HistoryActivity extends BaseActivity {
     }
 
 
+
     class CusAdapter extends RecyclerView.Adapter<CusAdapter.ViewCus>{
         private ArrayList<FixHistoryBean>list;
         private Activity context;
@@ -206,12 +250,63 @@ public class HistoryActivity extends BaseActivity {
 
         @Override
         public ViewCus onCreateViewHolder(ViewGroup parent, int viewType) {
-            return null;
+            View view=LayoutInflater.from(context).inflate(layoutId,parent,false);
+            final ViewCus viewCus=new ViewCus(view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DialogUtil.AlertDialogUtil alertDialogUtil= DialogUtil.getDialogUtil().new AlertDialogUtil(HistoryActivity.this);
+                    alertDialogUtil.setAlertDialog("否","是","温馨提醒","是否需要下载报告文件",new DialogInterface.OnClickListener(){
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(which==-2){
+
+
+                                ThreadUtil.execute(new ThreadUtil.CallBack() {
+                                    @Override
+                                    public void exec() {
+
+                                    }
+
+                                    @Override
+                                    public void run() {
+                                        int position=viewCus.getAdapterPosition();
+                                        FixHistoryBean bean= list.get(position);
+                                        String filename=bean.getFilePath();
+                                        Log.e("filebean",filename);
+                                        Message msg=HandlerUtil.handler.obtainMessage();
+                                        msg.what=HandlerFinal.MESSAGE_CUS;
+                                        msg.obj=filename;
+                                        HandlerUtil.handler.sendMessage(msg);
+
+                                        //1 http
+
+                                        //2 ftp式    一次数据库存一个 obj  当然全拿出来是list  转成jsonArray   list 能否 传来呢
+                                        //FtpUtil.downloadFile(filename, HandlerFinal.PATH_MOVIE+"/"+filename+".pdf");
+
+                                    }
+                                });
+
+                                //Toast.makeText(HistoryActivity.this,"保存",Toast.LENGTH_SHORT).show();
+                            }else if(which==-1){
+                                Toast.makeText(HistoryActivity.this,"关闭",Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
+                }
+            });
+            return viewCus;
         }
 
         @Override
-        public void onBindViewHolder(ViewCus holder, int position) {
-
+        public void onBindViewHolder(ViewCus holder, int position) {//一个方法
+                FixHistoryBean bean=list.get(position);
+                holder.cusDate.setText(bean.getDate());
+                holder.cusBuss.setText(bean.getBusiness());
+                holder.cusHuman.setText(bean.getHuman());
+                holder.cusText.setText(bean.getTextReason());
         }
 
         @Override
@@ -233,8 +328,6 @@ public class HistoryActivity extends BaseActivity {
         }
 
     }
-
-
 
 
 }

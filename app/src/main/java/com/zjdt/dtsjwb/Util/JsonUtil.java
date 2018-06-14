@@ -93,11 +93,17 @@ public class JsonUtil {
             for (int i=0;i<ja.length();i++){
                 JSONObject jsonObj=ja.getJSONObject(i);
                 String date=jsonObj.getString("date")+"";
+                String business=jsonObj.getString("business")+"";
+                String human=jsonObj.getString("human")+"";
+                String text=jsonObj.getString("text")+"";
+                String filepath=jsonObj.getString("filepath")+"";
+                FixHistoryBean bean=new FixHistoryBean(date,business,human,text,filepath);
+                list.add(bean);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return null;
+        return list;
     }
 
 

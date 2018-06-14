@@ -59,12 +59,13 @@
             android:name=".Activity.UpdateActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
-        <service android:name=".Service.NotificationService"
+        <service
+            android:name=".Service.NotificationService"
             android:enabled="true"
-            android:process="system"
-            />
-        <service android:name=".Service.NotificationService$ServiceD"
-            android:process="system"/>
+            android:process="system" />
+        <service
+            android:name=".Service.NotificationService$ServiceD"
+            android:process="system" />
 
         <activity
             android:name=".Activity.WebviewActivity"
@@ -121,20 +122,30 @@
         <activity
             android:name=".Activity.SignActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".Activity.TestFixInspection.FixUpsActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Activity.TestFixInspection.FixAirActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Activity.TestFixInspection.InsUpsActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Activity.TestFixInspection.InsAirActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Activity.TestFixInspection.TestUpsActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Activity.TestFixInspection.TestAirActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity android:name=".Activity.TestFixInspection.SiteActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity
+            android:name=".Activity.TestFixInspection.FixUpsActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activity.TestFixInspection.FixAirActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activity.TestFixInspection.InsUpsActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activity.TestFixInspection.InsAirActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activity.TestFixInspection.TestUpsActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activity.TestFixInspection.TestAirActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Activity.TestFixInspection.SiteActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".Activity.PdfLoaderActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            ></activity>
     </application>
 
 </manifest>
