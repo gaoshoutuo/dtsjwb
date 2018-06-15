@@ -474,7 +474,7 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
         initHeadJson("ups_t_charging",R.id.ups_head_3);
 
         //电池充电电流
-        initHeadJson("ups_t_charging",R.id.ups_head_4);
+        initHeadJson("ups_ec_charging",R.id.ups_head_4);
 
         //电池放电时间
         initHeadJson("ups_t_discha",R.id.ups_head_3);

@@ -75,3 +75,5 @@ popwindow  interface
     }
 
     //需要有自定义的流程  例如消防 这些吧
+
+    pdf 发送完两个位图签名之后才开始传输json
