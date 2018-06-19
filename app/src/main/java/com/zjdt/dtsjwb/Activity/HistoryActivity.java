@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.r0adkll.slidr.Slidr;
 import com.zjdt.dtsjwb.Bean.FixHistoryBean;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.NetUtil.OkhttpUtil;

@@ -2,4 +2,8 @@
     <string name="app_name">迪特数据</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_notify">NotifyActivity</string>
+    <string name="textview_bonjour">前页测试</string>
+    <string name="dtyw">迪 特 运 维</string>
+    <string name="idc_housekeeper">数据中心专业管家</string>
+
 </resources>
