@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.r0adkll.slidr.Slidr;
 import com.zjdt.dtsjwb.App.AppApplication;
 import com.zjdt.dtsjwb.R;
 
@@ -40,6 +41,7 @@ public class BaseActivity extends FragmentActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // 竖屏显示
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Slidr.attach(this);
     }
 
     protected <T extends View>T f(int rid){

@@ -2,6 +2,9 @@ package com.zjdt.dtsjwb.Activity;
 
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -43,6 +46,19 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
       }
     }
 
+
+    /**
+     * progress material
+     *
+     */
+    private void addFragment(int id, Fragment addFragment, Fragment removeFragment){
+        FragmentManager fm=getSupportFragmentManager();
+        FragmentTransaction ft=fm.beginTransaction();
+        ft.add(id, addFragment).hide(removeFragment).commit();
+    }
+
+
+
     private void initView(){
         userEdit=f(R.id.user_ed);
         passwordEdit=f(R.id.password_ed);
@@ -76,8 +92,9 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                    if((passwordObject.getUsername()+passwordObject.getPassword()).equals("dtsj")){
 
                      //  Log.e("jp",passwordObject.getUsername()+passwordObject.getPassword()+"123123");
+                       while (HandlerFinal.json!=null)
                        try {
-                           Thread.sleep(1000);
+                           Thread.sleep(100);
                            //线程调度可以加快速度
                        } catch (InterruptedException e) {
                            e.printStackTrace();
@@ -107,7 +124,9 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                    }else if (passwordObject.getUsername().equals("18768349255")){
                       // authorthy.clear();
                       // SPUtil.getInstance().spDataSet(jp,"login_passowrd");
+
                        authorthy.put("au",passwordObject.getAuthorthm());
+
                       // authorthy.put("au","2");
                        Log.e("arrou",authorthy.toString()+",,,"+passwordObject.toString());
                        actionActivity(LoginActivity.this,MenuActivity.class,authorthy);

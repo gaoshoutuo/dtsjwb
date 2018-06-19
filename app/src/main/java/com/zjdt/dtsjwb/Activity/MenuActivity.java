@@ -14,10 +14,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -26,6 +30,7 @@ import android.widget.Toast;
 
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
+import com.pnikosis.materialishprogress.ProgressWheel;
 import com.zjdt.dtsjwb.Adapter.MenuAdapter;
 import com.zjdt.dtsjwb.Adapter.TestAdapter;
 import com.zjdt.dtsjwb.App.AppApplication;
@@ -38,6 +43,8 @@ import com.zjdt.dtsjwb.Util.DialogUtil;
 import com.zjdt.dtsjwb.Util.JsonUtil;
 import com.zjdt.dtsjwb.Util.PermissonUtil;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
+import com.zjdt.dtsjwb.fragment.AirAssit;
+import com.zjdt.dtsjwb.fragment.ProgressFragment;
 
 import java.io.File;
 import java.io.IOException;
@@ -104,6 +111,22 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     * progress material
+     *
+     */
+    private void addFragment(int id, Fragment addFragment, Fragment removeFragment){
+        FragmentManager fm=getSupportFragmentManager();
+        FragmentTransaction ft=fm.beginTransaction();
+        ft.add(id, addFragment).hide(removeFragment).commit();
+    }
+    private void hideFragment(Fragment removeFragment){
+        FragmentManager fm=getSupportFragmentManager();
+        FragmentTransaction ft=fm.beginTransaction();
+        ft.hide(removeFragment).commit();
+    }
+
     private void initView() {
         //检查权限 确认权限
         PermissonUtil.checkPermission(this);
@@ -139,12 +162,22 @@ public class MenuActivity extends AppCompatActivity {
         }
 
         OkhttpUtil.getUrl("http://176.122.185.2/picture/doctor_intelligence.json");
-        try {
-            Thread.sleep(1000);
-            //线程调度也要学
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        ProgressFragment pf=new ProgressFragment();
+        pf.setContext(this);
+        pf.setLayoutId(R.layout.progress_frag);
+        addFragment(R.id.menu_id,pf,new AirAssit());
+
+        while (HandlerFinal.getHf().msg==null)
+            try {
+                Thread.sleep(100);
+                //线程调度也要学
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+      /*  ProgressWheel pw = new ProgressWheel(MenuActivity.this);
+        pw.setBarColor(Color.YELLOW);*/
+
         json = (String) HandlerFinal.getHf().msg;
         Log.e("jsonjson", (String) HandlerFinal.getHf().msg + "12");
         JsonUtil.getInstance().parseJson(json, "doctor_pic");
@@ -154,6 +187,7 @@ public class MenuActivity extends AppCompatActivity {
 
         rollPagerView.setPlayDelay(1000);
         rollPagerView.setAnimationDurtion(500);
+        hideFragment(pf);
         // rollPagerView.setAdapter(new TestAdapter("http://176.122.185.2/picture/doctor_intelligence.json"));
 
         //此处要生成viewlist
@@ -218,7 +252,7 @@ public class MenuActivity extends AppCompatActivity {
                 case 2:
                     Toast.makeText(MenuActivity.this, "" + position, Toast.LENGTH_SHORT).show();
                     if (map.get("au").equals("1")) {//字符串别用==
-
+                        actionActivity(MenuActivity.this,CCallActivity.class,null);
                     } else if ((map.get("au").equals("2"))) {
                         actionActivity(MenuActivity.this,IntellActivity.class,null);
 

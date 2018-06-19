@@ -143,9 +143,12 @@
         <activity
             android:name=".Activity.TestFixInspection.SiteActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".Activity.PdfLoaderActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            ></activity>
+        <activity
+            android:name=".Activity.PdfLoaderActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".Activity.ProgressActivity" />
+        <activity android:name=".Activity.BeforeActivity"
+            android:theme="@style/Theme.AppCompat"></activity>
     </application>
 
 </manifest>

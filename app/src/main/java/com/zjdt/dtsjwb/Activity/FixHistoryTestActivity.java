@@ -148,7 +148,8 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                 }).start();
                 break;
             case R.id.test_select:
-                ThreadUtil.execute(new ThreadUtil.CallBack() {
+                actionActivity(this,BeforeActivity.class,null);
+               /* ThreadUtil.execute(new ThreadUtil.CallBack() {
                     @Override
                     public void exec() {
 
@@ -160,7 +161,7 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                       //  SocketUtil.sendMessageAdd("192.168.1.102",3333,"{\"au\":\"select\",\"age\":\"88\",\"name\":\"hetao\"}");
                         SocketUtil.sendMessageAdd("218.108.146.98",3333,"{\"au\":\"select\",\"age\":\"88\",\"name\":\"hetao\"}");
                     }
-                });
+                });*/
 
                 break;
 

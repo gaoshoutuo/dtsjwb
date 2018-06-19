@@ -63,4 +63,8 @@ dependencies {
     }
     // pdfloader
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+    // material-progress  slidr 滑动  前页viewpager 6.19
+    implementation 'com.pnikosis:materialish-progress:1.5'
+    implementation 'com.r0adkll:slidableactivity:2.0.6'
+    implementation "com.dev.sacot41:scviewpager:0.0.4"
 }

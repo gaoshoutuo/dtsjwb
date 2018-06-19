@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.r0adkll.slidr.Slidr;
 import com.zjdt.dtsjwb.Activity.TestFixInspection.FixAirActivity;
 import com.zjdt.dtsjwb.Activity.TestFixInspection.FixUpsActivity;
 import com.zjdt.dtsjwb.Activity.TestFixInspection.InsAirActivity;
@@ -72,6 +73,7 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
                 dfdAdapter.notifyDataSetChanged();
             }
         });
+
     }
 
 

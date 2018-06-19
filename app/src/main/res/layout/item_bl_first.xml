@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<!--
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEE9E9"
+    >
+
+    <ImageView
+        android:id="@+id/bl_first_"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="260dp"
+        tools:layout_editor_absoluteY="70dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dtyw"
+        android:textSize="40sp"
+        tools:layout_editor_absoluteX="170dp"
+        tools:layout_editor_absoluteY="207dp"
+        tools:ignore="MissingConstraints"
+        android:gravity="center"
+        android:textColor="#8B3A3A"
+        />
+
+
+    </android.support.constraint.ConstraintLayout>
+-->
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    >
+
+    <ImageView
+        android:id="@+id/bl_first_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:layout_centerInParent="true"
+
+        >
+
+</ImageView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dtyw"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:textColor="#8B3A3A"
+        android:layout_marginTop="150dp" />
+</RelativeLayout>
