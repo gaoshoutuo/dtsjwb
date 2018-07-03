@@ -23,6 +23,7 @@ import com.r0adkll.slidr.Slidr;
 import com.zjdt.dtsjwb.Bean.FixHistoryBean;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.NetUtil.OkhttpUtil;
+import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.DatabaseUtil;
 import com.zjdt.dtsjwb.Util.DialogUtil;
@@ -31,6 +32,9 @@ import com.zjdt.dtsjwb.Util.HandlerUtil;
 import com.zjdt.dtsjwb.Util.JsonUtil;
 import com.zjdt.dtsjwb.Util.ParseXml;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,9 +45,18 @@ public class HistoryActivity extends BaseActivity {
     // 两个界面
     // 1给维保人员看自己的维修记录
     // 2给客户看被维保的记录 以及pdf 提供下载   提供一些花样 比如
-    private RecyclerView engineerView,customView;
+    public RecyclerView engineerView,customView;
+    //总要有能够全局获得的对象
+    public static HistoryActivity sInstance;
 
 
+    public ArrayList list;
+
+    @Override
+    protected void onDestroy() {
+        sInstance=null;
+        super.onDestroy();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,26 +64,79 @@ public class HistoryActivity extends BaseActivity {
         HashMap map = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
         if (map.get("au").equals("fix_custom")){
            setContentView(R.layout.activity_fix_custom);
+           sInstance=this;
             initCusView();
-            ArrayList list= JsonUtil.parseHistory("  [{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"\"},\n" +
+            ThreadUtil.execute(new ThreadUtil.CallBack() {
+                @Override
+                public void exec() {
+
+                }
+
+                @Override
+                public void run() {
+                    JSONObject cusJson=new JSONObject();
+                    try {
+                        cusJson.put("au","history_cus");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    SocketUtil.sendMessageAdd("218.108.146.98",3333,cusJson.toString());
+                }
+            });
+
+/*
+             list= JsonUtil.parseHistory("  [{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"\"},\n" +
                     "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"\"},\n" +
                     "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"\"},\n" +
                     "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"\"},\n" +
                     "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"\"}\n" +
-                    "      ]");
+                    "      ]");*/
+            while (list==null){
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             CusAdapter cusAdapter=new CusAdapter(list,HistoryActivity.this,R.layout.item_fix_custom);
             customView.setAdapter(cusAdapter);
 
 
         }else if(map.get("au").equals("fix_engineer")){
            setContentView(R.layout.activity_fix_engineer);
+            sInstance=this;
             initEngView();
-           ArrayList list= JsonUtil.parseHistory("  [{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"555\"},\n" +
+            ThreadUtil.execute(new ThreadUtil.CallBack() {
+                @Override
+                public void exec() {
+
+                }
+
+                @Override
+                public void run() {
+                    JSONObject engJson=new JSONObject();
+                    try {
+                        engJson.put("au","history_eng");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    SocketUtil.sendMessageAdd("218.108.146.98",3333,engJson.toString());
+                }
+            });
+
+           /* list= JsonUtil.parseHistory("  [{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"555\"},\n" +
                    "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"555\"},\n" +
                    "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"555\"},\n" +
                    "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"555\"},\n" +
                    "{\"date\":\"11111111\",\"business\":\"22222222222\",\"human\":\"33333333333333\",\"text\":\"44444444\",\"str5\":\"\",\"filepath\":\"555\"}\n" +
-                   "      ]");
+                   "      ]");*/
+            while (list==null){
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
            EngAdapter engAdapter=new EngAdapter(list,HistoryActivity.this,R.layout.item_fix_engineer);
            engineerView.setAdapter(engAdapter);
         }

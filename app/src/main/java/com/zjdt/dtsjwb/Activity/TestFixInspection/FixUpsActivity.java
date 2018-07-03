@@ -10,12 +10,18 @@ import android.view.View;
 import android.widget.Button;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
 import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.UpsFixFragment;
 import com.zjdt.dtsjwb.fragment.UpsTestFragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 
 public class FixUpsActivity extends BaseActivity implements View.OnClickListener{
@@ -87,6 +93,35 @@ public class FixUpsActivity extends BaseActivity implements View.OnClickListener
 
             case R.id.ups_fix_button3://处理foot  上传
                 upsFixFoot.makeFootJson();
+                HashMap map = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
+
+                try {//timestamp json不知道如何传输
+/*
+                    UpsFixFragment.getJson().put("other_location",map.get("h_location"));
+                    UpsFixFragment.getJson().put("other_reason",map.get("h_reason"));*/
+                    UpsFixFragment.getJson().put("other_location",map.get("h_location"));
+                    UpsFixFragment.getJson().put("h_custom_id",map.get("h_custom_id"));
+
+
+                    JSONObject ano=new JSONObject();
+                    ano.put("cus_id",map.get("h_custom_id"));
+                    ano.put("timestamp",System.currentTimeMillis()+"");
+                    //ano.put("reason",UpsFixFragment.reasonStr); 这里很不方面  在这之前集成吧
+                    ano.put("reason",map.get("h_reason"));  //那么我这里要地点有啥用呀 keke
+                    ano.put("business", HandlerFinal.BUSINESS_STR[0]);
+                    ano.put("eng_id",HandlerFinal.userId);
+                    ano.put("eng_name",HandlerFinal.userName);
+                    UpsFixFragment.getJson().put("another",ano);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
+
+
+
+               // UpsFixFragment
                final String json= upsFixFoot.getJsonStr();
                 Log.e("upsfix",json);
                 ThreadUtil.execute(new ThreadUtil.CallBack() {

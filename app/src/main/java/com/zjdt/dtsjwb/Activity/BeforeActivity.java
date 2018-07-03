@@ -30,7 +30,9 @@ import com.dev.sacot41.scviewpager.SCViewAnimationUtil;
 import com.dev.sacot41.scviewpager.SCViewPager;
 import com.dev.sacot41.scviewpager.SCViewPagerAdapter;
 import com.zjdt.dtsjwb.Bean.BeforeBean;
+import com.zjdt.dtsjwb.Bean.Password;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Util.SPUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -99,8 +101,19 @@ public class BeforeActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 Toast.makeText(BeforeActivity.this,i+"",Toast.LENGTH_SHORT).show();
-                                Intent intent=new Intent(BeforeActivity.this,LoginActivity.class);
-                                startActivity(intent);
+                                //要删除
+                                //SPUtil.getInstance().spDataSet(new Password("18768349255","loveyqing",true,"1"),"login_passowrd");
+                                Password ppo= SPUtil.getInstance().spDataget("login_passowrd");
+
+                                if ((ppo.getPassword()+ppo.getUsername()).length()<11){//加入 shared 为空或者什么 则调到注册
+                                    Intent intent=new Intent(BeforeActivity.this,RegisterActivity.class);
+                                    startActivity(intent);
+                                }else {//
+                                    Intent intent=new Intent(BeforeActivity.this,LoginActivity.class);
+                                    startActivity(intent);
+                                }
+
+
                             }
                         });
 
@@ -130,6 +143,25 @@ public class BeforeActivity extends AppCompatActivity {
         viewAnimation.startToPosition((int)(size.x*1.5), null);
         viewAnimation.addPageAnimation(new SCPositionAnimation(this, 0, -(int)(size.x*1.5), 0));
         mViewPager.addAnimation(viewAnimation);*/
+
+        View nameTag = findViewById(R.id.before_ten_image);
+        SCViewAnimation nameTagAnimation = new SCViewAnimation(nameTag);
+        nameTagAnimation.addPageAnimation(new SCPositionAnimation(this, 0,0,-size.y/2));
+        nameTagAnimation.addPageAnimation(new SCPositionAnimation(this, 1,0,0));
+        mViewPager.addAnimation(nameTagAnimation);
+
+        View currentlyWork = findViewById(R.id.before_ele_image);
+        SCViewAnimation currentlyWorkAnimation = new SCViewAnimation(currentlyWork);
+        currentlyWorkAnimation.addPageAnimation(new SCPositionAnimation(this, 0, -size.x, 0));
+        mViewPager.addAnimation(currentlyWorkAnimation);
+
+        View atSkex = findViewById(R.id.before_tw_image);
+        SCViewAnimationUtil.prepareViewToGetSize(atSkex);
+        SCViewAnimation atSkexAnimation = new SCViewAnimation(atSkex);
+        atSkexAnimation.addPageAnimation(new SCPositionAnimation(getApplicationContext(), 0, 0, -( size.y - atSkex.getHeight() )));
+        atSkexAnimation.addPageAnimation(new SCPositionAnimation(getApplicationContext(), 1, -size.x, 0));
+        mViewPager.addAnimation(atSkexAnimation);
+
 
         View djangoView = findViewById(R.id.before_first_image);
         SCViewAnimation djangoAnimation = new SCViewAnimation(djangoView);
@@ -193,6 +225,22 @@ public class BeforeActivity extends AppCompatActivity {
         connectedDeviceAnimation.addPageAnimation(new SCPositionAnimation(this, 1, -(int) (size.x * 1.5), 0));
         connectedDeviceAnimation.addPageAnimation(new SCPositionAnimation(this, 2,  - size.x, 0));
         mViewPager.addAnimation(connectedDeviceAnimation);
+
+        View textView1 = findViewById(R.id.before_one);
+        SCViewAnimation textView1Animation = new SCViewAnimation(textView1);
+        textView1Animation.startToPosition((int)(size.x *1.5), null);
+        textView1Animation.addPageAnimation(new SCPositionAnimation(this, 0, -(int) (size.x * 1.5), 0));
+        textView1Animation.addPageAnimation(new SCPositionAnimation(this, 1,  - size.x, 0));
+        mViewPager.addAnimation(textView1Animation);
+
+        View textView2 = findViewById(R.id.before_two);
+        SCViewAnimation textView2Animation = new SCViewAnimation(textView2);
+        textView2Animation.startToPosition((int)(size.x *1.5), null);
+        textView2Animation.addPageAnimation(new SCPositionAnimation(this, 1, -(int) (size.x * 1.5), 0));
+        textView2Animation.addPageAnimation(new SCPositionAnimation(this, 2,  - size.x, 0));
+        mViewPager.addAnimation(textView2Animation);
+
+
         //mViewPager.setAdapter();
         Toast.makeText(BeforeActivity.this,mViewPager.getCurrentItem()+"",Toast.LENGTH_SHORT).show();
      /*  if( mViewPager.getCurrentItem()==2){
@@ -329,7 +377,7 @@ public class BeforeActivity extends AppCompatActivity {
                     break;
 
                 case R.layout.item_bl_second:
-                    view= LayoutInflater.from(context).inflate(bb.getLayoutId(),null,false);
+               /*     view= LayoutInflater.from(context).inflate(bb.getLayoutId(),null,false);
                     ImageView secondImage=view.findViewById(R.id.bl_second_image);
                     try {
                         InputStream ims = getAssets().open("mountain.png");
@@ -338,11 +386,11 @@ public class BeforeActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    container.addView(view);
+                    container.addView(view);*/
                     break;
 
                 case R.layout.item_bl_third:
-                    view= LayoutInflater.from(context).inflate(bb.getLayoutId(),null,false);
+                  /*  view= LayoutInflater.from(context).inflate(bb.getLayoutId(),null,false);
                     ImageView thirdImage=view.findViewById(R.id.bl_third_image);
                     try {
                         InputStream ims = getAssets().open("sea_house.png");
@@ -351,7 +399,7 @@ public class BeforeActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    container.addView(view);
+                    container.addView(view);*/
                     break;
                     default:break;
             }

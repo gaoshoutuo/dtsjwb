@@ -20,6 +20,7 @@ import com.zjdt.dtsjwb.Util.DialogUtil;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
 import com.zjdt.dtsjwb.fragment.EsAssit;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class CAssetsRActivity extends BaseActivity implements View.OnClickListener{
@@ -199,7 +200,18 @@ public class CAssetsRActivity extends BaseActivity implements View.OnClickListen
                        String json= EsAssit.getJsonStr();
                         Log.e("asset_json",json);
                         //SocketUtil.sendMessageAdd("192.168.1.102",3333,json);
-                        //SocketUtil.sendMessageAdd("218.108.146.98",3333,json);
+                        JSONObject assertJson=null;
+                        try {
+                            assertJson=new JSONObject(json);
+                            assertJson.put("au","asset_json");
+                            assertJson.put("cus_id",HandlerFinal.userId);
+                            assertJson.put("location",HandlerFinal.userLocation);
+                            assertJson.put("username",HandlerFinal.userName);
+                            assertJson.put("company",HandlerFinal.company);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        SocketUtil.sendMessageAdd("218.108.146.98",3333,assertJson.toString());
                     }
                 });
             }

@@ -15,8 +15,10 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.Bean.Password;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Util.SPUtil;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
 
 import org.json.JSONException;
@@ -26,13 +28,16 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 public class RegisterActivity extends BaseActivity implements View.OnTouchListener{
-    private EditText userEdRe,passwordEdRe,editName;
+    private EditText userEdRe,passwordEdRe;
+    private EditText editName,editLocation,editCompany;
     private Button button;
     private Spinner spinner;
     private String []data={"企业客户","维保人员","三方客户"};
     private String sData="企业客户";
 
     private void initView(){
+        editLocation=f(R.id.edit_location);
+        editCompany=f(R.id.edit_company);
         editName=f(R.id.edit_name);
         userEdRe=f(R.id.user_ed_register);
         passwordEdRe=f(R.id.password_ed_register);
@@ -46,12 +51,24 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
                 String userText=userEdRe.getText().toString();
                 String password=passwordEdRe.getText().toString();
                 String name=editName.getText().toString();
+                String location=editLocation.getText().toString();
+                String company=editCompany.getText().toString();
+                Password jp=null;
+                if (sData.equals(data[1])){
+                    jp=new Password(userText,password,false,"1");
+                }else if(sData.equals(data[0])){
+                    jp=new Password(userText,password,false,"2");
+                }
+
+                SPUtil.getInstance().spDataSet(jp,"login_passowrd");
+
                // HashMap<String,String>map=new HashMap<>();
                 try {
                     jsonObject.put("au", HandlerFinal.AU_REGISTER);
                     jsonObject.put("user",userText);
                     jsonObject.put("pwd",password);
-
+                    jsonObject.put("location",location);
+                    jsonObject.put("company",company);
                    //此处测试到底是不是我的问题
                     jsonObject.put("identity",sData);
                     jsonObject.put("name",name);
@@ -70,6 +87,7 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
                     public void run() {
                        // SocketUtil.sendMessageAdd("192.168.1.102",3333,jsonObject.toString());
                         SocketUtil.sendMessageAdd("218.108.146.98",3333,jsonObject.toString());
+
                     }
                 });
 

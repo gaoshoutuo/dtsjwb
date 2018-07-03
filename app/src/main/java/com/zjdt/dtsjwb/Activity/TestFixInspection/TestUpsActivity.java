@@ -11,11 +11,18 @@ import android.view.View;
 import android.widget.Button;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
 import com.zjdt.dtsjwb.fragment.AirAssit;
+import com.zjdt.dtsjwb.fragment.UpsFixFragment;
 import com.zjdt.dtsjwb.fragment.UpsTestFragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class TestUpsActivity extends BaseActivity implements View.OnClickListener{
 
@@ -104,9 +111,23 @@ public class TestUpsActivity extends BaseActivity implements View.OnClickListene
 
             case R.id.ups_test_button3://处理foot  上传
                 upsTestFoot.makeJsonFoot();
-               final String json= upsTestFoot.getJsonStr();
+                HashMap map = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
+                try {
+                    UpsTestFragment.getJson().put("other_location",map.get("h_location"));
+                    UpsTestFragment.getJson().put("h_custom_id",map.get("h_custom_id"));
+                    JSONObject ano=new JSONObject();
+                    ano.put("cus_id",map.get("h_custom_id"));
+                    ano.put("timestamp",System.currentTimeMillis()+"");
+                    ano.put("reason",map.get("h_reason"));
+                    ano.put("business", HandlerFinal.BUSINESS_STR[1]);
+                    ano.put("eng_id",HandlerFinal.userId);
+                    ano.put("eng_name",HandlerFinal.userName);
+                    UpsTestFragment.getJson().put("another",ano);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                final String json= upsTestFoot.getJsonStr();
                 Log.e("upstest",json);
-
                 ThreadUtil.execute(new ThreadUtil.CallBack() {
                     @Override
                     public void exec() {

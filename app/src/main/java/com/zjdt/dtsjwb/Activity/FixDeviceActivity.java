@@ -69,7 +69,7 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 //list add 但是数据是要数据库里或者sharedpref拿出来的  shared 那个for的好处就在于是一次性多存储，但是不像数据库那样的增删改查的方便
-                menuList.add(new DeviceBean("",0,"老用户","",""));
+                menuList.add(new DeviceBean("",0,"","",""));
                 dfdAdapter.notifyDataSetChanged();
             }
         });
@@ -169,11 +169,15 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
                     //提交逻辑 跳转到选择业务选择界面
                     //FixDeviceActivity.this.startActivity(new Intent(FixDeviceActivity.this,CAssetsActivity.class));
                    // actionActivity(FixDeviceActivity.this,);
+
+                    HashMap mapAll=makeHashmap(holder.location.getText().toString(),
+                            holder.reason.getText().toString(),
+                            holder.coustomerID.getText().toString());
                     Log.e("定期",holder.device_spinner.getSelectedItem().toString()+holder.scoreSpinner.getSelectedItem().toString());
                     switch (holder.device_spinner.getSelectedItem().toString()+holder.scoreSpinner.getSelectedItem().toString()){
 
                        case "定期检修ups电池":
-                           actionActivity(FixDeviceActivity.this, InsUpsActivity.class,null);
+                           actionActivity(FixDeviceActivity.this, InsUpsActivity.class,mapAll);
                             break;
 
                         case "定期检修pdu供电":
@@ -181,7 +185,7 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
                             break;
 
                         case "定期检修精密空调":
-                            actionActivity(FixDeviceActivity.this, InsAirActivity.class,null);
+                            actionActivity(FixDeviceActivity.this, InsAirActivity.class,mapAll);
                             break;
 
                         case "定期检修消防设备":
@@ -189,7 +193,8 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
                             break;
 
                         case "现场测试ups电池":
-                            actionActivity(FixDeviceActivity.this, TestUpsActivity.class,null);
+
+                            actionActivity(FixDeviceActivity.this, TestUpsActivity.class,mapAll);
                             break;
 
                         case "现场测试pdu供电":
@@ -197,7 +202,7 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
                             break;
 
                         case "现场测试精密空调":
-                            actionActivity(FixDeviceActivity.this, TestAirActivity.class,null);
+                            actionActivity(FixDeviceActivity.this, TestAirActivity.class,mapAll);
                             break;
 
                         case "现场测试消防设备":
@@ -205,20 +210,23 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
                             break;
 
                         case "现场安装服务种类":
-                            HashMap mapInstall=new HashMap();
-                            mapInstall.put("site","install");
-                            actionActivity(FixDeviceActivity.this, SiteActivity.class,mapInstall);
+
+                            mapAll.put("site","install");
+                            actionActivity(FixDeviceActivity.this, SiteActivity.class,mapAll);
                             break;
 
                         case "现场服务服务种类":
-                            HashMap mapService=new HashMap();
-                            mapService.put("site","service");
-                            actionActivity(FixDeviceActivity.this, SiteActivity.class,mapService);
+                         /*   HashMap mapService=new HashMap();
+                            mapService.put("site","service");*/
+                            mapAll.put("site","service");
+                            actionActivity(FixDeviceActivity.this, SiteActivity.class,mapAll);
                             break;
 
                         case "维修更换ups电池":
-
-                            actionActivity(FixDeviceActivity.this, FixUpsActivity.class,null);
+                            HashMap fixupsmap=makeHashmap(holder.location.getText().toString(),
+                                    holder.reason.getText().toString(),
+                                    holder.coustomerID.getText().toString());
+                            actionActivity(FixDeviceActivity.this, FixUpsActivity.class,fixupsmap);
                             break;
 
                         case "维修更换pdu供电":
@@ -226,7 +234,7 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
                             break;
 
                         case "维修更换精密空调":
-                            actionActivity(FixDeviceActivity.this, FixAirActivity.class,null);
+                            actionActivity(FixDeviceActivity.this, FixAirActivity.class,mapAll);
                             break;
 
                         case "维修更换消防设备":
@@ -256,6 +264,17 @@ public class FixDeviceActivity extends BaseActivity implements View.OnClickListe
                    DfdAdapter.this.notifyDataSetChanged();//当然得实时的在内存中保存这些 bundle
                 }
             });
+        }
+
+        private HashMap makeHashmap(String location,String reason,String cusId){
+            HashMap fixupsmap=new HashMap();
+            fixupsmap.put("h_location",location);
+            fixupsmap.put("h_reason",reason);
+          //  fixupsmap.put("h_timestamp",timestamp);
+            fixupsmap.put("h_custom_id",cusId);
+         //   fixupsmap.put("h_engineer_id",engId);
+          //  fixupsmap.put("h_filename",filename);
+            return fixupsmap;
         }
 
 

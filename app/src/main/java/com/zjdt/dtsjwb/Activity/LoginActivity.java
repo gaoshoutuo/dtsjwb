@@ -18,9 +18,14 @@ import android.widget.Toast;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.Bean.Password;
 import com.zjdt.dtsjwb.NetUtil.OkhttpUtil;
+import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.JsonUtil;
 import com.zjdt.dtsjwb.Util.SPUtil;
+import com.zjdt.dtsjwb.Util.ThreadUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,12 +43,45 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+        //SPUtil.getInstance().spDataSet("login_passowrd");// 要删除
+        //SPUtil.getInstance().spDataSet(new Password("18768349255","loveyqing",true,"1"),"login_passowrd");
         Password ppo=SPUtil.getInstance().spDataget("login_passowrd");
+
+
         //原来我一直改的地方错误  如果debug 直接跳出 那么说明不执行这玩意
-      if(ppo.isMarried()&&(ppo .getPassword()+ppo.getUsername()).length()>11){
+      if(ppo.isMarried()&&(ppo .getPassword()+ppo.getUsername()).length()>11){//这里加一道关卡
           authorthy.put("au",ppo.getAuthorthm());
+          //actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
+
+          Log.e("ppo",ppo .getPassword()+ppo.getUsername());
+          //final String jsonLogin=ppo .getPassword()+ppo.getUsername();
+          String userStr=ppo.getUsername();
+          String pwdStr=ppo.getPassword();
+          final JSONObject jsonLogin=new JSONObject();
+          try {
+              jsonLogin.put("au","login");
+              jsonLogin.put("user_str",userStr);
+              jsonLogin.put("pwd_str",pwdStr);
+          } catch (JSONException e) {
+              e.printStackTrace();
+          }
+          ThreadUtil.execute(new ThreadUtil.CallBack() {
+              @Override
+              public void exec() {
+
+              }
+
+              @Override
+              public void run() {
+                  SocketUtil.sendMessageAdd("218.108.146.98",3333,jsonLogin.toString());
+              }
+          });
           actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
       }
+
+      //现在的逻辑 就是登陆把 本地sp 送服务器验证 并回执
+
+
     }
 
 
@@ -88,7 +126,9 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                     Password passwordObject= SPUtil.getInstance().spDataget("login_passowrd");
                     Log.e("jps",passwordObject.getAuthorthm()+"");
                    // Log.e("jp",username+password);
-                    OkhttpUtil.getUrl("http://176.122.185.2/picture/password.json");
+
+                    OkhttpUtil.getUrl("http://218.108.146.98:88/password.json");
+                    //OkhttpUtil.getUrl("http://176.122.185.2/picture/password.json");
                    if((passwordObject.getUsername()+passwordObject.getPassword()).equals("dtsj")){
 
                      //  Log.e("jp",passwordObject.getUsername()+passwordObject.getPassword()+"123123");
@@ -124,13 +164,16 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                    }else if (passwordObject.getUsername().equals("18768349255")){
                       // authorthy.clear();
                       // SPUtil.getInstance().spDataSet(jp,"login_passowrd");
-
-                       authorthy.put("au",passwordObject.getAuthorthm());
-
-                      // authorthy.put("au","2");
+                       //authorthy.put("au",passwordObject.getAuthorthm());
+                       authorthy.put("au","1");
                        Log.e("arrou",authorthy.toString()+",,,"+passwordObject.toString());
                        actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
                    } else{
+                       //也要删除
+                       authorthy.put("au","1");
+                       Log.e("arrou",authorthy.toString()+",,,"+passwordObject.toString());
+                       actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
+
                        Toast.makeText(LoginActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
         }
         // android不能懈怠

@@ -10,12 +10,18 @@ import android.view.View;
 import android.widget.Button;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
 import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.AirInsFragment;
 import com.zjdt.dtsjwb.fragment.UpsFixFragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class InsAirActivity extends BaseActivity implements View.OnClickListener{
     /**
@@ -81,7 +87,23 @@ public class InsAirActivity extends BaseActivity implements View.OnClickListener
 
             case R.id.air_ins_button3://处理foot  上传
                 airInsFoot.makeAirInsFootJson();
-               final String json= airInsFoot.getJsonStr();
+                HashMap map = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
+                try {
+                    AirInsFragment.getJson().put("other_location",map.get("h_location"));
+                    AirInsFragment.getJson().put("h_custom_id",map.get("h_custom_id"));
+                    JSONObject ano=new JSONObject();
+                    ano.put("cus_id",map.get("h_custom_id"));
+                    ano.put("timestamp",System.currentTimeMillis()+"");
+                    ano.put("reason",map.get("h_reason"));
+                    ano.put("business", HandlerFinal.BUSINESS_STR[5]);
+                    ano.put("eng_id",HandlerFinal.userId);
+                    ano.put("eng_name",HandlerFinal.userName);
+                    AirInsFragment.getJson().put("another",ano);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                final String json= airInsFoot.getJsonStr();
                 Log.e("airins",json);
                 ThreadUtil.execute(new ThreadUtil.CallBack() {
                     @Override

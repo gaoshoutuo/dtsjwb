@@ -8,13 +8,17 @@ import android.util.Log;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Util.FtpUtil;
+import com.zjdt.dtsjwb.Util.ThreadUtil;
 
 import java.io.File;
 import java.util.HashMap;
 
 public class PdfLoaderActivity extends BaseActivity {
     PDFView pdfView;
+    boolean isDOWN=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +36,39 @@ public class PdfLoaderActivity extends BaseActivity {
 
             //initView(filename);
         }
-        String test001=getExternalFilesDir(Environment.DIRECTORY_MOVIES).toString()+"/test001.pdf";
-        Log.e("pdf",test001);
-        initView(test001);
+        String externalFilesDir = getExternalFilesDir(Environment.DIRECTORY_MOVIES).toString();
+       // String test001=getExternalFilesDir(Environment.DIRECTORY_MOVIES).toString()+"/test001.pdf";
+       // String name=getIntent().getStringExtra("filename");//搞不懂为什么这个一直会这样 是android 的bug吗  不对可能是我在那里面的 app.getApp 的那种影响到了  没办法 智能 final
+        String name= HandlerFinal.pdfFIle;
+
+        String content=getIntent().getStringExtra("content");
+        String title=getIntent().getStringExtra("title");
+        Log.e("filename",name+content+title);
+        String []filename=name.split("/");
+
+        final String realname=filename[filename.length-1];
+        final String localName=externalFilesDir+"/"+realname;
+        Log.e("filename",localName);
+        ThreadUtil.execute(new ThreadUtil.CallBack() {
+            @Override
+            public void exec() {
+
+            }
+
+            @Override
+            public void run() {
+               isDOWN= FtpUtil.downloadFile(realname,localName);
+            }
+        });
+        while (!isDOWN){
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        //Log.e("pdf",test001);
+        initView(localName);
     }
     private void initView(String filename){
         pdfView=f(R.id.pdfview);

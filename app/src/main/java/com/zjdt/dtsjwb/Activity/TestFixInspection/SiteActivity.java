@@ -10,12 +10,16 @@ import android.view.View;
 import android.widget.Button;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
 import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.SiteFrag;
 import com.zjdt.dtsjwb.fragment.UpsFixFragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -91,6 +95,21 @@ public class SiteActivity extends BaseActivity implements View.OnClickListener{
         switch (v.getId()){
             case R.id.site_button1://处理head
                 installSite.initManyJson();
+                HashMap mapinstall = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
+                try {
+                    SiteFrag.getJson().put("other_location",mapinstall.get("h_location"));
+                    SiteFrag.getJson().put("h_custom_id",mapinstall.get("h_custom_id"));
+                    JSONObject ano=new JSONObject();
+                    ano.put("cus_id",mapinstall.get("h_custom_id"));
+                    ano.put("timestamp",System.currentTimeMillis()+"");
+                    ano.put("reason",mapinstall.get("h_reason"));
+                    ano.put("business", HandlerFinal.BUSINESS_STR[6]);
+                    ano.put("eng_id",HandlerFinal.userId);
+                    ano.put("eng_name",HandlerFinal.userName);
+                    SiteFrag.getJson().put("another",ano);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 final String jsonInstall= installSite.getJsonStr();
                 Log.e("install",jsonInstall);
 
@@ -113,6 +132,22 @@ public class SiteActivity extends BaseActivity implements View.OnClickListener{
                 installButton.setVisibility(View.GONE);
                 serviceButton.setVisibility(View.VISIBLE);
                 serviceSite.initManyJson();
+
+                HashMap mapService = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
+                try {
+                    SiteFrag.getJson().put("other_location",mapService.get("h_location"));
+                    SiteFrag.getJson().put("h_custom_id",mapService.get("h_custom_id"));
+                    JSONObject ano=new JSONObject();
+                    ano.put("cus_id",mapService.get("h_custom_id"));
+                    ano.put("timestamp",System.currentTimeMillis()+"");
+                    ano.put("reason",mapService.get("h_reason"));
+                    ano.put("business", HandlerFinal.BUSINESS_STR[7]);
+                    ano.put("eng_id",HandlerFinal.userId);
+                    ano.put("eng_name",HandlerFinal.userName);
+                    SiteFrag.getJson().put("another",ano);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                final String jsonService= serviceSite.getJsonStr();
                 Log.e("service",jsonService);
 

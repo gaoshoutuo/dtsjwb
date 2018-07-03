@@ -37,14 +37,19 @@ import com.zjdt.dtsjwb.App.AppApplication;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.Bean.MenuBean;
 import com.zjdt.dtsjwb.NetUtil.OkhttpUtil;
+import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Service.NotificationService;
 import com.zjdt.dtsjwb.Util.DialogUtil;
+import com.zjdt.dtsjwb.Util.FtpUtil;
 import com.zjdt.dtsjwb.Util.JsonUtil;
 import com.zjdt.dtsjwb.Util.PermissonUtil;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
 import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.ProgressFragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -95,9 +100,45 @@ public class MenuActivity extends AppCompatActivity {
         // gridView=f(R.id.menu_gridview);
         initView();
         MenuAdapter menuAdapter = new MenuAdapter(arrayList, this, gridView);
+        //这三者 直接是数据库 json 给的
+
+     /*   HandlerFinal.userId=null;
+        HandlerFinal.userName=null;
+        HandlerFinal.userLocation=null;*/
 
         gridView.setAdapter(menuAdapter);
         startService(new Intent(this, NotificationService.class));
+        ThreadUtil.execute(new ThreadUtil.CallBack() {
+            @Override
+            public void exec() {
+
+            }
+
+            @Override
+            public void run() {
+                FtpUtil.ftpInit("218.108.146.98","21","root","dt123456");
+                //从数据库获取这三个参数
+
+/*                JSONObject threeValue=new JSONObject();
+                try {
+                    threeValue.put("three_value","threevalue");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+               String reJson= SocketUtil.sendMessageAdd("218.108.146.98",3333,threeValue.toString());
+                try {
+                    JSONObject reJ=new JSONObject(reJson);
+                    HandlerFinal.userId=reJ.getString("user_id");
+                    HandlerFinal.userName=reJ.getString("user_name");
+                    HandlerFinal.userLocation=reJ.getString("user_location");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+              */
+
+
+            }
+        });
         File pf=AppApplication.getApp().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getParentFile();
         File file=new File(pf.getAbsolutePath()+"/"+"wbdir");
 
@@ -144,15 +185,18 @@ public class MenuActivity extends AppCompatActivity {
             arrayList = new ArrayList();
         }
         map = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
+
         switch (map.get("au")) {
             case "1":
                 for (int i = 0; i < imageM.length; i++) {
+
                     MenuBean menuBean = new MenuBean(name[i], imageM[i]);
                     arrayList.add(menuBean);
                 }
                 break;
             case "2":
                 for (int i = 0; i < imageCustom.length; i++) {
+
                     MenuBean menuBean = new MenuBean(customName[i], imageCustom[i]);
                     arrayList.add(menuBean);
                 }
@@ -160,8 +204,9 @@ public class MenuActivity extends AppCompatActivity {
             default:
                 break;
         }
-
-        OkhttpUtil.getUrl("http://176.122.185.2/picture/doctor_intelligence.json");
+        //http://218.108.146.98:88/program_language_bible.html
+        //OkhttpUtil.getUrl("http://176.122.185.2/picture/doctor_intelligence.json");
+        OkhttpUtil.getUrl("http://218.108.146.98:88/doctor_intelligence.json");
         ProgressFragment pf=new ProgressFragment();
         pf.setContext(this);
         pf.setLayoutId(R.layout.progress_frag);
@@ -230,8 +275,6 @@ public class MenuActivity extends AppCompatActivity {
                     if (map.get("au").equals("1")) {//字符串别用==
                         Intent intent = new Intent(MenuActivity.this, FixDeviceActivity.class);
                         MenuActivity.this.startActivity(intent);
-
-
                     } else if ((map.get("au").equals("2"))) {
                         Toast.makeText(MenuActivity.this, "xiaoyu", Toast.LENGTH_SHORT).show();
                         actionActivity(MenuActivity.this,CAssetsActivity.class,null);
@@ -251,12 +294,12 @@ public class MenuActivity extends AppCompatActivity {
                     break;
                 case 2:
                     Toast.makeText(MenuActivity.this, "" + position, Toast.LENGTH_SHORT).show();
-                    if (map.get("au").equals("1")) {//字符串别用==
-                        actionActivity(MenuActivity.this,CCallActivity.class,null);
+                    if (map.get("au").equals("1")) {//此处  要获取客户信息  信息 id 地区 姓名 单位  的存在
+
+                        actionActivity(MenuActivity.this,InfoActivity.class,null);
+                        //actionActivity(MenuActivity.this,CCallActivity.class,null);
                     } else if ((map.get("au").equals("2"))) {
                         actionActivity(MenuActivity.this,IntellActivity.class,null);
-
-
 
                     }
                     break;
