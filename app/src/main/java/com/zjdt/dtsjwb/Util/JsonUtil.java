@@ -1,6 +1,9 @@
 package com.zjdt.dtsjwb.Util;
 
+import com.zjdt.dtsjwb.Bean.AssertBean;
 import com.zjdt.dtsjwb.Bean.FixHistoryBean;
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.Bean.InfoBean;
 import com.zjdt.dtsjwb.Bean.Password;
 import com.zjdt.dtsjwb.Bean.RollBean;
 
@@ -105,6 +108,84 @@ public class JsonUtil {
         }
         return list;
     }
+    public static ArrayList<InfoBean> parseInfo(String json){//json 字符串 反复装箱 拆箱 插入数据表 挺麻烦的
+        ArrayList<InfoBean> infoList=null;
+        try {
+            infoList=new ArrayList<>();
+            JSONObject jsonObject=new JSONObject(json);
+            JSONArray infoArray=jsonObject.getJSONArray("array");
+            for (int i=0;i<infoArray.length();i++){//难道jsonArray 可以放其他对象吗  不会吧
+                JSONObject item= infoArray.getJSONObject(i);
+                String userId=item.getString("user_id");
+                String company=item.getString("company");
+                String infoName=item.getString("info_name");
+                String infoLocation=item.getString("info_location");//其实as 这种命名方式的自动提示会有一点机器学习的成分
+                InfoBean ib=new InfoBean(infoName,userId,infoLocation,company);
+                infoList.add(ib);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return infoList;
+    }
 
+
+    public static ArrayList<AssertBean> parseAssert(JSONObject json){
+      
+        ArrayList<AssertBean> list=new ArrayList<>();
+        
+        //电力子系统
+        String[]esBody1=getLastArray(json,"es_body_1", HandlerFinal.FIVE_STR);//3 3 4  8 13  这些东西要 做成一个数组
+        AssertBean assertBean=new AssertBean("",esBody1,"");
+        list.add(assertBean);
+        
+        return list;
+    }
+    
+    //从jsonobj中获取jsonobj "mon_soft_body_1":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+    private static JSONObject getobjInJson(JSONObject json,String key){
+        JSONObject obj = null;
+        try {
+            obj=json.getJSONObject(key);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+    //从jsonobj 里面获取数组
+    private static String[] getStrArrInJson(String[]arr,JSONObject json){//
+        String[] str=new String[arr.length];
+        for (int i=0;i<arr.length;i++){
+            try {
+                str[i]=json.getString(arr[i]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return str;
+    }
+
+    // 前面两个是组成部分 后面是
+
+    private static String[] getLastArray(JSONObject json,String key,String[]arr){
+        JSONObject obj=getobjInJson(json,key);
+        String []str=getStrArrInJson(arr,obj);
+        return str;
+    }
+    // 一维数组 差一点  arr[]
+
+    public static ArrayList<AssertBean>  template(String[] arr, JSONObject json){// arr3 3 5 6 8 13  这种封装 麻烦就麻烦在  最外层要为最内层提供
+        ArrayList<AssertBean> list =new ArrayList<>();
+        for (int i=0;i<arr.length;i++){
+            String[]esBody1=getLastArray(json,arr[i], HandlerFinal.FIVE_STR);//3 3 4  8 13  这些东西要 做成一个数组
+            AssertBean assertBean=new AssertBean("",esBody1,"");
+            list.add(assertBean);
+        }
+        return list;
+    }
+    private void test(){
+        String [][]arr=new String[2][100];//两行100 列
+    }
 
 }

@@ -67,31 +67,60 @@ public class NotificationService extends Service{
                     @Override
                     public void call(Object... args) {
                         Log.e("Socket.IO", "Server is connected!");
-                        socket.emit("foo","你好 已经连接");
+                        socket.emit("foo","手机端连接");
+                        socket.on(HandlerFinal.NOTIFY_K, new Emitter.Listener() {
+                            @Override
+                            public void call(Object... args) {
+                                try {
+                                    Log.e("9875",args[0].toString());
+
+                                    JSONObject jsonObject=new JSONObject(args[0].toString());
+                                    if (jsonObject.getString("cus_id").equals(HandlerFinal.userId)){
+                                        //架构概念 数据在系统内怎么流通  有序 有效
+                                        String titleNotify= jsonObject.getString("title");
+                                        String contentNotify=jsonObject.getString("content");
+
+                                        Intent intent = new Intent(AppApplication.getApp(), SignActivity.class);
+                                        intent.putExtra("title", titleNotify);
+                                        intent.putExtra("content", contentNotify);
+
+
+                                        PendingIntent pi = PendingIntent.getActivity(AppApplication.getApp(), 0, intent, 0);
+                                        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                                        Notification notification = new NotificationCompat.Builder(AppApplication.getApp())
+                                                .setContentTitle(titleNotify)
+                                                .setContentText(contentNotify)
+                                                .setWhen(System.currentTimeMillis())
+                                                .setSmallIcon(R.mipmap.ic_launcher)
+                                                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))
+                                                .setContentIntent(pi)
+                                                .setAutoCancel(true)
+                                                .setPriority(android.support.v7.app.NotificationCompat.PRIORITY_MAX)
+                                                .setSound(/*Uri.parse("android:resource://com.android.zhgf.zhgf/"+R.raw.sound1)*/
+                                                        RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+                                                )
+                                                .setVibrate(new long[]{ 0, 1000, 1000, 1000 })
+                                                .setColor(Color.GREEN)
+                                                .build();
+                      /*  notification.ledOffMS=1000;
+                        notification.ledOnMS=1000;
+                        notification.flags = 1;*/
+                                        nm.notify(2,notification);
+
+                                    }
+
+                                }  catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
 
                     }
                 }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
                     @Override
                     public void call(Object... args) {
                         Log.e("Socket.IO", "Server is connected!");
-
-                    }
-                }).on(HandlerFinal.UPS_1, new Emitter.Listener() {
-                    @Override
-                    public void call(Object... args) {
-
-                        Toast.makeText(AppApplication.getApp(),args.toString(),Toast.LENGTH_SHORT).show();
-                    }
-                }).on(HandlerFinal.UPS_2, new Emitter.Listener() {
-                    @Override
-                    public void call(Object... args) {
-
-                        Toast.makeText(AppApplication.getApp(),args.toString(),Toast.LENGTH_SHORT).show();
-                    }
-                }).on(HandlerFinal.UPS_3, new Emitter.Listener() {
-                    @Override
-                    public void call(Object... args) {
-
 
                     }
                 }).on(HandlerFinal.UPS_4, new Emitter.Listener() {
@@ -104,9 +133,10 @@ public class NotificationService extends Service{
                     @Override
                     public void call(Object... args) {
                         try {
+                            Log.e("9875",args[0].toString());
 
                             JSONObject jsonObject=new JSONObject(args[0].toString());
-                            if (jsonObject.getString("au")==HandlerFinal.userId){
+                            if (jsonObject.getString("cus_id").equals(HandlerFinal.userId)){
                                 //架构概念 数据在系统内怎么流通  有序 有效
                                 String titleNotify= jsonObject.getString("title");
                                 String contentNotify=jsonObject.getString("content");

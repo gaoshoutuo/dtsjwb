@@ -1,5 +1,6 @@
 package com.zjdt.dtsjwb.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.zjdt.dtsjwb.Activity.SignActivity;
+import com.zjdt.dtsjwb.App.AppApplication;
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.JsonUtil;
 import com.zjdt.dtsjwb.Util.ParseXml;
@@ -33,6 +37,11 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
     private static String xmlstr;
     private static String[]data;
     private int numGroup,presentNum;
+    public static String reasonStr;
+    public static JSONObject getJson(){
+        return json;
+    }
+
     public void setRid(int rid) {
         this.rid = rid;
     }
@@ -259,7 +268,23 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.ups_test_custom_sign://ups测试工程师签名
+            case R.id.ups_test_custom_sign://ups测试工程师签名  ok
+
+                Intent testIntent=new Intent(AppApplication.getApp(), SignActivity.class);
+                long timestamp=System.currentTimeMillis();
+                String filename=timestamp+".png";
+                singleStr(this.json,"other_eng_id", HandlerFinal.userId);
+                singleStr(this.json,"filename",filename);
+                singleStr(this.json,"timestamp",timestamp+"");
+                try {
+                    singleStr(this.json,"reason",this.json.getString("fix_suggest"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                testIntent.putExtra("str",filename);
+                startActivity(testIntent);
+
                 break;
             case R.id.ups_test_engineer_sign://ups测试提醒用户签名
                 break;
@@ -328,7 +353,13 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
      * json 也分前中后的
      */
     private void initJson(){
+
         json=new JSONObject();
+        try {
+            json.put("au","ups_test");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void singleStr(JSONObject json,String jsonKey,String jsonValue){

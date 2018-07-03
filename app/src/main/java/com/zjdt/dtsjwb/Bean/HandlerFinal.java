@@ -63,9 +63,12 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
     public static final String AU_LOGIN="add";
 
 //userid
-    public static String userId;
+    public static String userId,engID;
     public static String userName;
     public static String userLocation;
+    public static String indentity;
+    public static String company;
+    public static String ip;// ip 地址 或者某些接口地址可能会改变
 
 
 //midium
@@ -114,4 +117,25 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
     public static final int MESSAGE_ENG=1200;
     public static final int MESSAGE_CUS=1300;
 
+    public static final int FIX_UPS_REQUEST=1400;
+    public static final int TEST_UPS_REQUEST=1500;
+    public static final int INS_UPS_REQUEST=1600;
+    public static final int INS_AIR_REQUEST=1700;
+    public static final int SERVICE_REQUEST=1800;
+    public static final int INSTALL_REQUEST=1900;
+
+
+    public static final String []BUSINESS_STR={"fix_ups",  "test_ups",  "ins_ups",  "fix_air",  "test_air",  "ins_air",  "site_install",  "site_service",  "firefighting",  "monitor"};
+    //{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+    public static final String []FIVE_STR={"device_name","device_para","device_type","device_brand","device_num"};
+    public static final String []HUNDRED_STR={"es_body_1","es_body_2","es_body_3",  "air_body_1","air_body_2","air_body_3","air_body_4",  "emi_body_1", "emi_body_2",
+    "mon_soft_body_1","mon_soft_body_2","mon_soft_body_3","mon_soft_body_4",  "mon_interface_body_1","mon_interface_body_2","mon_interface_body_3","mon_interface_body_4","mon_interface_body_5","mon_interface_body_6",
+     "mon_hard_body_1","mon_hard_body_2","mon_hard_body_3","mon_hard_body_4",  "mon_ac_body_1","mon_ac_body_2","mon_ac_body_3","mon_ac_body_4","mon_ac_body_5","mon_ac_body_6","mon_ac_body_7","mon_ac_body_8",
+    "mon_video_body_1","mon_video_body_2","mon_video_body_3","mon_video_body_4",  "cabient_body_1","cabient_body_2","cabient_body_3","cabient_body_4","cabient_body_5","cabient_body_6","cabient_body_7","cabient_body_8",
+            "cabient_body_9","cabient_body_10","cabient_body_11","cabient_body_12","cabient_body_13","cabient_body_14","cabient_body_15"
+    };
+
+    public static final String []NAME_STR={"电气子系统","空调子系统","新风排风子系统","机房监控子系统","机房监控接口子系统","机房监控硬件子系统","门禁监控系统","视频监控系统","机柜子系统"};
+
+    public static String pdfFIle;
 }

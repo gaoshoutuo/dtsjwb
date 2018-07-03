@@ -1,5 +1,6 @@
 package com.zjdt.dtsjwb.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,7 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.zjdt.dtsjwb.Activity.SignActivity;
+import com.zjdt.dtsjwb.App.AppApplication;
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Util.JsonUtil;
 import com.zjdt.dtsjwb.Util.ParseXml;
 
 import org.json.JSONException;
@@ -22,6 +27,11 @@ public class SiteFrag extends Fragment implements View.OnClickListener{
     private static String[]data;
     private View view;
     private static JSONObject json;
+    public static String reasomStr;
+    public static JSONObject getJson(){
+        return json;
+    }
+
     public static String getJsonStr() {
         return json.toString();
     }
@@ -365,12 +375,46 @@ public void setText(int includeId,String type){
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.device_i_engineer_sign:
-                    break;
+
+                Intent installIntent=new Intent(AppApplication.getApp(), SignActivity.class);
+                long timestamp1=System.currentTimeMillis();
+                String filename1=timestamp1+".png";
+                singleStr(this.json,"au", "install");
+                singleStr(this.json,"other_eng_id", HandlerFinal.userId);
+                singleStr(this.json,"filename",filename1);
+                singleStr(this.json,"timestamp",timestamp1+"");
+                try {
+                    singleStr(this.json,"reason",this.json.getString("fix_suggest"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                installIntent.putExtra("str",filename1);
+                startActivity(installIntent);
+
+                break;
 
             case R.id.device_i_custom_sign:
                 break;
 
             case R.id.device_s_engineer_sign:
+
+                Intent serviceIntent=new Intent(AppApplication.getApp(), SignActivity.class);
+                long timestamp=System.currentTimeMillis();
+                String filename2=timestamp+".png";
+                singleStr(this.json,"au", "service");
+                singleStr(this.json,"other_eng_id", HandlerFinal.userId);
+                singleStr(this.json,"filename",filename2);
+                singleStr(this.json,"timestamp",timestamp+"");
+                try {
+                    singleStr(this.json,"reason",this.json.getString("fix_suggest"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                serviceIntent.putExtra("str",filename2);
+                startActivity(serviceIntent);
+
                 break;
 
             case R.id.device_s_custom_sign:

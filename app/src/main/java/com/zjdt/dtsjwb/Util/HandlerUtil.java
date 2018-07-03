@@ -62,6 +62,7 @@ public  class HandlerUtil {
                     Log.e("msg",msg.obj+"");
                     break;//很奇怪
                 case HandlerFinal.AU_REGISTER_MSG:
+
                     ToastUtil.ggg(AppApplication.getApp(),msg.obj.toString());
                     break;
 
@@ -83,6 +84,30 @@ public  class HandlerUtil {
                     engIntent.putExtra("cus",(String)msg.obj);
                     AppApplication.getApp().startActivity(engIntent);
                    // ToastUtil.ggg(AppApplication.getApp(),msg.obj.toString());
+                    break;
+
+                case HandlerFinal.FIX_UPS_REQUEST://获得服务器回执之后  似乎又没有必要
+
+                    break;
+
+                case HandlerFinal.TEST_UPS_REQUEST:
+
+                    break;
+
+                case HandlerFinal.INS_UPS_REQUEST:
+
+                    break;
+
+                case HandlerFinal.INS_AIR_REQUEST:
+
+                    break;
+
+                case HandlerFinal.SERVICE_REQUEST:
+
+                    break;
+
+                case HandlerFinal.INSTALL_REQUEST:
+
                     break;
 
                     default:break;

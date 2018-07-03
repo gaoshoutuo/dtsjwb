@@ -83,14 +83,7 @@
         android:orientation="horizontal"
         >
 
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:id="@+id/edit_name"
-            android:layout_weight="1"
-            android:hint="姓名/单位"
 
-            />
         <Spinner
             android:layout_marginLeft="30dp"
             android:id="@+id/hehe"
@@ -120,6 +113,42 @@
         android:background="@drawable/key_100"
         android:layout_marginTop="10dp"
         />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400dp"
+        android:orientation="horizontal"
+        >
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:id="@+id/edit_name"
+            android:layout_weight="1"
+            android:hint="姓名"
+
+            />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:id="@+id/edit_company"
+            android:layout_weight="1"
+            android:hint="单位"
+
+            />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:id="@+id/edit_location"
+            android:layout_weight="1"
+            android:hint="所在地"
+
+            />
+
+    </LinearLayout>
+
 
 
 </RelativeLayout>

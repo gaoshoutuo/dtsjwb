@@ -32,11 +32,7 @@
         <activity
             android:name=".Activity.MenuActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Activity.LoginActivity">
-
-
-
-        </activity>
+        <activity android:name=".Activity.LoginActivity"></activity>
         <activity
             android:name=".Activity.HistoryActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -145,15 +141,18 @@
             android:name=".Activity.PdfLoaderActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".Activity.ProgressActivity" />
-        <activity android:name=".Activity.BeforeActivity"
+        <activity
+            android:name=".Activity.BeforeActivity"
             android:theme="@style/Theme.AppCompat">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity android:name=".Activity.InfoActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            ></activity>
     </application>
 
 </manifest>

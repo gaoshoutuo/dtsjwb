@@ -96,12 +96,13 @@ public class FtpUtil {
      */
 
 
-    public static void uploadFile(String filename,String filepath) {
+    public static boolean uploadFile(String localfile,String remoteFile) {
         FileInputStream fiss = null;
+        boolean istrue=false;
             try {
-                fiss = new FileInputStream(filename);//这里多此一举 不要file
+                fiss = new FileInputStream(localfile);//这里多此一举 不要file
                // ftpClient.enterLocalPassiveMode();
-              boolean istrue=  ftpClient.storeFile(filepath, fiss);
+                istrue=  ftpClient.storeFile(remoteFile, fiss);
               Log.e("upload",istrue+"");
                 //   Log.e("workd",ftpClient.printWorkingDirectory());
                 fiss.close();
@@ -110,6 +111,7 @@ public class FtpUtil {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return istrue;
     }
 
     /**

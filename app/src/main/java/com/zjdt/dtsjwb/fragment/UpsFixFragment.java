@@ -1,5 +1,6 @@
 package com.zjdt.dtsjwb.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.zjdt.dtsjwb.Activity.SignActivity;
+import com.zjdt.dtsjwb.App.AppApplication;
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.ParseXml;
 
@@ -22,12 +26,16 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
     private static String xmlstr;
     private static JSONObject json;
     private static String[]data;
+    public static String reasonStr;
 
     public void setViewId(int viewId) {
         this.viewId = viewId;
     }
     public static String getJsonStr() {
         return json.toString();
+    }
+    public static JSONObject getJson() {
+        return json;
     }
 
     /**
@@ -208,6 +216,11 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
 
     private void initJson(){
         json=new JSONObject();
+        try {
+            json.put("au","ups_fix");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void singleStr(JSONObject json,String jsonKey,String jsonValue){
@@ -273,11 +286,13 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
     }
 
 
-    private void initBodyJson(int includeId,String type){
+    private String initBodyJson(int includeId,String type){
         View view1= getIncludeView(view,includeId);
         EditText text= view1.findViewById(R.id.ups_fix_error_phon);
         String str=getEditData(text);
         singleStr(this.json,type,str);
+        return str;
+        //if (type.equals("fix_reason"))reasonStr=str;
     }
 
     private JSONObject initCostJson(int includeId){
@@ -338,7 +353,7 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
         initBodyJson(R.id.ups_fix_body1,"error_phon");
         initBodyJson(R.id.ups_fix_body2,"error_analysis");
         initBodyJson(R.id.ups_fix_body3,"handle_error");
-        initBodyJson(R.id.ups_fix_body4,"fix_reason");
+        reasonStr=initBodyJson(R.id.ups_fix_body4,"fix_reason");
         singleJson(this.json,"cost",initCostJson(R.id.ups_fix_body5));
     }
 
@@ -356,6 +371,20 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ups_fix_engineer_sign:
+                Intent fixIntent=new Intent(AppApplication.getApp(), SignActivity.class);
+                long timestamp=System.currentTimeMillis();
+                String filename=timestamp+".png";
+                singleStr(this.json,"other_eng_id", HandlerFinal.userId);
+                singleStr(this.json,"filename",filename);
+                singleStr(this.json,"timestamp",timestamp+"");
+                try {
+                    singleStr(this.json,"reason",this.json.getString("fix_suggest"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                fixIntent.putExtra("str",filename);
+                startActivity(fixIntent);
 
                 break;
             case R.id.ups_fix_custom_sign:

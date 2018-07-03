@@ -5,5 +5,6 @@
     <string name="textview_bonjour">前页测试</string>
     <string name="dtyw">迪 特 运 维</string>
     <string name="idc_housekeeper">数据中心专业管家</string>
-
+    <string name="idc_zhuanye">专业的数据中心维保团队</string>
+    <string name="idc_ser">贴心的数据中心管家服务</string>
 </resources>

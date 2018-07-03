@@ -132,40 +132,62 @@
         android:layout_marginLeft="200dp"
         />
 
-    <!--<ImageView android:layout_height="wrap_content"
+    <ImageView android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:id="@+id/before_ten_image"
-        android:layout_centerHorizontal="true"
+
         android:src="@drawable/firefighter_100"
-        android:layout_marginTop="450dp"/>
+        android:layout_marginTop="450dp"
+        android:layout_marginLeft="20dp"
+        />
 
     <ImageView android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:id="@+id/before_ele_image"
         android:layout_centerHorizontal="true"
         android:src="@drawable/engineer_100"
-        android:layout_marginTop="450dp"/>
+        android:layout_marginTop="20dp"/>
 
     <ImageView android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:id="@+id/before_tw_image"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
         android:src="@drawable/fix_100"
-        android:layout_marginTop="450dp"/>
+        android:layout_marginTop="450dp"
+        android:layout_marginRight="20dp"
+        />
 
-    <ImageView android:layout_height="wrap_content"
+   <!-- <ImageView android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:id="@+id/before_thir_image"
         android:layout_centerHorizontal="true"
         android:src="@drawable/hibernate_100"
-        android:layout_marginTop="450dp"/>-->
+        android:layout_marginTop="450dp"/>
+-->
 
-  <!--  <ImageView android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/before_one"
         android:layout_width="wrap_content"
-        android:id="@+id/before_fth_image"
+        android:layout_height="wrap_content"
+        android:text="@string/idc_zhuanye"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/hibernate_100"
-        android:layout_marginTop="450dp"/>-->
+        android:layout_marginTop="314dp"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/before_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="314dp"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textSize="28sp" />
 
 
 </RelativeLayout>
