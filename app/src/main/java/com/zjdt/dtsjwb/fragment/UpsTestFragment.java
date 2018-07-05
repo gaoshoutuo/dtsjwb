@@ -81,7 +81,7 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
                 initUpsTestHeadView();
                 break;
 
-            case R.layout.ups_test_report_body:
+            case R.layout.ups_test_report_body://玩意添加资产 加入电池怎么办
                 initUpsTestBodyView();
                 break;
 

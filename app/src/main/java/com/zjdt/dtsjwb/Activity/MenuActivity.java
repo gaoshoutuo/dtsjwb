@@ -73,10 +73,13 @@ public class MenuActivity extends AppCompatActivity {
             R.drawable.mall, R.drawable.test64};
     private int[] imageCustom = {R.drawable.my_assets, R.drawable.my_register, R.drawable.intelligence, R.drawable.my_history,
             R.drawable.my_mall, R.drawable.my_call, R.drawable.my_notify, R.drawable.my_update};
+    private int[] imageSales={};
+
     //private int []imageOther={R.drawable.icons8_fix,R.drawable.icons8_history,R.drawable.icons8_my,R.drawable.icons8_update};
     private String[] name = {"维修业务", "维修历史", "我的信息", "检查更新", "商城", "测试"};
     private String[] customName = {"我的资产", "资产登记", "故障上报", "维保历史", "政采云商城", "联系我们", "推送消息", "检查更新"};//维保倒计时 放到资产里面去
     // private String []otherNamer={};
+    private String []salesName={};
 
     private ArrayList<Object> arrayList;
     private ServiceConnection sc = new ServiceConnection() {
@@ -135,7 +138,15 @@ public class MenuActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
               */
-
+                HandlerFinal.upsBatteryNum=1;
+                JSONObject jb=new JSONObject();
+                try {
+                    jb.put("au","battery_number");
+                    jb.put("cus_id",HandlerFinal.userId);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                SocketUtil.sendMessageAdd("218.108.146.98",3333,jb.toString());
 
             }
         });
@@ -338,7 +349,7 @@ public class MenuActivity extends AppCompatActivity {
                                         case -2:
                                             break;
                                         case -1:
-                                            call("057183214565");
+                                            call("4001105050");
                                             break;
                                     }
 

@@ -13,7 +13,9 @@ import android.widget.TextView;
 import com.zjdt.dtsjwb.App.AppApplication;
 import com.zjdt.dtsjwb.Bean.DevicePara;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Util.ThreadUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -236,6 +238,26 @@ private static void initJson(){
 
         putJsonObj(R.id.es_body3,"es_body_3");
 
+        // 蓄电池数量独立出来
+        DevicePara dp= beanGet(rid);
+        final JSONObject jsonObject= makeJson(dp);
+        try {
+            jsonObject.put("au","battery_number");
+            jsonObject.put("cus_id",HandlerFinal.userId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ThreadUtil.execute(new ThreadUtil.CallBack() {
+            @Override
+            public void exec() {
+
+            }
+
+            @Override
+            public void run() {
+                SocketUtil.sendMessageAdd("218.108.146.98",3333,jsonObject.toString());
+            }
+        });
     }
 
     private void initAirview(){

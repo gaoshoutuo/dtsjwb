@@ -124,7 +124,7 @@ public class SocketUtil {
                         HistoryActivity.sInstance.list=JsonUtil.parseHistory(cusArray.toString());
                         break;
 
-                    case "number_2":
+                    case "battery_y":
 
                         break;
                     case "ups_fix_request":
@@ -154,6 +154,11 @@ public class SocketUtil {
                          loginReply.put("location",llll.getIdentity());
                          loginReply.put("company",llll.getCompany());
                          */
+
+                        break;
+
+                    case "battery_reply":
+                        HandlerFinal.upsBatteryNum=reply.getInt("number");
 
                         break;
 

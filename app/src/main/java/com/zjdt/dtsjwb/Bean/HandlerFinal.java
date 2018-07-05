@@ -138,4 +138,6 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
     public static final String []NAME_STR={"电气子系统","空调子系统","新风排风子系统","机房监控子系统","机房监控接口子系统","机房监控硬件子系统","门禁监控系统","视频监控系统","机柜子系统"};
 
     public static String pdfFIle;
+
+    public static int upsBatteryNum;
 }

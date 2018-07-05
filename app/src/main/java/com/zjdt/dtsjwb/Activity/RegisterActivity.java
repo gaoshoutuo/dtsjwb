@@ -32,7 +32,7 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
     private EditText editName,editLocation,editCompany;
     private Button button;
     private Spinner spinner;
-    private String []data={"企业客户","维保人员","三方客户"};
+    private String []data={"企业客户","维保人员","销售人员"};
     private String sData="企业客户";
 
     private void initView(){
