@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
+    android:background="#ffffff"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -166,5 +167,13 @@
         android:layout_height="1dp"
         android:background="#aaa"
         ></View>-->
+        <Button
+            android:id="@+id/ups_send"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:text="保存并提交" />
+
+
     </LinearLayout>
 </ScrollView>

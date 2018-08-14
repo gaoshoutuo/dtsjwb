@@ -5,6 +5,8 @@ import android.os.Environment;
 
 import com.zjdt.dtsjwb.App.AppApplication;
 
+import java.sql.Timestamp;
+
 /**
  * handler的常量类
  * Created by 71568 on 2018/4/8.
@@ -63,11 +65,11 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
     public static final String AU_LOGIN="add";
 
 //userid
-    public static String userId,engID;
-    public static String userName;
-    public static String userLocation;
+    public static String userId,myCustomId;
+    public static String userName,myCustomName;
+    public static String userLocation,myCusLocation;
     public static String indentity;
-    public static String company;
+    public static String company,myCusEng;
     public static String ip;// ip 地址 或者某些接口地址可能会改变
 
 
@@ -135,9 +137,82 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
             "cabient_body_9","cabient_body_10","cabient_body_11","cabient_body_12","cabient_body_13","cabient_body_14","cabient_body_15"
     };
 
+    public static final String []SUB_UPS={"es_body_1","es_body_2","es_body_3"};
+    public static final String []SUB_AIR={"air_body_1","air_body_2","air_body_3","air_body_4"};
+    public static final String []SUB_EMI={ "emi_body_1", "emi_body_2"};
+    public static final String []SUB_MS={"mon_soft_body_1","mon_soft_body_2","mon_soft_body_3","mon_soft_body_4"};
+    public static final String []SUB_MI={"mon_interface_body_1","mon_interface_body_2","mon_interface_body_3","mon_interface_body_4","mon_interface_body_5","mon_interface_body_6"};
+    public static final String []SUB_MH={"mon_hard_body_1","mon_hard_body_2","mon_hard_body_3","mon_hard_body_4"};
+    public static final String []SUB_MAC={ "mon_ac_body_1","mon_ac_body_2","mon_ac_body_3","mon_ac_body_4","mon_ac_body_5","mon_ac_body_6","mon_ac_body_7","mon_ac_body_8"};
+    public static final String []SUB_MV={  "mon_video_body_1","mon_video_body_2","mon_video_body_3","mon_video_body_4"};
+    public static final String []SUB_CAB={"cabient_body_1","cabient_body_2","cabient_body_3","cabient_body_4","cabient_body_5","cabient_body_6","cabient_body_7","cabient_body_8",
+            "cabient_body_9","cabient_body_10","cabient_body_11","cabient_body_12","cabient_body_13","cabient_body_14","cabient_body_15"};
+
+
     public static final String []NAME_STR={"电气子系统","空调子系统","新风排风子系统","机房监控子系统","机房监控接口子系统","机房监控硬件子系统","门禁监控系统","视频监控系统","机柜子系统"};
 
     public static String pdfFIle;
 
     public static int upsBatteryNum;
+    public static boolean dialogSwitch=false;
+    //客户同意资产录入
+    public static String isAuthorizeCusIdBasicAsset;
+    public static String isAuthorizeCusIdITAsset;
+    public static boolean isAgree=false;
+    public static boolean oneHour=false;
+
+
+    //socket  的值 为防止出现魔法值
+    public static final String NOTIFY_REPLY="notify_reply";
+    public static final String REGISRER_REPLY="register_reply";
+    public static final String INS_FIX_I_S="ins_fix_i_s";
+    public static final String TIS_HISTORY_ENG="tis_history_eng";
+    public static final String TIS_HISTORY_CUS="tis_history_cus";
+    public static final String UPS_FIX_REQUEST="ups_fix_request";
+    public static final String LOGIN_REPLY="login_reply";
+    public static final String BATTERY_REPLY="battery_reply";
+    public static final String INFO_REPLY="info_reply";
+    public static final String ASSERT_REPLY="assert_reply";
+    //提前设计所遗弃的东西
+    public static final String NOTIFY_CUS_AUTH_BASIC="notify_cus_auth_basic";
+    public static final String NOTIFY_ENG_KNOW_BASIC="notify_eng_know_basic";
+    public static final String NOTIFY_CUS_AUTH_IT="notify_cus_auth_it";
+    public static final String NOTIFY_ENG_KNOW_IT="notify_eng_know_it";
+
+    public static final String NOTIFY_ENTRY_ASSET="help_reply";
+    public static final String NOTIFY_ADDED_BASE="added_base";
+    public static final String NOTIFY_ADDED_IT="added_it";
+    public static final String NOTIFY_AGREE_BASE="agree_base";
+    public static final String NOTIFY_AGREE_IT="agree_it";
+
+    public static final String NOTIFY_UPDATE_IT="update_it";
+    public static final String NOTIFY_UPDATE_BASE="update_base";
+
+    public static final String CHECK_ONE_HOUR_OFF="off_use";
+    public static final String CHECK_ONE_HOUR_ON="on_use";
+    public static final String IM_AGREE="我同意";
+    public static final String IM_NOT_AGREE="我不同意";
+    public static final String REFUSE="refuse";
+
+    public static final String CHECK_U_I="check_u_i";
+    public static  boolean isCheckUP=false;
+    public static String ide=null;
+
+    public static Timestamp timeStamp;
+
+
+
+
+
+
+
+
+
+
+
+
+    public static final int MSG_CREATE_IDC=6200;
+    public static final int IDC_QUERY_REPLY=6210;
+
+    public static final int QUERY_SUB_REPLY=6220;
 }

@@ -30,7 +30,9 @@ import android.widget.Toast;
 
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
+import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.pnikosis.materialishprogress.ProgressWheel;
+import com.zjdt.dtsjwb.Activity.NewRequirements.AsertFormActivity;
 import com.zjdt.dtsjwb.Adapter.MenuAdapter;
 import com.zjdt.dtsjwb.Adapter.TestAdapter;
 import com.zjdt.dtsjwb.App.AppApplication;
@@ -61,6 +63,7 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 public class MenuActivity extends AppCompatActivity {
 
     //https://www.zcy.gov.cn/eevees/shop?searchType=1&shopId=124184  商城网址 商城要搞什么 必须得自己的ajax服务器
+    private CityPickerView mPicker=new CityPickerView();
     private ArrayList<View> viewList = new ArrayList<>();
     private HashMap<String, String> map;
     public static TextView test;
@@ -70,14 +73,16 @@ public class MenuActivity extends AppCompatActivity {
     private GridView gridView;
     private int columnWidth;
     private int[] imageM = {R.drawable.icons8_fix, R.drawable.icons8_history, R.drawable.icons8_my, R.drawable.icons8_update,
-            R.drawable.mall, R.drawable.test64};
+            R.drawable.mall, R.drawable.test64,R.drawable.help};
     private int[] imageCustom = {R.drawable.my_assets, R.drawable.my_register, R.drawable.intelligence, R.drawable.my_history,
-            R.drawable.my_mall, R.drawable.my_call, R.drawable.my_notify, R.drawable.my_update};
+            R.drawable.my_mall, R.drawable.my_call, R.drawable.my_notify, R.drawable.my_update,
+            R.drawable.server};
     private int[] imageSales={};
 
     //private int []imageOther={R.drawable.icons8_fix,R.drawable.icons8_history,R.drawable.icons8_my,R.drawable.icons8_update};
-    private String[] name = {"维修业务", "维修历史", "我的信息", "检查更新", "商城", "测试"};
-    private String[] customName = {"我的资产", "资产登记", "故障上报", "维保历史", "政采云商城", "联系我们", "推送消息", "检查更新"};//维保倒计时 放到资产里面去
+    private String[] name = {"维修业务", "维修历史", "我的信息", "检查更新", "商城", "测试","帮录资产"};
+    //private String[] customName = {"基础资产", "资产登记", "故障上报", "维保历史", "政采云商城", "联系我们", "推送消息", "检查更新", "IT资产"};//维保倒计时 放到资产里面去
+    private String[] customName = {"机房创建", "资产登记", "故障上报", "维保历史", "政采云商城", "联系我们", "推送消息", "检查更新", "IT资产"};
     // private String []otherNamer={};
     private String []salesName={};
 
@@ -102,6 +107,7 @@ public class MenuActivity extends AppCompatActivity {
         //  text.setText("菜单界面");
         // gridView=f(R.id.menu_gridview);
         initView();
+        mPicker.init(this);
         MenuAdapter menuAdapter = new MenuAdapter(arrayList, this, gridView);
         //这三者 直接是数据库 json 给的
 
@@ -160,6 +166,21 @@ public class MenuActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        try {
+
+        if (getIntent().getStringExtra("notify")!=null&&getIntent().getStringExtra("notify").equals(HandlerFinal.NOTIFY_ADDED_BASE)){
+            DialogUtil.getDialogUtil().materialDialog5(this,getIntent().getStringExtra("title"),getIntent().getStringExtra("content"),HandlerFinal.NOTIFY_UPDATE_BASE);
+        }else if (getIntent().getStringExtra("notify")!=null&&getIntent().getStringExtra("notify").equals(HandlerFinal.NOTIFY_ADDED_IT)){
+            DialogUtil.getDialogUtil().materialDialog5(this,getIntent().getStringExtra("title"),getIntent().getStringExtra("content"),HandlerFinal.NOTIFY_UPDATE_IT);
+        }/*else if (getIntent().getStringExtra("notify").equals(HandlerFinal.NOTIFY_AGREE_BASE)){
+            //DialogUtil.getDialogUtil().materialDialog5(this,getIntent().getStringExtra("title"),getIntent().getStringExtra("content"));
+            //开始录入资产
+        }else if (getIntent().getStringExtra("notify").equals(HandlerFinal.NOTIFY_AGREE_BASE)){
+            //DialogUtil.getDialogUtil().materialDialog5(this,getIntent().getStringExtra("title"),getIntent().getStringExtra("content"));
+        }*/
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
@@ -258,6 +279,8 @@ public class MenuActivity extends AppCompatActivity {
         test.setVisibility(View.GONE);
     }
 
+    int step=0;
+
     /**
      * 获取屏幕宽高
      */
@@ -282,13 +305,37 @@ public class MenuActivity extends AppCompatActivity {
                 //客户 第三方 维保人员要做三种  switch 与每次的if能否合并一下
                 case 0:
                     //madan get key hairena    1.填写客户基本信息  2.    3.
-                    Toast.makeText(MenuActivity.this, map.get("au"), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MenuActivity.this, map.get("au"), Toast.LENGTH_SHORT).show();
                     if (map.get("au").equals("1")) {//字符串别用==
-                        Intent intent = new Intent(MenuActivity.this, FixDeviceActivity.class);
+                        //Intent intent = new Intent(MenuActivity.this, FixDeviceActivity.class);
+                        Intent intent = new Intent(MenuActivity.this, NewFixActivity.class);
                         MenuActivity.this.startActivity(intent);
                     } else if ((map.get("au").equals("2"))) {
-                        Toast.makeText(MenuActivity.this, "xiaoyu", Toast.LENGTH_SHORT).show();
-                        actionActivity(MenuActivity.this,CAssetsActivity.class,null);
+                        //Toast.makeText(MenuActivity.this, "xiaoyu", Toast.LENGTH_SHORT).show();
+                      /*  ThreadUtil.execute(new ThreadUtil.CallBack() {
+                            @Override
+                            public void exec() {
+
+                            }
+
+                            @Override
+                            public void run() {
+                                JSONObject assertJson=new JSONObject();
+                                try {
+                                    assertJson.put("au","asset_query");
+                                    Log.e("kkkkk",HandlerFinal.userId);
+                                    assertJson.put("cus_id", HandlerFinal.userId);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                SocketUtil.sendMessageAdd("218.108.146.98",3333,assertJson.toString());
+                            }
+                        });
+                        actionActivity(MenuActivity.this,CAssetsActivity.class,null);*/
+                      Toast.makeText(MenuActivity.this,"请先选择机房地区",Toast.LENGTH_SHORT).show();
+                        DialogUtil.getDialogUtil().showCityView(mPicker,MenuActivity.this);
+                     // DialogUtil.getDialogUtil().materialCreateIDC(MenuActivity.this,mPicker);
                     }
                     break;
                 case 1:
@@ -299,8 +346,41 @@ public class MenuActivity extends AppCompatActivity {
                       map_11.put("au","fix_engineer");
                       actionActivity(MenuActivity.this,HistoryActivity.class,map_11);
                     } else if ((map.get("au").equals("2"))) {
-                        Toast.makeText(MenuActivity.this, "xiaoyu", Toast.LENGTH_SHORT).show();
-                        actionActivity(MenuActivity.this,CAssetsRActivity.class,null);
+                        //Toast.makeText(MenuActivity.this, "xiaoyu", Toast.LENGTH_SHORT).show();
+                        //actionActivity(MenuActivity.this,CAssetsRActivity.class,null);
+
+                        if (step==0){
+                            step++;
+                        JSONObject jsonObject=new JSONObject();
+                        try {
+                            jsonObject.put("au","idc_query");
+                            jsonObject.put("user_id",HandlerFinal.userId);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        //HandlerUtil
+                        ThreadUtil.sat(jsonObject);
+                        Toast.makeText(MenuActivity.this,"正在查询机房稍等...",Toast.LENGTH_SHORT).show();
+                       // actionActivity(MenuActivity.this,AsertFormActivity.class,null);
+                            ThreadUtil.execute(new ThreadUtil.CallBack() {
+                                @Override
+                                public void exec() {
+
+                                }
+
+                                @Override
+                                public void run() {
+                                    try {
+                                        Thread.sleep(5000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    step=0;
+                                }
+                            });
+                    }else{
+                            Toast.makeText(MenuActivity.this,"查询频繁请5s后在尝试",Toast.LENGTH_SHORT).show();
+                        }
                     }
                     break;
                 case 2:
@@ -356,18 +436,40 @@ public class MenuActivity extends AppCompatActivity {
                                 }
                             }
                     );
-
-
                     break;
                 case 5:
                     MenuActivity.this.startActivity(new Intent(MenuActivity.this, FixHistoryTestActivity.class));
                     break;
                 case 6:
                    // actionActivity(MenuActivity.this,BaseActivity.class,null);
+                    if (map.get("au").equals("1")) {//字符串别用==
+                        //actionActivity(MenuActivity.this,HelpActivity.class,null);  其实不需要  很多跳转 可以dialog 的选定\
+                        if (HandlerFinal.isAuthorizeCusIdITAsset!=null&&HandlerFinal.isAuthorizeCusIdITAsset.equals(HandlerFinal.myCustomId)){
+                            //帮客户填基础资产
+
+
+                        }else if(HandlerFinal.isAuthorizeCusIdBasicAsset!=null&&HandlerFinal.isAuthorizeCusIdBasicAsset.equals(HandlerFinal.myCustomId)){
+                            //帮客户填it资产
+
+                        }else{
+                            DialogUtil.getDialogUtil().materialDialog2(MenuActivity.this);
+                        }
+
+
+                    } else if ((map.get("au").equals("2"))) {
+
+                    }
                     break;
                 case 7:
                     break;
                 case 8:
+
+                    if (map.get("au").equals("1")) {//字符串别用==
+
+                    } else if ((map.get("au").equals("2"))) {
+                        Toast.makeText(MenuActivity.this, "xiaoyu", Toast.LENGTH_SHORT).show();
+                        actionActivity(MenuActivity.this,CAssetsActivity.class,null);
+                    }
                     break;
                 default:
                     break;

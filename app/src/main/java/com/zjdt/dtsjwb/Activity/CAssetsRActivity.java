@@ -73,45 +73,6 @@ public class CAssetsRActivity extends BaseActivity implements View.OnClickListen
         transaction.replace(R.id.assit_framelayout,fragment);
       //  transaction.addToBackStack(null);
         transaction.commit();
-       /* switch (fragment.getId()){
-            case R.layout.assit_es:
-                esAssit.getEvEle();
-                break;
-
-            case R.layout.assit_air:
-                esAssit.getEvAir();
-                break;
-
-            case R.layout.assit_emi:
-                esAssit.getEvEmi();
-                break;
-
-            case R.layout.assit_mon_soft:
-                esAssit.getEvSoft();
-                break;
-
-            case R.layout.assit_mon_interface:
-                esAssit.getEvInterface();
-                break;
-
-            case R.layout.assit_mon_hard:
-                esAssit.getEvHardware();
-                break;
-
-            case R.layout.assit_mon_ac:
-                esAssit.getEvAc();
-                break;
-
-            case R.layout.assit_mon_video:
-                esAssit.getEvVideo();
-                break;
-
-            case R.layout.assit_cabient:
-                esAssit.getEvCabient();
-                break;
-
-            default:break;
-        }*/
     }
 
     private void addHideFragment(Fragment from,Fragment to,int position){
@@ -122,7 +83,7 @@ public class CAssetsRActivity extends BaseActivity implements View.OnClickListen
             transaction.hide(from).show(to).commit();
         }
         transaction.addToBackStack(null);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -130,51 +91,9 @@ public class CAssetsRActivity extends BaseActivity implements View.OnClickListen
         EsAssit esAssit = new EsAssit();
         esAssit.setRid(layoutId);   //怪不得为null原来是因为replace
         //(⊙o⊙)… 我也不想写这种面条代码 本来 9 个方法可以。无奈这么系统设计后需求有改了，原先的代码耦合智能出此下策
-
-
         replaceFragment(esAssit);//似乎确实是替换
         return esAssit;
 
-       /* switch (layoutId){
-            case R.layout.assit_es:
-                esAssit.getEvEle();
-                break;
-
-            case R.layout.assit_air:
-                esAssit.getEvAir();
-                break;
-
-            case R.layout.assit_emi:
-                esAssit.getEvEmi();
-                break;
-
-            case R.layout.assit_mon_soft:
-                esAssit.getEvSoft();
-                break;
-
-            case R.layout.assit_mon_interface:
-                esAssit.getEvInterface();
-                break;
-
-            case R.layout.assit_mon_hard:
-                esAssit.getEvHardware();
-                break;
-
-            case R.layout.assit_mon_ac:
-                esAssit.getEvAc();
-                break;
-
-            case R.layout.assit_mon_video:
-                esAssit.getEvVideo();
-                break;
-
-            case R.layout.assit_cabient:
-                esAssit.getEvCabient();
-                break;
-
-            default:break;
-        }*/
-        //addHideFragment(Fragment from,Fragment to,int position);
     }
     private void setButtonNine(int i){
         buttonGone();
@@ -204,7 +123,14 @@ public class CAssetsRActivity extends BaseActivity implements View.OnClickListen
                         try {
                             assertJson=new JSONObject(json);
                             assertJson.put("au","asset_json");
-                            assertJson.put("cus_id",HandlerFinal.userId);
+                            if (HandlerFinal.indentity.equals("企业用户")){
+                                assertJson.put("cus_id",HandlerFinal.userId);//这里要修改了  如果是帮忙填写的话
+                                assertJson.put("help_people",HandlerFinal.userId);
+                            }else if(HandlerFinal.indentity.equals("维保人员")){
+                                assertJson.put("cus_id",HandlerFinal.myCustomId);//这里要修改了  如果是帮忙填写的话
+                                assertJson.put("help_people",HandlerFinal.userId);
+                            }
+
                             assertJson.put("location",HandlerFinal.userLocation);
                             assertJson.put("username",HandlerFinal.userName);
                             assertJson.put("company",HandlerFinal.company);

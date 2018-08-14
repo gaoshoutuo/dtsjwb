@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    >
+    tools:context=".Activity.NewRequirements.WatchAssetActivity">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/newdevice_recy"
-        android:background="#fff"
+        android:id="@+id/watch_recy"
         ></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

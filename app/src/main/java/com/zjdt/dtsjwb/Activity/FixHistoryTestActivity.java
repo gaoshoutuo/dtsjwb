@@ -148,7 +148,7 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                 }).start();
                 break;
             case R.id.test_select:
-                actionActivity(this,BeforeActivity.class,null);
+                //actionActivity(this,BeforeActivity.class,null);
                /* ThreadUtil.execute(new ThreadUtil.CallBack() {
                     @Override
                     public void exec() {
@@ -163,6 +163,7 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                     }
                 });*/
 
+                actionActivity(this,NewFixActivity.class,null);
                 break;
 
 

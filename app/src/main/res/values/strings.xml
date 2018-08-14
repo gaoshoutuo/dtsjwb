@@ -7,4 +7,110 @@
     <string name="idc_housekeeper">数据中心专业管家</string>
     <string name="idc_zhuanye">专业的数据中心维保团队</string>
     <string name="idc_ser">贴心的数据中心管家服务</string>
+
+    <string name="input_hint_id">输入客户id</string>
+    <string name="input_hint_name">输入客户姓名</string>
+    <string name="input_hint_location">输入客户地区</string>
+    <string name="input_hint_company">输入客户id</string>
+
+    <string name="material_title">客户信息填写</string>
+    <string name="material_content">请输入客户的信息</string>
+
+    <string name="material_title2">点击ok征得用户同意后则开始录入数据</string>
+    <string name="select_entry_type">选择资产录入类型</string>
+    <string name="enter_base_asset">录入客户基础资产</string>
+    <string name="enter_base_it"> 录入客户IT资产</string>
+
+    <string name="enter_idc_base_all">录入客户整个机房基础资产</string>
+    <string name="enter_idc_base_single">录入客户单体机基础资产</string>
+    <string name="enter_idc_base_mult">录入客户多联机基础资产</string>
+
+    <string name="enter_idc_it_all">录入客户整个机房IT资产</string>
+    <string name="enter_idc_it_single">录入客户单体机IT资产</string>
+    <string name="enter_idc_it_mult">录入客户多联机IT资产</string>
+
+    <string name="input_prefill">123</string>
+    <string name="toast_reply1">您的同意已回执给工程师,感谢您的信任。</string>
+    <string name="toast_reply2">感谢您的答复</string>
+    <string name="wait_title">等待片刻</string>
+    <string name="wait_content">您的申请正在服务器执行</string>
+    <string name="hot_call">热线咨询</string>
+    <string name="call_business_xx">维保热线</string>
+    <string name="call_cooperation">业务合作</string>
+    <string name="call_fix">修理热线</string>
+
+    <string name="idc_name_str">机房名称</string>
+    <string name="idc_name_hint">给自己的机房起个名字吧</string>
+
+    <string name="idc_location_str">机房所在地区</string>
+    <string name="idc_location_select">选择地区</string>
+    <string name="idc_location_deep">详细地址</string>
+    <string name="idc_location_deep_hint">如浙江杭州余杭无常xx街道xx号</string>
+
+    <string name="idc_select_id">机房ID</string>
+    <string name="idc_select_name">机房名称</string>
+    <string name="idc_select_location">机房地区</string>
+    <string name="idc_select_position">机房ID</string>
+    <string name="idc_select_type">机房类型</string>
+
+
+
+    <string name="idc_select_ups">添加ups供电资产</string>
+
+    <string name="idc_select_air">添加空调资产</string>
+
+    <string name="idc_x1">添加新风排风子系统</string>
+
+    <string name="idc_x3">添加门禁监控系统</string>
+
+    <string name="idc_x4">添加视频监控系统</string>
+
+    <string name="idc_x6">添加软件平台资产</string>
+
+    <string name="idc_x8">添加软件接口资产</string>
+
+    <string name="idc_x9">添加硬件配置系统</string>
+
+    <string name="idc_x10">添加机柜子系统</string>
+    <string name="idc_x11">黑客之怒</string>
+
+
+
+    <string name="idc_query_ups">查询ups供电资产</string>
+
+    <string name="idc_query_air">查询空调资产</string>
+
+    <string name="idc_query_x1">查询新风排风子系统</string>
+
+    <string name="idc_query_x3">查询门禁监控系统</string>
+
+    <string name="idc_query_x4">查询视频监控系统</string>
+
+    <string name="idc_query_x6">查询软件平台资产</string>
+
+    <string name="idc_query_x8">查询软件接口资产</string>
+
+    <string name="idc_query_x9">查询硬件配置系统</string>
+
+    <string name="idc_query_x10">查询机柜子系统</string>
+
+
+    <string name="idc_select_fair">添加消防资产</string>
+    <string name="idc_select_mon">添加监控资产</string>
+
+  <!--  <string name="idc_select_air">添加一体机资产</string>
+    <string name="idc_select_air">添加一体机资产</string>
+    <string name="idc_select_air">添加一体机资产</string>
+    <string name="idc_select_air">添加一体机资产</string>
+    <string name="idc_select_air">添加一体机资产</string>-->
+
+
+    <string name="idc_select_add">添加资产</string>
+    <string name="idc_select_delete">删除资产</string>
+    <string name="idc_select_update">更新资产</string>
+    <string name="idc_select_query">查看资产</string>
+
+
+
+
 </resources>

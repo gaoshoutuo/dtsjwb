@@ -1,9 +1,14 @@
 package com.zjdt.dtsjwb.Util;
 
+import android.util.Log;
+
+import com.google.gson.JsonObject;
 import com.zjdt.dtsjwb.Bean.AssertBean;
 import com.zjdt.dtsjwb.Bean.FixHistoryBean;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.Bean.IdcBean;
 import com.zjdt.dtsjwb.Bean.InfoBean;
+import com.zjdt.dtsjwb.Bean.JsonUtilBean;
 import com.zjdt.dtsjwb.Bean.Password;
 import com.zjdt.dtsjwb.Bean.RollBean;
 
@@ -11,15 +16,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ObjectInputValidation;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 这个是纯粹的数组json 不是能够适应所有的json格式  形参就是注入 而
  * Created by 71568 on 2018/4/8.
  */
 
-public class JsonUtil {
+public class JsonUtil<T> {
     private ArrayList list=new ArrayList<>();;
 
     public ArrayList getList() {
@@ -186,6 +191,81 @@ public class JsonUtil {
     }
     private void test(){
         String [][]arr=new String[2][100];//两行100 列
+    }
+
+
+    public static JSONObject makeJsonObj(JSONObject obj, JsonUtilBean jub){// 生成JsonObj
+        try {
+            obj.put(jub.getKey(),jub.getValue());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+    public static JSONObject makeJsonObj2(JSONObject obj,JsonUtilBean jub){// 生成JsonObj
+        try {
+            obj.put(jub.getKey(),jub.getObj());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+
+    public JSONArray makeJsonArr(List<T> list){// 先不写  json 到bean 需要xml 的配置吧  xml 这种dsl
+        JSONArray ja=new JSONArray();
+        for (int i=0;i<list.size();i++){
+
+        }
+        return null;
+    }
+
+    public ArrayList<IdcBean> iqrJsonParse(JSONObject json){
+        ArrayList<IdcBean>list=new ArrayList<>();
+        try {
+            JSONArray ja= json.getJSONArray("array");
+            for (int i=0;i<ja.length();i++){
+                JSONObject object=ja.getJSONObject(i);
+                String location=object.getString("idc_s_location");
+                String idcName=object.getString("idc_name");
+                String idcType=object.getString("idc_type");
+                String idcId=object.getString("idc_id");
+                IdcBean idcBean=new IdcBean(idcId,idcName,idcType,location);
+                list.add(idcBean);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // 算了 重新写吧{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
+
+ /*   public void parseSubtitle(JsonObject jsonObject,int type){
+        switch (type){
+
+        }
+    }*/
+
+    public ArrayList<AssertBean> parseSubtitle(JSONObject object,String []arr){
+        ArrayList<AssertBean> list=new ArrayList<>();
+        try {
+            for (int i=0;i<arr.length;i++){
+                JSONObject obj=object.getJSONObject(arr[i]);
+                String deviceName=obj.getString("device_name");
+                String devicePara=obj.getString("device_para");
+                String deviceType=obj.getString("device_type");
+                String deviceBrand=obj.getString("device_brand");
+                String deviceNum=obj.getString("device_num");
+                AssertBean assertBean=new AssertBean("",deviceName,devicePara,deviceType,deviceBrand,deviceNum,"");
+                list.add(assertBean);
+                Log.e("ttt3","ppppp");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
 }

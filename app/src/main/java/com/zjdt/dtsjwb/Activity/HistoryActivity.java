@@ -77,6 +77,7 @@ public class HistoryActivity extends BaseActivity {
                     JSONObject cusJson=new JSONObject();
                     try {
                         cusJson.put("au","history_cus");
+                        cusJson.put("cus_str",HandlerFinal.userId);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -117,6 +118,7 @@ public class HistoryActivity extends BaseActivity {
                     JSONObject engJson=new JSONObject();
                     try {
                         engJson.put("au","history_eng");
+                        engJson.put("eng_str",HandlerFinal.userId);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

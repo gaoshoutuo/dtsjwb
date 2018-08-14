@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="arr">
+        <item>填写客户基础资产</item>
+        <item>填写客户IT资产</item>
+    </string-array>
+</resources>

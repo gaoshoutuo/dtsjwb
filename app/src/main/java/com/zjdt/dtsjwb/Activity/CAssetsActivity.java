@@ -54,7 +54,7 @@ public class CAssetsActivity extends BaseActivity {
             }
         });
 
-        initData();
+       // initData();
 
         initview();
     }

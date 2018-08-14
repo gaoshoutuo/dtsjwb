@@ -45,15 +45,15 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
         initView();
         //SPUtil.getInstance().spDataSet("login_passowrd");// 要删除
         //SPUtil.getInstance().spDataSet(new Password("18768349255","loveyqing",true,"1"),"login_passowrd");
+        //HandlerFinal.userId="18768349255";
+
         Password ppo=SPUtil.getInstance().spDataget("login_passowrd");
-
-
         //原来我一直改的地方错误  如果debug 直接跳出 那么说明不执行这玩意
       if(ppo.isMarried()&&(ppo .getPassword()+ppo.getUsername()).length()>11){//这里加一道关卡
           authorthy.put("au",ppo.getAuthorthm());
           //actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
 
-          Log.e("ppo",ppo .getPassword()+ppo.getUsername());
+          Log.e("ppo",ppo.getPassword()+ppo.getUsername());
           //final String jsonLogin=ppo .getPassword()+ppo.getUsername();
           String userStr=ppo.getUsername();
           String pwdStr=ppo.getPassword();
@@ -107,11 +107,37 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
         userEdit.setOnTouchListener(this);
         passwordEdit.setOnTouchListener(this);
     }
+    /*
+    check userid&&password
+     */
+    private void login(final String user,final String pass){
+        ThreadUtil.execute(new ThreadUtil.CallBack() {
+            @Override
+            public void exec() {
+
+            }
+
+            @Override
+            public void run() {
+                JSONObject jsonLogin2=new JSONObject();
+                try {
+                    jsonLogin2.put("au","check_identity");
+                    jsonLogin2.put("user_id",user);
+                    jsonLogin2.put("password",pass);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                SocketUtil.sendMessageAdd("218.108.146.98",3333,jsonLogin2.toString());
+            }
+        });
+    }
 
     /**
      * 当login_password为空或与它不同时 错误  当相同并且不为空  当为空时去获取网络上的数据
      *
      */
+
+
     private View.OnClickListener listener=new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -128,6 +154,7 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                    // Log.e("jp",username+password);
 
                     OkhttpUtil.getUrl("http://218.108.146.98:88/password.json");
+
                     //OkhttpUtil.getUrl("http://176.122.185.2/picture/password.json");
                    if((passwordObject.getUsername()+passwordObject.getPassword()).equals("dtsj")){
 
@@ -156,7 +183,7 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                        //算了记住密码还是先算了吧
                    //}else if ((jp=isInList(passwordObject.getUsername(),passwordObject.getPassword()))!=null){
                    //}else if ((passwordObject.getPassword().equals(password)&&passwordObject.getUsername().equals(username))){
-                   }else if(username.equals("18768349254")){
+                   }/*else if(username.equals("18768349254")){
 
                        authorthy.put("au","2");
                        Log.e("arrou",authorthy.toString()+",,,"+passwordObject.toString());
@@ -168,13 +195,62 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
                        authorthy.put("au","1");
                        Log.e("arrou",authorthy.toString()+",,,"+passwordObject.toString());
                        actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
-                   } else{
-                       //也要删除
-                       authorthy.put("au","1");
-                       Log.e("arrou",authorthy.toString()+",,,"+passwordObject.toString());
-                       actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
+                   }*/
 
-                       Toast.makeText(LoginActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
+                   else{
+
+                      // 1账号密码验证  2  3  4
+                       JSONObject jsonObj=new JSONObject();
+                       try {
+                           jsonObj.put("user_id",username);
+                           jsonObj.put("password",password);
+                           jsonObj.put("au","check_identity");
+                       } catch (JSONException e) {
+                           e.printStackTrace();
+                       }
+                       ThreadUtil.sat(jsonObj);
+                       int step=0;
+                       while (HandlerFinal.isCheckUP){//这种是有弊端的  因为如果后台卡住 也就没有办法来置正  使用handler 来改变把  handler 得深入了解 并且继承
+                           try {
+                               step++;
+                               if (step>=10){
+                                   break;
+                               }
+                               Thread.sleep(100);
+                           } catch (InterruptedException e) {
+                               e.printStackTrace();
+                           }
+                       }
+                       Log.e("arrou",authorthy.toString()+",,,"+passwordObject.toString());
+                       step=0;
+                       while (HandlerFinal.ide==null){//这种是有弊端的  因为如果后台卡住 也就没有办法来置正  使用handler 来改变把  handler 得深入了解 并且继承
+                           try {
+                               step++;
+                               if (step>=50){
+                                   Toast.makeText(LoginActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
+                                   break;
+                               }
+                               Thread.sleep(100);
+                           } catch (InterruptedException e) {
+                               e.printStackTrace();
+                           }
+                       }
+                       Password pwd=null;
+                       if (HandlerFinal.ide.equals("企业客户")){
+                           pwd=new Password(username,password,true,"2");
+                           authorthy.put("au","2");
+                       }
+
+                       else if (HandlerFinal.ide.equals("维保人员")){
+                           pwd=new Password(username,password,true,"1");
+                           authorthy.put("au","1");
+                       }
+
+                       SPUtil.getInstance().spDataSet(pwd,"login_passowrd");
+
+                       actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
+                       HandlerFinal.ide=null;
+                       //Toast.makeText(LoginActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
         }
         // android不能懈怠
                     break;

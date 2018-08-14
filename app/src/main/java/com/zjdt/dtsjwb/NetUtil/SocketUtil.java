@@ -11,10 +11,12 @@ import android.media.RingtoneManager;
 import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.zjdt.dtsjwb.Activity.CAssetsActivity;
 import com.zjdt.dtsjwb.Activity.HistoryActivity;
 import com.zjdt.dtsjwb.Activity.InfoActivity;
+import com.zjdt.dtsjwb.Activity.MenuActivity;
 import com.zjdt.dtsjwb.Activity.PdfLoaderActivity;
 import com.zjdt.dtsjwb.Activity.SignActivity;
 import com.zjdt.dtsjwb.App.AppApplication;
@@ -22,6 +24,7 @@ import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.HandlerUtil;
 import com.zjdt.dtsjwb.Util.JsonUtil;
+import com.zjdt.dtsjwb.Util.NotifyUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +35,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+
+import static android.support.v4.app.NotificationCompat.PRIORITY_MAX;
+import static android.support.v4.app.NotificationCompat.getChannelId;
 
 public class SocketUtil {
     /**
@@ -57,13 +63,13 @@ public class SocketUtil {
 
 
                 switch (reply.getString("reply")){
-                    case "register_reply":
+                    case HandlerFinal.REGISRER_REPLY:
                         Message message=new Message();
                         message.what= HandlerFinal.AU_REGISTER_MSG;
                         message.obj=sf.toString();
                         HandlerUtil.handler.sendMessage(message);
                         break;
-                    case "notify_reply"://数据库消息返回语 json
+                    case HandlerFinal.NOTIFY_REPLY://数据库消息返回语 json
 
                         Log.e("9875",reply.toString());
 
@@ -92,7 +98,7 @@ public class SocketUtil {
                                     .setLargeIcon(BitmapFactory.decodeResource(AppApplication.getApp().getResources(),R.mipmap.ic_launcher))
                                     .setContentIntent(pi)
                                     .setAutoCancel(true)
-                                    .setPriority(android.support.v7.app.NotificationCompat.PRIORITY_MAX)
+                                    .setPriority(PRIORITY_MAX)//android.support.v7.app.NotificationCompat.PRIORITY_MAX  改了会不会出事 因为新增一个gradle
                                     .setSound(/*Uri.parse("android:resource://com.android.zhgf.zhgf/"+R.raw.sound1)*/
                                             RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
                                     )
@@ -107,37 +113,29 @@ public class SocketUtil {
                         }
                         break;
 
-                    case "ins_fix_i_s":
+                    case HandlerFinal.INS_FIX_I_S:
                         Message messageMIX=new Message();
                         messageMIX.what= HandlerFinal.DTSJ_INS_FIX;
                         messageMIX.obj=sf.toString();
                         HandlerUtil.handler.sendMessage(messageMIX);
                         break;
 
-                    case "tis_history_eng":
+                    case HandlerFinal.TIS_HISTORY_ENG:
                         JSONArray engArray=reply.getJSONArray("array");
                         HistoryActivity.sInstance.list=JsonUtil.parseHistory(engArray.toString());
                         break;
 
-                    case "tis_history_cus":
+                    case HandlerFinal.TIS_HISTORY_CUS:
                         JSONArray cusArray=reply.getJSONArray("array");
                         HistoryActivity.sInstance.list=JsonUtil.parseHistory(cusArray.toString());
                         break;
 
-                    case "battery_y":
-
-                        break;
-                    case "ups_fix_request":
+                    case HandlerFinal.UPS_FIX_REQUEST:
                         Message upsfixRequest= HandlerUtil.handler.obtainMessage();
                         upsfixRequest.what=HandlerFinal.FIX_UPS_REQUEST;
                         break;
-                    case "notify_reply_":
 
-
-
-                        break;
-
-                    case "login_reply"://其实这里的request
+                    case HandlerFinal.LOGIN_REPLY://其实这里的request
                         HandlerFinal.userId=  reply.getString("userid");
                         HandlerFinal.indentity=reply.getString("identity");
                         HandlerFinal.userName=reply.getString("name");
@@ -157,25 +155,114 @@ public class SocketUtil {
 
                         break;
 
-                    case "battery_reply":
+                    case HandlerFinal.BATTERY_REPLY:
                         HandlerFinal.upsBatteryNum=reply.getInt("number");
 
                         break;
 
-                    case "info_reply":
+                    case HandlerFinal.INFO_REPLY:
                         InfoActivity.list=JsonUtil.parseInfo(reply.toString());
                         break;
 
-                    case "assert_reply":
+                    case HandlerFinal.ASSERT_REPLY:
                         //CAssetsActivity.sInstance.getList()=JsonUtil.parseAssert(reply);  函数不能给函数吗  这只是传递
                         //ArrayList list=CAssetsActivity.sInstance.getList();
-                        Log.e("122222",reply.toString());
+                        Log.e("122222",reply.toString()+"123");
+                        if (reply.toString().length()<50){
+                            Toast.makeText(AppApplication.getApp(),"对不起，您还没有录入资产",Toast.LENGTH_SHORT).show();
+
+                            break;
+                        }
                         CAssetsActivity.sInstance.setList(JsonUtil.template(HandlerFinal.HUNDRED_STR,reply));
                         break;
+
+                    case HandlerFinal.NOTIFY_CUS_AUTH_BASIC://通知客户允许
+
+                        // 跳出提醒界面提醒dialog客户工程师xx 想帮您   这就是一些提前的设计的问题
+                        break;
+
+                    case HandlerFinal.NOTIFY_ENG_KNOW_BASIC://我方工程师收到通知
+                        break;
+
+                    case HandlerFinal.NOTIFY_CUS_AUTH_IT://通知客户允许
+                        break;
+
+                    case HandlerFinal.NOTIFY_ENG_KNOW_IT://我方工程师收到通知
+                        break;
+                    case HandlerFinal.CHECK_U_I:
+                        Log.e("cui",reply.toString());
+                        if (reply.getString("ischecked").equals("no")){
+                            HandlerFinal.isCheckUP=false;
+                            Toast.makeText(AppApplication.getApp(),"密码错误",Toast.LENGTH_SHORT).show();
+                        }else if (reply.getString("ischecked").equals("yes")){
+                            HandlerFinal.isCheckUP=true;
+                            HandlerFinal.ide=reply.getString("iden");
+                            Log.e("cui", HandlerFinal.ide+"123");
+                           // Toast.makeText(AppApplication.getApp(),"登录成功",Toast.LENGTH_SHORT).show();
+
+                        }
+                        break;
+
+
+                    case HandlerFinal.NOTIFY_ENTRY_ASSET:
+                        if (reply.getString("instruction").equals(HandlerFinal.NOTIFY_ADDED_BASE)){//这俩属于客户
+                            NotifyUtil.notifySer(reply, MenuActivity.class);
+                        }else if(reply.getString("instruction").equals(HandlerFinal.NOTIFY_ADDED_IT)){
+                            NotifyUtil.notifySer(reply, MenuActivity.class);
+                        }else if(reply.getString("instruction").equals(HandlerFinal.NOTIFY_AGREE_BASE)){//这俩属于工程师
+                            //
+                            HandlerFinal.isAgree=true;NotifyUtil.notifySer(reply, MenuActivity.class);
+                            HandlerFinal.oneHour=true;
+                        }else if(reply.getString("instruction").equals(HandlerFinal.NOTIFY_AGREE_IT)){
+                            //
+                            HandlerFinal.isAgree=true;NotifyUtil.notifySer(reply, MenuActivity.class);
+                            HandlerFinal.oneHour=true;
+                        }else if(reply.getString("instruction").equals(HandlerFinal.CHECK_ONE_HOUR_OFF)){// 如何能够异步起来 关闭则要重新提交
+                            HandlerFinal.isAgree=false;
+                        }else if(reply.getString("instruction").equals(HandlerFinal.CHECK_ONE_HOUR_ON)){
+                            HandlerFinal.isAgree=true;
+                            HandlerFinal.oneHour=true;
+                            if (reply.getString("work_type").equals("it")){
+                                HandlerFinal.isAuthorizeCusIdITAsset=reply.getString("cus_id");
+                            }else if(reply.getString("work_type").equals("base")){
+                                HandlerFinal.isAuthorizeCusIdBasicAsset=reply.getString("cus_id");
+                            }
+                        }else if(reply.getString("instruction").equals(HandlerFinal.REFUSE)){
+                            HandlerFinal.isAgree=false;
+                        }
+
+                        break;
+                    case "create_idc_reply":
+                        Message cirMsh=HandlerUtil.handler.obtainMessage();
+                        cirMsh.what=HandlerFinal.MSG_CREATE_IDC;
+                        cirMsh.sendToTarget();
+
+                        break;
+                    case "idc_query_reply":
+                   // {"array":[{"idc_s_location":"浙江省-杭州市-滨江区","idc_name":"g","idc_type":"整机房资产","idc_id":"1533693371827"}],"reply":"idc_query_reply"}
+                       Message iqrMsg= HandlerUtil.handler.obtainMessage();
+                       iqrMsg.what= HandlerFinal.IDC_QUERY_REPLY;
+                        iqrMsg.obj=reply.toString();
+                        iqrMsg.sendToTarget();
+                        Log.e("idc_query_reply",reply.toString());
+                        break;
+
+                    case "query_sub_reply":
+                        String subType=reply.getString("type");
+                        Message qsrMsg= HandlerUtil.handler.obtainMessage();
+                        qsrMsg.what= HandlerFinal.QUERY_SUB_REPLY;
+                        qsrMsg.obj=reply.toString();
+                        qsrMsg.arg1=subSwitch(subType);//记录类型来搞其他的一些事情
+
+                        qsrMsg.sendToTarget();
+                        Log.e("query_sub_reply",reply.toString());
+                        break;
+
 
                         default:break;
                 }
 
+                //socket 要重新封装 地址要切换
 
             Log.e("SocketUtil",sf.toString());
             os.close();
@@ -187,6 +274,49 @@ public class SocketUtil {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return sf.toString();
+        return sf.toString()+"";
+    }
+
+    private static int subSwitch(String type){
+        int itype=-1;
+        switch (type){
+            case "sub_ups":
+                itype=0;
+                break;
+            case "sub_air":
+                itype=1;
+                break;
+            case "sub_emi":
+                itype=2;
+                break;
+
+            case "sub_ms":
+                itype=3;
+                break;
+
+            case "sub_mi":
+                itype=4;
+                break;
+
+            case "sub_mh":
+                itype=5;
+                break;
+
+            case "sub_mac":
+                itype=6;
+                break;
+
+            case "sub_mv":
+                itype=7;
+                break;
+
+            case "sub_cab":
+                itype=8;
+                break;
+
+
+                default:break;
+        }
+        return itype;
     }
 }

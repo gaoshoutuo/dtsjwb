@@ -37,6 +37,10 @@ public class EsAssit extends Fragment {
         return json.toString();
     }
 
+    public static void setJsonStr(){
+        json=new JSONObject();
+    }
+
 
   /*  public EsAssit() {
     }
@@ -214,8 +218,6 @@ private static void initJson(){
     }
 
 
-
-
     private void initEleview(){
        viewSet(R.id.es_head1, HandlerFinal.upsString[0]);
        viewSet(R.id.es_head2,HandlerFinal.upsString[1]);
@@ -239,7 +241,8 @@ private static void initJson(){
         putJsonObj(R.id.es_body3,"es_body_3");
 
         // 蓄电池数量独立出来
-        DevicePara dp= beanGet(rid);
+        //DevicePara dp= beanGet(rid);
+        DevicePara dp= beanGet(R.id.es_body3);
         final JSONObject jsonObject= makeJson(dp);
         try {
             jsonObject.put("au","battery_number");

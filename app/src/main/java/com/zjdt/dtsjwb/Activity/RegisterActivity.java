@@ -96,6 +96,7 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
         });
         userEdRe.setOnTouchListener(this);
         passwordEdRe.setOnTouchListener(this);
+        //actionActivity(this,LoginActivity.class,null);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

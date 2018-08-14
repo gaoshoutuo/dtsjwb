@@ -35,6 +35,8 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
+import static android.support.v4.app.NotificationCompat.PRIORITY_MAX;
+
 public class NotificationService extends Service{
     public NotificationService() {
     }
@@ -95,7 +97,7 @@ public class NotificationService extends Service{
                                                 .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))
                                                 .setContentIntent(pi)
                                                 .setAutoCancel(true)
-                                                .setPriority(android.support.v7.app.NotificationCompat.PRIORITY_MAX)
+                                                .setPriority(PRIORITY_MAX)
                                                 .setSound(/*Uri.parse("android:resource://com.android.zhgf.zhgf/"+R.raw.sound1)*/
                                                         RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
                                                 )
@@ -156,7 +158,7 @@ public class NotificationService extends Service{
                                         .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))
                                         .setContentIntent(pi)
                                         .setAutoCancel(true)
-                                        .setPriority(android.support.v7.app.NotificationCompat.PRIORITY_MAX)
+                                        .setPriority(PRIORITY_MAX)//android.support.v7.app.NotificationCompat.PRIORITY_MAX
                                         .setSound(/*Uri.parse("android:resource://com.android.zhgf.zhgf/"+R.raw.sound1)*/
                                                 RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
                                         )
@@ -219,7 +221,7 @@ public class NotificationService extends Service{
                             .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))
                             .setContentIntent(pi)
                             .setAutoCancel(true)
-                            .setPriority(android.support.v7.app.NotificationCompat.PRIORITY_MAX)
+                            .setPriority(PRIORITY_MAX)
                             .setSound(/*Uri.parse("android:resource://com.android.zhgf.zhgf/"+R.raw.sound1)*/
                                     RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
                             )

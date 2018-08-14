@@ -4,14 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    tools:context=".Activity.NewRequirements.AsertFormActivity"
+    android:orientation="vertical"
     >
+
+    <FrameLayout
+       android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/add_sub_frag"
+        ></FrameLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/newdevice_recy"
-        android:background="#fff"
+        android:id="@+id/idc_recy"
         ></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

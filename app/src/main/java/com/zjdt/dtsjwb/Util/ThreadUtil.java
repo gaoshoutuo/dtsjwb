@@ -1,6 +1,13 @@
 package com.zjdt.dtsjwb.Util;
 
-public class ThreadUtil extends Thread{
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.NetUtil.SocketUtil;
+
+import org.json.JSONObject;
+
+import java.sql.Timestamp;
+
+public class ThreadUtil<T> extends Thread{
     /**
      * 线程池 threadCurrent 或者继承线程
      * 搞懂线程大工程   java书  揭秘java web
@@ -71,5 +78,46 @@ public class ThreadUtil extends Thread{
         super(target);
     }
 
+    public static void timeStamp(){
+        HandlerFinal.timeStamp=new Timestamp(System.currentTimeMillis());
+    }
+
+    public static void sat(final JSONObject object){
+        ThreadUtil.execute(new CallBack() {
+            @Override
+            public void exec() {
+
+            }
+            @Override
+            public void run() {
+                SocketUtil.sendMessageAdd("218.108.146.98",3333,object.toString());
+            }
+        });
+
+    }
+
+    public void sat2(final JSONObject object,T p){// 可惜是静态的没法  你只能先确定它能够被调用 但是没法等到确定对象 之后再确定调用对象的方法
+        ThreadUtil.execute(new CallBack() {
+            @Override
+            public void exec() {
+
+            }
+            @Override
+            public void run() {
+                exec();
+                SocketUtil.sendMessageAdd("218.108.146.98",3333,object.toString());
+            }
+        });
+
+    }
+
+    public static void threadCase(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }).start();
+    }
 
 }

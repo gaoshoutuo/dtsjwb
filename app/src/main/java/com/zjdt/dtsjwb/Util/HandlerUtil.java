@@ -1,15 +1,27 @@
 package com.zjdt.dtsjwb.Util;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 
+import com.google.gson.JsonObject;
+import com.zjdt.dtsjwb.Activity.NewRequirements.AsertFormActivity;
+import com.zjdt.dtsjwb.Activity.NewRequirements.WatchAssetActivity;
 import com.zjdt.dtsjwb.Activity.PdfLoaderActivity;
 import com.zjdt.dtsjwb.App.AppApplication;
+import com.zjdt.dtsjwb.Bean.AssertBean;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.Bean.IdcBean;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * 线程中的数据需要handler来调度
@@ -52,6 +64,7 @@ public  class HandlerUtil {
     }
 
     public static Handler handler=new Handler(AppApplication.getApp().getMainLooper()){
+        int check_in_step=0;
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
@@ -109,11 +122,98 @@ public  class HandlerUtil {
                 case HandlerFinal.INSTALL_REQUEST:
 
                     break;
+                case HandlerFinal.MSG_CREATE_IDC:
+                    Toast.makeText(AppApplication.getApp(),"创建机房成功",Toast.LENGTH_SHORT).show();
+                    break;
+
+                case HandlerFinal.IDC_QUERY_REPLY:
+                   String iqrJson=(String) msg.obj;
+                    try {
+                        //这里要加锁
+                        if (check_in_step==0) {
+                            ArrayList<IdcBean> iqrList = JsonUtil.getInstance().iqrJsonParse(new JSONObject(iqrJson));
+                            if (iqrList.size() > 0) {
+                                Intent intent = new Intent(AppApplication.getApp(), AsertFormActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("key", iqrList);
+                                intent.putExtras(bundle);
+                                AppApplication.getApp().startActivity(intent);
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case HandlerFinal.QUERY_SUB_REPLY:
+                   Log.e("ttt1", (String)msg.obj);
+                   // arg1Switch(msg.arg1,(String)msg.obj);
+                    WatchAssetActivity.list=arg1Switch(msg.arg1,(String)msg.obj);
+
+                    break;
 
                     default:break;
             }
         }
 
     };
+
+    private static ArrayList<AssertBean> arg1Switch(int arg1,String json){
+        ArrayList<AssertBean> list=new ArrayList<>();
+        try {
+        switch (arg1){
+            case 0:
+                JSONObject upsJson=new JSONObject(json);
+                //AssertBean upsBean=new AssertBean("",null,"");
+                //Log.e("ttt2", (String)msg.obj);
+                list= JsonUtil.getInstance().parseSubtitle(upsJson,HandlerFinal.SUB_UPS);
+                break;
+
+            case 1:
+                JSONObject airJson=new JSONObject(json);
+                list= JsonUtil.getInstance().parseSubtitle(airJson,HandlerFinal.SUB_AIR);
+                break;
+
+            case 2:
+                JSONObject emiJson=new JSONObject(json);
+                list= JsonUtil.getInstance().parseSubtitle(emiJson,HandlerFinal.SUB_EMI);
+                break;
+
+            case 3:
+                JSONObject msJson=new JSONObject(json);
+                list= JsonUtil.getInstance().parseSubtitle(msJson,HandlerFinal.SUB_MS);
+                break;
+
+            case 4:
+                JSONObject miJson=new JSONObject(json);
+                list= JsonUtil.getInstance().parseSubtitle(miJson,HandlerFinal.SUB_MI);
+                break;
+
+            case 5:
+                JSONObject mhJson=new JSONObject(json);
+                list= JsonUtil.getInstance().parseSubtitle(mhJson,HandlerFinal.SUB_MH);
+                break;
+
+            case 6:
+                JSONObject macJson=new JSONObject(json);
+                list= JsonUtil.getInstance().parseSubtitle(macJson,HandlerFinal.SUB_MAC);
+                break;
+
+            case 7:
+                JSONObject mvJson=new JSONObject(json);
+                list= JsonUtil.getInstance().parseSubtitle(mvJson,HandlerFinal.SUB_MV);
+                break;
+
+            case 8:
+                JSONObject cabJson=new JSONObject(json);
+                list= JsonUtil.getInstance().parseSubtitle(cabJson,HandlerFinal.SUB_CAB);
+                break;
+            default:break;
+        }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
 }
