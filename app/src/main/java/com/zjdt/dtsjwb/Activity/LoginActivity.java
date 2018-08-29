@@ -43,16 +43,10 @@ public class LoginActivity extends BaseActivity implements View.OnTouchListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
-        //SPUtil.getInstance().spDataSet("login_passowrd");// 要删除
-        //SPUtil.getInstance().spDataSet(new Password("18768349255","loveyqing",true,"1"),"login_passowrd");
-        //HandlerFinal.userId="18768349255";
-
         Password ppo=SPUtil.getInstance().spDataget("login_passowrd");
         //原来我一直改的地方错误  如果debug 直接跳出 那么说明不执行这玩意
       if(ppo.isMarried()&&(ppo .getPassword()+ppo.getUsername()).length()>11){//这里加一道关卡
           authorthy.put("au",ppo.getAuthorthm());
-          //actionActivity(LoginActivity.this,MenuActivity.class,authorthy);
-
           Log.e("ppo",ppo.getPassword()+ppo.getUsername());
           //final String jsonLogin=ppo .getPassword()+ppo.getUsername();
           String userStr=ppo.getUsername();

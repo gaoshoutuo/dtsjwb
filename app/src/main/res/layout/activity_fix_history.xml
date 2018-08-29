@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#fff"
    >
     <!-- 历史的popwindow 测试-->
     <ImageView
@@ -13,6 +14,12 @@
         android:src="@drawable/popicon_listpage_normal"
         />
     <!-- 熟练工-->
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="#000"
+        android:id="@+id/fix_his_edit"
+        />
     <Button
 
         android:layout_marginBottom="20dp"

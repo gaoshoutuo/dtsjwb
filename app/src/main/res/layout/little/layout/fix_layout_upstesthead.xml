@@ -26,7 +26,7 @@
             android:layout_weight="1"
             android:id="@+id/ups_test_head1"
             android:hint="电池品牌"
-            android:textColorHint="#000"
+            android:textColorHint="#aaa"
             android:textColor="#000"
             />
 
@@ -36,7 +36,7 @@
             android:layout_weight="1"
             android:id="@+id/ups_test_head2"
             android:hint="电池型号"
-            android:textColorHint="#000"
+            android:textColorHint="#aaa"
             android:textColor="#000"
             />
 
@@ -46,7 +46,7 @@
             android:layout_weight="1"
             android:id="@+id/ups_test_head3"
             android:hint="电池容量"
-            android:textColorHint="#000"
+            android:textColorHint="#aaa"
             android:textColor="#000"
             />
     </LinearLayout>

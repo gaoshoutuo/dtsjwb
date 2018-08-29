@@ -380,6 +380,11 @@ public void setText(int includeId,String type){
                 long timestamp1=System.currentTimeMillis();
                 String filename1=timestamp1+".png";
                 singleStr(this.json,"au", "install");
+                try {
+                    json.put("step",-1);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 singleStr(this.json,"other_eng_id", HandlerFinal.userId);
                 singleStr(this.json,"filename",filename1);
                 singleStr(this.json,"timestamp",timestamp1+"");
@@ -388,7 +393,11 @@ public void setText(int includeId,String type){
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
+                try {
+                    installIntent.putExtra("bussiness_type",this.json.getString("au"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 installIntent.putExtra("str",filename1);
                 startActivity(installIntent);
 
@@ -403,6 +412,12 @@ public void setText(int includeId,String type){
                 long timestamp=System.currentTimeMillis();
                 String filename2=timestamp+".png";
                 singleStr(this.json,"au", "service");
+                try {
+                    json.put("step",-1);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 singleStr(this.json,"other_eng_id", HandlerFinal.userId);
                 singleStr(this.json,"filename",filename2);
                 singleStr(this.json,"timestamp",timestamp+"");
@@ -411,7 +426,11 @@ public void setText(int includeId,String type){
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
+                try {
+                    serviceIntent.putExtra("bussiness_type",this.json.getString("au"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 serviceIntent.putExtra("str",filename2);
                 startActivity(serviceIntent);
 

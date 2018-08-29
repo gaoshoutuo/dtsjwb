@@ -21,6 +21,9 @@ public class Password {
         this.authorthm=authorthm;
     }
 
+    public Password() {
+    }
+
     public String getUsername() {
         return username;
     }

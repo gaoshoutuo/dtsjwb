@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
@@ -17,14 +18,17 @@ import com.zjdt.dtsjwb.Activity.CAssetsActivity;
 import com.zjdt.dtsjwb.Activity.HistoryActivity;
 import com.zjdt.dtsjwb.Activity.InfoActivity;
 import com.zjdt.dtsjwb.Activity.MenuActivity;
+import com.zjdt.dtsjwb.Activity.NewRequirements.OfflineActivity;
 import com.zjdt.dtsjwb.Activity.PdfLoaderActivity;
 import com.zjdt.dtsjwb.Activity.SignActivity;
 import com.zjdt.dtsjwb.App.AppApplication;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.Bean.Password;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.HandlerUtil;
 import com.zjdt.dtsjwb.Util.JsonUtil;
 import com.zjdt.dtsjwb.Util.NotifyUtil;
+import com.zjdt.dtsjwb.Util.SPUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,11 +48,26 @@ public class SocketUtil {
      * int port=3333;
      * 想写成一个服务
      */
+    private static Socket socket=null;
+
+    public static Socket getSocket(String ip,int port){
+        if (socket==null){
+        try {
+            socket=new Socket(ip,port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        }
+        return socket;
+    }
 
     public static String sendMessageAdd(String ip,int port,String json){
         StringBuffer sf=null;
         try {
+
             Socket socket=new Socket(ip,port);
+            //socket=getSocket(ip,port);原因在这里  我要及时的close 原先的socket 则可以建立新的连接不然端口一直被占用  下午尝试 socket 不在创建  服务器socket不关闭？
+            //if (socket.isClosed())socket.
            OutputStream os= socket.getOutputStream();
             os.write(json.getBytes("UTF-8"));
             socket.shutdownOutput();
@@ -141,6 +160,7 @@ public class SocketUtil {
                         HandlerFinal.userName=reply.getString("name");
                         HandlerFinal.userLocation=reply.getString("location");
                         HandlerFinal.company=reply.getString("company");
+                        //SPUtil.getInstance().spDataSet(new Password());
                         Log.e("login_reply",HandlerFinal.userName+"45544545454");
                         //大概来回数据时延是1s 左右  应该不到一点
 
@@ -153,11 +173,13 @@ public class SocketUtil {
                          loginReply.put("company",llll.getCompany());
                          */
 
+                        //loginreply 要做到返回小红点 返回offlineMsg
+
                         break;
 
                     case HandlerFinal.BATTERY_REPLY:
                         HandlerFinal.upsBatteryNum=reply.getInt("number");
-
+                        Log.e("battery_num",HandlerFinal.upsBatteryNum+"");
                         break;
 
                     case HandlerFinal.INFO_REPLY:
@@ -199,7 +221,30 @@ public class SocketUtil {
                             HandlerFinal.ide=reply.getString("iden");
                             Log.e("cui", HandlerFinal.ide+"123");
                            // Toast.makeText(AppApplication.getApp(),"登录成功",Toast.LENGTH_SHORT).show();
-
+                            Password pwd=new Password();
+                            if (reply.getString("iden").equals("维保人员")){
+                                pwd.setMarried(true);
+                                pwd.setAuthorthm("1");
+                                pwd.setUsername(reply.getString("user_id"));
+                                pwd.setPassword(reply.getString("pwd"));
+                            }else if (reply.getString("iden").equals("企业客户")){
+                                pwd.setMarried(true);
+                                pwd.setAuthorthm("2");
+                                pwd.setUsername(reply.getString("user_id"));
+                                pwd.setPassword(reply.getString("pwd"));
+                            }
+                            SPUtil.getInstance().spDataSet(pwd,"login_passowrd");
+                           HandlerFinal.userId=  reply.getString("user_id");
+                            HandlerFinal.indentity=reply.getString("iden");
+                            HandlerFinal.userName=reply.getString("name");
+                            HandlerFinal.userLocation=reply.getString("location");
+                            HandlerFinal.company=reply.getString("company");
+ /*
+                            //再做一次  但是这样会有两次登录记录
+               jsonLogin.put("au","login");
+              jsonLogin.put("user_str",userStr);
+              jsonLogin.put("pwd_str",pwdStr);
+*/
                         }
                         break;
 
@@ -259,12 +304,31 @@ public class SocketUtil {
                         break;
 
 
+                    case "double_msg_offline_reply":
+                        Log.e("SocketUtil","123"+reply.toString());
+                        Message offlineMsg=OfflineActivity.offActivity.handler.obtainMessage();
+                        offlineMsg.what=HandlerFinal.OFFLINE_REPLY;
+                        JSONArray offlineArray=reply.getJSONArray("array");
+                        offlineMsg.obj=offlineArray.toString();
+                        offlineMsg.sendToTarget();
+                        break;
+
+                    case "double_msg_history_reply":
+                        Log.e("SocketUtil","123"+reply.toString());
+                        Message historyMsg=OfflineActivity.offActivity.handler.obtainMessage();
+                        historyMsg.what=HandlerFinal.HISTORY_REPLY;
+                        JSONArray historyArray=reply.getJSONArray("array");
+                        historyMsg.obj=historyArray.toString();
+                        historyMsg.sendToTarget();
+                        break;
+
+
                         default:break;
                 }
 
-                //socket 要重新封装 地址要切换
+                //socket 要重新封装 地址要切换  好吧 我屈服了 想想别的解决办法
+            Log.e("SocketUtil","123"+reply.toString());
 
-            Log.e("SocketUtil",sf.toString());
             os.close();
             is.close();
             socket.close();
@@ -274,6 +338,8 @@ public class SocketUtil {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.e("SocketUtil","123"+sf.toString()+"");
+
         return sf.toString()+"";
     }
 

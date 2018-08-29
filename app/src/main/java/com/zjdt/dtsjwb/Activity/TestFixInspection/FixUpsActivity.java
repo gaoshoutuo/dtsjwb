@@ -8,14 +8,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.Activity.SignActivity;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.Bean.IdcBean;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
 import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.UpsFixFragment;
+import com.zjdt.dtsjwb.fragment.UpsInsFragment;
 import com.zjdt.dtsjwb.fragment.UpsTestFragment;
 
 import org.json.JSONException;
@@ -92,10 +96,14 @@ public class FixUpsActivity extends BaseActivity implements View.OnClickListener
                 break;
 
             case R.id.ups_fix_button3://处理foot  上传
-                upsFixFoot.makeFootJson();
-                HashMap map = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
+                try {
 
-                try {//timestamp json不知道如何传输
+
+                if (SignActivity.isUp==true){
+                    SignActivity.isUp=false;
+                    upsFixFoot.makeFootJson();
+                    HashMap map = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
+                    //timestamp json不知道如何传输
 /*
                     UpsFixFragment.getJson().put("other_location",map.get("h_location"));
                     UpsFixFragment.getJson().put("other_reason",map.get("h_reason"));*/
@@ -111,32 +119,39 @@ public class FixUpsActivity extends BaseActivity implements View.OnClickListener
                     ano.put("business", HandlerFinal.BUSINESS_STR[0]);
                     ano.put("eng_id",HandlerFinal.userId);
                     ano.put("eng_name",HandlerFinal.userName);
+                    ano.put("step",1);
+
+                    //four_idc
+                    IdcBean ib=(IdcBean)map.get("four_idc");
+                    ano.put("idc_id",ib.getIdcId());
+                    ano.put("idc_location",ib.getSimpleLocation());
+                    ano.put("idc_type",ib.getIdcType());
+                    ano.put("idc_name",ib.getIdcName());
+
+
                     UpsFixFragment.getJson().put("another",ano);
-                } catch (JSONException e) {
+
+                    // UpsFixFragment
+                    final String json= upsFixFoot.getJsonStr();
+                    Log.e("upsfix",json);
+                    ThreadUtil.execute(new ThreadUtil.CallBack() {
+                        @Override
+                        public void exec() {
+
+                        }
+
+                        @Override
+                        public void run() {
+                            //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
+                            SocketUtil.sendMessageAdd("218.108.146.98",3333,json);
+                        }
+                    });
+                    FixUpsActivity.this.finish();
+                }else {
+                    Toast.makeText( FixUpsActivity.this,"请先签名再上传",Toast.LENGTH_SHORT).show();
+                } } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
-
-
-
-
-               // UpsFixFragment
-               final String json= upsFixFoot.getJsonStr();
-                Log.e("upsfix",json);
-                ThreadUtil.execute(new ThreadUtil.CallBack() {
-                    @Override
-                    public void exec() {
-
-                    }
-
-                    @Override
-                    public void run() {
-                        //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
-                        SocketUtil.sendMessageAdd("218.108.146.98",3333,json);
-                    }
-                });
-
                 break;
             default:break;
         }

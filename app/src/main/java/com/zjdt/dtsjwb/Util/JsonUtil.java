@@ -3,12 +3,14 @@ package com.zjdt.dtsjwb.Util;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
+import com.zjdt.dtsjwb.Bean.AllBean;
 import com.zjdt.dtsjwb.Bean.AssertBean;
 import com.zjdt.dtsjwb.Bean.FixHistoryBean;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.Bean.IdcBean;
 import com.zjdt.dtsjwb.Bean.InfoBean;
 import com.zjdt.dtsjwb.Bean.JsonUtilBean;
+import com.zjdt.dtsjwb.Bean.OfflineBean;
 import com.zjdt.dtsjwb.Bean.Password;
 import com.zjdt.dtsjwb.Bean.RollBean;
 
@@ -258,7 +260,13 @@ public class JsonUtil<T> {
                 String deviceType=obj.getString("device_type");
                 String deviceBrand=obj.getString("device_brand");
                 String deviceNum=obj.getString("device_num");
+
+                String deviceLife=obj.getString("device_life");
+                String deviceFirstTime=obj.getString("device_yyyy")+"-"+obj.getString("device_mm")+"-"+obj.getString("device_dd");
+
                 AssertBean assertBean=new AssertBean("",deviceName,devicePara,deviceType,deviceBrand,deviceNum,"");
+                assertBean.setAssetLife(deviceLife);
+                assertBean.setAssetFirstTime(deviceFirstTime);
                 list.add(assertBean);
                 Log.e("ttt3","ppppp");
             }
@@ -267,5 +275,48 @@ public class JsonUtil<T> {
         }
         return list;
     }
+
+    public static ArrayList<OfflineBean> parseDMOffline(String json){
+        ArrayList<OfflineBean> list=new ArrayList<>();
+        try {
+            JSONArray jsonArray=new JSONArray(json);
+            for (int i=0;i<jsonArray.length();i++){
+                JSONObject obj=jsonArray.getJSONObject(i);
+                OfflineBean ofb=new OfflineBean(obj.getString("timerecord"),obj.getString("engname"), obj.getString("idcname"),
+                        obj.getString("business"),obj.getString("filename"));
+                list.add(ofb);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    /**
+     *     subJson.put("timerecord",fme.getTimeRecord());
+     subJson.put("idcname",fme.getIdcName());
+     subJson.put("business",fme.getBusinessType());
+     subJson.put("engname",fme.getEngName());
+     subJson.put("last_filename",lastFileName);
+     * @param json
+     * @return
+     */
+
+    public static ArrayList<OfflineBean> parseDMHistory(String json){
+        ArrayList<OfflineBean> list=new ArrayList<>();
+        try {
+            JSONArray jsonArray=new JSONArray(json);
+            for (int i=0;i<jsonArray.length();i++){
+                JSONObject obj=jsonArray.getJSONObject(i);
+                OfflineBean ofb=new OfflineBean(obj.getString("timerecord"),obj.getString("engname"), obj.getString("idcname"),
+                        obj.getString("business"),obj.getString("last_filename"));
+                list.add(ofb);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 
 }

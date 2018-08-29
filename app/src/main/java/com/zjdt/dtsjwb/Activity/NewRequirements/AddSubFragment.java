@@ -13,7 +13,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.zjdt.dtsjwb.App.AppApplication;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Util.BadgeUtil;
 import com.zjdt.dtsjwb.Util.JsonUtil;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
 import com.zjdt.dtsjwb.fragment.EsAssit;
@@ -100,6 +102,7 @@ public class AddSubFragment extends Fragment {
             }
         });*/
 
+
         //initview
         selectAssitEs=view.findViewById(R.id.select_assit_es);
         selectAssitAir=view.findViewById(R.id.select_assit_air);
@@ -178,6 +181,7 @@ public class AddSubFragment extends Fragment {
         public void onClick(View v) {
             try {
                 Intent intent=new Intent(AddSubFragment.this.getActivity(),SubAssetActivity.class);
+                intent.putExtra("idc_id",idcId);
             switch (v.getId()){
                 case R.id.select_assit_es://ups资产添加按钮
                     //JsonObject upsJson=new JsonObject();
@@ -189,9 +193,11 @@ public class AddSubFragment extends Fragment {
                     //EsAssit esAssit  重新设计Activity 来承接这玩意
                     intent.putExtra("type","sub_idc_ups");
                     intent.putExtra("json",upsObject.toString());
+
                     AddSubFragment.this.startActivity(intent);
                    // upsObject.put("asset","ups资产");
                     //ThreadUtil.sat(upsObject);
+
                     break;
 
                 case R.id.select_assit_air://空调资产添加按钮

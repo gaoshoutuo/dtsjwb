@@ -9,6 +9,9 @@ public class AssertBean {
     private String assertNumber;
     private String mainTitle;
 
+    private String assetLife;
+    private String assetFirstTime;
+
     public AssertBean(String headTitle, String assertName, String assertPara, String assertType, String assertBrand, String assertNumber, String mainTitle) {
         this.headTitle = headTitle;
         this.assertName = assertName;
@@ -27,6 +30,22 @@ public class AssertBean {
         this.assertBrand = arr[3];
         this.assertNumber = arr[4];
         this.mainTitle = mainTitle;
+    }
+
+    public String getAssetLife() {
+        return assetLife;
+    }
+
+    public void setAssetLife(String assetLife) {
+        this.assetLife = assetLife;
+    }
+
+    public String getAssetFirstTime() {
+        return assetFirstTime;
+    }
+
+    public void setAssetFirstTime(String assetFirstTime) {
+        this.assetFirstTime = assetFirstTime;
     }
 
     public String getHeadTitle() {

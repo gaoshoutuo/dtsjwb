@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.Activity.SignActivity;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.Bean.IdcBean;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 
@@ -18,6 +21,7 @@ import com.zjdt.dtsjwb.Util.ThreadUtil;
 import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.UpsFixFragment;
 import com.zjdt.dtsjwb.fragment.UpsInsFragment;
+import com.zjdt.dtsjwb.fragment.UpsTestFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -86,39 +90,59 @@ public class InsUpsActivity extends BaseActivity implements View.OnClickListener
                 break;
 
             case R.id.ups_ins_button2://处理body
-                upsInsBody.makeInsBodyJson();
-                HashMap map = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
 
                 try {
-                    UpsInsFragment.getJson().put("other_location",map.get("h_location"));
-                    UpsInsFragment.getJson().put("h_custom_id",map.get("h_custom_id"));
-                    JSONObject ano=new JSONObject();
-                    ano.put("cus_id",map.get("h_custom_id"));
-                    ano.put("timestamp",System.currentTimeMillis()+"");
-                    ano.put("reason",map.get("h_reason"));
-                    ano.put("business", HandlerFinal.BUSINESS_STR[2]);
-                    ano.put("eng_id",HandlerFinal.userId);
-                    ano.put("eng_name",HandlerFinal.userName);
-                    UpsInsFragment.getJson().put("another",ano);
+
+                    if ( SignActivity.isUp==true){
+                        SignActivity.isUp=false;
+                        upsInsBody.makeInsBodyJson();
+                        HashMap map = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
+                            UpsInsFragment.getJson().put("other_location",map.get("h_location"));
+                            UpsInsFragment.getJson().put("h_custom_id",map.get("h_custom_id"));
+                            JSONObject ano=new JSONObject();
+                            ano.put("cus_id",map.get("h_custom_id"));
+                            ano.put("timestamp",System.currentTimeMillis()+"");
+                            ano.put("reason",map.get("h_reason"));
+                            ano.put("business", HandlerFinal.BUSINESS_STR[2]);
+                            ano.put("eng_id",HandlerFinal.userId);
+                            ano.put("eng_name",HandlerFinal.userName);
+                            ano.put("step",1);
+                            //four_idc
+                            IdcBean ib=(IdcBean)map.get("four_idc");
+                            ano.put("idc_id",ib.getIdcId());
+                            ano.put("idc_location",ib.getSimpleLocation());
+                            ano.put("idc_type",ib.getIdcType());
+                            ano.put("idc_name",ib.getIdcName());
+
+
+                            UpsInsFragment.getJson().put("another",ano);
+
+                        final String json= upsInsBody.getJsonStr();
+                        ThreadUtil.execute(new ThreadUtil.CallBack() {
+                            @Override
+                            public void exec() {
+
+                            }
+
+                            @Override
+                            public void run() {
+                                //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
+                                SocketUtil.sendMessageAdd("218.108.146.98",3333,json);
+                            }
+                        });
+                        Log.e("kk",json);
+                        Toast.makeText(InsUpsActivity.this,"上传成功",Toast.LENGTH_SHORT).show();
+                        InsUpsActivity.this.finish();
+
+
+                    }else{
+                        Toast.makeText(InsUpsActivity.this,"请先签名再上传",Toast.LENGTH_SHORT).show();
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-
-                final String json= upsInsBody.getJsonStr();
-                ThreadUtil.execute(new ThreadUtil.CallBack() {
-                    @Override
-                    public void exec() {
-
-                    }
-
-                    @Override
-                    public void run() {
-                        //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
-                        SocketUtil.sendMessageAdd("218.108.146.98",3333,json);
-                    }
-                });
-                Log.e("kk",json);
                 break;
 
             default:break;

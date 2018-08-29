@@ -9,6 +9,12 @@ public class DevicePara implements Serializable{
     private String deviceB;
     private String deviceNum;
 
+    //新增加内容
+    private String life;
+    private String yyyy;
+    private String mm;
+    private String dd;
+
     public String getDeviceN() {
         return deviceN;
     }
@@ -53,11 +59,55 @@ public class DevicePara implements Serializable{
 
     }
 
+    public String getLife() {
+        return life;
+    }
+
+    public void setLife(String life) {
+        this.life = life;
+    }
+
+    public String getYyyy() {
+        return yyyy;
+    }
+
+    public void setYyyy(String yyyy) {
+        this.yyyy = yyyy;
+    }
+
+    public String getMm() {
+        return mm;
+    }
+
+    public void setMm(String mm) {
+        this.mm = mm;
+    }
+
+    public String getDd() {
+        return dd;
+    }
+
+    public void setDd(String dd) {
+        this.dd = dd;
+    }
+
     public DevicePara(String deviceN, String deviceP, String deviceT, String deviceB, String deviceNum) {
         this.deviceN = deviceN;
         this.deviceP = deviceP;
         this.deviceT = deviceT;
         this.deviceB = deviceB;
         this.deviceNum = deviceNum;
+    }
+
+    public DevicePara(String deviceN, String deviceP, String deviceT, String deviceB, String deviceNum, String life, String yyyy, String mm, String dd) {
+        this.deviceN = deviceN;
+        this.deviceP = deviceP;
+        this.deviceT = deviceT;
+        this.deviceB = deviceB;
+        this.deviceNum = deviceNum;
+        this.life = life;
+        this.yyyy = yyyy;
+        this.mm = mm;
+        this.dd = dd;
     }
 }

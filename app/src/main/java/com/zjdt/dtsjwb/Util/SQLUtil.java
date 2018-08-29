@@ -6,10 +6,21 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.zjdt.dtsjwb.Bean.AllBean;
 import com.zjdt.dtsjwb.Bean.DeviceBean;
+import com.zjdt.dtsjwb.Bean.TableEntity.OfflineEntity;
+import com.zjdt.dtsjwb.Bean.TableInterface;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SQLUtil {
+
+    private static SQLUtil sqlUtil;
+
+    public static SQLUtil getInstance(){
+        if (sqlUtil==null)sqlUtil=new SQLUtil();
+        return sqlUtil;
+    }
+
     //专门用来存储sql语句的
 
     public static final String TABLE_WAIT="123";
@@ -39,6 +50,36 @@ public class SQLUtil {
         return sb.toString();
     }
 
+    // public static final String []DTSJOFFLINEMSG={"dtsjofflinemsg","id","timerecord","json_1","json_2","idc_id","idc_name","idc_type","idc_location"
+    //            ,"user_id","eng_id","bussiness_type","iswatch","eng_name","blank_1","blank_2","blank_3"};
+
+    public static String createTableOfflineMsg(String[] s){
+        StringBuilder sb=new StringBuilder();
+        String sql=sb.append("CREATE TABLE IF NOT EXISTS ").append(s[0]).
+                append("(").
+                append(s[1]).append(" INTEGER PRIMARY KEY AUTOINCREMENT,").
+
+                append(s[2]).append(" TEXT,").//timerecord
+                append(s[3]).append(" TEXT,").//json_1
+                append(s[4]).append(" TEXT,").//json_2
+
+                append(s[5]).append(" TEXT,").//json_2
+                append(s[6]).append(" TEXT,").//json_2
+                append(s[7]).append(" TEXT,").//json_2
+                append(s[8]).append(" TEXT,").//json_2
+
+                append(s[9]).append(" TEXT,").//json_2
+                append(s[10]).append(" TEXT,").//json_2
+                append(s[11]).append(" TEXT,").//json_2
+                append(s[12]).append(" TEXT,").//json_2
+                append(s[13]).append(" TEXT,").//json_2
+                append(s[14]).append(" TEXT,").//json_2
+                append(s[15]).append(" TEXT,").//json_2
+                append(s[16]).append(" TEXT").//json_2
+                append(");").toString();
+        return sql;
+    }
+
     /**
      * 封装函数 起码要知道要干嘛
      * @param dbname
@@ -48,7 +89,7 @@ public class SQLUtil {
      * @return
      */
     public static String insertTable(String dbname,String tablename, ContentValues values,int versionId){
-       long is=DatabaseUtil.getDatabase(dbname,versionId).insert("tablename",null,values);
+       long is=DatabaseUtil.getDatabase(dbname,versionId).insert(tablename,null,values);
         return null;
     }
 
@@ -71,7 +112,7 @@ public class SQLUtil {
      * @return
      */
 
-    public static String dropTable(String dbname,String tablename,int versionId,String[]str){
+    public static String deleteTable(String dbname,String tablename,int versionId,String[]str){
         DatabaseUtil.getDatabase(dbname,versionId).delete(tablename,"reason=?",str);
         return null;
     }
@@ -99,8 +140,107 @@ public class SQLUtil {
 
         return able;
     }
+
     /**
      * iterator 版本稍后       Arraylist <XXS>  xxs.name xxs.typeSQL
      */
+
+// public static final String []DTSJOFFLINEMSG={"dtsjofflinemsg","id","timerecord","json_1","json_2","idc_id","idc_name","idc_type","idc_location"
+//            ,"user_id","eng_id","bussiness_type","iswatch","eng_name","blank_1","blank_2","blank_3"};
+    public class TableOffline implements TableInterface {
+        public ContentValues getValue(OfflineEntity offlineEntity){
+            ContentValues values=new ContentValues();
+            values.put("timerecord",offlineEntity.getTimerecord());
+            values.put("json_1",offlineEntity.getJson1());
+            values.put("json_2",offlineEntity.getJson2());
+
+            values.put("idc_id",offlineEntity.getIdcId());
+            values.put("idc_name",offlineEntity.getIdcName());
+            values.put("idc_type",offlineEntity.getIdcType());
+            values.put("idc_location",offlineEntity.getIdcLocation());
+
+            values.put("user_id",offlineEntity.getUserId());
+            values.put("eng_id",offlineEntity.getEngId());
+            values.put("bussiness_type",offlineEntity.getBussinessType());
+            values.put("iswatch",offlineEntity.getIswatch());
+            values.put("eng_name",offlineEntity.getEngName());
+            values.put("blank_1",offlineEntity.getBlank1());
+            values.put("blank_2",offlineEntity.getBlank2());
+            values.put("blank_3",offlineEntity.getBlank3());
+
+            return values;
+        }
+
+
+
+        public void insert(SQLiteDatabase sqLiteDatabase,ContentValues values) {
+            sqLiteDatabase.insert("dtsjofflinemsg",null,values);
+        }
+
+        public void delete(SQLiteDatabase sqLiteDatabase,String value) {
+            sqLiteDatabase.delete("dtsjofflinemsg","timerecord=?",new String[]{value});
+        }
+
+        public ArrayList<AllBean> query(SQLiteDatabase sqLiteDatabase) {
+            //sqLiteDatabase.insert("dtsjofflinemsg",null,values);
+            ArrayList<AllBean> list=new ArrayList<>();
+            Cursor cursor=sqLiteDatabase.query("dtsjofflinemsg",null,null,null,null,null,null);
+            if (cursor.moveToFirst()){
+                do {
+                    String timerecord=cursor.getString(cursor.getColumnIndex("timerecord"));
+                    String json1=cursor.getString(cursor.getColumnIndex("json_1"));
+                    String json2=cursor.getString(cursor.getColumnIndex("json_2"));
+
+                    String idcId=cursor.getString(cursor.getColumnIndex("idc_id"));
+                    String idcName=cursor.getString(cursor.getColumnIndex("idc_name"));
+                    String idcType=cursor.getString(cursor.getColumnIndex("idc_type"));
+                    String idcLocation=cursor.getString(cursor.getColumnIndex("idc_location"));
+
+                    String userId=cursor.getString(cursor.getColumnIndex("user_id"));
+                    String engId=cursor.getString(cursor.getColumnIndex("eng_id"));
+                    String bussinessType=cursor.getString(cursor.getColumnIndex("bussiness_type"));
+                    String iswatch=cursor.getString(cursor.getColumnIndex("iswatch"));
+                    String engName=cursor.getString(cursor.getColumnIndex("eng_name"));
+                    String blank1=cursor.getString(cursor.getColumnIndex("blank_1"));
+                    String blank2=cursor.getString(cursor.getColumnIndex("blank_2"));
+                    String blank3=cursor.getString(cursor.getColumnIndex("blank_3"));
+                    OfflineEntity ofe=new OfflineEntity(timerecord,json1,json2,idcId,idcName,idcType,idcLocation,
+                            userId,engId,bussinessType,iswatch,engName,blank1,blank2,blank3);
+                    list.add(ofe);
+
+                }while (cursor.moveToNext());
+            }
+            cursor.close();
+            return list;
+        }
+
+        public void update(SQLiteDatabase sqLiteDatabase,ContentValues values) {
+            //sqLiteDatabase.insert("dtsjofflinemsg",null,values);
+        }
+
+
+
+        @Override
+        public void insert() {
+
+        }
+
+        @Override
+        public void delete() {
+
+        }
+
+        @Override
+        public void query() {
+
+        }
+
+        @Override
+        public void update() {
+
+        }
+
+
+    }
 
 }

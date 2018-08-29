@@ -214,6 +214,8 @@ public class AirInsFragment extends Fragment implements View.OnClickListener{
         json=new JSONObject();
         try {
             json.put("au","air_ins");
+
+                json.put("step",-1);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -365,6 +367,11 @@ public class AirInsFragment extends Fragment implements View.OnClickListener{
                 }
 
                 aiIntent.putExtra("str",filename1);
+                try {
+                    aiIntent.putExtra("bussiness_type",this.json.getString("au"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 startActivity(aiIntent);
                 break;
             case R.id.air_inspection_custom_sign:

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
 import com.zjdt.dtsjwb.R;
@@ -36,7 +37,7 @@ public class SubAssetActivity extends BaseActivity {
             json=   getIntent().getStringExtra("json");
             type=getIntent().getStringExtra("type");
           eaFragment=new EsAssit();
-
+            eaFragment.setIdcid(getIntent().getStringExtra("idc_id"));
         JSONObject jsonobj=new JSONObject(json);
 
         switch (type){
@@ -116,9 +117,9 @@ public class SubAssetActivity extends BaseActivity {
                     eaFragment.getEvEle();
                     upsobj.put("asset",EsAssit.getJsonStr());
                     Log.e("debug",upsobj.toString());
-
                     ThreadUtil.sat(upsobj);
                     eaFragment.setJsonStr();
+                    Toast.makeText(SubAssetActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
                     break;
 
                 case "sub_idc_air":
@@ -128,6 +129,7 @@ public class SubAssetActivity extends BaseActivity {
                     Log.e("debug",airobj.toString());
                     ThreadUtil.sat(airobj);
                     eaFragment.setJsonStr();
+                    Toast.makeText(SubAssetActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
                     break;
 
                 case "sub_idc_emi":
@@ -137,6 +139,7 @@ public class SubAssetActivity extends BaseActivity {
                     Log.e("debug",emiobj.toString());
                     ThreadUtil.sat(emiobj);
                     eaFragment.setJsonStr();
+                    Toast.makeText(SubAssetActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
                     break;
 
                 case "sub_idc_ms":
@@ -146,6 +149,7 @@ public class SubAssetActivity extends BaseActivity {
                     Log.e("debug",msobj.toString());
                     ThreadUtil.sat(msobj);
                     eaFragment.setJsonStr();
+                    Toast.makeText(SubAssetActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
                     break;
 
                 case "sub_idc_mi":
@@ -155,6 +159,7 @@ public class SubAssetActivity extends BaseActivity {
                     Log.e("debug",miobj.toString());
                     ThreadUtil.sat(miobj);
                     eaFragment.setJsonStr();
+                    Toast.makeText(SubAssetActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
                     break;
 
                 case "sub_idc_mh":
@@ -164,6 +169,7 @@ public class SubAssetActivity extends BaseActivity {
                     Log.e("debug",mhobj.toString());
                     ThreadUtil.sat(mhobj);
                     eaFragment.setJsonStr();
+                    Toast.makeText(SubAssetActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
                     break;
 
                 case "sub_idc_mac":
@@ -173,6 +179,7 @@ public class SubAssetActivity extends BaseActivity {
                     Log.e("debug",macobj.toString());
                     ThreadUtil.sat(macobj);
                     eaFragment.setJsonStr();
+                    Toast.makeText(SubAssetActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
                     break;
 
                 case "sub_idc_mv":
@@ -182,6 +189,7 @@ public class SubAssetActivity extends BaseActivity {
                     Log.e("debug",mvobj.toString());
                     ThreadUtil.sat(mvobj);
                     eaFragment.setJsonStr();
+                    Toast.makeText(SubAssetActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
                     break;
 
                 case "sub_idc_cab":
@@ -191,6 +199,7 @@ public class SubAssetActivity extends BaseActivity {
                     Log.e("debug",cabobj.toString());
                     ThreadUtil.sat(cabobj);
                     eaFragment.setJsonStr();
+                    Toast.makeText(SubAssetActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
                     break;
 
                     default:break;

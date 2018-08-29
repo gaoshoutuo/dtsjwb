@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#fff">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#aaa"
+        ></View>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,8 +27,9 @@
             android:layout_height="50dp"
             android:layout_weight="4"
             android:id="@+id/ed_d_name"
-            android:textColorHint="#000"
+            android:textColorHint="#AAA"
             android:textColor="#000"
+            android:hint="如 迪特20kw精密空调"
             />
 
         <TextView
@@ -38,10 +45,17 @@
             android:layout_height="50dp"
             android:layout_weight="4"
             android:id="@+id/ed_d_para"
-            android:textColorHint="#000"
+            android:textColorHint="#AAA"
             android:textColor="#000"
+
+            android:hint="如 220v/12A/2000Ω"
             />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#aaa"
+        ></View>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,8 +73,10 @@
             android:layout_height="50dp"
             android:layout_weight="4"
             android:id="@+id/ed_d_type"
-            android:textColorHint="#000"
+            android:textColorHint="#AAA"
             android:textColor="#000"
+
+            android:hint="如 ups-micro-001"
             />
 
         <TextView
@@ -76,11 +92,16 @@
             android:layout_height="50dp"
             android:layout_weight="4"
             android:id="@+id/ed_d_brand"
-            android:textColorHint="#000"
+            android:textColorHint="#AAA"
             android:textColor="#000"
+            android:hint="如 迪特"
             />
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#aaa"
+        ></View>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -93,15 +114,115 @@
             android:text="设备数量"
             android:textColor="#000"
             android:gravity="center"
-            android:maxLines="3"/>
+            android:maxLines="3"
+
+            />
         <EditText
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="4"
             android:id="@+id/ed_d_num"
-            android:textColorHint="#000"
+            android:textColorHint="#AAA"
             android:textColor="#000"
+            android:hint="如 100"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="设备寿命/年"
+            android:textColor="#000"
+            android:gravity="center"
+            android:maxLines="3"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="4"
+            android:id="@+id/ed_d_alive"
+            android:textColorHint="#AAA"
+            android:textColor="#000"
+            android:hint="如 12"
             />
 
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#aaa"
+        ></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="3"
+            android:text="使用起始时间"
+            android:textColor="#000"
+            android:gravity="center"
+            android:maxLines="3"/>
+
+        <TextView
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:text="年"
+        android:textColor="#000"
+        android:gravity="center"
+        android:maxLines="3"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="4"
+            android:id="@+id/ed_d_yyyy"
+            android:textColorHint="#AAA"
+            android:textColor="#000"
+            android:hint="如 2008"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="月"
+            android:textColor="#000"
+            android:gravity="center"
+            android:maxLines="3"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="4"
+            android:id="@+id/ed_d_mm"
+            android:textColorHint="#AAA"
+            android:textColor="#000"
+            android:hint="如 12"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="日"
+            android:textColor="#000"
+            android:gravity="center"
+            android:maxLines="3"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="4"
+            android:id="@+id/ed_d_dd"
+            android:textColorHint="#AAA"
+            android:textColor="#000"
+            android:hint="如 28"
+            />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#aaa"
+        ></View>
+
 </LinearLayout>

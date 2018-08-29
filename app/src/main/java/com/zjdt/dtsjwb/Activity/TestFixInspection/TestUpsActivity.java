@@ -9,9 +9,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.Activity.SignActivity;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.Bean.IdcBean;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
@@ -37,8 +40,11 @@ public class TestUpsActivity extends BaseActivity implements View.OnClickListene
      * 5 修改 json static 及获取方式
      */
     private FragmentManager fm=getSupportFragmentManager();
-    private UpsTestFragment upsTestHead,upsTestBody,upsTestFoot;
+    private UpsTestFragment upsTestHead,upsTestBodyPre,upsTestBodyNow,upsTestFoot;
     private Button headButton,bodyButton,footButton;
+    private HashMap map;
+
+    private int batt_num=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +54,21 @@ public class TestUpsActivity extends BaseActivity implements View.OnClickListene
         upsTestHead=new UpsTestFragment();
         upsTestHead.setRid(R.layout.ups_test_report_head);
         addFragment(R.id.ups_test_frame,upsTestHead,new AirAssit());
+        map = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
+
+        //好了  维修人员到这里 要去服务器里面那这个机房的蓄电池数目  做n/10 +1 次
+        JSONObject jsonobj=new JSONObject();
+        try {
+            jsonobj.put("au","battery_number");
+            jsonobj.put("auau","query");
+            IdcBean ib=(IdcBean)map.get("four_idc");
+            jsonobj.put("idc_id",ib.getIdcId());
+            Log.e("ibibibib",ib.getIdcId());
+            ThreadUtil.sat(jsonobj);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void replaceFragment(int frameId,Fragment fragment){//不能replace 了  任然不懂 安卓呀
@@ -87,48 +108,45 @@ public class TestUpsActivity extends BaseActivity implements View.OnClickListene
     private void setFragment(){//可以指定类 要用反射 这里先不这样做
 
     }
+    private int step=0;
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ups_test_button1://处理head
-                upsTestHead.makeJsonHead();
-                headButton.setVisibility(View.GONE);
-                bodyButton.setVisibility(View.VISIBLE);
-                upsTestBody=new UpsTestFragment();
-                upsTestBody.setRid(R.layout.ups_test_report_body);
-                addFragment(R.id.ups_test_frame,upsTestBody,upsTestHead);
-                break;
-
-            case R.id.ups_test_button2://处理body
-                upsTestBody.makeJsonBody();
-                bodyButton.setVisibility(View.GONE);
-                footButton.setVisibility(View.VISIBLE);
-                upsTestFoot=new UpsTestFragment();
-                upsTestFoot.setRid(R.layout.ups_test_report_foot);
-                addFragment(R.id.ups_test_frame,upsTestFoot,upsTestBody);
-                break;
-
-            case R.id.ups_test_button3://处理foot  上传
-                upsTestFoot.makeJsonFoot();
-                HashMap map = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
-                try {
-                    UpsTestFragment.getJson().put("other_location",map.get("h_location"));
-                    UpsTestFragment.getJson().put("h_custom_id",map.get("h_custom_id"));
-                    JSONObject ano=new JSONObject();
-                    ano.put("cus_id",map.get("h_custom_id"));
-                    ano.put("timestamp",System.currentTimeMillis()+"");
-                    ano.put("reason",map.get("h_reason"));
-                    ano.put("business", HandlerFinal.BUSINESS_STR[1]);
-                    ano.put("eng_id",HandlerFinal.userId);
-                    ano.put("eng_name",HandlerFinal.userName);
-                    UpsTestFragment.getJson().put("another",ano);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (step==0){
+                    upsTestHead.makeJsonHead();
+                    upsTestBodyPre=upsTestHead;
+                   /* upsTestBodyNow=new UpsTestFragment();
+                    upsTestBodyNow.setRid(R.layout.ups_test_report_body);
+                    upsTestBodyNow.setNumGroup(step);*/
                 }
-                final String json= upsTestFoot.getJsonStr();
-                Log.e("upstest",json);
-                ThreadUtil.execute(new ThreadUtil.CallBack() {
+
+
+                if (HandlerFinal.upsBatteryNum/10>=step){
+                    upsTestBodyNow=new UpsTestFragment();
+                    upsTestBodyNow.setRid(R.layout.ups_test_report_body);
+                    upsTestBodyNow.setNumGroup(step);
+                    Toast.makeText(TestUpsActivity.this,"电池第"+(step+1)+"页",Toast.LENGTH_SHORT).show();
+                    step++;
+
+                    addFragment(R.id.ups_test_frame,upsTestBodyNow,upsTestBodyPre);
+
+                    upsTestBodyPre=upsTestBodyNow;
+
+                }else{
+                    headButton.setVisibility(View.GONE);
+                    footButton.setVisibility(View.VISIBLE);
+                    step=0;
+                    upsTestFoot=new UpsTestFragment();
+                    upsTestFoot.setRid(R.layout.ups_test_report_foot);
+                    addFragment(R.id.ups_test_frame,upsTestFoot,upsTestBodyPre);
+                }
+
+
+                    //upsTestBodyNow.makeJsonBody();// 当前页的给
+
+               /* ThreadUtil.execute(new ThreadUtil.CallBack() {
                     @Override
                     public void exec() {
 
@@ -136,10 +154,76 @@ public class TestUpsActivity extends BaseActivity implements View.OnClickListene
 
                     @Override
                     public void run() {
-                        //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
-                        SocketUtil.sendMessageAdd("218.108.146.98",3333,json);
+
                     }
-                });
+                });*/
+
+
+
+                break;
+
+            case R.id.ups_test_button2://处理body
+                //upsTestBodyNow.makeJsonBody();
+                bodyButton.setVisibility(View.GONE);
+                footButton.setVisibility(View.VISIBLE);
+
+                break;
+
+            case R.id.ups_test_button3://处理foot  上传
+
+                try {
+                    if ( SignActivity.isUp==true){
+                        upsTestFoot.makeJsonFoot();
+                        SignActivity.isUp=false;
+                        UpsTestFragment.getJson().put("other_location",map.get("h_location"));
+                        UpsTestFragment.getJson().put("h_custom_id",map.get("h_custom_id"));
+                        JSONObject ano=new JSONObject();
+                        ano.put("cus_id",map.get("h_custom_id"));
+                        ano.put("timestamp",System.currentTimeMillis()+"");
+                        ano.put("reason",map.get("h_reason"));
+                        ano.put("business", HandlerFinal.BUSINESS_STR[1]);
+                        ano.put("eng_id",HandlerFinal.userId);
+                        ano.put("eng_name",HandlerFinal.userName);
+                        ano.put("step",1);
+
+                        //four_idc
+                        IdcBean ib=(IdcBean)map.get("four_idc");
+                        ano.put("idc_id",ib.getIdcId());
+                        ano.put("idc_location",ib.getSimpleLocation());
+                        ano.put("idc_type",ib.getIdcType());
+                        ano.put("idc_name",ib.getIdcName());
+
+                        UpsTestFragment.getJson().put("another",ano);
+                        //电池数目加入方便找
+                        UpsTestFragment.getJson().put("battery_number",HandlerFinal.upsBatteryNum);
+
+                        final String json= upsTestFoot.getJsonStr();
+                        Log.e("upstest",json.substring(0,json.length()/2)+"-------------");
+                        Log.e("upstest","----------"+json.substring(json.length()/2,json.length()));
+                        //最大 999 节电池的有  那岂不是要20w个字符   当长度超过20000的时候就启动B方案   而且通过timestamp 来找8行字段
+
+                        ThreadUtil.execute(new ThreadUtil.CallBack() {
+                            @Override
+                            public void exec() {
+
+                            }
+
+                            @Override
+                            public void run() {
+                                //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
+                                SocketUtil.sendMessageAdd("218.108.146.98",3333,json);
+                            }
+                        });
+                        TestUpsActivity.this.finish();
+                    }else{
+                        Toast.makeText(TestUpsActivity.this,"请先签名再上传",Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 break;
             default:break;
         }

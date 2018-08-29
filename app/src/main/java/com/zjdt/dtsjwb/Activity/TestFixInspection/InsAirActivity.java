@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.Activity.SignActivity;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.Bean.IdcBean;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
@@ -86,9 +89,12 @@ public class InsAirActivity extends BaseActivity implements View.OnClickListener
                 break;
 
             case R.id.air_ins_button3://处理foot  上传
-                airInsFoot.makeAirInsFootJson();
-                HashMap map = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
                 try {
+                if ( SignActivity.isUp==true){
+                    SignActivity.isUp=false;
+                    airInsFoot.makeAirInsFootJson();
+                    HashMap map = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
+
                     AirInsFragment.getJson().put("other_location",map.get("h_location"));
                     AirInsFragment.getJson().put("h_custom_id",map.get("h_custom_id"));
                     JSONObject ano=new JSONObject();
@@ -98,25 +104,40 @@ public class InsAirActivity extends BaseActivity implements View.OnClickListener
                     ano.put("business", HandlerFinal.BUSINESS_STR[5]);
                     ano.put("eng_id",HandlerFinal.userId);
                     ano.put("eng_name",HandlerFinal.userName);
+                    ano.put("step",1);
+                    //four_idc
+                    IdcBean ib=(IdcBean)map.get("four_idc");
+                    ano.put("idc_id",ib.getIdcId());
+                    ano.put("idc_location",ib.getSimpleLocation());
+                    ano.put("idc_type",ib.getIdcType());
+                    ano.put("idc_name",ib.getIdcName());
+
                     AirInsFragment.getJson().put("another",ano);
+
+
+                    final String json= airInsFoot.getJsonStr();
+
+
+                    Log.e("airins",json);
+                    ThreadUtil.execute(new ThreadUtil.CallBack() {
+                        @Override
+                        public void exec() {
+
+                        }
+
+                        @Override
+                        public void run() {
+                            //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
+                            SocketUtil.sendMessageAdd("218.108.146.98",3333,json);
+                        }
+                    });
+                }else{
+                    Toast.makeText( InsAirActivity.this,"请先签名再上传",Toast.LENGTH_SHORT).show();
+                }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                final String json= airInsFoot.getJsonStr();
-                Log.e("airins",json);
-                ThreadUtil.execute(new ThreadUtil.CallBack() {
-                    @Override
-                    public void exec() {
-
-                    }
-
-                    @Override
-                    public void run() {
-                        //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
-                        SocketUtil.sendMessageAdd("218.108.146.98",3333,json);
-                    }
-                });
                 break;
             default:break;
         }

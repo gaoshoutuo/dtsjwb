@@ -35,4 +35,8 @@
         <color name="designer_news">#03a9f4</color> <!--light blue 500 -->-->\
         <color name="scrim">#99323232</color>
         <color name="teansetpa">#00ffffff</color>
+
+    <color name="hui">#aaaaaa</color>
+    <color name="hignhui">#888888</color>
+    <color name="superhui">#999999</color>
 </resources>

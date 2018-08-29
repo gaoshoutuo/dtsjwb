@@ -125,6 +125,11 @@ public class NewFixActivity extends BaseActivity {
                 cardView=(CardView)itemView;
                 text=itemView.findViewById(R.id.business_type);
                 image=itemView.findViewById(R.id.newdevice_image);
+                cardView.setRadius(8);//设置图片圆角的半径大小
+
+                cardView.setCardElevation(8);//设置阴影部分大小
+
+                cardView.setContentPadding(5,5,5,5);//设置图片距离阴影大小
             }
         }
     }

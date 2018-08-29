@@ -31,7 +31,7 @@
             ></View>
         <Button
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="60dp"
             android:id="@+id/ups_test_engineer_sign"
             android:text="工程师签名"
             />
@@ -46,6 +46,7 @@
             android:layout_height="30dp"
             android:id="@+id/ups_test_custom_sign"
             android:text="提醒客户签名"
+            android:visibility="gone"
             />
 
         <View

@@ -1,43 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#fff"
+    app:cardCornerRadius="5dp"
+    android:layout_margin="5dp"
  >
     <LinearLayout
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="#fff"
         >
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:scaleType="center"
         android:id="@+id/newdevice_image"
         android:layout_gravity="center"
         android:foregroundGravity="center"
         />
-    <View
+   <!-- <View
         android:layout_width="0dp"
         android:layout_height="5dp"
         android:background="#fff"
         android:layout_gravity="left"
-        ></View>
+        ></View>-->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:id="@+id/business_type"
         android:gravity="center"
         android:textColor="#000"
-
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
         />
-    <View
+  <!--  <View
         android:layout_width="0dp"
         android:layout_height="10dp"
         android:background="#fff"
         android:layout_gravity="left"
-        ></View>
+        ></View>-->
 
 </LinearLayout>
     <!--

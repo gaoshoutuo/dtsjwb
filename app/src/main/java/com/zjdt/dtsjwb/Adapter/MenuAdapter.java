@@ -52,12 +52,20 @@ public class MenuAdapter extends BaseAdapter {
              viewHolder=new ViewHolder();
              viewHolder.menuImageIv= viewR.findViewById(R.id.menu_item_image);
              viewHolder.menuNameTv=viewR.findViewById(R.id.menu_item_text);
+             viewHolder.redPointTv=viewR.findViewById(R.id.red_point);
              viewR.setTag(viewHolder);
          }else{
               viewHolder=(ViewHolder) viewR.getTag();
          }
               viewHolder.menuImageIv.setImageResource(menuBean.getMenuIconRid());
               viewHolder.menuNameTv.setText(menuBean.getMenuname());
+
+            if (menuBean.isHaveRp()==false){
+                viewHolder.redPointTv.setVisibility(View.GONE);
+            }else{
+                viewHolder.redPointTv.setVisibility(View.VISIBLE);
+            }
+
               AbsListView.LayoutParams params=new AbsListView.LayoutParams(
                       gridView.getColumnWidth(),gridView.getHeight()/3
         );
@@ -74,5 +82,7 @@ public class MenuAdapter extends BaseAdapter {
     static class ViewHolder {
         ImageView menuImageIv;
         TextView menuNameTv;
+        TextView redPointTv;
+
     }
 }

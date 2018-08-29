@@ -193,6 +193,8 @@ public class CAssetsRActivity extends BaseActivity implements View.OnClickListen
      * "cabient_body_2":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
      * "cabient_body_3":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
      * "cabient_body_4":{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},15"
+     *
+     * 30*2 *100  6k 个字符不需要多行连接设置
 
      * @param v
      */

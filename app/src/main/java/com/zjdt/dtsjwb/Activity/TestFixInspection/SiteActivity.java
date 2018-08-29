@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.Activity.SignActivity;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
+import com.zjdt.dtsjwb.Bean.IdcBean;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
@@ -94,9 +97,12 @@ public class SiteActivity extends BaseActivity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.site_button1://处理head
-                installSite.initManyJson();
-                HashMap mapinstall = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
                 try {
+                if ( SignActivity.isUp==true){
+                    SignActivity.isUp=false;
+                    installSite.initManyJson();
+                    HashMap mapinstall = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
+
                     SiteFrag.getJson().put("other_location",mapinstall.get("h_location"));
                     SiteFrag.getJson().put("h_custom_id",mapinstall.get("h_custom_id"));
                     JSONObject ano=new JSONObject();
@@ -106,35 +112,52 @@ public class SiteActivity extends BaseActivity implements View.OnClickListener{
                     ano.put("business", HandlerFinal.BUSINESS_STR[6]);
                     ano.put("eng_id",HandlerFinal.userId);
                     ano.put("eng_name",HandlerFinal.userName);
+                    ano.put("step",1);
+
+                    //four_idc
+                    IdcBean ib=(IdcBean)mapinstall.get("four_idc");
+                    ano.put("idc_id",ib.getIdcId());
+                    ano.put("idc_location",ib.getSimpleLocation());
+                    ano.put("idc_type",ib.getIdcType());
+                    ano.put("idc_name",ib.getIdcName());
+
                     SiteFrag.getJson().put("another",ano);
+
+                    final String jsonInstall= installSite.getJsonStr();
+                    Log.e("install",jsonInstall);
+
+                    ThreadUtil.execute(new ThreadUtil.CallBack() {
+                        @Override
+                        public void exec() {
+
+                        }
+
+                        @Override
+                        public void run() {
+                            //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
+                            SocketUtil.sendMessageAdd("218.108.146.98",3333,jsonInstall);
+                        }
+                    });
+                }else{
+                    Toast.makeText( SiteActivity.this,"请先签名再上传",Toast.LENGTH_SHORT).show();
+                }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                final String jsonInstall= installSite.getJsonStr();
-                Log.e("install",jsonInstall);
-
-                ThreadUtil.execute(new ThreadUtil.CallBack() {
-                    @Override
-                    public void exec() {
-
-                    }
-
-                    @Override
-                    public void run() {
-                        //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
-                        SocketUtil.sendMessageAdd("218.108.146.98",3333,jsonInstall);
-                    }
-                });
                 break;
 
             case R.id.site_button2://处理head
-
-                installButton.setVisibility(View.GONE);
-                serviceButton.setVisibility(View.VISIBLE);
-                serviceSite.initManyJson();
-
-                HashMap mapService = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
                 try {
+                if ( SignActivity.isUp=true){
+                    SignActivity.isUp=false;
+                    installButton.setVisibility(View.GONE);
+                    serviceButton.setVisibility(View.VISIBLE);
+                    serviceSite.initManyJson();
+
+                    HashMap mapService = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
+
                     SiteFrag.getJson().put("other_location",mapService.get("h_location"));
                     SiteFrag.getJson().put("h_custom_id",mapService.get("h_custom_id"));
                     JSONObject ano=new JSONObject();
@@ -144,25 +167,39 @@ public class SiteActivity extends BaseActivity implements View.OnClickListener{
                     ano.put("business", HandlerFinal.BUSINESS_STR[7]);
                     ano.put("eng_id",HandlerFinal.userId);
                     ano.put("eng_name",HandlerFinal.userName);
+                    ano.put("step",1);
+
+                    //four_idc
+                    IdcBean ib=(IdcBean)mapService.get("four_idc");
+                    ano.put("idc_id",ib.getIdcId());
+                    ano.put("idc_location",ib.getSimpleLocation());
+                    ano.put("idc_type",ib.getIdcType());
+                    ano.put("idc_name",ib.getIdcName());
+
                     SiteFrag.getJson().put("another",ano);
+
+                    final String jsonService= serviceSite.getJsonStr();
+                    Log.e("service",jsonService);
+
+                    ThreadUtil.execute(new ThreadUtil.CallBack() {
+                        @Override
+                        public void exec() {
+
+                        }
+
+                        @Override
+                        public void run() {
+                            //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
+                            SocketUtil.sendMessageAdd("218.108.146.98",3333,jsonService);
+                        }
+                    });
+                }else{
+                    Toast.makeText( SiteActivity.this,"请先签名再上传",Toast.LENGTH_SHORT).show();
+                }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-               final String jsonService= serviceSite.getJsonStr();
-                Log.e("service",jsonService);
-
-                ThreadUtil.execute(new ThreadUtil.CallBack() {
-                    @Override
-                    public void exec() {
-
-                    }
-
-                    @Override
-                    public void run() {
-                        //SocketUtil.sendMessageAdd("218.108.146.98",88,json);
-                        SocketUtil.sendMessageAdd("218.108.146.98",3333,jsonService);
-                    }
-                });
             break;
             default:break;
         }

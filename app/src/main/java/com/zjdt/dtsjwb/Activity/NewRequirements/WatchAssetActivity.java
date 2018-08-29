@@ -108,12 +108,15 @@ public class WatchAssetActivity extends BaseActivity {
         public void onBindViewHolder(WatchAdapter.WatchViewHolder holder, int position) {
             AssertBean ab=list.get(position);
             holder.headTitle.setText(ab.getHeadTitle()+"123");
-            holder.assertBrand.setText(ab.getAssertBrand());
-            holder.assertPara.setText(ab.getAssertPara());
-            holder.assertType.setText(ab.getAssertType());
-            holder.assertName.setText(ab.getAssertName());
-            holder.assertNumber.setText(ab.getAssertNumber());
+            holder.assertBrand.setText("设备品牌:"+ab.getAssertBrand());
+            holder.assertPara.setText("设备参数:"+ab.getAssertPara());
+            holder.assertType.setText("设备类型:"+ab.getAssertType());
+            holder.assertName.setText("设备名称"+ab.getAssertName());
+            holder.assertNumber.setText("设备数量"+ab.getAssertNumber()+"台");
             holder.mainTitle.setText(ab.getMainTitle());
+
+            holder.assetLife.setText("设备使用寿命"+ab.getAssetLife()+"年");
+            holder.assetFirstTime.setText("使用起始时间"+ab.getAssetFirstTime());
             Log.e("debug",ab.getHeadTitle()+123);
         }
 
@@ -129,7 +132,7 @@ public class WatchAssetActivity extends BaseActivity {
         }
 
         class WatchViewHolder extends RecyclerView.ViewHolder{
-            private TextView headTitle,assertName,assertPara,assertType,assertBrand,assertNumber,mainTitle;
+            private TextView headTitle,assertName,assertPara,assertType,assertBrand,assertNumber,mainTitle,assetLife,assetFirstTime;
 
             public WatchViewHolder(View itemView) {
                 super(itemView);
@@ -140,6 +143,10 @@ public class WatchAssetActivity extends BaseActivity {
                 assertBrand=itemView.findViewById(R.id.assert_brand);
                 assertNumber=itemView.findViewById(R.id.assert_number);
                 mainTitle=itemView.findViewById(R.id.assert_main_title);
+                assetLife=itemView.findViewById(R.id.assert_life);
+                assetFirstTime=itemView.findViewById(R.id.assert_firsttime);
+
+
             }
         }
     }

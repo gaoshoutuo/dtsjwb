@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.NetUtil.OkhttpUtil;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
@@ -41,6 +43,30 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
     private DatabaseUtil.MyDatabase myDatabase;
     private Button testFtp;
     private Button testwebview,testSocketUtil,testPost,testSelect,testUpdate;
+    private EditText edit;
+
+
+
+    private String torrStr="\"array_1\":[{\"internal_resist\":\"\",\"ups_char_vol\":{\"str0\":\"\",\"str1\":\"\",\"" +
+            "str2\":\"\"},\"ups_dischar_vol\":{\"str0\":\"\",\"str1\":\"\",\"str2\":\"\"}},{\"internal_resist\":\"" +
+            "\",\"ups_char_vol\":{\"str0\":\"\",\"str1\":\"\",\"str2\":\"\"},\"ups_dischar_vol\":{\"str0\":\"\",\"str1\":\"\"," +
+            "\"str2\":\"\"}},{\"internal_resist\":\"\",\"ups_char_vol\":{\"str0\":\"\",\"str1\":\"\",\"str2\":\"\"},\"ups_dischar_vol\"" +
+            ":{\"str0\":\"\",\"str1\":\"\",\"str2\":\"\"}},{\"internal_resist\":\"\",\"ups_char_vol\":{\"str0\":\"\",\"str1\":\"\",\"str2\":\"\"}," +
+            "\"ups_dischar_vol\":{\"str0\":\"\",\"str1\":\"\",\"str2\":\"\"}},{\"internal_resist\":\"\",\"ups_char_vol\":{\"str0\":\"\",\"str1\":\"\"" +
+            ",\"str2\":\"\"},\"ups_dischar_vol\":{\"str0\":\"\",\"str1\":\"\",\"str2\":\"\"}},{\"internal_resist\":\"\",\"ups_char_vol\":{\"str0\":\"\",\"str1" +
+            "\":\"\",\"str2\":\"\"},\"ups_dischar_vol\":{\"str0\":\"\",\"str1\":\"\",\"str2\":\"\"}},{\"internal_resist\":\"\",\"ups_char_vol\":{\"str0\":\"\",\"" +
+            "str1\":\"\",\"str2\":\"\"},\"ups_dischar_vol\":{\"str0\":\"\",\"str1\":\"\",\"str2\":\"\"}},{\"internal_resist\":\"\",\"ups_char_vol\":{\"str0\":\"\",\"" +
+            "str1\":\"\",\"str2\":\"\"},\"ups_dischar_vol\":{\"str0\":\"\",\"str1\":\"\",\"str2\":\"\"}},{\"internal_resist\":\"\",\"ups_char_vol\":{\"str0\":\"\",\"" +
+            "str1\":\"\",\"str2\":\"\"},\"ups_dischar_vol\":{\"str0\":\"\",\"str1\":\"\",\"str2\":\"\"}},{\"internal_resist\":\"\",\"ups_char_vol\":{\"str0\":\"\",\"" +
+            "str1\":\"\",\"str2\":\"\"},\"ups_dischar_vol\":{\"str0\":\"\",\"str1\":\"\",\"str2\":\"\"}}],";
+
+    private String makeMagStr(String torr,int mag){
+        StringBuilder sb=new StringBuilder();
+        for (int i=0;i<mag;i++){
+            sb.append(torrStr);
+        }
+        return sb.toString();
+    }
 
     /**
      * 也是recyclerview
@@ -73,6 +99,8 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
         addDatabase.setOnClickListener(this);
         testwebview=f(R.id.test_webview);
         testwebview.setOnClickListener(this);
+
+        edit=f(R.id.fix_his_edit);
     }
 
     @Override
@@ -162,8 +190,19 @@ public class FixHistoryTestActivity extends BaseActivity implements View.OnClick
                         SocketUtil.sendMessageAdd("218.108.146.98",3333,"{\"au\":\"select\",\"age\":\"88\",\"name\":\"hetao\"}");
                     }
                 });*/
+                String magsign=edit.getText().toString();
+                //actionActivity(this,NewFixActivity.class,null);
+                String magStr=makeMagStr(torrStr,Integer.parseInt(magsign));
+                JSONObject magJson=new JSONObject();
+                try {
+                    magJson.put("json",magStr);
+                    magJson.put("au","max_length");
+                    Log.e("max_length",magStr.length()+"");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                ThreadUtil.sat(magJson);
 
-                actionActivity(this,NewFixActivity.class,null);
                 break;
 
 

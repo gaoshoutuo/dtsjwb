@@ -78,6 +78,8 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
 
 
     public static final String []DTSJCACHESTR={"dtsjcache","id","device_name","device_id","customer_id","location","reason"};
+    public static final String []DTSJOFFLINEMSG={"dtsjofflinemsg","id","timerecord","json_1","json_2","idc_id","idc_name","idc_type","idc_location"
+            ,"user_id","eng_id","bussiness_type","iswatch","eng_name","blank_1","blank_2","blank_3"};
 
 
 
@@ -127,7 +129,7 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
     public static final int INSTALL_REQUEST=1900;
 
 
-    public static final String []BUSINESS_STR={"fix_ups",  "test_ups",  "ins_ups",  "fix_air",  "test_air",  "ins_air",  "site_install",  "site_service",  "firefighting",  "monitor"};
+    public static final String []BUSINESS_STR={"ups_fix",  "ups_test",  "ups_ins",  "fix_air",  "test_air",  "air_ins",  "install",  "service",  "firefighting",  "monitor"};
     //{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
     public static final String []FIVE_STR={"device_name","device_para","device_type","device_brand","device_num"};
     public static final String []HUNDRED_STR={"es_body_1","es_body_2","es_body_3",  "air_body_1","air_body_2","air_body_3","air_body_4",  "emi_body_1", "emi_body_2",
@@ -200,7 +202,7 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
 
     public static Timestamp timeStamp;
 
-
+    public static int offlineMsg=0;
 
 
 
@@ -215,4 +217,23 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
     public static final int IDC_QUERY_REPLY=6210;
 
     public static final int QUERY_SUB_REPLY=6220;
+    public static final int OFFLINE_REPLY=6230;
+    public static final int HISTORY_REPLY=6240;
+    public static final int ENG_HISTORY_REPLY=6250;
+    public static final int COUNT_DOWN_REPLY=6260;
+
+
+    public static int nov=-1;
+    public static String novIden="0";
+
+
+    //socketio
+    public static final String MSG="msg";
+    public static final String MSG_UPS_INS="msg_ups_ins";
+
+
+    public static final String OFFLINEMSG="offline_msg";
+    public static final String HISTORYMSG="history_msg";
+    public static final String ENGHISTORYMSG="eng_history_msg";
+    public static final String COUNTDOWNMSG="count_down_msg";
 }

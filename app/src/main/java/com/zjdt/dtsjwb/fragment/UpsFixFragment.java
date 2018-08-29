@@ -197,6 +197,11 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
 
     //foot
     public void initUpsFixFootView(){
+        //果然
+
+
+
+
         Button button1=view.findViewById(R.id.ups_fix_engineer_sign);
         Button button2=view.findViewById(R.id.ups_fix_custom_sign);
         button1.setOnClickListener(this);
@@ -218,6 +223,7 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
         json=new JSONObject();
         try {
             json.put("au","ups_fix");
+            json.put("step",-1);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -361,6 +367,9 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
        EditText text= view.findViewById(R.id.ups_foot_sugg);
        String str=getEditData(text);
        singleStr(this.json,"fix_suggest",str);
+
+
+
         singleStr(this.json,"my_sign","123");
         singleStr(this.json,"cus_sign","123");
     }
@@ -384,6 +393,11 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
                 }
 
                 fixIntent.putExtra("str",filename);
+                try {
+                    fixIntent.putExtra("bussiness_type",this.json.getString("au"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 startActivity(fixIntent);
 
                 break;
@@ -394,4 +408,7 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
                 default:break;
         }
     }
+
+
+    //碎片的生命周期加入这些东西
 }

@@ -5,12 +5,14 @@ package com.zjdt.dtsjwb.Bean;
  */
 
 public class MenuBean {
-    String menuname;
-    int menuIconRid;
+    private String menuname;
+    private int menuIconRid;
+    private boolean haveRp;
 
-    public MenuBean(String menuname, int menuIconRid) {
+    public MenuBean(String menuname, int menuIconRid,boolean isHave) {
         this.menuname = menuname;
         this.menuIconRid = menuIconRid;
+        this.haveRp=isHave;
     }
 
     public String getMenuname() {
@@ -30,5 +32,13 @@ public class MenuBean {
     }
     public MenuBean() {
 
+    }
+
+    public boolean isHaveRp() {
+        return haveRp;
+    }
+
+    public void setHaveRp(boolean haveRp) {
+        this.haveRp = haveRp;
     }
 }

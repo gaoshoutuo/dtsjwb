@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class EsAssit extends Fragment {
+public class EsAssit extends Fragment {//添加寿命只能外开手术刀来做手术了  修改view 拿对象 获取json  寿命展示view 也要跟着改
+    private String idcid;
+
 
     private JSONArray ja=new JSONArray();//不能用jsonArray  不具备标识
     private static JSONObject json;
@@ -35,6 +38,14 @@ public class EsAssit extends Fragment {
             e.printStackTrace();
         }
         return json.toString();
+    }
+
+    public String getIdcid() {
+        return idcid;
+    }
+
+    public void setIdcid(String idcid) {
+        this.idcid = idcid;
     }
 
     public static void setJsonStr(){
@@ -114,6 +125,7 @@ public class EsAssit extends Fragment {
         view=inflater.inflate(rid,container,false);
         if (json==null)
             initJson();
+
         switch (rid){
             case R.layout.assit_es:
                 initEleview();
@@ -182,22 +194,33 @@ private static void initJson(){
             jsonObject.put("device_type",dp.getDeviceT());
             jsonObject.put("device_brand",dp.getDeviceB());
             jsonObject.put("device_num",dp.getDeviceNum());
+
+            jsonObject.put("device_life",dp.getLife());
+            jsonObject.put("device_yyyy",dp.getYyyy());
+            jsonObject.put("device_mm",dp.getMm());
+            jsonObject.put("device_dd",dp.getDd());
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return jsonObject;
     }
 
-    private DevicePara beanGet(int rid){
+    private DevicePara beanGet(int rid){//这里似乎要修改的多一点了哟
         View viewOne=view.findViewById(rid);
         String nameEd=((EditText)viewOne.findViewById(R.id.ed_d_name)).getText().toString();
         String paraEd=((EditText)viewOne.findViewById(R.id.ed_d_para)).getText().toString();
         String typeEd=((EditText)viewOne.findViewById(R.id.ed_d_type)).getText().toString();
         String brandEd=((EditText)viewOne.findViewById(R.id.ed_d_brand)).getText().toString();
         String numEd=((EditText)viewOne.findViewById(R.id.ed_d_num)).getText().toString();
+
+        String life=((EditText)viewOne.findViewById(R.id.ed_d_alive)).getText().toString();
+        String yyyy=((EditText)viewOne.findViewById(R.id.ed_d_yyyy)).getText().toString();
+        String mm=((EditText)viewOne.findViewById(R.id.ed_d_mm)).getText().toString();
+        String dd=((EditText)viewOne.findViewById(R.id.ed_d_dd)).getText().toString();
       /* EditText nameEd= (EditText)viewOne.findViewById(R.id.ed_d_name);
        nameEd.getText();*/
-      return new DevicePara(nameEd,paraEd,typeEd,brandEd,numEd);
+      return new DevicePara(nameEd,paraEd,typeEd,brandEd,numEd,life,yyyy,mm,dd);
     }
 
     private void putJsonArray(int rid){
@@ -247,6 +270,11 @@ private static void initJson(){
         try {
             jsonObject.put("au","battery_number");
             jsonObject.put("cus_id",HandlerFinal.userId);
+            jsonObject.put("auau","add");
+            //jsonObject.put("device_num","add");
+            jsonObject.put("idc_id",getIdcid());
+
+            Log.e("idcic_frag",getIdcid());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -258,6 +286,7 @@ private static void initJson(){
 
             @Override
             public void run() {
+                Log.e("batt",jsonObject.toString());
                 SocketUtil.sendMessageAdd("218.108.146.98",3333,jsonObject.toString());
             }
         });

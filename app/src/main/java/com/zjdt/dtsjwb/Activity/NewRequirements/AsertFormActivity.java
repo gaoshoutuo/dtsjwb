@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.Activity.TestFixInspection.FixUpsActivity;
+import com.zjdt.dtsjwb.Activity.TestFixInspection.InsAirActivity;
+import com.zjdt.dtsjwb.Activity.TestFixInspection.InsUpsActivity;
+import com.zjdt.dtsjwb.Activity.TestFixInspection.SiteActivity;
+import com.zjdt.dtsjwb.Activity.TestFixInspection.TestUpsActivity;
 import com.zjdt.dtsjwb.App.AppApplication;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.Bean.IdcBean;
@@ -91,7 +97,13 @@ public class AsertFormActivity extends BaseActivity {
         public IdcViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view= LayoutInflater.from(context).inflate(layoutId,null,false);
             IdcViewHolder ivh=new IdcViewHolder(view);
-            view.setOnClickListener(this);
+            //HashMap mapAll=new HashMap();
+            if (HandlerFinal.nov==-1){
+                view.setOnClickListener(this);
+            }else{
+                view.setOnClickListener(listener);
+            }
+
 
             return ivh;
         }
@@ -159,6 +171,76 @@ public class AsertFormActivity extends BaseActivity {
             }
         }//改来改去 总归还是耦合少一点比较好
 }
+ /*   HashMap mapAll=makeHashmap("地区",
+            "原因",
+            HandlerFinal.novIden);*/
+    private HashMap makeHashmap(String location,String reason,String cusId){
+        HashMap fixupsmap=new HashMap();
+        fixupsmap.put("h_location",location);
+        fixupsmap.put("h_reason",reason);
+        //  fixupsmap.put("h_timestamp",timestamp);
+        fixupsmap.put("h_custom_id",cusId);
+        //   fixupsmap.put("h_engineer_id",engId);
+        //  fixupsmap.put("h_filename",filename);
+        return fixupsmap;
+    }
+        private View.OnClickListener listener=new View.OnClickListener() {
+
+            HashMap mapAll=makeHashmap("地区",
+                    "原因",
+                    HandlerFinal.novIden);
+
+            @Override
+            public void onClick(View v) {
+                switch (HandlerFinal.nov){
+                    case 0:
+                        //此处建立机房四信息的
+                        mapAll.put("four_idc",((AFTag)v.getTag()).getIb());
+                        Log.e("four_idc",((AFTag)v.getTag()).getIb().getIdcId());
+                        actionActivity(AsertFormActivity.this, InsUpsActivity.class,mapAll);
+                        HandlerFinal.nov=-1;//我也搞不懂 为啥要重新置为 -1
+                        break;
+                    case 1:
+                        mapAll.put("four_idc",((AFTag)v.getTag()).getIb());
+                        Log.e("four_idc",((AFTag)v.getTag()).getIb().getIdcId());
+                        actionActivity(AsertFormActivity.this, TestUpsActivity.class,mapAll);
+                        HandlerFinal.nov=-1;
+                        break;
+                    case 2:
+                        mapAll.put("four_idc",((AFTag)v.getTag()).getIb());
+                        Log.e("four_idc",((AFTag)v.getTag()).getIb().getIdcId());
+                        actionActivity(AsertFormActivity.this, FixUpsActivity.class,mapAll);
+                        HandlerFinal.nov=-1;
+                        break;
+                    case 3:
+                        mapAll.put("four_idc",((AFTag)v.getTag()).getIb());
+                        Log.e("four_idc",((AFTag)v.getTag()).getIb().getIdcId());
+                        mapAll.put("site","service");
+                        actionActivity(AsertFormActivity.this, SiteActivity.class,mapAll);
+                        HandlerFinal.nov=-1;
+                        break;
+                    case 4:
+                        mapAll.put("four_idc",((AFTag)v.getTag()).getIb());
+                        Log.e("four_idc",((AFTag)v.getTag()).getIb().getIdcId());
+                        mapAll.put("site","install");
+                        actionActivity(AsertFormActivity.this, SiteActivity.class,mapAll);
+                        HandlerFinal.nov=-1;
+                        break;
+                    case 5:
+                        mapAll.put("four_idc",((AFTag)v.getTag()).getIb());
+                        Log.e("four_idc",((AFTag)v.getTag()).getIb().getIdcId());
+                        actionActivity(AsertFormActivity.this, InsAirActivity.class,mapAll);
+                        HandlerFinal.nov=-1;
+                        break;
+                    case 6:
+                        break;
+                    case 7:
+                        break;
+
+                    default:break;
+                }
+            }
+        };
 
    public class AFTag implements Serializable{
         private String type;

@@ -62,7 +62,7 @@
         android:orientation="horizontal"
         >
         <TextView
-            android:text="@string/idc_name_str"
+            android:text="@string/idc_location_str"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:textSize="16sp"

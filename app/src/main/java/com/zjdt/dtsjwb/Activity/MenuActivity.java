@@ -2,14 +2,17 @@ package com.zjdt.dtsjwb.Activity;
 
 import android.Manifest;
 import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
@@ -33,19 +36,24 @@ import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.pnikosis.materialishprogress.ProgressWheel;
 import com.zjdt.dtsjwb.Activity.NewRequirements.AsertFormActivity;
+import com.zjdt.dtsjwb.Activity.NewRequirements.OfflineActivity;
 import com.zjdt.dtsjwb.Adapter.MenuAdapter;
 import com.zjdt.dtsjwb.Adapter.TestAdapter;
 import com.zjdt.dtsjwb.App.AppApplication;
+import com.zjdt.dtsjwb.Bean.AllBean;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.Bean.MenuBean;
+import com.zjdt.dtsjwb.Bean.TableEntity.OfflineEntity;
 import com.zjdt.dtsjwb.NetUtil.OkhttpUtil;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Service.NotificationService;
+import com.zjdt.dtsjwb.Util.DatabaseUtil;
 import com.zjdt.dtsjwb.Util.DialogUtil;
 import com.zjdt.dtsjwb.Util.FtpUtil;
 import com.zjdt.dtsjwb.Util.JsonUtil;
 import com.zjdt.dtsjwb.Util.PermissonUtil;
+import com.zjdt.dtsjwb.Util.SQLUtil;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
 import com.zjdt.dtsjwb.fragment.AirAssit;
 import com.zjdt.dtsjwb.fragment.ProgressFragment;
@@ -80,9 +88,9 @@ public class MenuActivity extends AppCompatActivity {
     private int[] imageSales={};
 
     //private int []imageOther={R.drawable.icons8_fix,R.drawable.icons8_history,R.drawable.icons8_my,R.drawable.icons8_update};
-    private String[] name = {"维修业务", "维修历史", "我的信息", "检查更新", "商城", "测试","帮录资产"};
+    private String[] name = {"维修业务", "维修历史", "客户信息", "检查更新", "政采云商城", "我的信息","帮录资产"};
     //private String[] customName = {"基础资产", "资产登记", "故障上报", "维保历史", "政采云商城", "联系我们", "推送消息", "检查更新", "IT资产"};//维保倒计时 放到资产里面去
-    private String[] customName = {"机房创建", "资产登记", "故障上报", "维保历史", "政采云商城", "联系我们", "推送消息", "检查更新", "IT资产"};
+    private String[] customName = {"机房创建", "资产登记", "故障上报", "维保历史", "政采云商城", "联系我们", "待办消息", "检查更新", "IT资产"};
     // private String []otherNamer={};
     private String []salesName={};
 
@@ -110,13 +118,18 @@ public class MenuActivity extends AppCompatActivity {
         mPicker.init(this);
         MenuAdapter menuAdapter = new MenuAdapter(arrayList, this, gridView);
         //这三者 直接是数据库 json 给的
-
+        Log.e("badge", Build.MANUFACTURER.toLowerCase());
      /*   HandlerFinal.userId=null;
         HandlerFinal.userName=null;
         HandlerFinal.userLocation=null;*/
 
         gridView.setAdapter(menuAdapter);
-        startService(new Intent(this, NotificationService.class));
+
+
+
+
+
+
         ThreadUtil.execute(new ThreadUtil.CallBack() {
             @Override
             public void exec() {
@@ -146,9 +159,19 @@ public class MenuActivity extends AppCompatActivity {
               */
                 HandlerFinal.upsBatteryNum=1;
                 JSONObject jb=new JSONObject();
+               // Log.e("user_id_id",HandlerFinal.userId);
+                while (HandlerFinal.userId==null){
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
                 try {
+                    //不能做  现在是按照来的机房来的  不是客户来的
                     jb.put("au","battery_number");
                     jb.put("cus_id",HandlerFinal.userId);
+                    //jb.put("auau","query");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -182,6 +205,44 @@ public class MenuActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+            // 时机成熟 打开服务
+
+
+
+
+        ThreadUtil.execute(new ThreadUtil.CallBack() {
+            @Override
+            public void exec() {
+
+            }
+
+            @Override
+            public void run() {
+                while(HandlerFinal.userId==null){
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Intent serviceIntent=new Intent(MenuActivity.this, NotificationService.class);
+               /* HandlerFinal.userId=  reply.getString("userid");
+                HandlerFinal.indentity=reply.getString("identity");
+                HandlerFinal.userName=reply.getString("name");
+                HandlerFinal.userLocation=reply.getString("location");
+                HandlerFinal.company=reply.getString("company");*/
+                serviceIntent.putExtra("userid",HandlerFinal.userId);
+                serviceIntent.putExtra("identity",HandlerFinal.indentity);
+                serviceIntent.putExtra("name",HandlerFinal.userName);
+                serviceIntent.putExtra("location",HandlerFinal.userLocation);
+                serviceIntent.putExtra("company",HandlerFinal.company);
+
+                startService(serviceIntent);
+            }
+        });
+
+
+
     }
 
 
@@ -222,15 +283,21 @@ public class MenuActivity extends AppCompatActivity {
             case "1":
                 for (int i = 0; i < imageM.length; i++) {
 
-                    MenuBean menuBean = new MenuBean(name[i], imageM[i]);
+                    MenuBean menuBean = new MenuBean(name[i], imageM[i],false);
                     arrayList.add(menuBean);
                 }
                 break;
             case "2":
                 for (int i = 0; i < imageCustom.length; i++) {
 
-                    MenuBean menuBean = new MenuBean(customName[i], imageCustom[i]);
+                    MenuBean menuBean = new MenuBean(customName[i], imageCustom[i],false);
+
+                    if (i==6){
+                        menuBean.setHaveRp(true);
+                    }
+
                     arrayList.add(menuBean);
+
                 }
                 break;
             default:
@@ -334,7 +401,7 @@ public class MenuActivity extends AppCompatActivity {
                         });
                         actionActivity(MenuActivity.this,CAssetsActivity.class,null);*/
                       Toast.makeText(MenuActivity.this,"请先选择机房地区",Toast.LENGTH_SHORT).show();
-                        DialogUtil.getDialogUtil().showCityView(mPicker,MenuActivity.this);
+                        DialogUtil.getDialogUtil().showCityView(mPicker,MenuActivity.this,1);
                      // DialogUtil.getDialogUtil().materialCreateIDC(MenuActivity.this,mPicker);
                     }
                     break;
@@ -397,9 +464,13 @@ public class MenuActivity extends AppCompatActivity {
                 case 3:
 
                     if (map.get("au").equals("2")) {//字符串别用==
-                        HashMap map_32=new HashMap();
+                       /* HashMap map_32=new HashMap();
                         map_32.put("au","fix_custom");
-                        actionActivity(MenuActivity.this,HistoryActivity.class,map_32);
+                        actionActivity(MenuActivity.this,HistoryActivity.class,map_32);*/
+                       Intent offlineIntent=new Intent(MenuActivity.this, OfflineActivity.class);
+                        offlineIntent.putExtra("type",HandlerFinal.HISTORYMSG);
+                       startActivity(offlineIntent);
+
                     } else if ((map.get("au").equals("1"))) {
                         Toast.makeText(MenuActivity.this, "xiaoyu", Toast.LENGTH_SHORT).show();
                         ThreadUtil.execute(new ThreadUtil.CallBack() {
@@ -421,30 +492,43 @@ public class MenuActivity extends AppCompatActivity {
                    /* DialogUtil dialogUtil=new DialogUtil();
                     DialogUtil.AlertDialogUtil alertDialogUtil= dialogUtil.new AlertDialogUtil(MenuActivity.this);*/
                    // alertDialogUtil.setAlertDialog("确定","关闭","是否拨打紧急热线" );
-                    DialogUtil.AlertDialogUtil alertDialogUtil= DialogUtil.getDialogUtil().new AlertDialogUtil(MenuActivity.this);
-                    alertDialogUtil.setAlertDialog("确定","关闭","警告","是否需要保存",new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    switch (which){
-                                        case -2:
-                                            break;
-                                        case -1:
-                                            call("4001105050");
-                                            break;
-                                    }
+                    if (map.get("au").equals("2")) {
+                        Toast.makeText(MenuActivity.this,"功能开发中...",Toast.LENGTH_SHORT).show();
+                    }else if(map.get("au").equals("2")){
+                        Toast.makeText(MenuActivity.this,"功能开发中...",Toast.LENGTH_SHORT).show();
+                    }
 
-                                }
-                            }
-                    );
                     break;
                 case 5:
-                    MenuActivity.this.startActivity(new Intent(MenuActivity.this, FixHistoryTestActivity.class));
+                    if (map.get("au").equals("2")) {
+                        DialogUtil.AlertDialogUtil alertDialogUtil= DialogUtil.getDialogUtil().new AlertDialogUtil(MenuActivity.this);
+                        alertDialogUtil.setAlertDialog("YES","NO","提示","是否拨通迪特运维热线",new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        switch (which){
+                                            case -2:
+                                                break;
+                                            case -1:
+                                                call("4001105050");
+                                                break;
+                                        }
+
+                                    }
+                                }
+                        );
+
+                    }else if(map.get("au").equals("1")){
+                        //Toast.makeText(MenuActivity.this,"功能开发中...",Toast.LENGTH_SHORT).show();
+                       // MenuActivity.this.startActivity(new Intent(MenuActivity.this, FixHistoryTestActivity.class));
+                        Toast.makeText(MenuActivity.this,"功能开发中...",Toast.LENGTH_SHORT).show();
+                    }
+
                     break;
                 case 6:
                    // actionActivity(MenuActivity.this,BaseActivity.class,null);
                     if (map.get("au").equals("1")) {//字符串别用==
                         //actionActivity(MenuActivity.this,HelpActivity.class,null);  其实不需要  很多跳转 可以dialog 的选定\
-                        if (HandlerFinal.isAuthorizeCusIdITAsset!=null&&HandlerFinal.isAuthorizeCusIdITAsset.equals(HandlerFinal.myCustomId)){
+                       /* if (HandlerFinal.isAuthorizeCusIdITAsset!=null&&HandlerFinal.isAuthorizeCusIdITAsset.equals(HandlerFinal.myCustomId)){
                             //帮客户填基础资产
 
 
@@ -453,22 +537,55 @@ public class MenuActivity extends AppCompatActivity {
 
                         }else{
                             DialogUtil.getDialogUtil().materialDialog2(MenuActivity.this);
-                        }
-
-
+                        }*/
+                        Toast.makeText(MenuActivity.this,"请先选择机房地区",Toast.LENGTH_SHORT).show();
+                        DialogUtil.getDialogUtil().showCityView(mPicker,MenuActivity.this,2);
+                        //填资产的坑  要客户先填写资产  然后才能给它的机房加吗  嗯  嗯 嗯  应该还是完整的给一个客户的按钮吧  创建机房以及添加资产  中间隔一道权限
                     } else if ((map.get("au").equals("2"))) {
+                        Toast.makeText(MenuActivity.this,"您的未处理信息放在此处，请及时处理以便生成完整记录",Toast.LENGTH_LONG).show();
+
+                        // 待办展示  时间simpledate  业务名  工程师  8月7号  （鱼传奇）  ups检修
+
+                        Intent offlineIntent=new Intent(MenuActivity.this, OfflineActivity.class);
+                        offlineIntent.putExtra("type",HandlerFinal.OFFLINEMSG);
+                        startActivity(offlineIntent);
 
                     }
                     break;
                 case 7:
+                    if (map.get("au").equals("1")) {
+
+                    }else if ((map.get("au").equals("2"))) {
+
+                        //  public static final String []DTSJOFFLINEMSG={"dtsjofflinemsg","id","timerecord","json_1","json_2","idc_id","idc_name","idc_type","idc_location"
+                        //            ,"user_id","eng_id","bussiness_type","iswatch","eng_name","blank_1","blank_2","blank_3"};
+                    /*    DatabaseUtil.MyDatabase dbdtsjHelp=DatabaseUtil.getInstance().new MyDatabase(MenuActivity.this,"DTSJ.db",null,2);
+                        //Toast.makeText(MenuActivity.this,"获取成功",Toast.LENGTH_SHORT).show();
+                        SQLiteDatabase dbDtsj=dbdtsjHelp.getWritableDatabase();//今天回头吧sql弄得滚瓜烂熟
+                        ContentValues values=new ContentValues();
+                        values.put("timerecord","123");values.put("json_1","json1");values.put("json_2","json2");
+                        values.put("idc_id","123");values.put("idc_name","json1");values.put("idc_type","json2");values.put("idc_location","json2");
+
+                        values.put("user_id","123");values.put("eng_id","json1");values.put("bussiness_type","json2");values.put("iswatch","json2");
+                        values.put("eng_name","123");values.put("blank_1","json1");values.put("blank_2","json2");values.put("blank_3","json2");
+
+                        dbDtsj.insert("dtsjofflinemsg",null,values);
+                        SQLUtil.TableOffline tableOffline= SQLUtil.getInstance().new TableOffline();
+                        ArrayList<AllBean>list=tableOffline.query(dbDtsj);
+                        OfflineEntity ofe=(OfflineEntity)list.get(0);
+                        tableOffline.delete(dbDtsj,"123");
+                        Toast.makeText(MenuActivity.this,list.size()+"",Toast.LENGTH_LONG).show();
+*/
+                    }
+
                     break;
                 case 8:
 
                     if (map.get("au").equals("1")) {//字符串别用==
 
                     } else if ((map.get("au").equals("2"))) {
-                        Toast.makeText(MenuActivity.this, "xiaoyu", Toast.LENGTH_SHORT).show();
-                        actionActivity(MenuActivity.this,CAssetsActivity.class,null);
+                        Toast.makeText(MenuActivity.this, "功能开发中...", Toast.LENGTH_SHORT).show();
+                       // actionActivity(MenuActivity.this,CAssetsActivity.class,null);
                     }
                     break;
                 default:

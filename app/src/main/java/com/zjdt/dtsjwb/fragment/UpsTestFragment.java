@@ -83,6 +83,7 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
 
             case R.layout.ups_test_report_body://玩意添加资产 加入电池怎么办
                 initUpsTestBodyView();
+                makeJsonBody();
                 break;
 
             case R.layout.ups_test_report_foot:
@@ -188,6 +189,7 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
     }
 
     public void initUpsTestBodyView(){
+        presentNum=numGroup*10;
 
             initUpsTestBody(R.id.ups_body_1,1+presentNum);
             initUpsTestBody(R.id.ups_body_2,2+presentNum);
@@ -219,6 +221,10 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
 
 
     private void initUpsTestFootView(){
+        //EditText sumText=view.findViewById(R.id.ups_foot_sum);
+
+
+
        Button button1= view.findViewById(R.id.ups_test_engineer_sign);
         Button button2= view.findViewById(R.id.ups_test_custom_sign);
         button1.setOnClickListener(this);
@@ -282,6 +288,11 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
                     e.printStackTrace();
                 }
 
+                try {
+                    testIntent.putExtra("bussiness_type",this.json.getString("au"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 testIntent.putExtra("str",filename);
                 startActivity(testIntent);
 
@@ -357,6 +368,7 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
         json=new JSONObject();
         try {
             json.put("au","ups_test");
+            json.put("step",-1);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -544,7 +556,7 @@ public class UpsTestFragment extends Fragment implements View.OnClickListener{//
 
 
         try {
-            this.json.put("array",jsonArray);
+            this.json.put("array_"+numGroup,jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }

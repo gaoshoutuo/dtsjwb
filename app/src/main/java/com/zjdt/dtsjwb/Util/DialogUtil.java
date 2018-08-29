@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -36,6 +37,8 @@ import com.zjdt.dtsjwb.Activity.MenuActivity;
 import com.zjdt.dtsjwb.Activity.NewFixActivity;
 import com.zjdt.dtsjwb.Activity.NewRequirements.AddSubFragment;
 import com.zjdt.dtsjwb.Activity.NewRequirements.AsertFormActivity;
+import com.zjdt.dtsjwb.Activity.NewRequirements.OfflineActivity;
+import com.zjdt.dtsjwb.Activity.PdfLoaderActivity;
 import com.zjdt.dtsjwb.Activity.TestFixInspection.FixUpsActivity;
 import com.zjdt.dtsjwb.Activity.TestFixInspection.InsAirActivity;
 import com.zjdt.dtsjwb.Activity.TestFixInspection.InsUpsActivity;
@@ -194,8 +197,9 @@ public class DialogUtil {
         //  fixupsmap.put("h_filename",filename);
         return fixupsmap;
     }
-
+    int step=0;
     public void materialDialog(final Activity context, final int position){
+
         MaterialDialog.Builder builder= new MaterialDialog.Builder(context);
                 builder.title(R.string.material_title)
                 .iconRes(R.drawable.ic_launcher_background)
@@ -203,6 +207,7 @@ public class DialogUtil {
                 .content(R.string.material_content)
                 .inputType(InputType.TYPE_CLASS_TEXT)//可以输入的类型-电话号码
                 //前2个一个是hint一个是预输入的文字
+
                 .input(R.string.input_hint_id, R.string.input_prefill, new MaterialDialog.InputCallback() {//避免魔法值
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
@@ -215,6 +220,76 @@ public class DialogUtil {
                         //HandlerFinal.dialogSwitch=true;
                         switch (position){//真烦改代码   点击之后要蹦出一个填写单子的popwindow 中间出现
                             case 0:
+                               /* if (step==0){
+                                    step++;
+                                    JSONObject jsonObject=new JSONObject();
+                                    try {
+                                        jsonObject.put("au","idc_query");
+                                        jsonObject.put("user_id",input.toString());
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    //HandlerUtil
+                                    ThreadUtil.sat(jsonObject);
+                                    Toast.makeText(context,"正在查询机房稍等...",Toast.LENGTH_SHORT).show();
+                                    // actionActivity(MenuActivity.this,AsertFormActivity.class,null);
+                                    ThreadUtil.execute(new ThreadUtil.CallBack() {
+                                        @Override
+                                        public void exec() {
+
+                                        }
+
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                Thread.sleep(5000);
+                                            } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                            }
+                                            step=0;
+                                        }
+                                    });
+                                }else{
+                                    Toast.makeText(context,"查询频繁请5s后在尝试",Toast.LENGTH_SHORT).show();
+                                }*/
+                               HandlerFinal.nov=position;
+                               helputil(input.toString(),context);
+                                //NewFixActivity.actionActivity(context, InsUpsActivity.class,mapAll);
+                                break;
+                            case 1:
+                                HandlerFinal.nov=position;
+                                helputil(input.toString(),context);
+                                //NewFixActivity.actionActivity(context, TestUpsActivity.class,mapAll);
+                                break;
+                            case 2:
+                                HandlerFinal.nov=position;
+                                helputil(input.toString(),context);
+                                //NewFixActivity.actionActivity(context, FixUpsActivity.class,mapAll);
+                                break;
+                            case 3:
+                                HandlerFinal.nov=position;
+                                helputil(input.toString(),context);
+                                mapAll.put("site","service");
+                                //NewFixActivity.actionActivity(context, SiteActivity.class,mapAll);
+                                break;
+                            case 4:
+
+                                HandlerFinal.nov=position;
+                                helputil(input.toString(),context);
+                                mapAll.put("site","install");
+                                //NewFixActivity.actionActivity(context, SiteActivity.class,mapAll);
+                                break;
+                            case 5:
+                                HandlerFinal.nov=position;
+                                helputil(input.toString(),context);
+                                //NewFixActivity.actionActivity(context, InsAirActivity.class,mapAll);
+                                break;
+                            case 6:
+                                break;
+                            case 7:
+                                break;
+
+                          /*  case 0:
                                 NewFixActivity.actionActivity(context, InsUpsActivity.class,mapAll);
                                 break;
                             case 1:
@@ -237,7 +312,7 @@ public class DialogUtil {
                             case 6:
                                 break;
                             case 7:
-                                break;
+                                break;*/
 
                             default:break;
                         }
@@ -636,6 +711,69 @@ public class DialogUtil {
         }).customView(view,true).show();
     }
 
+
+    public void materialCreateIDCCus(final PCDBean loca,final Activity context,final CityPickerView pic){//用在资产录入时候的选择  1整个机房的资产 2单体机 3多联机
+        final View view=LayoutInflater.from(context).inflate(R.layout.item_eng_create_idc,null,false);
+        MaterialDialog.Builder builder= new MaterialDialog.Builder(context);
+        TextView t3=view.findViewById(R.id.location_city);
+        final String locationSim=loca.getProvince()+"-"+loca.getCity()+"-"+loca.getDistrict();
+        Log.e("poi",locationSim+"123");
+        t3.setText(locationSim);
+        builder.title(R.string.material_title)
+                .iconRes(R.drawable.help)
+                .positiveText("提交")
+                .negativeText("退出")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        String idcType=null;
+                        RadioButton r1=view.findViewById(R.id.radio1);
+                        RadioButton r2=view.findViewById(R.id.radio2);
+                        RadioButton r3=view.findViewById(R.id.radio3);
+                        EditText editText=view.findViewById(R.id.idc_name);
+                        EditText edit2=view.findViewById(R.id.idc_location_edit);
+                        String str2=edit2.getText().toString();
+
+
+                        EditText edit3=view.findViewById(R.id.idc_cus_id);
+                        EditText edit4=view.findViewById(R.id.idc_cus_name);
+                        String str=editText.getText().toString();
+                        String str3=edit3.getText().toString();
+                        String str4=edit4.getText().toString();
+
+                        JSONObject createIDC=new JSONObject();
+                        if (r1.isChecked()){
+                            idcType="all";
+                        }else if(r2.isChecked()){
+                            idcType="single";
+                        }else if(r3.isChecked()){
+                            idcType="multi";
+                        }
+                        try {
+                            createIDC.put("au","create_idc");
+                            createIDC.put("idc_id",System.currentTimeMillis()+"");
+                            createIDC.put("idc_name",str);
+                            createIDC.put("idc_type",idcType);
+                            createIDC.put("user_id",str3);
+                            createIDC.put("user_name",str4);
+                            createIDC.put("idc_location_deep",str2);
+                            createIDC.put("idc_location_simple",locationSim);
+                            //发现的确都在全表扫描
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        ThreadUtil.sat(createIDC);
+                    }
+                }).onNegative(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+            }
+        }).customView(view,true).show();
+    }
+
     /**
 
      Session session = this.getHibernateTemplate().getSessionFactory()
@@ -728,6 +866,92 @@ public class DialogUtil {
                             //ThreadUtil.sat(null);
                         }
 
+
+                    }
+                }).onNegative(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+            }
+        }).customView(view,true).show();
+
+    }
+
+    public void selectShowDload(final Activity context,final String filename){
+        final View view=LayoutInflater.from(context).inflate(R.layout.item_select_show_dload,null,false);
+        MaterialDialog.Builder builder= new MaterialDialog.Builder(context);
+        builder.title(R.string.idc_dloadselect_)
+                .iconRes(R.drawable.help)
+                .positiveText("ok")
+                .negativeText("退出")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull final DialogAction which) {
+                        RadioButton r1=view.findViewById(R.id.radio1);
+                        RadioButton r2=view.findViewById(R.id.radio2);
+                        try {
+                        String checkType=null;
+                        JSONObject showDoladJson=new JSONObject();
+                            showDoladJson.put("au","");
+                        if (r1.isChecked()){
+//查看 pdf  不管客户工程师 完成未完成 都是id
+                            ThreadUtil.execute(new ThreadUtil.CallBack() {
+                                @Override
+                                public void exec() {
+
+                                }
+
+                                @Override
+                                public void run() {
+                                    //发广播
+                                    Intent intentPdf=new Intent();
+                                    intentPdf.putExtra("pdfname",filename);
+                                    intentPdf.putExtra("bussiness_type","123");
+                                    intentPdf.putExtra("json","123");
+                                    intentPdf.setAction("com.zjdt.dtsjwb.123");
+                                    context.sendBroadcast(intentPdf);
+
+                                    Intent dload=new Intent(context, PdfLoaderActivity.class);
+                                    context.startActivity(dload);
+                                }
+                            });
+
+
+                        }else if(r2.isChecked()){
+//下载 pdf
+                            ThreadUtil.execute(new ThreadUtil.CallBack() {
+                                @Override
+                                public void exec() {
+
+                                }
+
+                                @Override
+                                public void run() {
+                                    String externalFilesDir = context.getExternalFilesDir(Environment.DIRECTORY_MOVIES).toString();
+                                    String localFile=externalFilesDir+"/"+filename;
+                                    boolean isup=FtpUtil.downloadFile(filename,localFile);
+                                    while (isup){
+                                        Toast.makeText(context,"下载成功，请至"+localFile +"查看",Toast.LENGTH_SHORT).show();
+                                    }
+                                        //发广播
+                                       /* Intent intentPdf=new Intent();
+                                        intentPdf.putExtra("pdfname",filename);
+                                        intentPdf.putExtra("bussiness_type","123");
+                                        intentPdf.putExtra("json","123");
+                                        intentPdf.setAction("com.zjdt.dtsjwb.123");
+                                        context.sendBroadcast(intentPdf);
+
+                                        Intent dload=new Intent(context, PdfLoaderActivity.class);
+                                        context.startActivity(dload);*/
+
+
+                                }
+                            });
+                        }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                     }
                 }).onNegative(new MaterialDialog.SingleButtonCallback() {
@@ -859,7 +1083,7 @@ public class DialogUtil {
         }
     }*/
     //modebus  这个协议在工业网上用的比较多
-    public void showCityView(final CityPickerView pic,final Activity context){
+    public void showCityView(final CityPickerView pic, final Activity context, final int type){
         CityConfig cityConfig = new CityConfig.Builder().build();
         pic.setConfig(cityConfig);
 
@@ -884,7 +1108,15 @@ public class DialogUtil {
                     String c=city.toString();
                     String d=district.toString();
                     pcdBean.setCity(c); pcdBean.setProvince(p); pcdBean.setDistrict(d);
-                    materialCreateIDC(pcdBean,context,pic);
+                    if (type==1){
+                        materialCreateIDC(pcdBean,context,pic);
+                    }
+                    else if (type==2){
+                        materialCreateIDCCus(pcdBean,context,pic);
+                    }
+
+
+
                 }
 
             }
@@ -899,5 +1131,38 @@ public class DialogUtil {
         pic.showCityPicker( );
     }
 
+    public void helputil(String input,Activity context) {
+        if (step == 0) {
+            step++;
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("au", "idc_query");
+                jsonObject.put("user_id", input.toString());
+                HandlerFinal.novIden=input.toString();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            //HandlerUtil
+            ThreadUtil.sat(jsonObject);
+            Toast.makeText(context, "正在查询机房稍等...", Toast.LENGTH_SHORT).show();
+            // actionActivity(MenuActivity.this,AsertFormActivity.class,null);
+            ThreadUtil.execute(new ThreadUtil.CallBack() {
+                @Override
+                public void exec() {
 
+                }
+
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    step = 0;
+                }
+            });
+        }
+
+    }
 }

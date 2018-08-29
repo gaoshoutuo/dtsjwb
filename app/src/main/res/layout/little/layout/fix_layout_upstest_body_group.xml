@@ -25,7 +25,7 @@
             android:hint="内阻"
             android:id="@+id/ups_group_ir"
 
-            android:textColorHint="#000"
+            android:textColorHint="@color/hui"
             android:textColor="#000"
             />
 
@@ -46,7 +46,7 @@
             android:hint="前电压 /v"
             android:id="@+id/ups_group_unchar_vol1"
 
-            android:textColorHint="#000"
+            android:textColorHint="@color/hui"
             android:textColor="#000"
             />
 
@@ -57,7 +57,7 @@
             android:hint="中电压 /v"
             android:id="@+id/ups_group_unchar_vol2"
 
-            android:textColorHint="#000"
+            android:textColorHint="@color/hui"
             android:textColor="#000"
             />
         <EditText
@@ -67,7 +67,7 @@
             android:hint="后电压 /v"
             android:id="@+id/ups_group_unchar_vol3"
 
-            android:textColorHint="#000"
+            android:textColorHint="@color/hui"
             android:textColor="#000"
             />
 
@@ -92,7 +92,7 @@
             android:hint="前电压 /v"
             android:id="@+id/ups_group_ec_vol1"
 
-            android:textColorHint="#000"
+            android:textColorHint="@color/hui"
             android:textColor="#000"
             />
 
@@ -103,7 +103,7 @@
             android:hint="中电压 /v"
             android:id="@+id/ups_group_ec_vol2"
 
-            android:textColorHint="#000"
+            android:textColorHint="@color/hui"
             android:textColor="#000"
             />
         <EditText
@@ -113,7 +113,7 @@
             android:hint="后电压 /v"
             android:id="@+id/ups_group_ec_vol3"
 
-            android:textColorHint="#000"
+            android:textColorHint="@color/hui"
             android:textColor="#000"
             />
 

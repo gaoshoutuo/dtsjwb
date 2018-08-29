@@ -4,21 +4,31 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     >
-
-        <TextView
-            android:id="@+id/assert_head_title"
+    <RadioGroup
+        android:id="@+id/sex_rg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        >
+        <RadioButton
+            android:id="@+id/radio1"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:textSize="16sp"
-            android:textColor="#000"
-            android:layout_weight="1"
-            android:gravity="center"
-            />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="#eee"
-        ></View>
+            android:layout_height="wrap_content"
+            android:text="@string/enter_idc_base_all" />
+
+        <RadioButton
+            android:id="@+id/radio2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_idc_base_single" />
+
+        <RadioButton
+            android:id="@+id/radio3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_idc_base_mult" />
+    </RadioGroup>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +36,7 @@
         android:orientation="horizontal"
         >
         <TextView
-            android:id="@+id/assert_name"
+            android:text="@string/idc_name_str"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:textSize="16sp"
@@ -34,28 +44,25 @@
             android:gravity="center"
             android:textColor="#000"
             />
-        <TextView
-            android:id="@+id/assert_para"
+        <EditText
+            android:id="@+id/idc_name"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:textSize="16sp"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center"
             android:textColor="#000"
+            android:hint="@string/idc_name_hint"
             />
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="#eee"
-        ></View>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
         >
         <TextView
-            android:id="@+id/assert_type"
+            android:text="@string/idc_cusid_str"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:textSize="16sp"
@@ -63,28 +70,25 @@
             android:gravity="center"
             android:textColor="#000"
             />
-        <TextView
-            android:id="@+id/assert_brand"
+        <EditText
+            android:id="@+id/idc_cus_id"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:textSize="16sp"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center"
             android:textColor="#000"
+            android:hint="@string/idc_cusid_hint"
             />
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="#eee"
-        ></View>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
         >
         <TextView
-            android:id="@+id/assert_number"
+            android:text="@string/idc_cusname_str"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:textSize="16sp"
@@ -92,30 +96,25 @@
             android:gravity="center"
             android:textColor="#000"
             />
-        <TextView
-            android:id="@+id/assert_main_title"
+        <EditText
+            android:id="@+id/idc_cus_name"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:textSize="16sp"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center"
             android:textColor="#000"
+            android:hint="@string/idc_cusname_hint"
             />
-
-
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="#eee"
-        ></View>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
         >
         <TextView
-            android:id="@+id/assert_life"
+            android:text="@string/idc_location_str"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:textSize="16sp"
@@ -123,16 +122,27 @@
             android:gravity="center"
             android:textColor="#000"
             />
-        <TextView
-            android:id="@+id/assert_firsttime"
+       <!-- <Button
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:textSize="16sp"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center"
             android:textColor="#000"
-            />
+            android:text="@string/idc_location_select"
+            android:id="@+id/idc_location_but"
+            />-->
 
+        <TextView
+            android:text="@string/idc_name_str"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:textSize="16sp"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:textColor="#000"
+            android:id="@+id/location_city"
+            />
 
     </LinearLayout>
     <View
@@ -140,4 +150,37 @@
         android:layout_height="2dp"
         android:background="#eee"
         ></View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:text="@string/idc_location_deep"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#000"
+            />
+        <EditText
+            android:id="@+id/idc_location_edit"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:textSize="16sp"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:textColor="#000"
+            android:hint="@string/idc_location_deep_hint"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#eee"
+        ></View>
+
+
 </LinearLayout>

@@ -15,6 +15,13 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" />
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
+    <!-- 申请华为角标权限 -->
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" />
 
     <application
         android:name=".App.AppApplication"
@@ -25,6 +32,14 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme"
         tools:replace="android:theme">
+        <receiver
+            android:name=".Activity.PdfLoaderActivity$PdfReceive"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.zjdt.dtsjwb.123" />
+            </intent-filter>
+        </receiver>
 
         <!--
             <activity android:name=".Activity.BaseActivity"
@@ -57,6 +72,7 @@
         <service
             android:name=".Service.NotificationService"
             android:enabled="true"
+            android:exported="true"
             android:process="system" />
         <service
             android:name=".Service.NotificationService$ServiceD"
@@ -167,11 +183,21 @@
         <activity
             android:name=".Activity.NewRequirements.AsertFormActivity"
             android:theme="@style/Theme.AppCompat.Light" />
-        <activity android:name=".Activity.NewRequirements.SubAssetActivity"
+        <activity
+            android:name=".Activity.NewRequirements.SubAssetActivity"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".Activity.NewRequirements.WatchAssetActivity"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".Activity.NewRequirements.MessageActivity"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".Activity.NewRequirements.CalendarActivity"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity android:name=".Activity.NewRequirements.OfflineActivity"
             android:theme="@style/Theme.AppCompat.Light"
-            />
-        <activity android:name=".Activity.NewRequirements.WatchAssetActivity"
-            android:theme="@style/Theme.AppCompat.Light"></activity>
+            ></activity>
     </application>
 
 </manifest>

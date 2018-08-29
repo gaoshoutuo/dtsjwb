@@ -214,6 +214,11 @@ public class UpsInsFragment extends Fragment implements View.OnClickListener{
 
     //body
     public void initUpsInsBodyView(){
+        //果然
+
+
+
+
         //硬件检测
         Button button1=view.findViewById(R.id.ups_ins_engineer_sign);
         Button button2=view.findViewById(R.id.ups_ins_custom_sign);
@@ -240,6 +245,7 @@ public class UpsInsFragment extends Fragment implements View.OnClickListener{
         json=new JSONObject();
         try {
             json.put("au","ups_ins");
+            json.put("step",-1);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -387,8 +393,13 @@ public class UpsInsFragment extends Fragment implements View.OnClickListener{
     public void makeInsBodyJson(){
         initHeadJson("hard_test",R.id.fix_inspection_body1);
         EditText text= view.findViewById(R.id.ups_foot_inspection);
-        //还有 什么时间啊 这些 在商榷一下
 
+        //还有 什么时间啊 这些 在商榷一下
+        try {
+            this.json.put("to_sum_up",text.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void makeInsFootJson(){
@@ -410,7 +421,11 @@ public class UpsInsFragment extends Fragment implements View.OnClickListener{
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
+                try {
+                    insIntent.putExtra("bussiness_type",this.json.getString("au"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 insIntent.putExtra("str",filename);
                 startActivity(insIntent);
 

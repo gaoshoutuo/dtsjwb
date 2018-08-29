@@ -40,12 +40,19 @@
     <string name="call_fix">修理热线</string>
 
     <string name="idc_name_str">机房名称</string>
-    <string name="idc_name_hint">给自己的机房起个名字吧</string>
+    <string name="idc_name_hint">如嘉善农信1号机房</string>
+
+
+    <string name="idc_cusid_str">输入客户ID</string>
+    <string name="idc_cusid_hint">如18812345678</string>
+
+    <string name="idc_cusname_str">输入客户姓名</string>
+    <string name="idc_cusname_hint">如令狐冲</string>
 
     <string name="idc_location_str">机房所在地区</string>
     <string name="idc_location_select">选择地区</string>
     <string name="idc_location_deep">详细地址</string>
-    <string name="idc_location_deep_hint">如浙江杭州余杭无常xx街道xx号</string>
+    <string name="idc_location_deep_hint">如浙江杭州萧山武林广场xx街道xx号</string>
 
     <string name="idc_select_id">机房ID</string>
     <string name="idc_select_name">机房名称</string>
@@ -110,7 +117,9 @@
     <string name="idc_select_update">更新资产</string>
     <string name="idc_select_query">查看资产</string>
 
-
+    <string name="idc_select_show">查看pdf</string>
+    <string name="idc_select_dload">下载pdf</string>
+    <string name="idc_dloadselect_">功能菜单</string>
 
 
 </resources>
