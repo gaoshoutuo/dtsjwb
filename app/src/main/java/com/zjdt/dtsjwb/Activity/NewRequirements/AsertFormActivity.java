@@ -17,9 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.Activity.TestFixInspection.FixAirActivity;
 import com.zjdt.dtsjwb.Activity.TestFixInspection.FixUpsActivity;
 import com.zjdt.dtsjwb.Activity.TestFixInspection.InsAirActivity;
 import com.zjdt.dtsjwb.Activity.TestFixInspection.InsUpsActivity;
+import com.zjdt.dtsjwb.Activity.TestFixInspection.InspectionAirActivity;
+import com.zjdt.dtsjwb.Activity.TestFixInspection.InstallAirActivity;
 import com.zjdt.dtsjwb.Activity.TestFixInspection.SiteActivity;
 import com.zjdt.dtsjwb.Activity.TestFixInspection.TestUpsActivity;
 import com.zjdt.dtsjwb.App.AppApplication;
@@ -226,15 +229,38 @@ public class AsertFormActivity extends BaseActivity {
                         actionActivity(AsertFormActivity.this, SiteActivity.class,mapAll);
                         HandlerFinal.nov=-1;
                         break;
-                    case 5:
+                    case 5://空调老巡检
                         mapAll.put("four_idc",((AFTag)v.getTag()).getIb());
                         Log.e("four_idc",((AFTag)v.getTag()).getIb().getIdcId());
                         actionActivity(AsertFormActivity.this, InsAirActivity.class,mapAll);
                         HandlerFinal.nov=-1;
                         break;
-                    case 6:
+                    case 6://空调新巡检
+                        mapAll.put("four_idc",((AFTag)v.getTag()).getIb());
+                        Log.e("four_idc",((AFTag)v.getTag()).getIb().getIdcId());
+                        actionActivity(AsertFormActivity.this, InspectionAirActivity.class,mapAll);
+                        HandlerFinal.nov=-1;
+
                         break;
-                    case 7:
+                    case 7: //空调安装
+                        mapAll.put("four_idc",((AFTag)v.getTag()).getIb());
+                        Log.e("four_idc",((AFTag)v.getTag()).getIb().getIdcId());
+                        actionActivity(AsertFormActivity.this, InstallAirActivity.class,mapAll);
+                        HandlerFinal.nov=-1;
+
+                        break;
+
+                    case 8://空调维修
+                        mapAll.put("four_idc",((AFTag)v.getTag()).getIb());
+                        Log.e("four_idc",((AFTag)v.getTag()).getIb().getIdcId());
+                        actionActivity(AsertFormActivity.this, FixAirActivity.class,mapAll);
+                        HandlerFinal.nov=-1;
+
+                        break;
+                    case 9://pdu
+                        break;
+
+                    case 10://消防
                         break;
 
                     default:break;

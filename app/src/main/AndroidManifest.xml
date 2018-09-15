@@ -195,7 +195,16 @@
         <activity
             android:name=".Activity.NewRequirements.CalendarActivity"
             android:theme="@style/Theme.AppCompat.Light" />
-        <activity android:name=".Activity.NewRequirements.OfflineActivity"
+        <activity
+            android:name=".Activity.NewRequirements.OfflineActivity"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".Activity.NewRequirements.NeedknowActivity"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity android:name=".Activity.TestFixInspection.InspectionAirActivity"
+            android:theme="@style/Theme.AppCompat.Light"
+            />
+        <activity android:name=".Activity.TestFixInspection.InstallAirActivity"
             android:theme="@style/Theme.AppCompat.Light"
             ></activity>
     </application>

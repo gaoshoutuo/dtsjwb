@@ -37,6 +37,8 @@ public class FixUpsActivity extends BaseActivity implements View.OnClickListener
      * 4 fragmentTransaction
      * 5 修改 json static 及获取方式
      */
+
+    //air fix 也在这里了吧
     private FragmentManager fm = getSupportFragmentManager();
     private UpsFixFragment upsFixHead, upsFixBody, upsFixFoot;
     private Button headButton, bodyButton, footButton;

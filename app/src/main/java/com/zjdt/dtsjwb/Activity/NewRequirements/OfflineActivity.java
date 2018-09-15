@@ -45,7 +45,7 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
     private ArrayList<OfflineBean>list=new ArrayList<>();
     public static OfflineActivity offActivity;
 
-    private OfflineAdapter offlineAdapter,cusHistoryAdapter,engHistoryAdapter;
+    private OfflineAdapter offlineAdapter,cusHistoryAdapter,engHistoryAdapter,countDownAdapter;
     private String type;
 
     private void initOfflineLayout(int layoutId){
@@ -100,7 +100,7 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
         JSONObject jsonObject=new JSONObject();
         try {
             jsonObject.put("au","double_msg");
-            jsonObject.put("type","2");
+            jsonObject.put("type","3");
             jsonObject.put("eng_id",HandlerFinal.userId);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -120,9 +120,13 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
     private void initCountDownData(){
         JSONObject jsonObject=new JSONObject();
         try {
-            jsonObject.put("au","double_msg");
-            jsonObject.put("type","2");
-            jsonObject.put("cus_id",HandlerFinal.userId);
+            jsonObject.put("au","count_down");
+            //jsonObject.put("type","2");
+            //jsonObject.put("cus_id",HandlerFinal.userId);dai//
+            // 则得到所有客户的 客户id 客户姓名  客户机房 客户地区 ups剩余时间(天) 空调剩余时间(天)  dialog 中间也做一次  排序做一次 sql 上面的排序  还是代码上面的排序
+
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -133,8 +137,8 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
     private void initCountDownAdapter(){
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        cusHistoryAdapter= new OfflineAdapter(layoutId,list,this);
-        recyclerView.setAdapter(cusHistoryAdapter);
+        countDownAdapter= new OfflineAdapter(layoutId,list,this);
+        recyclerView.setAdapter(countDownAdapter);
     }
 
     private void initView(){
@@ -171,7 +175,7 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
                 break;
 
             case HandlerFinal.COUNTDOWNMSG:
-                initOfflineLayout(R.layout.item_offline);//客户id 客户机房  机房地区 上次服务类型
+                initOfflineLayout(R.layout.item_count_down);//客户id 客户姓名  客户机房id  客户机房位置 剩余时间2
                 initCountDownData();
                 initCountDownAdapter();
                 Toast.makeText(OfflineActivity.this, "维保倒计时", Toast.LENGTH_SHORT).show();
@@ -207,10 +211,15 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
                     ArrayList<OfflineBean> engHistory=JsonUtil.parseDMHistory((String)msg.obj);
                     list.addAll(engHistory);
                     engHistoryAdapter.notifyDataSetChanged();
+                    Toast.makeText(OfflineActivity.this, "工程师历史", Toast.LENGTH_SHORT).show();//服务一定要送到嘴里吗
                     break;
 
                 case HandlerFinal.COUNT_DOWN_REPLY:
-
+                    list.clear();
+                    ArrayList<OfflineBean> countDownList=JsonUtil.parseCountDown((String)msg.obj);
+                    list.addAll(countDownList);
+                    countDownAdapter.notifyDataSetChanged();
+                    Toast.makeText(OfflineActivity.this, "维保倒计时", Toast.LENGTH_SHORT).show();//服务一定要送到嘴里吗
                     break;
                     default:break;
             }
@@ -232,7 +241,7 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
         public void onItemClick(OfflineAdapter.MsgTag tag) {
             Toast.makeText(OfflineActivity.this,"123",Toast.LENGTH_SHORT).show();
             //选择 下载还是查看
-            DialogUtil.getDialogUtil().selectShowDload(OfflineActivity.this,tag.getFilename());
+            DialogUtil.getDialogUtil().selectShowDload(OfflineActivity.this,tag);
         }
     };
 
@@ -248,16 +257,30 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
 
         @Override
         public OfflineAdapter.OfflineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view= LayoutInflater.from(context).inflate(layoutId,null,false);
-            OfflineViewHolder viewHolder=new OfflineViewHolder(view);
+            if (layoutId!=R.layout.item_count_down){
+                View view= LayoutInflater.from(context).inflate(layoutId,null,false);
+                OfflineViewHolder viewHolder=new OfflineViewHolder(view);
+                view.setOnClickListener(OfflineActivity.this);
+                return viewHolder;
+            }else{
+                View view= LayoutInflater.from(context).inflate(layoutId,null,false);
+                OfflineViewHolder viewHolder=new OfflineViewHolder(view,"2");
+                //view.setOnClickListener(OfflineActivity.this);
+                return viewHolder;
+            }
 
-            view.setOnClickListener(OfflineActivity.this);
 
-            return viewHolder;
+
         }
 
         @Override
         public void onBindViewHolder(OfflineAdapter.OfflineViewHolder holder, int position) {
+            if (layoutId!=R.layout.item_count_down)
+            bind1(holder,position);
+            else
+                bind2(holder,position);
+        }
+        public void bind1(OfflineAdapter.OfflineViewHolder holder, int position){
             //OfflineBean olb=(OfflineBean) list.get(position); 这样不行  强制类型转换不要想当然
             OfflineBean olb=list.get(position);
             String time=olb.getTime();
@@ -276,17 +299,68 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
             String idcName=olb.getIdcname();
             holder.idcName.setText(idcName);
             //view.setTag(olb.getFilename());
-            MsgTag msgTag=new MsgTag(olb.getFilename(),position);
+            MsgTag msgTag=new MsgTag(olb.getFilename(),position,time,buss);
             holder.view.setTag(msgTag);
         }
+
+        public void bind2(OfflineAdapter.OfflineViewHolder holder, int position){
+            //OfflineBean olb=(OfflineBean) list.get(position); 这样不行  强制类型转换不要想当然
+            OfflineBean olb=list.get(position);
+          /*  String time=olb.getTime();
+          *//*  Date date=new Date(Long.parseLong(time));
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-ss");
+            String simDate=simpleDateFormat.format(date);*//*
+            Log.e("888888",time);
+            Date date=new Date(Long.parseLong(time));
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String res=simpleDateFormat.format(date);
+            holder.timeTv.setText(res);
+            String buss= olb.getBuss();
+            holder.bussTv.setText(buss);
+            String engName=olb.getEngname();
+            holder.nameTv.setText(engName);
+            String idcName=olb.getIdcname();
+            holder.idcName.setText(idcName);
+            //view.setTag(olb.getFilename());
+            MsgTag msgTag=new MsgTag(olb.getFilename(),position,time,buss);
+            holder.view.setTag(msgTag);*/
+
+            String cusid=olb.getCusId();
+            String cusName=olb.getCusName();
+            String idcId=olb.getIdcId();
+            String idcLocation=olb.getLocation();
+            String upstime=olb.getUpstime();
+            String airtime=olb.getAirtime();
+            holder.cusIdTv.setText("客户ID:"+cusid);
+            holder.cusNameTv.setText("客户姓名:"+cusName);
+            holder.idcIdTv.setText("机房ID:"+idcId);
+            holder.locationTv.setText("机房地区:"+idcLocation);
+            holder.upsTimeTv.setText("ups倒计时:"+upstime+"（天）");
+            holder.airTimeTv.setText("空调倒计时:"+airtime+"（天）");
+        }
+
+
+
 
         public class MsgTag implements Serializable{
             private String filename;
             private int position;
+            private String type;
+            private String time;//这个也要拿来查  json  buss_type
 
-            public MsgTag(String filename, int position) {
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public MsgTag(String filename, int position, String time,String type) {
                 this.filename = filename;
                 this.position = position;
+                this.time = time;
+                this.type = type;
             }
 
             public String getFilename() {
@@ -304,6 +378,14 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
             public void setPosition(int position) {
                 this.position = position;
             }
+
+            public String getTime() {
+                return time;
+            }
+
+            public void setTime(String time) {
+                this.time = time;
+            }
         }
 
         @Override
@@ -319,7 +401,9 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
 
         public class OfflineViewHolder extends RecyclerView.ViewHolder{
             public TextView timeTv,nameTv,bussTv,idcName;
+            public TextView cusIdTv,cusNameTv,idcIdTv,locationTv,upsTimeTv,airTimeTv;
             public View view;
+
 
             public OfflineViewHolder(View itemView) {
                 super(itemView);
@@ -328,6 +412,19 @@ public class OfflineActivity extends BaseActivity implements View.OnClickListene
                 nameTv=itemView.findViewById(R.id.offline_engname);
                 bussTv=itemView.findViewById(R.id.offline_buss);
                 idcName=itemView.findViewById(R.id.offline_idcname);
+            }
+
+            public OfflineViewHolder(View itemView,String type) {
+                super(itemView);
+                view=itemView;
+                //cusIdTv=itemView.findViewById()
+                cusIdTv=itemView.findViewById(R.id.count_down_cusid);
+                cusNameTv=itemView.findViewById(R.id.count_down_cusname);
+                idcIdTv=itemView.findViewById(R.id.count_down_idcid);
+                locationTv=itemView.findViewById(R.id.count_down_location);
+                upsTimeTv=itemView.findViewById(R.id.count_down_upstime);
+                airTimeTv=itemView.findViewById(R.id.count_down_airtime);
+
             }
         }
     }

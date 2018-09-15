@@ -11,13 +11,31 @@
         android:background="#FFF"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="空调巡检"
-            android:textColor="#000"
-            />
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="空调巡检"
+                android:textColor="#000"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:id="@+id/idc_num_ok"
+                android:hint="设备编号如 air1"
+                android:layout_weight="1"
+                android:textColorHint="@color/hui"
+                android:textColor="#000"
+                />
+
+        </LinearLayout>
+
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,5 +110,12 @@
             android:id="@+id/air_inspection_9"
             layout="@layout/fix_body_layout_4"
             ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            android:layout_gravity="left"
+            android:layout_marginBottom="30dp"
+            ></View>
     </LinearLayout>
 </ScrollView>

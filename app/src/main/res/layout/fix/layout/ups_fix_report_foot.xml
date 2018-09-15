@@ -11,6 +11,13 @@
         android:background="#FFF"
         android:orientation="vertical">
 
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/another_"
+            layout="@layout/another_"
+            ></include>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:id="@+id/ups_foot_sugg"
+            android:textColor="#000"
             />
 
 
@@ -36,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:id="@+id/ups_foot_opinion"
+            android:textColor="#000"
             />
         <View
             android:layout_width="match_parent"
@@ -61,5 +70,13 @@
             android:text="提醒客户签名"
             android:visibility="gone"
             />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            android:layout_gravity="left"
+            android:layout_marginBottom="30dp"
+            ></View>
     </LinearLayout>
 </ScrollView>

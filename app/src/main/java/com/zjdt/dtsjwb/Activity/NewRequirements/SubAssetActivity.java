@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
@@ -25,12 +26,14 @@ public class SubAssetActivity extends BaseActivity {
     private String json;
     private EsAssit eaFragment;
     private String type;
+    private ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_asset);
+            pb=f(R.id.progress_1);
         btnSend=f(R.id.sub_ass_send);
         btnSend.setOnClickListener(listener);
        // HashMap map = (HashMap<String, String>) (getIntent().getExtras()).getSerializable("key");
@@ -99,6 +102,14 @@ public class SubAssetActivity extends BaseActivity {
         }
     }
 
+    public void setPbVisible(){
+        pb.setVisibility(View.VISIBLE);
+    }
+
+    public void setPbGone(){
+        pb.setVisibility(View.VISIBLE);
+    }
+
     public Fragment setFragment(EsAssit fragment){
         FragmentManager fm=this.getSupportFragmentManager();
         FragmentTransaction transaction=fm.beginTransaction();
@@ -114,17 +125,21 @@ public class SubAssetActivity extends BaseActivity {
             switch (type){
                 case "sub_idc_ups":
                     JSONObject upsobj=new JSONObject(json);
+                    upsobj.put("type","ups");
                     eaFragment.getEvEle();
+
                     upsobj.put("asset",EsAssit.getJsonStr());
                     Log.e("debug",upsobj.toString());
                     ThreadUtil.sat(upsobj);
-                    eaFragment.setJsonStr();
+                    eaFragment.setJsonStr();//这是在清空啊
                     Toast.makeText(SubAssetActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
                     break;
 
                 case "sub_idc_air":
                     JSONObject airobj=new JSONObject(json);
+                    airobj.put("type","air");
                     eaFragment.getEvAir();
+
                     airobj.put("asset",EsAssit.getJsonStr());
                     Log.e("debug",airobj.toString());
                     ThreadUtil.sat(airobj);
@@ -134,7 +149,9 @@ public class SubAssetActivity extends BaseActivity {
 
                 case "sub_idc_emi":
                     JSONObject emiobj=new JSONObject(json);
+                    emiobj.put("type","emi");
                     eaFragment.getEvEmi();
+
                     emiobj.put("asset",EsAssit.getJsonStr());
                     Log.e("debug",emiobj.toString());
                     ThreadUtil.sat(emiobj);
@@ -144,6 +161,7 @@ public class SubAssetActivity extends BaseActivity {
 
                 case "sub_idc_ms":
                     JSONObject msobj=new JSONObject(json);
+                    msobj.put("type","ms");
                     eaFragment.getEvSoft();
                     msobj.put("asset",EsAssit.getJsonStr());
                     Log.e("debug",msobj.toString());
@@ -154,6 +172,7 @@ public class SubAssetActivity extends BaseActivity {
 
                 case "sub_idc_mi":
                     JSONObject miobj=new JSONObject(json);
+                    miobj.put("type","mi");
                     eaFragment.getEvInterface();
                     miobj.put("asset",EsAssit.getJsonStr());
                     Log.e("debug",miobj.toString());
@@ -164,6 +183,7 @@ public class SubAssetActivity extends BaseActivity {
 
                 case "sub_idc_mh":
                     JSONObject mhobj=new JSONObject(json);
+                    mhobj.put("type","mh");
                     eaFragment.getEvHardware();
                     mhobj.put("asset",EsAssit.getJsonStr());
                     Log.e("debug",mhobj.toString());
@@ -174,6 +194,7 @@ public class SubAssetActivity extends BaseActivity {
 
                 case "sub_idc_mac":
                     JSONObject macobj=new JSONObject(json);
+                    macobj.put("type","mac");
                     eaFragment.getEvAc();
                     macobj.put("asset",EsAssit.getJsonStr());
                     Log.e("debug",macobj.toString());
@@ -184,6 +205,7 @@ public class SubAssetActivity extends BaseActivity {
 
                 case "sub_idc_mv":
                     JSONObject mvobj=new JSONObject(json);
+                    mvobj.put("type","mv");
                     eaFragment.getEvVideo();
                     mvobj.put("asset",EsAssit.getJsonStr());
                     Log.e("debug",mvobj.toString());
@@ -194,6 +216,7 @@ public class SubAssetActivity extends BaseActivity {
 
                 case "sub_idc_cab":
                     JSONObject cabobj=new JSONObject(json);
+                    cabobj.put("type","cab");
                     eaFragment.getEvCabient();
                     cabobj.put("asset",EsAssit.getJsonStr());
                     Log.e("debug",cabobj.toString());

@@ -372,6 +372,29 @@ public class UpsFixFragment extends Fragment implements View.OnClickListener{
 
         singleStr(this.json,"my_sign","123");
         singleStr(this.json,"cus_sign","123");
+        makeAnother_();
+    }
+
+    public void makeAnother_(){
+        View another_view=view.findViewById(R.id.another_);
+        EditText edit1=another_view.findViewById(R.id.another_1);
+        EditText edit2=another_view.findViewById(R.id.another_2);
+        EditText edit3=another_view.findViewById(R.id.another_3);
+        EditText edit4=another_view.findViewById(R.id.another_4);
+        String busType=edit1.getText().toString();
+        String result=edit2.getText().toString();
+        String legacy=edit3.getText().toString();
+        String progress=edit4.getText().toString();
+        try {
+            JSONObject another=new JSONObject();
+            another.put("bus_type",busType);
+            another.put("result",result);
+            another.put("legacy",legacy);
+            another.put("progress",progress);
+            json.put("another_v",another);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 

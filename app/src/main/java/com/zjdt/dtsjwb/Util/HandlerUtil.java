@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 
 import com.google.gson.JsonObject;
+import com.zjdt.dtsjwb.Activity.InfoActivity;
 import com.zjdt.dtsjwb.Activity.NewRequirements.AsertFormActivity;
 import com.zjdt.dtsjwb.Activity.NewRequirements.WatchAssetActivity;
 import com.zjdt.dtsjwb.Activity.PdfLoaderActivity;
@@ -76,7 +77,8 @@ public  class HandlerUtil {
                     break;//很奇怪
                 case HandlerFinal.AU_REGISTER_MSG:
 
-                    ToastUtil.ggg(AppApplication.getApp(),msg.obj.toString());
+                    ToastUtil.ggg(AppApplication.getApp(),"成功注册，快去登录吧");
+
                     break;
 
                 case HandlerFinal.DTSJ_INS_FIX:
@@ -139,6 +141,8 @@ public  class HandlerUtil {
                                 bundle.putSerializable("key", iqrList);
                                 intent.putExtras(bundle);
                                 AppApplication.getApp().startActivity(intent);
+                            }else{
+                                Toast.makeText(AppApplication.getApp(),"还未存在机房",Toast.LENGTH_SHORT).show();
                             }
                         }
                     } catch (JSONException e) {
@@ -149,6 +153,14 @@ public  class HandlerUtil {
                    Log.e("ttt1", (String)msg.obj);
                    // arg1Switch(msg.arg1,(String)msg.obj);
                     WatchAssetActivity.list=arg1Switch(msg.arg1,(String)msg.obj);
+
+                    break;
+
+                case HandlerFinal.INFO_MSG:
+
+                    Intent infoIntent=new Intent(AppApplication.getApp(), InfoActivity.class);
+                    infoIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    AppApplication.getApp().startActivity(infoIntent);
 
                     break;
 

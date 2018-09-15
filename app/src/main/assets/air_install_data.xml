@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 现场服务-->
+<root>
+    <name class="001">客户名称</name>
+    <name class="002">联系人</name>
+    <name class="003">电话</name>
+    <name class="004">地址</name>
+    <name class="005">室内机型号</name>
+    <name class="006">机身编号</name>
+    <name class="007">冷凝器型号</name>
+    <name class="008">机身编号</name>
+
+    <name class="011">电源电压R</name>
+    <name class="012">电源电压S</name>
+    <name class="013">电源电压T</name>
+    <name class="014">空</name>
+
+    <name class="015">温度设定</name>
+    <name class="016">湿度设定</name>
+    <name class="017">最高波动范围</name>
+    <name class="018">控制板输入电压</name>
+
+    <name class="021">风机运行电流</name>
+    <name class="022">加湿工作电流</name>
+    <name class="023">高压</name>
+    <name class="024">低压</name>
+
+    <name class="025">压缩机电流R</name>
+    <name class="026">压缩机电流S</name>
+    <name class="027">压缩机电流T</name>
+    <name class="028">空</name>
+
+    <name class="031">加热电流R</name>
+    <name class="032">加热电流S</name>
+    <name class="033">加热电流T</name>
+    <name class="034">空</name>
+
+    <name class="035">对应冷凝压力</name>
+    <name class="036">冷凝器电流</name>
+    <name class="037">空</name>
+    <name class="038">空</name>
+
+    <name class="100">客户信息</name>
+    <name class="200">设备信息</name>
+    <name class="300">其他信息</name>
+    <name class="400">服务信息</name>
+    <name class="500">室外冷凝部分</name>
+
+    </root>
+<!--为啥要写成文件 而不是内存数组这样直观呢   复杂了-->

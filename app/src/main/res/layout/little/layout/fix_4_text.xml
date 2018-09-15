@@ -22,8 +22,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/ins_8_1"
-            android:textColorHint="#000"
+            android:textColorHint="#eee"
             android:textColor="#000"
+            android:hint="如可靠"
             />
     </LinearLayout>
 
@@ -49,8 +50,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/ins_8_2"
-            android:textColorHint="#000"
+            android:textColorHint="#eee"
             android:textColor="#000"
+            android:hint="紧固"
             />
     </LinearLayout>
     <View
@@ -74,8 +76,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/ins_8_3"
-            android:textColorHint="#000"
+            android:textColorHint="#eee"
             android:textColor="#000"
+            android:hint="紧固"
             />
     </LinearLayout>
         <View
@@ -91,7 +94,7 @@
                 android:layout_weight="3"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:text="检查风扇运行状况，机内变压器、散热器等散热环境和通道情况 "
+                android:text="检查风扇运行状况，机内变压器、散热器等散热环境和通道情况"
                 android:textColor="#000"
                 />
             <EditText
@@ -99,8 +102,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/ins_8_4"
-                android:textColorHint="#000"
+                android:textColorHint="#eee"
                 android:textColor="#000"
+                android:hint="散热好"
                 />
         </LinearLayout>
             <View
@@ -124,8 +128,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:id="@+id/ins_8_5"
-                    android:textColorHint="#000"
+                    android:textColorHint="#eee"
                     android:textColor="#000"
+                    android:hint="未老化"
                     />
             </LinearLayout>
     <View
@@ -149,8 +154,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/ins_8_6"
-            android:textColorHint="#000"
+            android:textColorHint="#eee"
             android:textColor="#000"
+            android:hint="未泄漏"
             />
 
     </LinearLayout>
@@ -175,8 +181,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/ins_8_7"
-            android:textColorHint="#000"
+            android:textColorHint="#eee"
             android:textColor="#000"
+            android:hint="无尘"
             />
     </LinearLayout>
 
@@ -201,8 +208,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/ins_8_8"
-            android:textColorHint="#000"
+            android:textColorHint="#eee"
             android:textColor="#000"
+            android:hint="环境良好"
             />
     </LinearLayout>
             </LinearLayout>

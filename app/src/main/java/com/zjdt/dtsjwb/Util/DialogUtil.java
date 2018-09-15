@@ -32,12 +32,14 @@ import com.lljjcoder.citywheel.CityConfig;
 import com.lljjcoder.style.citylist.Toast.ToastUtils;
 import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.zjdt.dtsjwb.Activity.CAssetsActivity;
+import com.zjdt.dtsjwb.Activity.InfoActivity;
 import com.zjdt.dtsjwb.Activity.ItAssetActivity;
 import com.zjdt.dtsjwb.Activity.MenuActivity;
 import com.zjdt.dtsjwb.Activity.NewFixActivity;
 import com.zjdt.dtsjwb.Activity.NewRequirements.AddSubFragment;
 import com.zjdt.dtsjwb.Activity.NewRequirements.AsertFormActivity;
 import com.zjdt.dtsjwb.Activity.NewRequirements.OfflineActivity;
+import com.zjdt.dtsjwb.Activity.NewRequirements.SubAssetActivity;
 import com.zjdt.dtsjwb.Activity.PdfLoaderActivity;
 import com.zjdt.dtsjwb.Activity.TestFixInspection.FixUpsActivity;
 import com.zjdt.dtsjwb.Activity.TestFixInspection.InsAirActivity;
@@ -50,9 +52,11 @@ import com.zjdt.dtsjwb.Bean.PCDBean;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
 import com.zjdt.dtsjwb.R;
 
+import org.apache.commons.net.ftp.FTPClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class DialogUtil {
@@ -285,8 +289,24 @@ public class DialogUtil {
                                 //NewFixActivity.actionActivity(context, InsAirActivity.class,mapAll);
                                 break;
                             case 6:
+                                HandlerFinal.nov=position;
+                                helputil(input.toString(),context);
+                                //空调巡检
+
                                 break;
                             case 7:
+                                HandlerFinal.nov=position;
+                                helputil(input.toString(),context);
+                                //空调安装
+
+                                break;
+
+                            case 8://空调维修
+                                HandlerFinal.nov=position;
+                                helputil(input.toString(),context);
+
+                                break;
+                            case 9://pdu
                                 break;
 
                           /*  case 0:
@@ -530,7 +550,7 @@ public class DialogUtil {
                   }).customView(view,true).show();
     }
 
-    public void materialDialog4(final Activity context){//用在资产录入时候的选择  1整个机房的资产 2单体机 3多联机
+    public void materialDialog4(final Activity context){
         View view=LayoutInflater.from(context).inflate(R.layout.item_three_radio_it,null,false);
 
         final RadioButton r1=view.findViewById(R.id.radio1);
@@ -759,12 +779,97 @@ public class DialogUtil {
                             createIDC.put("user_name",str4);
                             createIDC.put("idc_location_deep",str2);
                             createIDC.put("idc_location_simple",locationSim);
+
                             //发现的确都在全表扫描
+                            //createIDC.put("other_mean","have_mean");算了 直接就能跳转到那边就好了
+                            //有这条消息的指示就可以发送回执 以及 发送一个回执
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
                         ThreadUtil.sat(createIDC);
+                    }
+                }).onNegative(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+            }
+        }).customView(view,true).show();
+    }
+
+    public void helpAssetDialog(final Activity context,final CityPickerView mPicker){
+
+        View view=LayoutInflater.from(context).inflate(R.layout.item_help_asset_dialog,null,false);
+        final RadioButton r1=view.findViewById(R.id.radio1);
+        final RadioButton r2=view.findViewById(R.id.radio2);
+        final EditText assetId=view.findViewById(R.id.help_asset_id);
+        MaterialDialog.Builder builder= new MaterialDialog.Builder(context);
+        builder.title(R.string.material_title)
+                .iconRes(R.drawable.help)
+                .positiveText("OK")
+                .negativeText("NO")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        try {
+                        if (r1.isChecked()){//创建机房
+
+                            Toast.makeText(context,"请先选择机房地区",Toast.LENGTH_SHORT).show();
+                            DialogUtil.getDialogUtil().showCityView(mPicker,context,2);
+                        }else if(r2.isChecked()){//查询机房
+                            JSONObject jsonObject=new JSONObject();
+                            jsonObject.put("au","idc_query");
+                            jsonObject.put("user_id",assetId.getText().toString());
+                            ThreadUtil.sat(jsonObject);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    }
+                }).onNegative(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+            }
+        }).customView(view,true).show();
+
+    }
+
+
+    public void infoDialog(final Activity context){
+        View view=LayoutInflater.from(context).inflate(R.layout.item_info_dialog,null,false);
+
+        final RadioButton r1=view.findViewById(R.id.radio1);
+        final RadioButton r2=view.findViewById(R.id.radio2);
+        final EditText e1=view.findViewById(R.id.cus_info);
+        MaterialDialog.Builder builder= new MaterialDialog.Builder(context);
+        builder.title(R.string.material_title)
+                .iconRes(R.drawable.help)
+                .positiveText("OK")
+                .negativeText("NO")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        try {
+                        if (r1.isChecked()){
+                            JSONObject jsonObject=new JSONObject();
+                            jsonObject.put("au","info");
+                            jsonObject.put("name",e1.getText().toString());
+                            jsonObject.put("id","007");
+                            ThreadUtil.sat(jsonObject);
+                        }else if(r2.isChecked()){
+                            JSONObject jsonObject=new JSONObject();
+                            jsonObject.put("au","info");
+                            jsonObject.put("id",e1.getText().toString());
+                            jsonObject.put("name","007");
+                            ThreadUtil.sat(jsonObject);
+                        }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }).onNegative(new MaterialDialog.SingleButtonCallback() {
             @Override
@@ -877,7 +982,7 @@ public class DialogUtil {
 
     }
 
-    public void selectShowDload(final Activity context,final String filename){
+    public void selectShowDload(final Activity context,final OfflineActivity.OfflineAdapter.MsgTag tag){
         final View view=LayoutInflater.from(context).inflate(R.layout.item_select_show_dload,null,false);
         MaterialDialog.Builder builder= new MaterialDialog.Builder(context);
         builder.title(R.string.idc_dloadselect_)
@@ -905,15 +1010,66 @@ public class DialogUtil {
                                 @Override
                                 public void run() {
                                     //发广播
+
+                                    //此处先获取 json
+                               /*     JSONObject jsonobj=new JSONObject();
+                                    try {
+                                        jsonobj.put("au","json_1_2_msg");
+                                        jsonobj.put("timestamp",tag.getTime());
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    ThreadUtil.sat(jsonobj);*/
+                                    try {
+
+                                        String status=FtpUtil.getFtpClient().getStatus();
+                                        Log.e("status_ftp",status);
+                                        Log.e("status_ftp",FtpUtil.getFtpClient().getKeepAlive()+"");
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    //json 必须要有
+
+                                     /*   while(!HandlerFinal.singleTs){
+                                            try {
+                                                Thread.sleep(100);
+                                            } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                        String abc="";*/
+
+
                                     Intent intentPdf=new Intent();
-                                    intentPdf.putExtra("pdfname",filename);
-                                    intentPdf.putExtra("bussiness_type","123");
-                                    intentPdf.putExtra("json","123");
+                                   /* intentPdf.putExtra("pdfname",tag.getFilename());
+                                    intentPdf.putExtra("bussiness_type",HandlerFinal.singleBs);
+                                    intentPdf.putExtra("json",HandlerFinal.singleJson);*/
+                                    JSONObject obj=new JSONObject();
+                                    try {
+                                        obj.put("timestamp",tag.getTime());
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    intentPdf.putExtra("pdfname",tag.getFilename());
+                                    intentPdf.putExtra("bussiness_type",tag.getType());
+                                    Log.e("bussiness_type",tag.getType()+"1");
+                                    intentPdf.putExtra("json",obj.toString());
                                     intentPdf.setAction("com.zjdt.dtsjwb.123");
                                     context.sendBroadcast(intentPdf);
 
-                                    Intent dload=new Intent(context, PdfLoaderActivity.class);
-                                    context.startActivity(dload);
+                                    try {
+                                        Thread.sleep(1000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                        Intent dload=new Intent(context, PdfLoaderActivity.class);
+                                        context.startActivity(dload);
+
+
+
+
+
                                 }
                             });
 
@@ -929,8 +1085,8 @@ public class DialogUtil {
                                 @Override
                                 public void run() {
                                     String externalFilesDir = context.getExternalFilesDir(Environment.DIRECTORY_MOVIES).toString();
-                                    String localFile=externalFilesDir+"/"+filename;
-                                    boolean isup=FtpUtil.downloadFile(filename,localFile);
+                                    String localFile=externalFilesDir+"/"+tag.getFilename();
+                                    boolean isup=FtpUtil.downloadFile(tag.getFilename(),localFile);
                                     while (isup){
                                         Toast.makeText(context,"下载成功，请至"+localFile +"查看",Toast.LENGTH_SHORT).show();
                                     }
@@ -1138,11 +1294,15 @@ public class DialogUtil {
             try {
                 jsonObject.put("au", "idc_query");
                 jsonObject.put("user_id", input.toString());
+                jsonObject.put("ide",HandlerFinal.ide);
                 HandlerFinal.novIden=input.toString();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             //HandlerUtil
+
+
+
             ThreadUtil.sat(jsonObject);
             Toast.makeText(context, "正在查询机房稍等...", Toast.LENGTH_SHORT).show();
             // actionActivity(MenuActivity.this,AsertFormActivity.class,null);

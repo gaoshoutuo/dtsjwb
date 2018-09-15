@@ -128,8 +128,8 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
     public static final int SERVICE_REQUEST=1800;
     public static final int INSTALL_REQUEST=1900;
 
-
-    public static final String []BUSINESS_STR={"ups_fix",  "ups_test",  "ups_ins",  "fix_air",  "test_air",  "air_ins",  "install",  "service",  "firefighting",  "monitor"};
+// 增加 air_inspection  fix_air  air_install
+    public static final String []BUSINESS_STR={"ups_fix",  "ups_test",  "ups_ins",  "air_fix",  "air_inspection",  "air_ins",  "install",  "service",  "firefighting",  "monitor"  ,"air_install"};
     //{"device_name":"","device_para":"","device_type":"","device_brand":"","device_num":""},
     public static final String []FIVE_STR={"device_name","device_para","device_type","device_brand","device_num"};
     public static final String []HUNDRED_STR={"es_body_1","es_body_2","es_body_3",  "air_body_1","air_body_2","air_body_3","air_body_4",  "emi_body_1", "emi_body_2",
@@ -162,7 +162,21 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
     public static String isAuthorizeCusIdITAsset;
     public static boolean isAgree=false;
     public static boolean oneHour=false;
+//  为singlets 查json bs
+    public static boolean singleTs=false;
+    public static String singleJson=null;
+    public static String singleBs=null;
+    public static void initSingValue(){
+        singleTs=false;
+        singleJson=null;
+        singleBs=null;
+    }
 
+    public static void setSingValue(String json,String bs){
+        singleTs=true;
+        singleJson=json;
+        singleBs=bs;
+    }
 
     //socket  的值 为防止出现魔法值
     public static final String NOTIFY_REPLY="notify_reply";
@@ -221,6 +235,7 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
     public static final int HISTORY_REPLY=6240;
     public static final int ENG_HISTORY_REPLY=6250;
     public static final int COUNT_DOWN_REPLY=6260;
+    public static final int INFO_MSG=6270;
 
 
     public static int nov=-1;

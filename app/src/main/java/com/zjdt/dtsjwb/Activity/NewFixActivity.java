@@ -33,8 +33,11 @@ public class NewFixActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private ArrayList<UnionBean>list;
     private int[]imageBack={R.drawable.battery_100,R.drawable.battery_wai100,R.drawable.berry_br100,R.drawable.engineer_100,
-            R.drawable.fix_100,R.drawable.air_con_100,R.drawable.fire_extinguisher_100,R.drawable.electrical_100};
-    private String[]textBusiness={"ups检测","ups测试","ups修理","现场服务","现场安装","空调检修","消防检修","pdu供电检修"};
+            R.drawable.fix_100,R.drawable.air_con_100,R.drawable.air_b_100,R.drawable.fix_100,
+            R.drawable.air_z_100, R.drawable.fire_extinguisher_100,R.drawable.electrical_100};
+    private String[]textBusiness={"ups检测","电池测试","ups修理","现场服务",
+            "ups安装","空调检修", "空调巡检","空调安装",
+            "空调维修", "消防检修","pdu供电检修"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

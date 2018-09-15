@@ -183,7 +183,12 @@ public class SocketUtil {
                         break;
 
                     case HandlerFinal.INFO_REPLY:
-                        InfoActivity.list=JsonUtil.parseInfo(reply.toString());
+                        InfoActivity.list=JsonUtil.parseInfo(reply.toString());// Intent infoIntent=new Intent(AppApplication.getApp(), InfoActivity.class);
+
+                        //AppApplication.getApp().startActivity(infoIntent);
+                        Message infoMsg=HandlerUtil.handler.obtainMessage();
+                        infoMsg.what=HandlerFinal.INFO_MSG;
+                        infoMsg.sendToTarget();
                         break;
 
                     case HandlerFinal.ASSERT_REPLY:
@@ -316,13 +321,33 @@ public class SocketUtil {
                     case "double_msg_history_reply":
                         Log.e("SocketUtil","123"+reply.toString());
                         Message historyMsg=OfflineActivity.offActivity.handler.obtainMessage();
-                        historyMsg.what=HandlerFinal.HISTORY_REPLY;
+                        String dmType=reply.getString("type");
+                        if (dmType.equals("eng")){
+                            historyMsg.what=HandlerFinal.ENG_HISTORY_REPLY;
+                        }else if(dmType.equals("cus")){
+                            historyMsg.what=HandlerFinal.HISTORY_REPLY;
+                        }
+
+                        //historyMsg.what=HandlerFinal.HISTORY_REPLY;
                         JSONArray historyArray=reply.getJSONArray("array");
                         historyMsg.obj=historyArray.toString();
                         historyMsg.sendToTarget();
                         break;
 
+                        //是不是需要一个eng_history 呢
+                    case "json_1_2_reply":
+                        HandlerFinal.setSingValue(reply.getString("json"),reply.getString("buss_type"));
 
+                        break;
+
+                    case "count_down_reply"://维保倒计时
+                        Message countDownMsg=OfflineActivity.offActivity.handler.obtainMessage();
+                        countDownMsg.what=HandlerFinal.COUNT_DOWN_REPLY;
+                        JSONArray countDownArray=reply.getJSONArray("array");
+                        countDownMsg.obj=countDownArray.toString();
+                        countDownMsg.sendToTarget();
+                        break;
+                        //
                         default:break;
                 }
 

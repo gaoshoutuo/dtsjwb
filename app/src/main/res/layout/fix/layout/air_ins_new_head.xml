@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="空调巡检"
+                android:textColor="#000"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:id="@+id/idc_num_ok"
+                android:hint="设备编号如 air1"
+                android:layout_weight="1"
+                android:textColorHint="@color/hui"
+                android:textColor="#000"
+                />
+
+        </LinearLayout>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_1"
+            layout="@layout/fix_body_layout"
+            ></include>
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_2"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_3"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_4"
+            layout="@layout/fix_body_layout"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_5"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_6"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_7"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_8"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_9"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_10"
+            layout="@layout/fix_body_layout"
+            ></include>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_11"
+            layout="@layout/fix_body_layout_4"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_12"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_13"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_14"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:id="@+id/air_new_ins_15"
+            layout="@layout/radio_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_16"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_17"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_18"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_19"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_20"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_21"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_22"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_23"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_24"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_25"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_26"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_27"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_28"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_29"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_30"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_31"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_32"
+            layout="@layout/radio_layout"
+            ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+
+
+
+
+
+
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/air_new_ins_34"
+            layout="@layout/fix_body_layout"
+            ></include>
+
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/another_"
+            layout="@layout/another_"
+            ></include>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/air_inspection_opinion"
+            android:textColorHint="@color/hui"
+            android:textColor="#000"
+            android:hint="综合情况说明"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/air_inspection_engineer_sign"
+            android:text="工程师签名"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            android:layout_gravity="left"
+            android:layout_marginBottom="30dp"
+            ></View>
+
+    </LinearLayout>
+
+</ScrollView>

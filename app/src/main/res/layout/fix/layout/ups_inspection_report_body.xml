@@ -25,6 +25,18 @@
             android:id="@+id/fix_inspection_body1"
             layout="@layout/fix_4_text"
             ></include>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/another_"
+            layout="@layout/another_"
+            ></include>
 
         <TextView
             android:layout_width="match_parent"

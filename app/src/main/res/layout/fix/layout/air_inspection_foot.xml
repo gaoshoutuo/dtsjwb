@@ -93,6 +93,20 @@
             android:layout_height="1dp"
             android:background="#aaa"
             ></View>
+
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/another_"
+            layout="@layout/another_"
+            ></include>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -131,6 +145,14 @@
             android:visibility="gone"
             />
 
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            android:layout_gravity="left"
+            android:layout_marginBottom="30dp"
+            ></View>
 
         <View
             android:layout_width="match_parent"

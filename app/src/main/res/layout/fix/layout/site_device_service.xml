@@ -11,13 +11,31 @@
         android:background="#FFF"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="现场服务"
-            android:textColor="#000"
-            />
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="现场服务"
+                android:textColor="#000"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:id="@+id/idc_num_ok"
+                android:hint="设备编号如 ups1"
+                android:layout_weight="1"
+                android:textColorHint="@color/hui"
+                android:textColor="#000"
+                />
+
+        </LinearLayout>
+
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,6 +78,18 @@
             layout="@layout/fix_cost"
             ></include>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aaa"
+            ></View>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/another_"
+            layout="@layout/another_"
+            ></include>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

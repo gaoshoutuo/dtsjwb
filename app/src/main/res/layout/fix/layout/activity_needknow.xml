@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.NewRequirements.NeedknowActivity">
+
+    <Button
+        android:id="@+id/know1"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textColor="#000"
+        android:text="@string/idc_select_dload"
+        />
+
+
+    <Button
+        android:id="@+id/know2"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textColor="#000"
+        />
+
+
+
+    <Button
+        android:id="@+id/know3"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textColor="#000"
+        />
+
+
+
+
+</LinearLayout>

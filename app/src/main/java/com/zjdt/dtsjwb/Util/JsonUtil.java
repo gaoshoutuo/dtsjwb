@@ -115,6 +115,7 @@ public class JsonUtil<T> {
         }
         return list;
     }
+    //被闲置了 换新的方法
     public static ArrayList<InfoBean> parseInfo(String json){//json 字符串 反复装箱 拆箱 插入数据表 挺麻烦的
         ArrayList<InfoBean> infoList=null;
         try {
@@ -122,12 +123,22 @@ public class JsonUtil<T> {
             JSONObject jsonObject=new JSONObject(json);
             JSONArray infoArray=jsonObject.getJSONArray("array");
             for (int i=0;i<infoArray.length();i++){//难道jsonArray 可以放其他对象吗  不会吧
-                JSONObject item= infoArray.getJSONObject(i);
+            /*    JSONObject item= infoArray.getJSONObject(i);
                 String userId=item.getString("user_id");
                 String company=item.getString("company");
                 String infoName=item.getString("info_name");
                 String infoLocation=item.getString("info_location");//其实as 这种命名方式的自动提示会有一点机器学习的成分
                 InfoBean ib=new InfoBean(infoName,userId,infoLocation,company);
+                infoList.add(ib);*/
+
+                JSONObject item= infoArray.getJSONObject(i);
+                int upsNumber=item.getInt("ups_number");
+                int airNumber=item.getInt("air_number");
+                String location=item.getString("idc_location");
+                String type=item.getString("idc_type");
+                String name=item.getString("idc_name");
+                String id=item.getString("idc_id");
+                InfoBean ib=new InfoBean(upsNumber,airNumber,name,id,location,type);
                 infoList.add(ib);
             }
         } catch (JSONException e) {
@@ -310,6 +321,37 @@ public class JsonUtil<T> {
                 JSONObject obj=jsonArray.getJSONObject(i);
                 OfflineBean ofb=new OfflineBean(obj.getString("timerecord"),obj.getString("engname"), obj.getString("idcname"),
                         obj.getString("business"),obj.getString("last_filename"));
+                list.add(ofb);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static ArrayList<OfflineBean> parseCountDown(String json){
+        ArrayList<OfflineBean> list=new ArrayList<>();
+        try {
+            JSONArray jsonArray=new JSONArray(json);
+            for (int i=0;i<jsonArray.length();i++){
+                JSONObject obj=jsonArray.getJSONObject(i);
+               /* OfflineBean ofb=new OfflineBean(obj.getString("timerecord"),obj.getString("engname"), obj.getString("idcname"),
+                        obj.getString("business"),obj.getString("last_filename"));*/
+
+               /* obj.put("cus_id",count.getUserId());
+                obj.put("cus_name",count.getUserName());
+                obj.put("idc_id",count.getIdcId());
+                obj.put("idc_location",count.getIdcLocation());
+                obj.put("ups_time",count.getUpsTime()+"");
+                obj.put("air_time",count.getAirTime()+"");*/
+
+                String cusId=obj.getString("cus_id");
+                String cusName=obj.getString("cus_name");
+                String idcId=obj.getString("idc_id");
+                String idcLocation=obj.getString("idc_location");
+                String upsTime=obj.getString("ups_time");
+                String airTime=obj.getString("air_time");
+                OfflineBean ofb=new OfflineBean(cusId,cusName,idcId,idcLocation,upsTime,airTime);
                 list.add(ofb);
             }
         } catch (JSONException e) {

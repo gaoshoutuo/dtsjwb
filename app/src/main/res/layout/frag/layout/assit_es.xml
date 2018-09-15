@@ -28,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/idc_num_ok"
-        android:hint="给你的机房起个名把"
+        android:hint="ups编号如 ups1"
         android:layout_weight="1"
         />
 

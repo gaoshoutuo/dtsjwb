@@ -240,6 +240,16 @@ private static void initJson(){
         // .put(jsonObject);
     }
 
+    public void initDeviceNumId(){
+        try {
+
+            EditText eText=view.findViewById(R.id.idc_num_ok);
+            json.put("device_num_id",eText.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void initEleview(){
        viewSet(R.id.es_head1, HandlerFinal.upsString[0]);
@@ -263,6 +273,9 @@ private static void initJson(){
 
         putJsonObj(R.id.es_body3,"es_body_3");
 
+        initDeviceNumId();
+
+
         // 蓄电池数量独立出来
         //DevicePara dp= beanGet(rid);
         DevicePara dp= beanGet(R.id.es_body3);
@@ -274,7 +287,7 @@ private static void initJson(){
             //jsonObject.put("device_num","add");
             jsonObject.put("idc_id",getIdcid());
 
-            Log.e("idcic_frag",getIdcid());
+            Log.e("idcic_frag",getIdcid());//多个的话干脆取最大值好了
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -307,6 +320,7 @@ private static void initJson(){
         putJsonObj(R.id.air_body3,"air_body_3");
 
         putJsonObj(R.id.air_body4,"air_body_4");
+        initDeviceNumId();
     }
 
     private void initEmiview(){
@@ -318,6 +332,8 @@ private static void initJson(){
         putJsonObj(R.id.emi_body1,"emi_body_1");
 
         putJsonObj(R.id.emi_body2,"emi_body_2");
+
+        initDeviceNumId();
     }
 
     private void initSoftview(){
@@ -335,6 +351,8 @@ private static void initJson(){
         putJsonObj(R.id.mon_soft_body3,"mon_soft_body_3");
 
         putJsonObj(R.id.mon_soft_body4,"mon_soft_body_4");
+
+        initDeviceNumId();
     }
 
     private void initSIview(){
@@ -358,6 +376,8 @@ private static void initJson(){
         putJsonObj(R.id.mon_interface_body5,"mon_interface_body_5");
 
         putJsonObj(R.id.mon_interface_body6,"mon_interface_body_6");
+
+        initDeviceNumId();
     }
 
     private void initSHview(){
@@ -375,6 +395,8 @@ private static void initJson(){
         putJsonObj(R.id.mon_hard_body3,"mon_hard_body_3");
 
         putJsonObj(R.id.mon_hard_body4,"mon_hard_body_4");
+
+        initDeviceNumId();
     }
 
     private void initACview(){
@@ -404,6 +426,8 @@ private static void initJson(){
         putJsonObj(R.id.mon_ac_body7,"mon_ac_body_7");
 
         putJsonObj(R.id.mon_ac_body8,"mon_ac_body_8");
+
+        initDeviceNumId();
     }
 
     private void initVideoview(){
@@ -421,6 +445,8 @@ private static void initJson(){
         putJsonObj(R.id.mon_video_body3,"mon_video_body_3");
 
         putJsonObj(R.id.mon_video_body4,"mon_video_body_4");
+
+        initDeviceNumId();
     }
 
     private void initCabientview(){
@@ -439,6 +465,8 @@ private static void initJson(){
         viewSet(R.id.cabient_head13,HandlerFinal.cabientString[12]);
         viewSet(R.id.cabient_head14,HandlerFinal.cabientString[13]);
         viewSet(R.id.cabient_head15,HandlerFinal.cabientString[14]);
+
+
     }
 
     public void getEvCabient(){
@@ -471,6 +499,8 @@ private static void initJson(){
         putJsonObj(R.id.cabient_body14,"cabient_body_14");
 
         putJsonObj(R.id.cabient_body15,"cabient_body_15");
+
+        initDeviceNumId();
 
     }
     //不是碎片不持有view  而是应该从编程语言的角度来考虑 对象它有没有在这里面实例化过

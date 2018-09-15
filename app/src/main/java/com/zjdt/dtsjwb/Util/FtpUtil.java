@@ -27,6 +27,9 @@ public class FtpUtil {
     public static void ftpInit(String url, String port, String username,String password){
         ftpClient=new FTPClient();
         try {
+
+            //ftpClient.enterLocalActiveMode();    //主动模式
+// ftpClient.enterLocalPassiveMode(); 被动模式
             ftpClient.connect(url,Integer.parseInt(port));
             boolean request=ftpClient.login(username,password);
             Log.e("requestftp",request+"");
@@ -55,6 +58,16 @@ public class FtpUtil {
 
 
         return sf;
+    }
+
+    public static void checkStatus(){
+        try {
+            if (!ftpClient.getStatus().equals("200"))
+                ftpClient.getKeepAlive();
+            FtpUtil.ftpInit("218.108.146.98","21","root","dt123456");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

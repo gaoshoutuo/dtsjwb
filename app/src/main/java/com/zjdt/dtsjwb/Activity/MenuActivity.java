@@ -81,16 +81,17 @@ public class MenuActivity extends AppCompatActivity {
     private GridView gridView;
     private int columnWidth;
     private int[] imageM = {R.drawable.icons8_fix, R.drawable.icons8_history, R.drawable.icons8_my, R.drawable.icons8_update,
-            R.drawable.mall, R.drawable.test64,R.drawable.help};
+            R.drawable.mall, R.drawable.test64,R.drawable.help,R.drawable.test64,
+            R.drawable.boss_64};
     private int[] imageCustom = {R.drawable.my_assets, R.drawable.my_register, R.drawable.intelligence, R.drawable.my_history,
-            R.drawable.my_mall, R.drawable.my_call, R.drawable.my_notify, R.drawable.my_update,
+            R.drawable.my_mall, R.drawable.my_call, R.drawable.my_notify, R.drawable.test64,//R.drawable.my_update
             R.drawable.server};
     private int[] imageSales={};
 
     //private int []imageOther={R.drawable.icons8_fix,R.drawable.icons8_history,R.drawable.icons8_my,R.drawable.icons8_update};
-    private String[] name = {"维修业务", "维修历史", "客户信息", "检查更新", "政采云商城", "我的信息","帮录资产"};
+    private String[] name = {"维修业务", "维修历史", "客户信息", "检查更新", "维保倒计时", "我的信息","帮录资产","操作须知","老板键"};
     //private String[] customName = {"基础资产", "资产登记", "故障上报", "维保历史", "政采云商城", "联系我们", "推送消息", "检查更新", "IT资产"};//维保倒计时 放到资产里面去
-    private String[] customName = {"机房创建", "资产登记", "故障上报", "维保历史", "政采云商城", "联系我们", "待办消息", "检查更新", "IT资产"};
+    private String[] customName = {"机房创建", "资产登记", "故障上报", "维保历史", "政采云商城", "联系我们", "待办消息", "操作须知", "IT资产"};//检查更新先去掉
     // private String []otherNamer={};
     private String []salesName={};
 
@@ -329,7 +330,7 @@ public class MenuActivity extends AppCompatActivity {
         Log.e("ddd", list.size() + "");
         rollPagerView = findViewById(R.id.rollpagerview);
 
-        rollPagerView.setPlayDelay(1000);
+        rollPagerView.setPlayDelay(3000);
         rollPagerView.setAnimationDurtion(500);
         hideFragment(pf);
         // rollPagerView.setAdapter(new TestAdapter("http://176.122.185.2/picture/doctor_intelligence.json"));
@@ -410,8 +411,11 @@ public class MenuActivity extends AppCompatActivity {
                       /*  Intent intent = new Intent(MenuActivity.this, HistoryActivity.class);
                         MenuActivity.this.startActivity(intent);*/
                       HashMap map_11=new HashMap();
-                      map_11.put("au","fix_engineer");
-                      actionActivity(MenuActivity.this,HistoryActivity.class,map_11);
+                      map_11.put("au","fix_engineer");//eng_history_msg
+                      //actionActivity(MenuActivity.this,HistoryActivity.class,map_11);
+                        Intent offlineIntent=new Intent(MenuActivity.this, OfflineActivity.class);
+                        offlineIntent.putExtra("type",HandlerFinal.ENGHISTORYMSG);
+                        startActivity(offlineIntent);
                     } else if ((map.get("au").equals("2"))) {
                         //Toast.makeText(MenuActivity.this, "xiaoyu", Toast.LENGTH_SHORT).show();
                         //actionActivity(MenuActivity.this,CAssetsRActivity.class,null);
@@ -422,6 +426,7 @@ public class MenuActivity extends AppCompatActivity {
                         try {
                             jsonObject.put("au","idc_query");
                             jsonObject.put("user_id",HandlerFinal.userId);
+                            jsonObject.put("ide",HandlerFinal.ide);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -454,8 +459,9 @@ public class MenuActivity extends AppCompatActivity {
                     Toast.makeText(MenuActivity.this, "" + position, Toast.LENGTH_SHORT).show();
                     if (map.get("au").equals("1")) {//此处  要获取客户信息  信息 id 地区 姓名 单位  的存在
 
-                        actionActivity(MenuActivity.this,InfoActivity.class,null);
+                        //actionActivity(MenuActivity.this,InfoActivity.class,null);
                         //actionActivity(MenuActivity.this,CCallActivity.class,null);
+                        DialogUtil.getDialogUtil().infoDialog(MenuActivity.this);
                     } else if ((map.get("au").equals("2"))) {
                         actionActivity(MenuActivity.this,IntellActivity.class,null);
 
@@ -492,8 +498,12 @@ public class MenuActivity extends AppCompatActivity {
                    /* DialogUtil dialogUtil=new DialogUtil();
                     DialogUtil.AlertDialogUtil alertDialogUtil= dialogUtil.new AlertDialogUtil(MenuActivity.this);*/
                    // alertDialogUtil.setAlertDialog("确定","关闭","是否拨打紧急热线" );
-                    if (map.get("au").equals("2")) {
-                        Toast.makeText(MenuActivity.this,"功能开发中...",Toast.LENGTH_SHORT).show();
+                    if (map.get("au").equals("1")) {
+                        Toast.makeText(MenuActivity.this,"...只记录半月内维保机房信息...",Toast.LENGTH_SHORT).show();
+                        //HandlerFinal.COUNTDOWNMSG
+                        Intent countDownIntent=new Intent(MenuActivity.this,OfflineActivity.class);
+                        countDownIntent.putExtra("type",HandlerFinal.COUNTDOWNMSG);
+                        startActivity(countDownIntent);
                     }else if(map.get("au").equals("2")){
                         Toast.makeText(MenuActivity.this,"功能开发中...",Toast.LENGTH_SHORT).show();
                     }
@@ -538,8 +548,12 @@ public class MenuActivity extends AppCompatActivity {
                         }else{
                             DialogUtil.getDialogUtil().materialDialog2(MenuActivity.this);
                         }*/
-                        Toast.makeText(MenuActivity.this,"请先选择机房地区",Toast.LENGTH_SHORT).show();
-                        DialogUtil.getDialogUtil().showCityView(mPicker,MenuActivity.this,2);
+                        //Toast.makeText(MenuActivity.this,"请先选择机房地区",Toast.LENGTH_SHORT).show();
+                        //DialogUtil.getDialogUtil().showCityView(mPicker,MenuActivity.this,2);
+
+                        DialogUtil.getDialogUtil().helpAssetDialog(MenuActivity.this,mPicker);
+
+
                         //填资产的坑  要客户先填写资产  然后才能给它的机房加吗  嗯  嗯 嗯  应该还是完整的给一个客户的按钮吧  创建机房以及添加资产  中间隔一道权限
                     } else if ((map.get("au").equals("2"))) {
                         Toast.makeText(MenuActivity.this,"您的未处理信息放在此处，请及时处理以便生成完整记录",Toast.LENGTH_LONG).show();
@@ -582,6 +596,25 @@ public class MenuActivity extends AppCompatActivity {
                 case 8:
 
                     if (map.get("au").equals("1")) {//字符串别用==
+                        Toast.makeText(MenuActivity.this, "...老板键...", Toast.LENGTH_SHORT).show();
+                        if (HandlerFinal.userId.equals("18768349255")){
+                            //定时任务拨动一次转子
+                            JSONObject object=new JSONObject();
+                            try {
+                                object.put("au","count_down_mission");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            ThreadUtil.sat(object);
+
+                            Toast.makeText(MenuActivity.this, "...定时任务拨动一次转子...", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        if (HandlerFinal.userId.equals("15988899569")){
+                            //老板键 查所有
+                        }
+
 
                     } else if ((map.get("au").equals("2"))) {
                         Toast.makeText(MenuActivity.this, "功能开发中...", Toast.LENGTH_SHORT).show();

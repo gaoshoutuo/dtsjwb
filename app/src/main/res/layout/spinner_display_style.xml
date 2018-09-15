@@ -13,5 +13,8 @@
         android:textColor="#ffffff"
         android:textStyle="bold|italic"
         android:gravity="center"
-        android:text="123212"/>
+        android:text="123212"
+        android:drawableRight="@drawable/triangle20"
+
+        />
 </LinearLayout>

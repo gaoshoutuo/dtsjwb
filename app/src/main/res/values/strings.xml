@@ -121,5 +121,20 @@
     <string name="idc_select_dload">下载pdf</string>
     <string name="idc_dloadselect_">功能菜单</string>
 
+    <string name="help_asset">帮助客户录资产</string>
+
+    <string name="help_asset_create">为客户创建机房</string>
+    <string name="help_asset_query">查询客户机房</string>
+
+    <string name="info_search">查询客户信息</string>
+    <string name="info_search_name">按姓名查找</string>
+    <string name="info_search_id">按ID查找</string>
+
+    <string name="encode_rule">编码规则</string>
+
+    <string name="radio_r1">正常</string>
+
+    <string name="radio_r2">不正常</string>
+
 
 </resources>

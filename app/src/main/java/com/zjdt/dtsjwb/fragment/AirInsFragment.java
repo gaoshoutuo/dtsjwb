@@ -346,6 +346,29 @@ public class AirInsFragment extends Fragment implements View.OnClickListener{
         initHeadJson("warm_sys2",new String[]{"the_insulation_protection","the_secondary_current_1","the_secondary_current_2","the_secondary_current_3"},R.id.air_inspection_f_7);
 
         initHeadJson("remove_hum_water",new String[]{"dehumidifying_solenoid_valve_status","contactor","humidifying_drainage","condensate_drain"},R.id.air_inspection_f_9);
+        makeAnother_();
+    }
+
+    public void makeAnother_(){
+        View another_view=view.findViewById(R.id.another_);
+        EditText edit1=another_view.findViewById(R.id.another_1);
+        EditText edit2=another_view.findViewById(R.id.another_2);
+        EditText edit3=another_view.findViewById(R.id.another_3);
+        EditText edit4=another_view.findViewById(R.id.another_4);
+        String busType=edit1.getText().toString();
+        String result=edit2.getText().toString();
+        String legacy=edit3.getText().toString();
+        String progress=edit4.getText().toString();
+        try {
+            JSONObject another=new JSONObject();
+            another.put("bus_type",busType);
+            another.put("result",result);
+            another.put("legacy",legacy);
+            another.put("progress",progress);
+            json.put("another_v",another);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 

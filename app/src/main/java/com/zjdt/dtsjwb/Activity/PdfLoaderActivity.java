@@ -51,6 +51,7 @@ public class PdfLoaderActivity extends BaseActivity {
         String externalFilesDir = getExternalFilesDir(Environment.DIRECTORY_MOVIES).toString();
        // String test001=getExternalFilesDir(Environment.DIRECTORY_MOVIES).toString()+"/test001.pdf";
        // String name=getIntent().getStringExtra("filename");//搞不懂为什么这个一直会这样 是android 的bug吗  不对可能是我在那里面的 app.getApp 的那种影响到了  没办法 智能 final
+        Log.e("filename___",pdfname+"-----");
         while (pdfname==null){
             try {
                 Thread.sleep(100);
@@ -69,7 +70,7 @@ public class PdfLoaderActivity extends BaseActivity {
 
      /*   String content=getIntent().getStringExtra("content");
         String title=getIntent().getStringExtra("title");*/
-        Log.e("filename",pdfname+"-----");
+        Log.e("filename___",pdfname+"-----");
         String []filename=pdfname.split("/");
 
         final String realname=filename[filename.length-1];
@@ -110,7 +111,7 @@ public class PdfLoaderActivity extends BaseActivity {
     public static class PdfReceive extends BroadcastReceiver{//
 
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(Context context, Intent intent) {//想不通为啥静态
            /* Bundle bundle=intent.getExtras();
             int count=bundle.getInt("count");*/
             pdfname=intent.getStringExtra("pdfname");
@@ -182,14 +183,15 @@ public class PdfLoaderActivity extends BaseActivity {
                 // 页面间的间距。定义间距颜色，设置背景视图
                 .spacing(0)
                 .load();
+       // HandlerFinal.initSingValue();
     }
 
     @Override
     public void onBackPressed() {
-        if (json.length()>20){
+        //if (json.length()>20){
 
-
-        Toast.makeText(PdfLoaderActivity.this,"尊敬的客户请签名确认本次业务结束，您将在历史记录中看到完整清单",Toast.LENGTH_LONG).show();
+        if (HandlerFinal.indentity.equals("企业客户")){
+        //Toast.makeText(PdfLoaderActivity.this,"尊敬的客户请签名确认本次业务结束，您将在历史记录中看到完整清单",Toast.LENGTH_LONG).show();
        /* Intent fixIntent=new Intent(AppApplication.getApp(), SignActivity.class);
         long timestamp=System.currentTimeMillis();
         String filename=timestamp+".png";
@@ -199,6 +201,9 @@ public class PdfLoaderActivity extends BaseActivity {
         long timestamp1=System.currentTimeMillis();
         String filename1=timestamp1+".png";
         aiIntent.putExtra("str",filename1);
+        //blank1
+            aiIntent.putExtra("str2",pdfname);
+
         aiIntent.putExtra("bussiness_type",buss);
 
         aiIntent.putExtra("json",json+"");

@@ -13,7 +13,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.zjdt.dtsjwb.Activity.TestFixInspection.InsUpsActivity;
 import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.Bean.Password;
 import com.zjdt.dtsjwb.NetUtil.SocketUtil;
@@ -29,11 +31,15 @@ import java.util.HashMap;
 
 public class RegisterActivity extends BaseActivity implements View.OnTouchListener{
     private EditText userEdRe,passwordEdRe;
-    private EditText editName,editLocation,editCompany;
+    private EditText editName,editLocation,editCompany,editEmail;
     private Button button;
-    private Spinner spinner;
+    private Spinner spinner,spinner2;
     private String []data={"企业客户","维保人员","销售人员"};
     private String sData="企业客户";
+
+    private String []data2={"行业","金融","教育","医疗","交通",""};
+
+    private String sdata2="交通";
 
     private void initView(){
         editLocation=f(R.id.edit_location);
@@ -43,6 +49,8 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
         passwordEdRe=f(R.id.password_ed_register);
         button=f(R.id.send);
         spinner=f(R.id.hehe);
+        editEmail=f(R.id.edit_email);
+        spinner2=f(R.id.hangye);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,6 +61,8 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
                 String name=editName.getText().toString();
                 String location=editLocation.getText().toString();
                 String company=editCompany.getText().toString();
+
+                String email=editEmail.getText().toString();
                 Password jp=null;
                 if (sData.equals(data[1])){
                     jp=new Password(userText,password,false,"1");
@@ -61,8 +71,15 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
                 }
 
                 SPUtil.getInstance().spDataSet(jp,"login_passowrd");
+                boolean isFull=false;
 
+                if(userText!=null  &&  password!=null  &&  name!=null  &&  location!=null  &&  company!=null  &&  email!=null){
+                    isFull=true;
+                }
                // HashMap<String,String>map=new HashMap<>();
+                if (isFull){
+
+
                 try {
                     jsonObject.put("au", HandlerFinal.AU_REGISTER);
                     jsonObject.put("user",userText);
@@ -72,6 +89,9 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
                    //此处测试到底是不是我的问题
                     jsonObject.put("identity",sData);
                     jsonObject.put("name",name);
+
+                    jsonObject.put("email",email);
+                    jsonObject.put("hangye",sdata2);
 // final 后不能直向其他对象，但是字段可以设置
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -90,7 +110,9 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
 
                     }
                 });
-
+                }else{
+                    Toast.makeText(RegisterActivity.this,"还有未填选项,请填写完整后提交注册",Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -131,6 +153,34 @@ public class RegisterActivity extends BaseActivity implements View.OnTouchListen
 
           }
       });
+
+        spinner2.setAdapter(new ArrayAdapter<String>(this,R.layout.spinner_display_style,R.id.txtvwSpinner,data2));
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //  tv.setText(data[i]);
+                switch (i){
+                    case 0:
+                        Log.e("top",data2[i]);
+                        sdata2=data2[i];
+                        break;
+                    case 1:
+                        Log.e("top",data2[i]);
+                        sdata2=data2[i];
+                        break;
+                    case 2:
+                        Log.e("top",data2[i]);
+                        sdata2=data2[i];
+                        break;
+                    default:break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     @Override

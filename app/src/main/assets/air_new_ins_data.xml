@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 现场服务-->
+<root>
+    <name class="001">客户名称</name>
+    <name class="002">联系人</name>
+    <name class="003">电话</name>
+    <name class="004">地址</name>
+
+    <name class="005">室内机型号</name>
+    <name class="006">机身编号</name>
+    <name class="007">冷凝器型号</name>
+    <name class="008">机身编号</name>
+
+    <name class="011">电源电压R</name>
+    <name class="012">电源电压s</name>
+    <name class="013">电源电压v</name>
+    <name class="014">空</name>
+
+    <name class="015">温度设定</name>
+    <name class="016">湿度设定</name>
+    <name class="017">最高波动范围</name>
+    <name class="018">控制板输入电压</name>
+
+    <name class="021">风机运行电流</name>
+    <name class="022">加湿工作电流</name>
+    <name class="023">高压</name>
+    <name class="024">低压</name>
+
+    <name class="025">压缩机电流R</name>
+    <name class="026">压缩机电流S</name>
+    <name class="027">压缩机电流T</name>
+    <name class="028">空</name>
+
+    <name class="031">加热电流R</name>
+    <name class="032">加热电流S</name>
+    <name class="033">加热电流T</name>
+    <name class="034">空</name>
+
+    <name class="035">对于冷凝压力</name>
+    <name class="036">冷凝器电流</name>
+    <name class="037">空</name>
+    <name class="038">空</name>
+
+    <name class="041">加湿控制功能</name>
+    <name class="042">供水水压</name>
+
+    <name class="043">部分电源线已加固</name>
+    <name class="044">电源进线紧固</name>
+
+    <name class="045">参数设定与控制动作</name>
+    <name class="046">电压波动情况</name>
+
+    <name class="047">接触器空开状况</name>
+    <name class="048">高低压开关</name>
+
+    <name class="049">制冷剂</name>
+    <name class="050">屏幕显示状况</name>
+
+    <name class="051">告警功能设定</name>
+    <name class="052">空气滤网洁净度</name>
+
+    <name class="053">加湿器清洁状况</name>
+    <name class="054">加湿水盘的排水</name>
+
+    <name class="055">蒸发器集水槽排水</name>
+    <name class="056">运行声音</name>
+
+    <name class="057">干燥过滤器</name>
+    <name class="058">电磁阀状态</name>
+
+    <name class="059">电加热功能</name>
+    <name class="060">冷凝翅片清洁状况</name>
+
+    <name class="061">底座固定状况</name>
+
+    <name class="128">工程师签字</name>
+    <name class="129">客户签字</name>
+    <name class="130">单位</name>
+    <name class="131">日期</name>
+    <name class="132">空</name>
+    <name class="100">客户信息</name>
+    <name class="200">设备信息</name>
+    <name class="300">其他信息</name>
+    <name class="400">室外冷凝器部分</name>
+
+    </root>
+<!--为啥要写成文件 而不是内存数组这样直观呢   复杂了-->
