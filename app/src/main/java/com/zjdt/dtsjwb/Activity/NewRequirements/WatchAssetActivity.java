@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zjdt.dtsjwb.Activity.BaseActivity;
+import com.zjdt.dtsjwb.Activity.MenuActivity;
 import com.zjdt.dtsjwb.Bean.AssertBean;
 import com.zjdt.dtsjwb.R;
 import com.zjdt.dtsjwb.Util.ThreadUtil;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 
 public class WatchAssetActivity extends BaseActivity {
     private RecyclerView recyclerView;
-    public static ArrayList<AssertBean> list;
+    public static ArrayList<AssertBean> list=new ArrayList<>();
     public static WatchAssetActivity sInstance=null;
     public WatchAdapter wA;
     public ArrayList<AssertBean> getList() {
@@ -59,8 +60,15 @@ public class WatchAssetActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }*/
-        wA=new WatchAdapter(list,this);
-    ThreadUtil.execute(new ThreadUtil.CallBack() {
+       /* if (list.size()>0){
+            wA=new WatchAdapter(list,this);
+            recyclerView.setAdapter(wA);
+        }else{
+            Toast.makeText(WatchAssetActivity.this,"当前资产为空",Toast.LENGTH_SHORT).show();
+
+        }
+*/
+   /* ThreadUtil.execute(new ThreadUtil.CallBack() {
         @Override
         public void exec() {
 
@@ -73,10 +81,27 @@ public class WatchAssetActivity extends BaseActivity {
                 break;
             }
         }
-    });
+    });*/
 
+
+    }
+    // 渲染
+    public void setView(){
+        wA=new WatchAdapter(list,this);
         recyclerView.setAdapter(wA);
     }
+
+    public void setNoAsset(){
+        Toast.makeText(WatchAssetActivity.this,"当前资产为空",Toast.LENGTH_SHORT).show();
+    }
+
+
+    //修改助理
+    public void changedList(){
+        wA.notifyDataSetChanged();
+    }
+
+    //提示资产为空
 
     private void initView(){
 

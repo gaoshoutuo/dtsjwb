@@ -49,7 +49,7 @@
         />
 
 
-    <ImageView android:layout_height="wrap_content"
+    <!--<ImageView android:layout_height="wrap_content"
     android:layout_width="wrap_content"
     android:id="@+id/before_first_image"
     android:layout_centerHorizontal="true"
@@ -155,7 +155,7 @@
         android:src="@drawable/fix_100"
         android:layout_marginTop="450dp"
         android:layout_marginRight="20dp"
-        />
+        />-->
 
    <!-- <ImageView android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -165,7 +165,7 @@
         android:layout_marginTop="450dp"/>
 -->
 
-    <TextView
+    <!--<TextView
         android:id="@+id/before_one"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
         android:layout_marginTop="314dp"
         android:gravity="center"
         android:textColor="#000"
-        android:textSize="28sp" />
+        android:textSize="28sp" />-->
 
 
 </RelativeLayout>

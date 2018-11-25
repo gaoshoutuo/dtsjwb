@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 
 import com.google.gson.JsonObject;
+import com.zjdt.dtsjwb.Activity.BeforeActivity;
 import com.zjdt.dtsjwb.Activity.InfoActivity;
 import com.zjdt.dtsjwb.Activity.NewRequirements.AsertFormActivity;
 import com.zjdt.dtsjwb.Activity.NewRequirements.WatchAssetActivity;
@@ -62,6 +63,10 @@ public  class HandlerUtil {
     //对付 static 限制 最好的办法就是传递形参，不错形参似乎也有final的生命周期限制
     public static Object handlerLife(Object obj){
         return null;
+    }
+
+    public static void doHandler(Message msg){
+        handler.sendMessage(msg);
     }
 
     public static Handler handler=new Handler(AppApplication.getApp().getMainLooper()){
@@ -152,7 +157,15 @@ public  class HandlerUtil {
                 case HandlerFinal.QUERY_SUB_REPLY:
                    Log.e("ttt1", (String)msg.obj);
                    // arg1Switch(msg.arg1,(String)msg.obj);
-                    WatchAssetActivity.list=arg1Switch(msg.arg1,(String)msg.obj);
+                    if(((String)msg.obj).length()>2){
+                        arg1Switch(WatchAssetActivity.list,msg.arg1,(String)msg.obj);
+                        WatchAssetActivity.sInstance.setView();
+                        WatchAssetActivity.sInstance.changedList();
+                    }else {
+                        WatchAssetActivity.list.clear();
+                        WatchAssetActivity.sInstance.setNoAsset();
+                       // WatchAssetActivity.sInstance.changedList();
+                    }
 
                     break;
 
@@ -164,61 +177,76 @@ public  class HandlerUtil {
 
                     break;
 
+                //主入口跳转
+                case HandlerFinal.MAIN_LOOP:
+                    BeforeActivity.mainLoopActivity.mainLoop();
+                    break;
+
                     default:break;
             }
         }
 
     };
 
-    private static ArrayList<AssertBean> arg1Switch(int arg1,String json){
-        ArrayList<AssertBean> list=new ArrayList<>();
+    private static ArrayList<AssertBean> arg1Switch( ArrayList<AssertBean> list,int arg1,String json){
+        //ArrayList<AssertBean> list=new ArrayList<>();
+        list.clear();
         try {
         switch (arg1){
             case 0:
                 JSONObject upsJson=new JSONObject(json);
                 //AssertBean upsBean=new AssertBean("",null,"");
                 //Log.e("ttt2", (String)msg.obj);
-                list= JsonUtil.getInstance().parseSubtitle(upsJson,HandlerFinal.SUB_UPS);
+                ArrayList<AssertBean> list1= JsonUtil.getInstance().parseSubtitle(upsJson,HandlerFinal.SUB_UPS);
+                list.addAll(list1);
                 break;
 
             case 1:
                 JSONObject airJson=new JSONObject(json);
-                list= JsonUtil.getInstance().parseSubtitle(airJson,HandlerFinal.SUB_AIR);
+                ArrayList<AssertBean> list2= JsonUtil.getInstance().parseSubtitle(airJson,HandlerFinal.SUB_AIR);
+                list.addAll(list2);
                 break;
 
             case 2:
                 JSONObject emiJson=new JSONObject(json);
-                list= JsonUtil.getInstance().parseSubtitle(emiJson,HandlerFinal.SUB_EMI);
+                ArrayList<AssertBean> list3= JsonUtil.getInstance().parseSubtitle(emiJson,HandlerFinal.SUB_EMI);
+                list.addAll(list3);
                 break;
 
             case 3:
                 JSONObject msJson=new JSONObject(json);
-                list= JsonUtil.getInstance().parseSubtitle(msJson,HandlerFinal.SUB_MS);
+                ArrayList<AssertBean> list4= JsonUtil.getInstance().parseSubtitle(msJson,HandlerFinal.SUB_MS);
+                list.addAll(list4);
                 break;
 
             case 4:
                 JSONObject miJson=new JSONObject(json);
-                list= JsonUtil.getInstance().parseSubtitle(miJson,HandlerFinal.SUB_MI);
+                ArrayList<AssertBean> list5= JsonUtil.getInstance().parseSubtitle(miJson,HandlerFinal.SUB_MI);
+                list.addAll(list5);
                 break;
 
             case 5:
                 JSONObject mhJson=new JSONObject(json);
-                list= JsonUtil.getInstance().parseSubtitle(mhJson,HandlerFinal.SUB_MH);
+                ArrayList<AssertBean> list6= JsonUtil.getInstance().parseSubtitle(mhJson,HandlerFinal.SUB_MH);
+                list.addAll(list6);
                 break;
 
             case 6:
                 JSONObject macJson=new JSONObject(json);
-                list= JsonUtil.getInstance().parseSubtitle(macJson,HandlerFinal.SUB_MAC);
+                ArrayList<AssertBean> list7= JsonUtil.getInstance().parseSubtitle(macJson,HandlerFinal.SUB_MAC);
+                list.addAll(list7);
                 break;
 
             case 7:
                 JSONObject mvJson=new JSONObject(json);
-                list= JsonUtil.getInstance().parseSubtitle(mvJson,HandlerFinal.SUB_MV);
+                ArrayList<AssertBean> list8= JsonUtil.getInstance().parseSubtitle(mvJson,HandlerFinal.SUB_MV);
+                list.addAll(list8);
                 break;
 
             case 8:
                 JSONObject cabJson=new JSONObject(json);
-                list= JsonUtil.getInstance().parseSubtitle(cabJson,HandlerFinal.SUB_CAB);
+                ArrayList<AssertBean> list9= JsonUtil.getInstance().parseSubtitle(cabJson,HandlerFinal.SUB_CAB);
+                list.addAll(list9);
                 break;
             default:break;
         }

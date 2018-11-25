@@ -8,6 +8,7 @@ import android.support.annotation.LayoutRes;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -44,6 +45,9 @@ public class BaseActivity extends FragmentActivity {
         // 竖屏显示
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         sif=Slidr.attach(this);
+
+        //show 自己的名称
+        //Log.e("show_activity",this.getClass().toString());
 
     }
 

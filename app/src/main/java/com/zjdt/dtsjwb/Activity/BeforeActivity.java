@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
@@ -30,8 +31,10 @@ import com.dev.sacot41.scviewpager.SCViewAnimationUtil;
 import com.dev.sacot41.scviewpager.SCViewPager;
 import com.dev.sacot41.scviewpager.SCViewPagerAdapter;
 import com.zjdt.dtsjwb.Bean.BeforeBean;
+import com.zjdt.dtsjwb.Bean.HandlerFinal;
 import com.zjdt.dtsjwb.Bean.Password;
 import com.zjdt.dtsjwb.R;
+import com.zjdt.dtsjwb.Util.HandlerUtil;
 import com.zjdt.dtsjwb.Util.SPUtil;
 
 import java.io.IOException;
@@ -45,6 +48,9 @@ public class BeforeActivity extends AppCompatActivity {
    private ArrayList<BeforeBean>list=new ArrayList<>();
     private DotsView mDotsView;
     private Button into;
+
+    //为了mainLoop
+    public static BeforeActivity mainLoopActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +62,10 @@ public class BeforeActivity extends AppCompatActivity {
        /* viewPager=findViewById(R.id.before_viewpager);*/
         initData();
         mViewPager = (SCViewPager) findViewById(R.id.viewpager_main_activity);
-        mDotsView = (DotsView) findViewById(R.id.dotsview_main);
+   /*     mDotsView = (DotsView) findViewById(R.id.dotsview_main);
         mDotsView.setDotRessource(R.drawable.dot_selected, R.drawable.dot_unselected);
         mDotsView.setNumberOfPage(3);
-
+*/
 
         Point size = SCViewAnimationUtil.getDisplaySize(this);
 
@@ -79,28 +85,13 @@ public class BeforeActivity extends AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 switch (position){
                     case 0:
-                      /*try {
-                            InputStream ims = getAssets().open("mountain_1.jpg");
-                            Drawable firstDrawable=Drawable.createFromStream(ims, null);
-                            mViewPager.setBackground(firstDrawable);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }*/
-                     // mViewPager.setBackground(castto(R.layout.item_bl_third));//drawable
-                       // mViewPager.addView(LayoutInflater.from(BeforeActivity.this).inflate(R.layout.item_bl_third,null,false));
-                        break;
-
-                    case 1:
-                        break;
-
-                    case 2:
                         into=findViewById(R.id.in_to);
                         into.setVisibility(View.VISIBLE);
                         final int i=position;
                         into.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(BeforeActivity.this,i+"",Toast.LENGTH_SHORT).show();
+                           /*     Toast.makeText(BeforeActivity.this,i+"",Toast.LENGTH_SHORT).show();
                                 //要删除
                                 //SPUtil.getInstance().spDataSet(new Password("18768349255","loveyqing",true,"1"),"login_passowrd");
                                 Password ppo= SPUtil.getInstance().spDataget("login_passowrd");
@@ -111,18 +102,17 @@ public class BeforeActivity extends AppCompatActivity {
                                 }else {//
                                     Intent intent=new Intent(BeforeActivity.this,LoginActivity.class);
                                     startActivity(intent);
-                                }
-
-
+                                }*/
                             }
                         });
-
+                        break;
+                    case 1:
+                        break;
+                    case 2:
                         break;
 
                         default:break;
                 }
-
-
             }
 
             @Override
@@ -136,117 +126,39 @@ public class BeforeActivity extends AppCompatActivity {
             }
         });
 
+           //Thread.sleep(1000);
 
+            //要删除
+            //SPUtil.getInstance().spDataSet(new Password("18768349255","loveyqing",true,"1"),"login_passowrd");
+        mainLoopActivity=this;
+       // HandlerUtil.handler.sendMessage();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Message mainLoopMsg=HandlerUtil.handler.obtainMessage();
+                mainLoopMsg.what=HandlerFinal.MAIN_LOOP;
+                //HandlerUtil.doHandler(mainLoopMsg);
+                mainLoopMsg.sendToTarget();
+            }
+        }).start();
 
-      /*  View view = findViewById(R.id.textview_to_animate);
-        SCViewAnimation viewAnimation = new SCViewAnimation(view);
-        viewAnimation.startToPosition((int)(size.x*1.5), null);
-        viewAnimation.addPageAnimation(new SCPositionAnimation(this, 0, -(int)(size.x*1.5), 0));
-        mViewPager.addAnimation(viewAnimation);*/
+        //Lambda expressions are not supported at language level 7  好吧 android 版本不够吧 难受  一身武艺yongb
 
-        View nameTag = findViewById(R.id.before_ten_image);
-        SCViewAnimation nameTagAnimation = new SCViewAnimation(nameTag);
-        nameTagAnimation.addPageAnimation(new SCPositionAnimation(this, 0,0,-size.y/2));
-        nameTagAnimation.addPageAnimation(new SCPositionAnimation(this, 1,0,0));
-        mViewPager.addAnimation(nameTagAnimation);
-
-        View currentlyWork = findViewById(R.id.before_ele_image);
-        SCViewAnimation currentlyWorkAnimation = new SCViewAnimation(currentlyWork);
-        currentlyWorkAnimation.addPageAnimation(new SCPositionAnimation(this, 0, -size.x, 0));
-        mViewPager.addAnimation(currentlyWorkAnimation);
-
-        View atSkex = findViewById(R.id.before_tw_image);
-        SCViewAnimationUtil.prepareViewToGetSize(atSkex);
-        SCViewAnimation atSkexAnimation = new SCViewAnimation(atSkex);
-        atSkexAnimation.addPageAnimation(new SCPositionAnimation(getApplicationContext(), 0, 0, -( size.y - atSkex.getHeight() )));
-        atSkexAnimation.addPageAnimation(new SCPositionAnimation(getApplicationContext(), 1, -size.x, 0));
-        mViewPager.addAnimation(atSkexAnimation);
-
-
-        View djangoView = findViewById(R.id.before_first_image);
-        SCViewAnimation djangoAnimation = new SCViewAnimation(djangoView);
-        djangoAnimation.startToPosition(size.x, -size.y);
-        djangoAnimation.addPageAnimation(new SCPositionAnimation(this, 0, 0, size.y));
-        djangoAnimation.addPageAnimation(new SCPositionAnimation(this, 1, 0, size.y));
-        mViewPager.addAnimation(djangoAnimation);
-
-        View commonlyView = findViewById(R.id.before_second_image);
-        SCViewAnimation commonlyAnimation = new SCViewAnimation(commonlyView);
-        commonlyAnimation.startToPosition(size.x, null);
-        commonlyAnimation.addPageAnimation(new SCPositionAnimation(this, 0, -size.x, 0));
-        commonlyAnimation.addPageAnimation(new SCPositionAnimation(this, 1, -size.x, 0));
-        mViewPager.addAnimation(commonlyAnimation);
-
-        View butView = findViewById(R.id.before_third_image);
-        SCViewAnimation butAnimation = new SCViewAnimation(butView);
-        butAnimation.startToPosition(size.x, null);
-        butAnimation.addPageAnimation(new SCPositionAnimation(this, 0, -size.x,0));
-        butAnimation.addPageAnimation(new SCPositionAnimation(this, 1, -size.x,0));
-        mViewPager.addAnimation(butAnimation);
-
-        View diplomeView = findViewById(R.id.before_four_image);
-        SCViewAnimation diplomeAnimation = new SCViewAnimation(diplomeView);
-        diplomeAnimation.startToPosition((size.x *2), null);
-        diplomeAnimation.addPageAnimation(new SCPositionAnimation(this, 1, -size.x*2,0));
-        diplomeAnimation.addPageAnimation(new SCPositionAnimation(this, 2, -size.x*2 ,0));
-        mViewPager.addAnimation(diplomeAnimation);
-
-        View whyView = findViewById(R.id.before_five_image);
-        SCViewAnimation whyAnimation = new SCViewAnimation(whyView);
-        whyAnimation.startToPosition(size.x, null);
-        whyAnimation.addPageAnimation(new SCPositionAnimation(this, 1, -size.x, 0));
-        whyAnimation.addPageAnimation(new SCPositionAnimation(this, 2, -size.x, 0));
-        mViewPager.addAnimation(whyAnimation);
-
-        View futureView = findViewById(R.id.before_six_image);
-        SCViewAnimation futureAnimation = new SCViewAnimation(futureView);
-        futureAnimation.startToPosition(null, -size.y);
-        futureAnimation.addPageAnimation(new SCPositionAnimation(this, 0, 0, size.y));
-        futureAnimation.addPageAnimation(new SCPositionAnimation(this, 1, -size.x, 0));
-        mViewPager.addAnimation(futureAnimation);
-
-        View arduinoView = findViewById(R.id.before_seven_image);
-        SCViewAnimation arduinoAnimation = new SCViewAnimation(arduinoView);
-        arduinoAnimation.startToPosition(size.x * 2, null);
-        arduinoAnimation.addPageAnimation(new SCPositionAnimation(this, 1, - size.x *2, 0));
-        arduinoAnimation.addPageAnimation(new SCPositionAnimation(this, 2, - size.x, 0));
-        mViewPager.addAnimation(arduinoAnimation);
-
-        View raspberryView = findViewById(R.id.before_eight_image);
-        SCViewAnimation raspberryAnimation = new SCViewAnimation(raspberryView);
-        raspberryAnimation.startToPosition(-size.x, null);
-        raspberryAnimation.addPageAnimation(new SCPositionAnimation(this, 0, size.x, 0));
-        raspberryAnimation.addPageAnimation(new SCPositionAnimation(this, 1, -size.x, 0));
-        mViewPager.addAnimation(raspberryAnimation);
-
-        View connectedDeviceView = findViewById(R.id.before_nine_image);
-        SCViewAnimation connectedDeviceAnimation = new SCViewAnimation(connectedDeviceView);
-        connectedDeviceAnimation.startToPosition((int)(size.x *1.5), null);
-        connectedDeviceAnimation.addPageAnimation(new SCPositionAnimation(this, 1, -(int) (size.x * 1.5), 0));
-        connectedDeviceAnimation.addPageAnimation(new SCPositionAnimation(this, 2,  - size.x, 0));
-        mViewPager.addAnimation(connectedDeviceAnimation);
-
-        View textView1 = findViewById(R.id.before_one);
-        SCViewAnimation textView1Animation = new SCViewAnimation(textView1);
-        textView1Animation.startToPosition((int)(size.x *1.5), null);
-        textView1Animation.addPageAnimation(new SCPositionAnimation(this, 0, -(int) (size.x * 1.5), 0));
-        textView1Animation.addPageAnimation(new SCPositionAnimation(this, 1,  - size.x, 0));
-        mViewPager.addAnimation(textView1Animation);
-
-        View textView2 = findViewById(R.id.before_two);
-        SCViewAnimation textView2Animation = new SCViewAnimation(textView2);
-        textView2Animation.startToPosition((int)(size.x *1.5), null);
-        textView2Animation.addPageAnimation(new SCPositionAnimation(this, 1, -(int) (size.x * 1.5), 0));
-        textView2Animation.addPageAnimation(new SCPositionAnimation(this, 2,  - size.x, 0));
-        mViewPager.addAnimation(textView2Animation);
-
-
-        //mViewPager.setAdapter();
-        Toast.makeText(BeforeActivity.this,mViewPager.getCurrentItem()+"",Toast.LENGTH_SHORT).show();
-     /*  if( mViewPager.getCurrentItem()==2){
-
-       }*/
-
+    }
+    public void mainLoop(){
+        Password ppo= SPUtil.getInstance().spDataget("login_passowrd");
+        if ((ppo.getPassword()+ppo.getUsername()).length()<11){//加入 shared 为空或者什么 则调到注册
+            Intent intent=new Intent(BeforeActivity.this,RegisterActivity.class);
+            startActivity(intent);
+        }else {//
+            Intent intent=new Intent(BeforeActivity.this,LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     public Drawable LayoutToDrawable( int  layout_id ){
@@ -300,13 +212,13 @@ public class BeforeActivity extends AppCompatActivity {
         bb1.setLayoutId(R.layout.item_bl_first);
         list.add(bb1);
 
-        BeforeBean bb2=new BeforeBean();
+      /*  BeforeBean bb2=new BeforeBean();
         bb2.setLayoutId(R.layout.item_bl_second);
         list.add(bb2);
 
         BeforeBean bb3=new BeforeBean();
         bb3.setLayoutId(R.layout.item_bl_third);
-        list.add(bb3);
+        list.add(bb3);*/
 
     }
 
@@ -409,4 +321,9 @@ public class BeforeActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mainLoopActivity=null;
+    }
 }

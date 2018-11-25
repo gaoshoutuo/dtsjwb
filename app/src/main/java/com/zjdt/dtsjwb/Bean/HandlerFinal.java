@@ -236,6 +236,8 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
     public static final int ENG_HISTORY_REPLY=6250;
     public static final int COUNT_DOWN_REPLY=6260;
     public static final int INFO_MSG=6270;
+        //1125
+    public static final int MAIN_LOOP=1125;
 
 
     public static int nov=-1;
@@ -251,4 +253,8 @@ public static final String[]upsString={"机架式ups主机","功率模块","蓄�
     public static final String HISTORYMSG="history_msg";
     public static final String ENGHISTORYMSG="eng_history_msg";
     public static final String COUNTDOWNMSG="count_down_msg";
+
+
+    //11.25
+
 }
